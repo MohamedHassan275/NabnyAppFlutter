@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nabny/screens/home_screen/home_screen.dart';
+import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:sizer/sizer.dart';
 
@@ -24,7 +24,7 @@ AppBar customAppBar(BuildContext context) {
           pushNewScreen(
             context,
             withNavBar: true,
-            screen: HomeScreen(),
+            screen: HomeMainScreen(),
           );
         },
         icon: Image.asset(

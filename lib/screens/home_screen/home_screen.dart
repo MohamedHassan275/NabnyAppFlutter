@@ -5,10 +5,10 @@ class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  HomeScreen_State createState() => HomeScreen_State();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreen_State extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold();
