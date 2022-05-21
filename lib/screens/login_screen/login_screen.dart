@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/generated/assets.dart';
+import 'package:nabny/screens/register_screen/register_screen.dart';
 import 'package:nabny/utils/style.dart';
 
 import '../../componant/CustomTextFieldWidget.dart';
@@ -249,9 +250,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     width: 5,
                                   ),
                                   InkWell(
-                                    onTap: () {
-                                      //  MyNavigator.NavigatorToPage(context, RegisterUserPage());
-                                    },
+                                    onTap: () => Get.to(RegisterScreen()),
                                     child: Text(
                                       'انشاء حساب',
                                       style: TextStyle(
