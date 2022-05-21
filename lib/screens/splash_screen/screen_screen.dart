@@ -1,8 +1,9 @@
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:nabny/screens/login_screen/login_screen.dart';
+import 'package:get/get.dart';
+import 'package:nabny/generated/assets.dart';
+import 'package:nabny/screens/on_boarding_screen/on_boarding_screen.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -18,11 +19,19 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 3), ()=>LoginScreen());
+    Timer(Duration(seconds: 3), () => Get.offAll(OnBoardingScreen()));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+        body: SafeArea(child: SingleChildScrollView(
+          child: Container(
+              width: Get.width,
+              height: Get.height,
+              color: Colors.lightBlue.shade900,
+              child: Image.asset(Assets.imagesBackgroundSplash,fit: BoxFit.fill,),
+        ),
+        )),);
   }
 }

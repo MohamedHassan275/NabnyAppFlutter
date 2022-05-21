@@ -20,6 +20,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) =>HomeMainController()),
       ],
       child: GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        locale: Locale("ar"),
         home: const SplashScreen(),
       ),
     );
