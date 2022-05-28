@@ -44,7 +44,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
               Flexible(
                 child: Card(
                   color: Colors.white,
-                  elevation: 3,
+                  elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(topRight: Radius.circular(15) , topLeft: Radius.circular(15) ,
                     bottomRight: Radius.zero , bottomLeft: Radius.zero)
