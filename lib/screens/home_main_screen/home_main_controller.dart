@@ -11,10 +11,14 @@ class HomeMainController extends ChangeNotifier {
   List<Widget> PageList = [HomeScreen(),HomeScreen(),HomeScreen(),HomeScreen()];
 
   List<BottomNavigationBarItem> navigationItem = [
-    BottomNavigationBarItem(icon: Image.asset(Assets.iconsNextPage),label: 'home'.tr,activeIcon: Image.asset('name')),
-    BottomNavigationBarItem(icon: Image.asset(Assets.iconsNextPage),label: 'home'.tr,activeIcon: Image.asset('name')),
-    BottomNavigationBarItem(icon: Image.asset(Assets.iconsNextPage),label: 'home'.tr,activeIcon: Image.asset('name')),
-    BottomNavigationBarItem(icon: Image.asset(Assets.iconsNextPage),label: 'home'.tr,activeIcon: Image.asset('name')),
+    BottomNavigationBarItem(icon: Image.asset(Assets.iconsNextPage,width: 30,height: 30,),label: 'home'.tr,
+        activeIcon: Image.asset(Assets.iconsNextPage,width: 30,height: 30,)),
+    BottomNavigationBarItem(icon: Image.asset(Assets.iconsNextPage,width: 30,height: 30,),label: 'home'.tr,
+        activeIcon: Image.asset(Assets.iconsNextPage,width: 30,height: 30,)),
+    BottomNavigationBarItem(icon: Image.asset(Assets.iconsNextPage,width: 30,height: 30,),label: 'home'.tr,
+        activeIcon: Image.asset(Assets.iconsNextPage,width: 30,height: 30,)),
+    BottomNavigationBarItem(icon: Image.asset(Assets.iconsNextPage,width: 30,height: 30,),label: 'home'.tr,
+        activeIcon: Image.asset(Assets.iconsNextPage,width: 30,height: 30,)),
   ];
 
 }

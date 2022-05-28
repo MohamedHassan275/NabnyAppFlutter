@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/generated/assets.dart';
+import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:nabny/screens/register_screen/register_screen.dart';
 import 'package:nabny/utils/style.dart';
 
@@ -213,7 +214,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 sizeText: 17,
                                 TextColors: Colors.white,
                                 buttonText: 'دخول',
-                                onPressed: () async {},
+                                onPressed: () async {
+                                  Get.to(HomeMainScreen());
+                                },
                                 height: 50,
                                 color: primaryColor),
                           ),

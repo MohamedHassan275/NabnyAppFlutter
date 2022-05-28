@@ -17,6 +17,7 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
       body: homeMainController.PageList[homeMainController.indexPage!],
       bottomNavigationBar: BottomNavigationBar(
         items: homeMainController.navigationItem,
+        type: BottomNavigationBarType.fixed,
         onTap: (int? index){
           setState(() {
             homeMainController.indexPage = index;
