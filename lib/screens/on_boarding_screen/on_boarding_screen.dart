@@ -26,9 +26,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
+
     final double valueHight = Get.height * .024;
     final double valueWidth = Get.width * .024;
 

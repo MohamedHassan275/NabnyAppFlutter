@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nabny/screens/verification_code/verification_code_screen.dart';
 
 import '../../componant/CustomButtonWidget.dart';
 import '../../componant/CustomTextFieldWidget.dart';
@@ -131,7 +132,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               return null;
                             },
                             prefixIcon: Icons.phone_android,
-                            keyboardType: TextInputType.emailAddress,
+                            keyboardType: TextInputType.number,
                             Controller: MobilePhone,
                             hintText: 'رقم الموبيل'),
                         SizedBox(
@@ -160,7 +161,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               sizeText: 17,
                               TextColors: Colors.white,
                               buttonText: 'تسجيل',
-                              onPressed: () async {},
+                              onPressed: () async {
+                                Get.to(VerificationCodeScreen());
+                              },
                               height: 50,
                               color: primaryColor),
                         ),
@@ -173,11 +176,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             width: MediaQuery.of(context).size.width,
                             height: 50,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(3),
-                              border: Border.all(
-                                  color: primaryColor,
-                                  width: 1,
-                                  style: BorderStyle.solid),
+                              color: Colors.grey.shade300,
+                              borderRadius: BorderRadius.circular(17),
                             ),
                             child: Center(
                               child: Row(
@@ -187,7 +187,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     ' ليس لديك حساب ؟',
                                     style: TextStyle(
                                       fontSize: 15,
-                                      color: primaryColor,
+                                      color: Colors.grey.shade500,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -202,7 +202,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       'انشاء حساب',
                                       style: TextStyle(
                                         fontSize: 17,
-                                        color: primaryColor,
+                                        color: Colors.black87,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),

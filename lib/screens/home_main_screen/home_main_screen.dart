@@ -12,8 +12,7 @@ class HomeMainScreen extends StatefulWidget {
 class _HomeMainScreenState extends State<HomeMainScreen> {
   @override
   Widget build(BuildContext context) {
-    HomeMainController homeMainController =
-        Provider.of<HomeMainController>(context);
+    HomeMainController homeMainController = Provider.of<HomeMainController>(context);
     return Scaffold(
       body: homeMainController.PageList[homeMainController.indexPage!],
       bottomNavigationBar: BottomNavigationBar(
