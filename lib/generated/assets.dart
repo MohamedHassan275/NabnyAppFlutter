@@ -6,6 +6,9 @@ class Assets {
   static const String iconsNextPage = 'assets/icons/next_page.png';
   static const String imagesBackgroundBording = 'assets/images/background_bording.png';
   static const String imagesBackgroundSplash = 'assets/images/background_splash.png';
+  static const String imagesImageBackgroundIntro = 'assets/images/image_background_intro.png';
+  static const String imagesImageConfirmActivation = 'assets/images/image_confirm_activation.png';
+  static const String imagesImageLogoApp = 'assets/images/image_logo_app.png';
   static const String imagesLogoImage = 'assets/images/logo_image.png';
   static const String imagesSkipBording = 'assets/images/skip_bording.png';
 

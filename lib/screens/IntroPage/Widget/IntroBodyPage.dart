@@ -43,22 +43,16 @@ class _IntroBodyPageState extends State<IntroBodyPage> {
         decoration: BoxDecoration(
             color: Colors.white,
             image: DecorationImage(
-                image: AssetImage(Assets.imagesBackgroundBording),
+                image: AssetImage(Assets.imagesImageBackgroundIntro),
                 fit: BoxFit.fill)),
         child: Stack(
           children: [
-            CustomPageView(pageController: pageController,),
-            Positioned(
-                left: 0,
-                right: 0,
-                bottom: valueHight * 9.0,
-                child: CustomIndicator(valuePosition: pageController!.hasClients ? pageController!.page : 0,)),
             Visibility(
               visible: pageController!.hasClients
                   ? (pageController?.page == 2 ? false : true)
                   : true,
               child: GestureDetector(
-                onTap: () => Get.to(const LoginScreen()),
+                onTap: () => Get.to(LoginScreen()),
                 child: Padding(
                   padding: EdgeInsets.all(15.0),
                   child: Image.asset(
@@ -68,6 +62,20 @@ class _IntroBodyPageState extends State<IntroBodyPage> {
                 ),
               ),
             ),
+            CustomPageView(pageController: pageController,),
+            Positioned(
+              top: valueHight *22,
+              child: Container(
+                height: Get.height,
+                width: Get.width,
+                color: Colors.white,
+              ),
+            ),
+            Positioned(
+                left: 0,
+                right: 0,
+                bottom: valueHight * 9.0,
+                child: CustomIndicator(valuePosition: pageController!.hasClients ? pageController!.page : 0,)),
             Positioned(
               left: 0,
               right: 0,
@@ -81,7 +89,7 @@ class _IntroBodyPageState extends State<IntroBodyPage> {
                       Get.to( const LoginScreen(),transition: Transition.leftToRight , duration: const Duration(milliseconds: 3));
                     }
                   }
-                }, text: pageController!.hasClients ? (pageController!.page == 2 ? 'Get Started' : 'Next') : 'Next',),
+                }, text: pageController!.hasClients ? (pageController!.page == 2 ? 'هيا نبدأ' : 'التالي') : 'التالي',),
               ),
             )
           ],

@@ -43,21 +43,22 @@ Widget SharedFromTextField({
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
                 borderSide: BorderSide(
-                  color: Themes.ColorApp4,
+                  color: Themes.ColorApp12,
+                  width: 1.0
                 ),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
                 borderSide: BorderSide(
-                  color: Themes.ColorApp4,
-                  width: 2.0,
+                  color: Themes.ColorApp12,
+                  width: 1.0,
                 ),
               ),
               errorBorder:  OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
                 borderSide: BorderSide(
                   color: Colors.red,
-                  width: 2.0,
+                  width: 1.0,
                 ),
               ),
               hintText: hintText,
