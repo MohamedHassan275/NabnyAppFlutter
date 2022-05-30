@@ -4,7 +4,7 @@ class Assets {
 
   static const String iconsLogoApp = 'assets/icons/logo_app.png';
   static const String iconsNextPage = 'assets/icons/next_page.png';
-  static const String imagesBackgroundBording = 'assets/images/background_bording.png';
+  static const String imagesBackgroundIntro = 'assets/images/background_intro.png';
   static const String imagesBackgroundSplash = 'assets/images/background_splash.png';
   static const String imagesImageBackgroundIntro = 'assets/images/image_background_intro.png';
   static const String imagesImageConfirmActivation = 'assets/images/image_confirm_activation.png';

@@ -43,7 +43,7 @@ class _IntroBodyPageState extends State<IntroBodyPage> {
         decoration: BoxDecoration(
             color: Colors.white,
             image: DecorationImage(
-                image: AssetImage(Assets.imagesImageBackgroundIntro),
+                image: AssetImage(Assets.imagesBackgroundIntro),
                 fit: BoxFit.fill)),
         child: Stack(
           children: [
@@ -63,14 +63,6 @@ class _IntroBodyPageState extends State<IntroBodyPage> {
               ),
             ),
             CustomPageView(pageController: pageController,),
-            Positioned(
-              top: valueHight *22,
-              child: Container(
-                height: Get.height,
-                width: Get.width,
-                color: Colors.white,
-              ),
-            ),
             Positioned(
                 left: 0,
                 right: 0,

@@ -19,10 +19,10 @@ class CustomPageViewItem extends StatelessWidget {
       children: [
         SizedBox(height: MediaQuery.of(context).size.height * .024 * 1,),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 15 , vertical: 15),
           child: Container(
             width: Get.width,
-            height: 135,
+            height: 150,
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15))),

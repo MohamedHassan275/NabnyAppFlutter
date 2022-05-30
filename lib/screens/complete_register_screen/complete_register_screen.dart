@@ -33,7 +33,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
           height: Get.height,
           width: Get.width,
           decoration: BoxDecoration(
-            image: DecorationImage(image: AssetImage(Assets.imagesBackgroundBording),
+            image: DecorationImage(image: AssetImage(Assets.imagesBackgroundSplash),
             fit: BoxFit.fill),
           ),
           child: Column(
