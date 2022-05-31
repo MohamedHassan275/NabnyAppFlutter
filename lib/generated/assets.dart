@@ -7,6 +7,7 @@ class Assets {
   static const String imagesBackgroundIntro = 'assets/images/background_intro.png';
   static const String imagesBackgroundSplash = 'assets/images/background_splash.png';
   static const String imagesButtonRegister = 'assets/images/button_register.png';
+  static const String imagesCompleteRegister = 'assets/images/complete_register.png';
   static const String imagesImageBackgroundIntro = 'assets/images/image_background_intro.png';
   static const String imagesImageConfirmActivation = 'assets/images/image_confirm_activation.png';
   static const String imagesImageLogoApp = 'assets/images/image_logo_app.png';

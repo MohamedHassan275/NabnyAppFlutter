@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:nabny/screens/register_screen/register_screen.dart';
+import 'package:nabny/screens/success_register_screen/success_register_screen.dart';
 import 'package:nabny/utils/Themes.dart';
 
 import '../../componant/CustomButtonWidget.dart';
@@ -322,7 +323,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                     onTap: () async{
                                       //  showProgressbar = false;
                                       if (formKey.currentState!.validate()){
-                                        Get.to(HomeMainScreen());
+                                        Get.to(const SuccessRegisterScreen());
                                       }
                                     },
                                   ),

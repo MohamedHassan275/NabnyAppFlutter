@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/generated/assets.dart';
+import 'package:nabny/screens/forget_password_screen/forget_password_byMobile_screen.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:nabny/screens/register_screen/register_screen.dart';
 import 'package:nabny/utils/Themes.dart';
@@ -208,10 +209,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     color: Themes.ColorApp6,
                                                     fontSize: 17,
                                                   )),
-                                              onTap: () {
-                                                // MyNavigator.NavigatorToPage(
-                                                //     context, ConfirmMobilePhonePage());
-                                              },
+                                              onTap: () =>  Get.to(ForgetPasswordByMobile())
                                             ),
                                           ],
                                         ),
@@ -243,7 +241,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                           hight: 50,
                                           title: 'دخول',
                                           onTap: () {
-                                            Get.to(HomeMainScreen());
+                                            if (formKey.currentState!.validate()){
+                                              Get.to(HomeMainScreen());
+                                            }
                                           },
                                         ),
                                       ),
@@ -274,8 +274,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   width: 5,
                                                 ),
                                                 InkWell(
-                                                  onTap: () =>
-                                                      Get.to(RegisterScreen()),
+                                                  onTap: () => Get.to(RegisterScreen()),
                                                   child: Text(
                                                     'انشاء حساب',
                                                     style: TextStyle(
