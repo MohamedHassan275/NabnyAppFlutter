@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/screens/login_screen/login_screen.dart';
 import 'package:nabny/screens/verification_code/verification_code_screen.dart';
+import 'package:nabny/utils/Themes.dart';
 
 import '../../componant/CustomButtonWidget.dart';
 import '../../componant/CustomTextFieldWidget.dart';
@@ -105,7 +106,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   style: TextStyle(
                                       fontSize: 17,
                                       fontWeight: FontWeight.w700,
-                                      color: Colors.lightBlue.shade700),
+                                      color: Themes.ColorApp1),
                                 )),
                           ),
                         ),
@@ -149,7 +150,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   Controller: MobilePhone,
                                   hintText: 'رقم الموبيل'),
                               SizedBox(
-                                height: valueHight * 1.2,
+                                height: valueHight * 1,
                               ),
                               showProgressbar
                                   ? Container()
@@ -162,28 +163,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       color: Colors.transparent),
                                   child: Center(
                                       child: CircularProgressIndicator(
-                                        color: primaryColor,
+                                        color: Themes.ColorApp1,
                                       ))),
                               SizedBox(
-                                height: 15,
+                                height: valueHight * .5,
                               ),
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 15),
-                                child: FromButtonShared(
-                                    width: MediaQuery.of(context).size.width,
-                                    sizeText: 17,
-                                    TextColors: Colors.white,
-                                    buttonText: 'تسجيل',
-                                    onPressed: () async {
-                                      if (formKey.currentState!.validate()) {
-                                        Get.to(VerificationCodeScreen());
-                                      }
-                                    },
-                                    height: 50,
-                                    color: primaryColor),
-                              ),
-                              SizedBox(
-                                height: 16,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 15),
+                                child: CustomButtonImage(
+                                  hight: 50,
+                                  title: 'تسحيل',
+                                  onTap: () async{
+                                  //  showProgressbar = false;
+                                    if (formKey.currentState!.validate()){
+                                      Get.to(VerificationCodeScreen());
+                                    }
+                                  },
+                                ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -191,7 +188,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   width: MediaQuery.of(context).size.width,
                                   height: 50,
                                   decoration: BoxDecoration(
-                                    color: Colors.grey.shade300,
+                                    color: Themes.ColorApp7,
                                     borderRadius: BorderRadius.circular(17),
                                   ),
                                   child: Center(
@@ -202,7 +199,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           ' لديك حساب ؟',
                                           style: TextStyle(
                                             fontSize: 15,
-                                            color: Colors.grey.shade500,
+                                            color: Themes.ColorApp2,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
@@ -218,7 +215,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             'تسجيل دخول',
                                             style: TextStyle(
                                               fontSize: 17,
-                                              color: Colors.black87,
+                                              color: Themes.ColorApp6,
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),

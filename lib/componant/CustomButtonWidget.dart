@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nabny/generated/assets.dart';
 import 'package:nabny/utils/style.dart';
+
+import '../utils/Themes.dart';
 
 class CustomGeneralButton extends StatelessWidget {
   const CustomGeneralButton({Key? key, this.text, this.onTap})
@@ -73,6 +76,34 @@ class FromButtonShared extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
         )),
+      ),
+    );
+  }
+}
+
+class CustomButtonImage extends StatelessWidget {
+  CustomButtonImage({required this.title,required this.hight,required this.onTap});
+  double hight;
+  String title;
+  void Function()? onTap;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: Get.width,
+        height: hight,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(Assets.imagesButtonRegister)
+            )),
+        child: Center(
+          child: Text(title,style: TextStyle(
+            color: Themes.whiteColor,
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+          )),
+        ),
       ),
     );
   }

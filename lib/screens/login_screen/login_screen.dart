@@ -4,6 +4,7 @@ import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:nabny/screens/register_screen/register_screen.dart';
+import 'package:nabny/utils/Themes.dart';
 import 'package:nabny/utils/style.dart';
 
 import '../../componant/CustomTextFieldWidget.dart';
@@ -102,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 style: TextStyle(
                                     fontSize: 17,
                                     fontWeight: FontWeight.w700,
-                                    color: Colors.lightBlue.shade700),
+                                    color: Themes.ColorApp1),
                               ),
                             ),
                           ),
@@ -151,7 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           Controller: MobilePhone,
                                           hintText: 'رقم الموبيل'),
                                       SizedBox(
-                                        height: 15,
+                                        height: valueHight * .5,
                                       ),
                                       FromTextShared(
                                         //  textAlign: TextAlign.center,
@@ -193,22 +194,30 @@ class _LoginScreenState extends State<LoginScreen> {
                                         hintText: 'كلمة المرور',
                                       ),
                                       SizedBox(
-                                        height: 25,
+                                        height: valueHight * 1,
                                       ),
-                                      GestureDetector(
-                                        child: Text('نسيت كلمه المرور ؟',
-                                            textAlign: TextAlign.start,
-                                            style: TextStyle(
-                                              color: primaryColor,
-                                              fontSize: 17,
-                                            )),
-                                        onTap: () {
-                                          // MyNavigator.NavigatorToPage(
-                                          //     context, ConfirmMobilePhonePage());
-                                        },
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            GestureDetector(
+                                              child: Text('نسيت كلمه المرور ؟',
+                                                  textAlign: TextAlign.start,
+                                                  style: TextStyle(
+                                                    color: Themes.ColorApp6,
+                                                    fontSize: 17,
+                                                  )),
+                                              onTap: () {
+                                                // MyNavigator.NavigatorToPage(
+                                                //     context, ConfirmMobilePhonePage());
+                                              },
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                       SizedBox(
-                                        height: 15,
+                                        height: valueHight * .2,
                                       ),
                                       showProgressbar
                                           ? Container()
@@ -222,44 +231,31 @@ class _LoginScreenState extends State<LoginScreen> {
                                               child: Center(
                                                   child:
                                                       CircularProgressIndicator(
-                                                color: primaryColor,
+                                                color: Themes.ColorApp1,
                                               ))),
                                       SizedBox(
                                         height: 15,
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 15),
-                                        child: FromButtonShared(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            sizeText: 17,
-                                            TextColors: Colors.white,
-                                            buttonText: 'دخول',
-                                            onPressed: () async {
-                                              Get.to(const HomeMainScreen());
-                                            },
-                                            height: 50,
-                                            color: primaryColor),
-                                      ),
-                                      SizedBox(
-                                        height: 16,
+                                            horizontal: 25, vertical: 15),
+                                        child: CustomButtonImage(
+                                          hight: 50,
+                                          title: 'دخول',
+                                          onTap: () {
+                                            Get.to(HomeMainScreen());
+                                          },
+                                        ),
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 15),
+                                            horizontal: 25),
                                         child: Container(
-                                          width:
-                                              MediaQuery.of(context).size.width,
+                                          width: Get.width,
                                           height: 50,
                                           decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(3),
-                                            border: Border.all(
-                                                color: primaryColor,
-                                                width: 1,
-                                                style: BorderStyle.solid),
+                                            color: Themes.ColorApp7,
+                                            borderRadius: BorderRadius.circular(15),
                                           ),
                                           child: Center(
                                             child: Row(
@@ -270,7 +266,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   ' ليس لديك حساب ؟',
                                                   style: TextStyle(
                                                     fontSize: 15,
-                                                    color: primaryColor,
+                                                    color: Themes.ColorApp2,
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
@@ -284,7 +280,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     'انشاء حساب',
                                                     style: TextStyle(
                                                       fontSize: 17,
-                                                      color: primaryColor,
+                                                      color: Themes.ColorApp6,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                     ),

@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
+import 'package:nabny/screens/register_screen/register_screen.dart';
 import 'package:nabny/utils/Themes.dart';
 
 import '../../componant/CustomButtonWidget.dart';
@@ -80,15 +81,18 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 25, vertical: 25),
-                                    child: CircleAvatar(
-                                      backgroundColor: Themes.ColorApp5,
-                                      radius: 25,
-                                      child: Icon(
-                                        Icons.arrow_right_alt_rounded,
-                                        color: Colors.white,
+                                  GestureDetector(
+                                    onTap: () => Get.to(RegisterScreen()),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 25, vertical: 25),
+                                      child: CircleAvatar(
+                                        backgroundColor: Themes.ColorApp5,
+                                        radius: 25,
+                                        child: Icon(
+                                          Icons.arrow_right_alt_rounded,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -307,35 +311,21 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: heightValue * 1.2,
+                                  height: heightValue * .2,
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
-                                  child: FromButtonShared(
-                                      width: MediaQuery.of(context).size.width,
-                                      sizeText: 17,
-                                      TextColors: Colors.white,
-                                      buttonText: 'تسجيل',
-                                      onPressed: () async {
-                                        if (formKey.currentState!.validate()) {
-                                          if (isCheckAccepted) {
-                                            Get.to(HomeMainScreen());
-                                          } else {
-                                            Fluttertoast.showToast(
-                                                msg:
-                                                    "يجب الموافقة علي الشروط والاحكام",
-                                                toastLength: Toast.LENGTH_SHORT,
-                                                gravity: ToastGravity.BOTTOM,
-                                                timeInSecForIosWeb: 1,
-                                                backgroundColor: Colors.white,
-                                                textColor: Colors.blueGrey,
-                                                fontSize: 15.0);
-                                          }
-                                        }
-                                      },
-                                      height: 50,
-                                      color: primaryColor),
+                                      horizontal: 15, vertical: 15),
+                                  child: CustomButtonImage(
+                                    hight: 50,
+                                    title: 'تسحيل',
+                                    onTap: () async{
+                                      //  showProgressbar = false;
+                                      if (formKey.currentState!.validate()){
+                                        Get.to(HomeMainScreen());
+                                      }
+                                    },
+                                  ),
                                 ),
                                 SizedBox(
                                   height: 16,

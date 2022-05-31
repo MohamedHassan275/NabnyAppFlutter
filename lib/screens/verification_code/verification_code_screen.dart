@@ -35,7 +35,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
     const oneSec = const Duration(seconds: 1);
     _timer = new Timer.periodic(
       oneSec,
-          (Timer timer) {
+      (Timer timer) {
         if (_start == 0) {
           setState(() {
             timer.cancel();
@@ -55,12 +55,12 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
     super.initState();
     startTimer();
   }
+
   @override
   void dispose() {
     _timer!.cancel();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -82,8 +82,8 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                   children: [
                     Center(
                         child: Image.asset(
-                          Assets.imagesImageConfirmActivation,
-                        )),
+                      Assets.imagesImageConfirmActivation,
+                    )),
                     SizedBox(
                       height: heightValue * 3,
                     ),
@@ -109,7 +109,8 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                         Text(
                           ' علي رقم هاتفك 0096645678765',
                           textAlign: TextAlign.start,
-                          style: TextStyle(fontSize: 14, color: Themes.ColorApp5),
+                          style:
+                              TextStyle(fontSize: 14, color: Themes.ColorApp5),
                         ),
                       ],
                     ),
@@ -263,7 +264,10 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                                 'اعاده ارسال الكود ؟ ',
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
-                                    fontSize: 16 , color: _start == 0 ? Themes.ColorApp1 : Themes.ColorApp2),
+                                    fontSize: 16,
+                                    color: _start == 0
+                                        ? Themes.ColorApp1
+                                        : Themes.ColorApp2),
                               ),
                             ),
                             SizedBox(
@@ -278,20 +282,10 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
                                     fontSize: 14,
-                                //    decoration: TextDecoration.underline,
+                                    //    decoration: TextDecoration.underline,
                                     color: Themes.ColorApp1,
                                     fontWeight: FontWeight.w500),
                               ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              'wait 02 s',
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                  fontSize: 14, color: Themes.whiteColor),
                             ),
                           ],
                         ),
@@ -302,21 +296,16 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 0, vertical: 15),
-                      child: FromButtonShared(
-                          buttonText: 'Verify',
-                          height: 50,
-                          width: MediaQuery.of(context).size.width,
-                          onPressed: () {
-                            if (formKey.currentState!.validate()) {
-                              // MyNavigator.NavigatorToPage(
-                              //     context, HomeMainCotchPage());
-                              Get.to(CompleteRegisterScreen());
-                            }
-                          },
-                          color: Themes.ColorApp3,
-                          sizeText: 15,
-                          TextColors: Colors.white),
+                          horizontal: 15, vertical: 15),
+                      child: CustomButtonImage(
+                        hight: 50,
+                        title: 'تفعيل',
+                        onTap: () {
+                         if(formKey.currentState!.validate()){
+                           Get.to(CompleteRegisterScreen());
+                         }
+                        },
+                      ),
                     ),
                   ],
                 ),

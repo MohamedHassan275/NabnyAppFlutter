@@ -123,7 +123,7 @@ class FromTextShared extends StatelessWidget {
         maxLines: maxLines,
         minLines: 1,
         maxLength: maxLength,
-        style: TextStyle(fontSize: 15, color: primaryColor),
+        style: TextStyle(fontSize: 15, color: Themes.ColorApp8),
         validator: onTapValidator,
         obscureText: isPassword!,
         keyboardType: keyboardType,
@@ -133,12 +133,12 @@ class FromTextShared extends StatelessWidget {
             fillColor: Colors.white,
             prefixIcon: Icon(
               prefixIcon,
-              color: Colors.lightBlue,
+              color: Themes.ColorApp1,
             ),
             suffixIcon: suffixIcon != null
                 ? IconButton(
                     icon: Icon(suffixIcon),
-                    color: Colors.lightBlue,
+                    color: Themes.ColorApp1,
                     onPressed: onTapsuffixIcon,
                   )
                 : null,

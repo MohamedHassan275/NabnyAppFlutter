@@ -81,17 +81,21 @@ class _IntroBodyPageState extends State<IntroBodyPage> {
               right: 0,
               bottom: valueHight * 4.5,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 100),
-                child: CustomGeneralButton(
-                  onTap:(){
-                  if(pageController!.hasClients){
-                    if(pageController!.page == 2){
-                      Get.to( const LoginScreen(),transition: Transition.leftToRight , duration: const Duration(milliseconds: 3));
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 35, vertical: 15),
+                child: CustomButtonImage(
+                  hight: 50,
+                  title: pageController!.hasClients ? (pageController!.page == 2 ? 'هيا نبدأ' : 'التالي') : 'التالي',
+                  onTap: () {
+                    if(pageController!.hasClients){
+                      if(pageController!.page == 2){
+                        Get.to( const LoginScreen(),transition: Transition.leftToRight , duration: const Duration(milliseconds: 3));
+                      }
                     }
-                  }
-                }, text: pageController!.hasClients ? (pageController!.page == 2 ? 'هيا نبدأ' : 'التالي') : 'التالي',),
+                  },
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),
