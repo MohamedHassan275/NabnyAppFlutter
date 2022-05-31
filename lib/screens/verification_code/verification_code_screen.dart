@@ -260,10 +260,10 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                           children: [
                             GestureDetector(
                               child: Text(
-                                'اعاده ارسال الكود',
+                                'اعاده ارسال الكود ؟ ',
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
-                                    fontSize: 14, color: _start == 0 ? Themes.ColorApp1 : Themes.ColorApp2),
+                                    fontSize: 16 , color: _start == 0 ? Themes.ColorApp1 : Themes.ColorApp2),
                               ),
                             ),
                             SizedBox(
