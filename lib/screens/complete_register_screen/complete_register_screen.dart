@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
@@ -29,6 +30,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
   String? firstName,lastName,email,password,confirmPassword;
   bool isPassword = true;
   bool isConfirmPassword = true;
+  bool isCheckAccepted = false;
   var formKey = GlobalKey<FormState>();
 
 
@@ -244,20 +246,67 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                 hintText: 'تأكيد كلمة المرور',
                               ),
                               SizedBox(height: heightValue *1,),
-
-                              SizedBox(
-                                height: 15,
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 25),
+                                child: Row(
+                                  children: [
+                                    Theme(
+                                        data: ThemeData(
+                                            unselectedWidgetColor: Themes.ColorApp1),
+                                        child: Checkbox(
+                                            value: isCheckAccepted,
+                                            tristate: false,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(5)
+                                            ),
+                                            side: BorderSide(
+                                              color: Themes.ColorApp1,
+                                              width: 2.0
+                                            ),
+                                            activeColor: Themes.ColorApp1,
+                                            onChanged: (bool? value) {
+                                              setState(() {
+                                                isCheckAccepted = value!;
+                                              });
+                                            })),
+                                    InkWell(
+                                      onTap: (){
+                                       // _modalBottomSheetMenu();
+                                      },
+                                      child: Text(
+                                        "الموافقه علي الشروط والاحكام",
+                                        style: TextStyle(
+                                          color: Themes.ColorApp1,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
+                              SizedBox(height: heightValue*1.2,),
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 15),
                                 child: FromButtonShared(
                                     width: MediaQuery.of(context).size.width,
                                     sizeText: 17,
                                     TextColors: Colors.white,
-                                    buttonText: 'دخول',
+                                    buttonText: 'تسجيل',
                                     onPressed: () async {
-                                      if(formKey.currentState!.validate()){
-                                        Get.to(HomeMainScreen());
+                                      if(formKey.currentState!.validate()) {
+                                        if (isCheckAccepted) {
+                                          Get.to(HomeMainScreen());
+                                        } else {
+                                          Fluttertoast.showToast(
+                                              msg: "يجب الموافقة علي الشروط والاحكام",
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.BOTTOM,
+                                              timeInSecForIosWeb: 1,
+                                              backgroundColor: Colors.white,
+                                              textColor: Colors.blueGrey,
+                                              fontSize: 15.0);
+                                        }
                                       }
                                     },
                                     height: 50,

@@ -32,7 +32,7 @@ Widget SharedFromTextField({
           controller: Controller,
           maxLines: maxLines,
           minLines: 1,
-          style: TextStyle(fontSize: 19, color: Themes.ColorApp4),
+          style: TextStyle(fontSize: 19, color: Themes.ColorApp8),
           textAlign: textAlign,
           validator: onTapValidator,
           obscureText: isPassword,
