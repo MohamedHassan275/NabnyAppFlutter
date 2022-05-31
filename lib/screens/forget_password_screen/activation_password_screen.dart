@@ -4,11 +4,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomTextFieldWidget.dart';
-import 'package:nabny/screens/forget_password_screen/chage_password_screen.dart';
 import 'package:nabny/utils/Themes.dart';
 
 import '../../componant/CustomButtonWidget.dart';
 import '../../generated/assets.dart';
+import 'chage_password_screen.dart';
 
 class ActivationPasswordScreen extends StatefulWidget {
   const ActivationPasswordScreen({Key? key}) : super(key: key);
@@ -19,9 +19,6 @@ class ActivationPasswordScreen extends StatefulWidget {
 
 class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
 
-  bool showProgressbar = true;
-  var formKey = GlobalKey<FormState>();
-
   TextEditingController _Code1 = TextEditingController();
   TextEditingController _Code2 = TextEditingController();
   TextEditingController _Code3 = TextEditingController();
@@ -30,6 +27,7 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
 
   late String Code1, Code2, Code3, Code4, Code5;
 
+  var formKey = GlobalKey<FormState>();
 
   Timer? _timer;
   int _start = 60;
@@ -97,7 +95,7 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
                   child: Row(
                     children: [
                       SizedBox(
-                        width: 160,
+                        width: 200,
                         height: 60,
                         child: Card(
                           elevation: 3,
@@ -108,9 +106,9 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
                             child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 15),
                                 child: Text(
-                                  'استرجاع كلمة المرور',
+                                  'كود الاسترجاع',
                                   style: TextStyle(
-                                      fontSize: 17,
+                                      fontSize: 15,
                                       fontWeight: FontWeight.w700,
                                       color: Themes.ColorApp1),
                                 )),
@@ -236,19 +234,6 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
                             SizedBox(
                               width: 10,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 25, vertical: 15),
-                              child: CustomButtonImage(
-                                hight: 50,
-                                title: 'تفعيل',
-                                onTap: () {
-                                  if (formKey.currentState!.validate()){
-                                    Get.to(ChagePasswordScreen());
-                                  }
-                                },
-                              ),
-                            ),
                             // Expanded(
                             //   child: Container(
                             //     height: 100,
@@ -274,10 +259,26 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
                           ],
                         ),
                       ),
-                      SizedBox(height: valueHight*2.0,),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 15),
+                        child: CustomButtonImage(
+                          hight: 50,
+                          title: 'تفعيل',
+                          onTap: () {
+                            if(formKey.currentState!.validate()){
+                              Get.to(ChagePasswordScreen());
+                            }
+                          },
+                        ),
+                      ),
+                      SizedBox(height: valueHight * 3,)
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),
