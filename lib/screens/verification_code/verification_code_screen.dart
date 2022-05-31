@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,6 +27,40 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
   late String Code1, Code2, Code3, Code4, Code5;
 
   var formKey = GlobalKey<FormState>();
+
+  Timer? _timer;
+  int _start = 60;
+
+  void startTimer() {
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+      oneSec,
+          (Timer timer) {
+        if (_start == 0) {
+          setState(() {
+            timer.cancel();
+          });
+        } else {
+          setState(() {
+            _start--;
+          });
+        }
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    startTimer();
+  }
+  @override
+  void dispose() {
+    _timer!.cancel();
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -222,11 +258,13 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                       children: [
                         Row(
                           children: [
-                            Text(
-                              'اعاده ارسال الكود',
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                  fontSize: 14, color: Themes.ColorApp2),
+                            GestureDetector(
+                              child: Text(
+                                'اعاده ارسال الكود',
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    fontSize: 14, color: _start == 0 ? Themes.ColorApp1 : Themes.ColorApp2),
+                              ),
                             ),
                             SizedBox(
                               width: 10,
@@ -236,11 +274,11 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                                 //  startTimer();
                               },
                               child: Text(
-                                '00:02',
+                                '00:${_start}',
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
                                     fontSize: 14,
-                                    decoration: TextDecoration.underline,
+                                //    decoration: TextDecoration.underline,
                                     color: Themes.ColorApp1,
                                     fontWeight: FontWeight.w500),
                               ),

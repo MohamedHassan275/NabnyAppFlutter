@@ -85,41 +85,41 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 SizedBox(
                   height: valueHight * 5.5,
                 ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 160,
+                        height: 60,
+                        child: Card(
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          child: Center(
+                            child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 15),
+                                child: Text(
+                                  'انشاء حساب',
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.lightBlue.shade700),
+                                )),
+                          ),
+                        ),
+                      ),
+                    ],
+                    mainAxisAlignment: MainAxisAlignment.start,
+                  ),
+                ),
+                SizedBox(height: valueHight*.2,),
                 Container(
                   width: Get.width,
                   color: Colors.white,
                   child: Column(
                     children: [
-                      SizedBox(height: valueHight*1.5,),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 15),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: 160,
-                              height: 60,
-                              child: Card(
-                                elevation: 3,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                ),
-                                child: Center(
-                                  child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                                      child: Text(
-                                        'انشاء حساب',
-                                        style: TextStyle(
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.w700,
-                                            color: Colors.lightBlue.shade700),
-                                      )),
-                                ),
-                              ),
-                            ),
-                          ],
-                          mainAxisAlignment: MainAxisAlignment.start,
-                        ),
-                      ),
                       SizedBox(
                         height: valueHight * 1.5,
                       ),

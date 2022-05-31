@@ -44,7 +44,6 @@ Widget SharedFromTextField({
                 borderRadius: BorderRadius.circular(10.0),
                 borderSide: BorderSide(
                   color: Themes.ColorApp12,
-                  width: 1.0
                 ),
               ),
               enabledBorder: OutlineInputBorder(
@@ -55,6 +54,13 @@ Widget SharedFromTextField({
                 ),
               ),
               errorBorder:  OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.0),
+                borderSide: BorderSide(
+                  color: Colors.red,
+                  width: 1.0,
+                ),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
                 borderSide: BorderSide(
                   color: Colors.red,
@@ -136,10 +142,18 @@ class FromTextShared extends StatelessWidget {
                     onPressed: onTapsuffixIcon,
                   )
                 : null,
-
+            focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25),
+                borderSide: BorderSide(color: Themes.ColorApp9, width: 1)),
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25),
+                borderSide: BorderSide(color: Themes.ColorApp2, width: 1)),
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25),
+                borderSide: BorderSide(color: Themes.ColorApp2, width: 1)),
             border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: primaryColor, width: 1)),
+                borderRadius: BorderRadius.circular(25),
+                borderSide: BorderSide(color: Themes.ColorApp2, width: 1)),
             labelText: labelText),
       ),
     );

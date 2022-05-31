@@ -47,12 +47,20 @@ class _IntroBodyPageState extends State<IntroBodyPage> {
                 fit: BoxFit.fill)),
         child: Stack(
           children: [
-            Visibility(
-              visible: pageController!.hasClients
-                  ? (pageController?.page == 2 ? false : true)
-                  : true,
-              child: GestureDetector(
-                onTap: () => Get.to(LoginScreen()),
+            GestureDetector(
+              onTap: () {
+                if(pageController!.hasClients){
+                  if(pageController!.page == 2){
+                    Get.to( const LoginScreen(),transition: Transition.leftToRight , duration: const Duration(milliseconds: 3));
+                  }else {
+                    print('has click');
+                  }
+                }
+              },
+              child: Visibility(
+                visible: pageController!.hasClients
+                    ? (pageController?.page == 2 ? false : true)
+                    : true,
                 child: Padding(
                   padding: EdgeInsets.all(15.0),
                   child: Image.asset(
