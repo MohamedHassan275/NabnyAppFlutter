@@ -250,7 +250,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                       return 'تأكيد كلمة المرور';
                                     } else if (value.length <= 6) {
                                       return 'تأكيد كلمة المرور';
-                                    } else if (value.contains(Password.text)) {
+                                    } else if (!(value.contains(Password.text))) {
                                       return ' كلمة المرور غير متطابقة';
                                     }
                                     return null;

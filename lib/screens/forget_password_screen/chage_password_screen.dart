@@ -155,10 +155,10 @@ class _ChagePasswordScreenState extends State<ChagePasswordScreen> {
                           isPassword: isConfirmPassword,
                           onTapValidator: (value) {
                             if (value!.isEmpty) {
-                              return 'تأكيد كلمة المرور';
+                              return 'تأكيد كلمة المرور فارغة';
                             } else if (value.length <= 6) {
-                              return 'تأكيد كلمة المرور';
-                            } else if (ConfirmPassword.text.contains(Password.text)) {
+                              return ' تأكيد كلمة المرور قصيرة';
+                            } else if (!(value.contains(Password.text))) {
                               return ' كلمة المرور غير متطابقة';
                             }
                             return null;

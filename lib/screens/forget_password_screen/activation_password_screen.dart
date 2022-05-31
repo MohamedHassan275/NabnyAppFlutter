@@ -130,133 +130,136 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
                       ),
                       Form(
                         key: formKey,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Container(
-                                height: 100,
-                                child: SharedFromTextField(
-                                    textAlign: TextAlign.center,
-                                    hintText: 'ـــــ',
-                                    onChanged: (value) {
-                                      setState(() {
-                                        Code1 = value;
-                                      });
-                                    },
-                                    onTapValidator: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'Code  must not be empty';
-                                      }
-                                      return null;
-                                    },
-                                    keyboardType: TextInputType.number,
-                                    maxLines: 1,
-                                    Controller: _Code1),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  height: 100,
+                                  child: SharedFromTextField(
+                                      textAlign: TextAlign.center,
+                                      hintText: 'ـــــ',
+                                      onChanged: (value) {
+                                        setState(() {
+                                          Code1 = value;
+                                        });
+                                      },
+                                      onTapValidator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Code  must not be empty';
+                                        }
+                                        return null;
+                                      },
+                                      keyboardType: TextInputType.number,
+                                      maxLines: 1,
+                                      Controller: _Code1),
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: Container(
-                                height: 100,
-                                child: SharedFromTextField(
-                                    textAlign: TextAlign.center,
-                                    hintText: 'ـــــ',
-                                    onChanged: (value) {
-                                      setState(() {
-                                        Code2 = value;
-                                      });
-                                    },
-                                    onTapValidator: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'Code  must not be empty';
-                                      }
-                                      return null;
-                                    },
-                                    keyboardType: TextInputType.number,
-                                    maxLines: 1,
-                                    Controller: _Code2),
+                              SizedBox(
+                                width: 10,
                               ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: Container(
-                                height: 100,
-                                child: SharedFromTextField(
-                                    textAlign: TextAlign.center,
-                                    hintText: 'ـــــ',
-                                    onChanged: (value) {
-                                      setState(() {
-                                        Code3 = value;
-                                      });
-                                    },
-                                    onTapValidator: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'Code  must not be empty';
-                                      }
-                                      return null;
-                                    },
-                                    keyboardType: TextInputType.number,
-                                    maxLines: 1,
-                                    Controller: _Code3),
+                              Expanded(
+                                child: Container(
+                                  height: 100,
+                                  child: SharedFromTextField(
+                                      textAlign: TextAlign.center,
+                                      hintText: 'ـــــ',
+                                      onChanged: (value) {
+                                        setState(() {
+                                          Code2 = value;
+                                        });
+                                      },
+                                      onTapValidator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Code  must not be empty';
+                                        }
+                                        return null;
+                                      },
+                                      keyboardType: TextInputType.number,
+                                      maxLines: 1,
+                                      Controller: _Code2),
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: Container(
-                                height: 100,
-                                child: SharedFromTextField(
-                                    textAlign: TextAlign.center,
-                                    hintText: 'ـــــ',
-                                    onChanged: (value) {
-                                      setState(() {
-                                        Code4 = value;
-                                      });
-                                    },
-                                    onTapValidator: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'Code  must not be empty';
-                                      }
-                                      return null;
-                                    },
-                                    keyboardType: TextInputType.number,
-                                    maxLines: 1,
-                                    Controller: _Code4),
+                              SizedBox(
+                                width: 10,
                               ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            // Expanded(
-                            //   child: Container(
-                            //     height: 100,
-                            //     child: SharedFromTextField(
-                            //         textAlign: TextAlign.center,
-                            //         hintText: 'ـــــ',
-                            //         onChanged: (value) {
-                            //           setState(() {
-                            //             Code5 = value;
-                            //           });
-                            //         },
-                            //         onTapValidator: (value) {
-                            //           if (value!.isEmpty) {
-                            //             return 'Code  must not be empty';
-                            //           }
-                            //           return null;
-                            //         },
-                            //         keyboardType: TextInputType.number,
-                            //         maxLines: 1,
-                            //         Controller: _Code5),
-                            //   ),
-                            // ),
-                          ],
+                              Expanded(
+                                child: Container(
+                                  height: 100,
+                                  child: SharedFromTextField(
+                                      textAlign: TextAlign.center,
+                                      hintText: 'ـــــ',
+                                      onChanged: (value) {
+                                        setState(() {
+                                          Code3 = value;
+                                        });
+                                      },
+                                      onTapValidator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Code  must not be empty';
+                                        }
+                                        return null;
+                                      },
+                                      keyboardType: TextInputType.number,
+                                      maxLines: 1,
+                                      Controller: _Code3),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                child: Container(
+                                  height: 100,
+                                  child: SharedFromTextField(
+                                      textAlign: TextAlign.center,
+                                      hintText: 'ـــــ',
+                                      onChanged: (value) {
+                                        setState(() {
+                                          Code4 = value;
+                                        });
+                                      },
+                                      onTapValidator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Code  must not be empty';
+                                        }
+                                        return null;
+                                      },
+                                      keyboardType: TextInputType.number,
+                                      maxLines: 1,
+                                      Controller: _Code4),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              // Expanded(
+                              //   child: Container(
+                              //     height: 100,
+                              //     child: SharedFromTextField(
+                              //         textAlign: TextAlign.center,
+                              //         hintText: 'ـــــ',
+                              //         onChanged: (value) {
+                              //           setState(() {
+                              //             Code5 = value;
+                              //           });
+                              //         },
+                              //         onTapValidator: (value) {
+                              //           if (value!.isEmpty) {
+                              //             return 'Code  must not be empty';
+                              //           }
+                              //           return null;
+                              //         },
+                              //         keyboardType: TextInputType.number,
+                              //         maxLines: 1,
+                              //         Controller: _Code5),
+                              //   ),
+                              // ),
+                            ],
+                          ),
                         ),
                       ),
                       SizedBox(
