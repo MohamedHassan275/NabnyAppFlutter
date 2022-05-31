@@ -88,113 +88,116 @@ class _ChagePasswordScreenState extends State<ChagePasswordScreen> {
                 Container(
                   width: Get.width,
                   color: Colors.white,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: heightValue * 2,
-                      ),
-                      FromTextShared(
-                        //  textAlign: TextAlign.center,
-                        labelText: 'كلمة المرور',
-                        onTapFunction: () {
-                          setState(() {
-                            FocusScope.of(context).unfocus();
-                            FocusScope.of(context)
-                                .requestFocus(_focusNodePassword);
-                          });
-                        },
-                        focusNode: _focusNodePassword,
-                        onChanged: (value) {
-                          setState(() {
-                            password = value;
-                          });
-                        },
-                        isPassword: isPassword,
-                        onTapValidator: (value) {
-                          if (value!.isEmpty) {
-                            return 'كلمة المرور فارغة';
-                          } else if (value.length <= 6) {
-                            return 'كلمة المرور قصيرة';
-                          }
-                          return null;
-                        },
-                        suffixIcon: isPassword
-                            ? Icons.visibility_sharp
-                            : Icons.visibility_off,
-                        onTapsuffixIcon: () {
-                          setState(() {
-                            isPassword = !isPassword;
-                          });
-                        },
-                        keyboardType: TextInputType.text,
-                        maxLines: 1,
-                        Controller: Password,
-                        hintText: 'كلمة المرور',
-                      ),
-                      SizedBox(
-                        height: heightValue * 1,
-                      ),
-                      FromTextShared(
-                        //  textAlign: TextAlign.center,
-                        labelText: 'تأكيد كلمة المرور',
-                        onTapFunction: () {
-                          setState(() {
-                            FocusScope.of(context).unfocus();
-                            FocusScope.of(context).requestFocus(
-                                _focusNodeConfirmPassword);
-                          });
-                        },
-                        focusNode: _focusNodeConfirmPassword,
-                        onChanged: (value) {
-                          setState(() {
-                            confirmPassword = value;
-                          });
-                        },
-                        isPassword: isConfirmPassword,
-                        onTapValidator: (value) {
-                          if (value!.isEmpty) {
-                            return 'تأكيد كلمة المرور';
-                          } else if (value.length <= 6) {
-                            return 'تأكيد كلمة المرور';
-                          } else if (value.contains(Password.text)) {
-                            return ' كلمة المرور غير متطابقة';
-                          }
-                          return null;
-                        },
-                        suffixIcon: isConfirmPassword
-                            ? Icons.visibility_sharp
-                            : Icons.visibility_off,
-                        onTapsuffixIcon: () {
-                          setState(() {
-                            isConfirmPassword = !isConfirmPassword;
-                          });
-                        },
-                        keyboardType: TextInputType.text,
-                        maxLines: 1,
-                        Controller: ConfirmPassword,
-                        hintText: 'تأكيد كلمة المرور',
-                      ),
-                      SizedBox(
-                        height: heightValue * 1,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 15),
-                        child: CustomButtonImage(
-                          hight: 50,
-                          title: 'استرجاع كلمة المرور',
-                          onTap: () async{
-                            //  showProgressbar = false;
-                            if (formKey.currentState!.validate()){
-                              Get.to(const LoginScreen());
-                            }
-                          },
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: heightValue * 2,
                         ),
-                      ),
-                      SizedBox(
-                        height: 16,
-                      ),
-                    ],
+                        FromTextShared(
+                          //  textAlign: TextAlign.center,
+                          labelText: 'كلمة المرور',
+                          onTapFunction: () {
+                            setState(() {
+                              FocusScope.of(context).unfocus();
+                              FocusScope.of(context)
+                                  .requestFocus(_focusNodePassword);
+                            });
+                          },
+                          focusNode: _focusNodePassword,
+                          onChanged: (value) {
+                            setState(() {
+                              password = value;
+                            });
+                          },
+                          isPassword: isPassword,
+                          onTapValidator: (value) {
+                            if (value!.isEmpty) {
+                              return 'كلمة المرور فارغة';
+                            } else if (value.length <= 6) {
+                              return 'كلمة المرور قصيرة';
+                            }
+                            return null;
+                          },
+                          suffixIcon: isPassword
+                              ? Icons.visibility_sharp
+                              : Icons.visibility_off,
+                          onTapsuffixIcon: () {
+                            setState(() {
+                              isPassword = !isPassword;
+                            });
+                          },
+                          keyboardType: TextInputType.text,
+                          maxLines: 1,
+                          Controller: Password,
+                          hintText: 'كلمة المرور',
+                        ),
+                        SizedBox(
+                          height: heightValue * 1,
+                        ),
+                        FromTextShared(
+                          //  textAlign: TextAlign.center,
+                          labelText: 'تأكيد كلمة المرور',
+                          onTapFunction: () {
+                            setState(() {
+                              FocusScope.of(context).unfocus();
+                              FocusScope.of(context).requestFocus(
+                                  _focusNodeConfirmPassword);
+                            });
+                          },
+                          focusNode: _focusNodeConfirmPassword,
+                          onChanged: (value) {
+                            setState(() {
+                              confirmPassword = value;
+                            });
+                          },
+                          isPassword: isConfirmPassword,
+                          onTapValidator: (value) {
+                            if (value!.isEmpty) {
+                              return 'تأكيد كلمة المرور';
+                            } else if (value.length <= 6) {
+                              return 'تأكيد كلمة المرور';
+                            } else if (ConfirmPassword.text.contains(Password.text)) {
+                              return ' كلمة المرور غير متطابقة';
+                            }
+                            return null;
+                          },
+                          suffixIcon: isConfirmPassword
+                              ? Icons.visibility_sharp
+                              : Icons.visibility_off,
+                          onTapsuffixIcon: () {
+                            setState(() {
+                              isConfirmPassword = !isConfirmPassword;
+                            });
+                          },
+                          keyboardType: TextInputType.text,
+                          maxLines: 1,
+                          Controller: ConfirmPassword,
+                          hintText: 'تأكيد كلمة المرور',
+                        ),
+                        SizedBox(
+                          height: heightValue * 1,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 15),
+                          child: CustomButtonImage(
+                            hight: 50,
+                            title: 'استرجاع كلمة المرور',
+                            onTap: () async{
+                              //  showProgressbar = false;
+                              if (formKey.currentState!.validate()){
+                                Get.to(const LoginScreen());
+                              }
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          height: 16,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
