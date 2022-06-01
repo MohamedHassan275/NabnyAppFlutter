@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/home_screen/home_screen.dart';
+import 'package:nabny/screens/my_favorite_screen/my_favorite_screen.dart';
+import 'package:nabny/screens/my_order_screen/my_order_screen.dart';
+import 'package:nabny/screens/setting_screen/setting_screen.dart';
 
 class HomeMainController extends ChangeNotifier {
 
   int? indexPage = 0;
 
-  List<Widget> PageList = [HomeScreen(),HomeScreen(),HomeScreen(),HomeScreen()];
+  List<Widget> PageList = [const HomeScreen(),const MyOrderScreen(),const MyFavoriteScreen(),const SettingScreen()];
 
   List<BottomNavigationBarItem> navigationItem = [
     BottomNavigationBarItem(icon: Image.asset(Assets.iconsIconHome2,width: 30,height: 30,),label: 'الرئيسيه'.tr,

@@ -44,6 +44,7 @@ dependencies:
   geolocator: ^7.6.0
   location:
   geocoding:
+  carousel_slider: ^4.0.0
   permission_handler:
   persistent_bottom_nav_bar: ^4.0.2
   auto_size_text: ^3.0.0

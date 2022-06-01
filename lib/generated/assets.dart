@@ -11,6 +11,7 @@ class Assets {
   static const String iconsIconHome2 = 'assets/icons/icon_home2.png';
   static const String iconsInstagramImage = 'assets/icons/instagram_image.png';
   static const String iconsLanguageImage = 'assets/icons/language_image.png';
+  static const String iconsLocationIcon = 'assets/icons/location_icon.png';
   static const String iconsLogOutMenuIcon = 'assets/icons/log_out_menu_icon.png';
   static const String iconsLogoApp = 'assets/icons/logo_app.png';
   static const String iconsMobilePhoneIcon = 'assets/icons/mobile_phone_icon.png';
@@ -19,9 +20,11 @@ class Assets {
   static const String iconsMyOrderHome2 = 'assets/icons/my_order_home2.png';
   static const String iconsMyOrderIcon = 'assets/icons/my_order_icon.png';
   static const String iconsNextPage = 'assets/icons/next_page.png';
+  static const String iconsNotificationIcon = 'assets/icons/notification_icon.png';
   static const String iconsPasswordIcon = 'assets/icons/password_icon.png';
   static const String iconsPrivacyImage = 'assets/icons/privacy_image.png';
   static const String iconsProfileMenuIcon = 'assets/icons/profile_menu_icon.png';
+  static const String iconsSearchIcon = 'assets/icons/search_icon.png';
   static const String iconsSettingHome2 = 'assets/icons/setting_home2.png';
   static const String iconsSettingHomeIcon = 'assets/icons/setting_home_icon.png';
   static const String iconsShare = 'assets/icons/share.png';
@@ -38,6 +41,9 @@ class Assets {
   static const String imagesEditIamgeProfile = 'assets/images/edit_iamge_profile.png';
   static const String imagesFactoryImage = 'assets/images/factory_image.png';
   static const String imagesImageBackgroundIntro = 'assets/images/image_background_intro.png';
+  static const String imagesImageCategory1 = 'assets/images/image_category1.png';
+  static const String imagesImageCategory2 = 'assets/images/image_category2.png';
+  static const String imagesImageCategory3 = 'assets/images/image_category3.png';
   static const String imagesImageConfirmActivation = 'assets/images/image_confirm_activation.png';
   static const String imagesImageLogoApp = 'assets/images/image_logo_app.png';
   static const String imagesLogoImage = 'assets/images/logo_image.png';
