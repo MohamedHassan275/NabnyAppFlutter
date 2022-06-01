@@ -222,20 +222,22 @@ class HomeScreen_State extends State<HomeScreen> {
                   children: [
                     Expanded(
                       child: Container(
-                        height: 100,
+                        height: 110,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           color: Themes.ColorApp14,
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          padding: const EdgeInsets.symmetric(horizontal: 10 , vertical: 15),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Column(
+                              Image.asset(Assets.imagesImageCategory1,fit: BoxFit.contain,),
+                              SizedBox(height: heightValue * .7,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Image.asset(Assets.imagesImageCategory1,fit: BoxFit.contain,),
-                                  SizedBox(height: heightValue * .7,),
                                   Text(
                                     'خرسانه ',
                                     style: TextStyle(
@@ -244,15 +246,15 @@ class HomeScreen_State extends State<HomeScreen> {
                                       color: Themes.ColorApp8,
                                     ),
                                   ),
+                                  Text(
+                                    '200 ',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 15,
+                                      color: Themes.ColorApp8,
+                                    ),
+                                  ),
                                 ],
-                              ),
-                              Text(
-                                '200 ',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 15,
-                                  color: Themes.ColorApp8,
-                                ),
                               ),
                             ],
                           ),
@@ -262,20 +264,22 @@ class HomeScreen_State extends State<HomeScreen> {
                     SizedBox(width: 5,),
                     Expanded(
                       child: Container(
-                        height: 100,
+                        height: 110,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           color: Themes.ColorApp14,
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          padding: const EdgeInsets.symmetric(horizontal: 10 , vertical: 25),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Column(
+                              Image.asset(Assets.imagesImageCategory2,fit: BoxFit.contain,),
+                              SizedBox(height: heightValue * .7,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Image.asset(Assets.imagesImageCategory2,fit: BoxFit.contain,),
-                                  SizedBox(height: heightValue * .7,),
                                   Text(
                                     'طوب ',
                                     style: TextStyle(
@@ -284,15 +288,15 @@ class HomeScreen_State extends State<HomeScreen> {
                                       color: Themes.ColorApp8,
                                     ),
                                   ),
+                                  Text(
+                                    '210 ',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 15,
+                                      color: Themes.ColorApp8,
+                                    ),
+                                  ),
                                 ],
-                              ),
-                              Text(
-                                '205 ',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 15,
-                                  color: Themes.ColorApp8,
-                                ),
                               ),
                             ],
                           ),
@@ -302,21 +306,22 @@ class HomeScreen_State extends State<HomeScreen> {
                     SizedBox(width: 5,),
                     Expanded(
                       child: Container(
-                        height: 105,
+                        height: 110,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           color: Themes.ColorApp14,
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          padding: const EdgeInsets.symmetric(horizontal: 10 , vertical: 25),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Column(
+                              Image.asset(Assets.imagesImageCategory3,fit: BoxFit.contain,),
+                              SizedBox(height: heightValue * .7,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  SizedBox(height: heightValue * .7,),
-                                  Image.asset(Assets.imagesImageCategory3,fit: BoxFit.contain,),
-                                  SizedBox(height: heightValue * .5,),
                                   Text(
                                     'بلوك ',
                                     style: TextStyle(
@@ -325,15 +330,15 @@ class HomeScreen_State extends State<HomeScreen> {
                                       color: Themes.ColorApp8,
                                     ),
                                   ),
+                                  Text(
+                                    '205',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 15,
+                                      color: Themes.ColorApp8,
+                                    ),
+                                  ),
                                 ],
-                              ),
-                              Text(
-                                '215 ',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 15,
-                                  color: Themes.ColorApp8,
-                                ),
                               ),
                             ],
                           ),
