@@ -13,30 +13,31 @@ class CustomPageViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double doubleHeight = Get.height * 0.024 * 2.5;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(height: MediaQuery.of(context).size.height * .024 * 1,),
+        SizedBox(height: Get.height * .024 * 10.5,),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15 , vertical: 15),
           child: Container(
             width: Get.width,
-            height: 150,
+            height: 185,
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15))),
             child: Center(
               child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  padding: EdgeInsets.symmetric(horizontal: 15 , vertical: doubleHeight),
                   child: Text(
                     title!,
                     style: TextStyle(
-                      fontSize: 19,
-                      color: Themes.ColorApp2,
+                      fontSize: 17,
+                      color: Themes.ColorApp8,
                       fontWeight: FontWeight.w500,
                     ),
-                    textAlign: TextAlign.left,
+                    textAlign: TextAlign.center,
                   ),
               ),
             ),

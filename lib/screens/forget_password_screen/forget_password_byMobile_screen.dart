@@ -143,7 +143,9 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
                                     }
                                     return null;
                                   },
-                                  prefixIcon: Icons.phone_android,
+                                  namePath: Assets.iconsMobilePhoneIcon,
+                                  width: 25,
+                                  height: 25,
                                   keyboardType: TextInputType.number,
                                   Controller: MobilePhone,
                                   hintText: 'رقم الموبيل'),

@@ -84,12 +84,14 @@ class FromTextShared extends StatelessWidget {
   TextEditingController? Controller;
   int? maxLines;
   int? maxLength;
+  double? width;
+  double? height;
   TextInputType? keyboardType;
-  IconData? prefixIcon;
   IconData? suffixIcon;
   FocusNode? focusNode;
   String? labelText;
   String? hintText;
+  String? namePath;
   TextAlign? textAlign = TextAlign.start;
   bool? isPassword = false;
 
@@ -103,8 +105,10 @@ class FromTextShared extends StatelessWidget {
        this.maxLines,
        this.maxLength,
         this.focusNode,
+        this.namePath,
+        this.width,
+        this.height,
       required this.keyboardType,
-      this.prefixIcon,
       this.suffixIcon,
       required this.labelText,
       required this.hintText,
@@ -131,10 +135,7 @@ class FromTextShared extends StatelessWidget {
             hintText: hintText,
             filled: true,
             fillColor: Colors.white,
-            prefixIcon: Icon(
-              prefixIcon,
-              color: Themes.ColorApp1,
-            ),
+            prefixIcon: Image.asset(namePath!,width: width!,height: height!,),
             suffixIcon: suffixIcon != null
                 ? IconButton(
                     icon: Icon(suffixIcon),

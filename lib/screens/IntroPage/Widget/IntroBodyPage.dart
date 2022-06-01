@@ -16,18 +16,15 @@ class IntroBodyPage extends StatefulWidget {
 }
 
 class _IntroBodyPageState extends State<IntroBodyPage> {
-
-
   PageController? pageController;
 
   @override
   void initState() {
     // TODO: implement initState
-    pageController = PageController(initialPage: 0)..addListener(() {
-      setState(() {
-
+    pageController = PageController(initialPage: 0)
+      ..addListener(() {
+        setState(() {});
       });
-    });
     super.initState();
   }
 
@@ -49,10 +46,12 @@ class _IntroBodyPageState extends State<IntroBodyPage> {
           children: [
             GestureDetector(
               onTap: () {
-                if(pageController!.hasClients){
-                  if(pageController!.page == 2){
-                    Get.to( const LoginScreen(),transition: Transition.leftToRight , duration: const Duration(milliseconds: 3));
-                  }else {
+                if (pageController!.hasClients) {
+                  if (pageController!.page! <= 2) {
+                    Get.to(const LoginScreen(),
+                        transition: Transition.leftToRight,
+                        duration: const Duration(milliseconds: 3));
+                  } else {
                     print('has click');
                   }
                 }
@@ -70,19 +69,24 @@ class _IntroBodyPageState extends State<IntroBodyPage> {
                 ),
               ),
             ),
-            CustomPageView(pageController: pageController,),
+            CustomPageView(
+              pageController: pageController,
+            ),
             Positioned(
                 left: 0,
                 right: 0,
                 bottom: valueHight * 9.0,
-                child: CustomIndicator(valuePosition: pageController!.hasClients ? pageController!.page : 0,)),
+                child: CustomIndicator(
+                  valuePosition:
+                      pageController!.hasClients ? pageController!.page : 0,
+                )),
             Positioned(
               left: 0,
               right: 0,
               bottom: valueHight * 4.5,
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 35, vertical: 15),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 35, vertical: 15),
                 child: CustomButtonImage(
                   hight: 50,
                   title: pageController!.hasClients ? (pageController!.page == 2 ? 'هيا نبدأ' : 'التالي') : 'التالي',

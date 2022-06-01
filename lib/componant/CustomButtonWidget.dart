@@ -85,7 +85,7 @@ class CustomButtonImage extends StatelessWidget {
   CustomButtonImage({required this.title,required this.hight,required this.onTap});
   double hight;
   String title;
-  void Function()? onTap;
+   VoidCallback? onTap;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

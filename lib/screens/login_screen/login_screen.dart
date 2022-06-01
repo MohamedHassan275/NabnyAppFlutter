@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/forget_password_screen/forget_password_byMobile_screen.dart';
+import 'package:nabny/screens/get_my_location_screen/GetMyLocationUserPage.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:nabny/screens/register_screen/register_screen.dart';
 import 'package:nabny/utils/Themes.dart';
@@ -137,6 +138,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                               mobilePhone = value;
                                             });
                                           },
+                                          namePath: Assets.iconsMobilePhoneIcon,
+                                          width: 25,
+                                          height: 25,
                                           isPassword: false,
                                           maxLength: 11,
                                           maxLines: 11,
@@ -148,7 +152,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                             }
                                             return null;
                                           },
-                                          prefixIcon: Icons.phone_android,
                                           keyboardType: TextInputType.number,
                                           Controller: MobilePhone,
                                           hintText: 'رقم الموبيل'),
@@ -180,7 +183,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                           }
                                           return null;
                                         },
-                                        prefixIcon: Icons.lock,
+                                        namePath: Assets.iconsPasswordIcon,
+                                        width: 25,
+                                        height: 25,
                                         suffixIcon: isPassword
                                             ? Icons.visibility_sharp
                                             : Icons.visibility_off,
@@ -242,7 +247,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           title: 'دخول',
                                           onTap: () {
                                             if (formKey.currentState!.validate()){
-                                              Get.to(HomeMainScreen());
+                                              Get.to(const HomeMainScreen());
                                             }
                                           },
                                         ),

@@ -105,6 +105,9 @@ class _ChagePasswordScreenState extends State<ChagePasswordScreen> {
                                   .requestFocus(_focusNodePassword);
                             });
                           },
+                          namePath: Assets.iconsPasswordIcon,
+                          width: 25,
+                          height: 25,
                           focusNode: _focusNodePassword,
                           onChanged: (value) {
                             setState(() {
@@ -152,6 +155,9 @@ class _ChagePasswordScreenState extends State<ChagePasswordScreen> {
                               confirmPassword = value;
                             });
                           },
+                          namePath: Assets.iconsPasswordIcon,
+                          width: 25,
+                          height: 25,
                           isPassword: isConfirmPassword,
                           onTapValidator: (value) {
                             if (value!.isEmpty) {

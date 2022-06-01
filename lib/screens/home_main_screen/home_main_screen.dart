@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nabny/screens/home_main_screen/home_main_controller.dart';
+import 'package:nabny/utils/Themes.dart';
 import 'package:provider/provider.dart';
 
 class HomeMainScreen extends StatefulWidget {
@@ -17,6 +18,8 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
       body: homeMainController.PageList[homeMainController.indexPage!],
       bottomNavigationBar: BottomNavigationBar(
         items: homeMainController.navigationItem,
+        selectedItemColor: Themes.ColorApp1,
+        unselectedItemColor: Themes.ColorApp2,
         type: BottomNavigationBarType.fixed,
         onTap: (int? index){
           setState(() {
