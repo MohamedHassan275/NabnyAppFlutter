@@ -59,9 +59,7 @@ class _SettingScreenState extends State<SettingScreen> {
                             title: 'مشاركة التطبيق',
                             imageTitle: Assets.iconsShare,
                             heightValue: heightValue),
-                        SizedBox(
-                          width: widthValue * 1.5,
-                        ),
+                        SizedBox(width: widthValue * 1.5,),
                         SettingCategory(
                             title: 'الشروط والاحكام',
                             imageTitle: Assets.iconsTermsConditionsImage,
