@@ -33,6 +33,7 @@ class Assets {
   static const String iconsTwitterImage = 'assets/icons/twitter_image.png';
   static const String iconsWalletMenuIcon = 'assets/icons/wallet_menu_icon.png';
   static const String iconsWhatsUpImage = 'assets/icons/whats_up_image.png';
+  static const String imagesAboutAppImage = 'assets/images/about_app_image.png';
   static const String imagesBackgroundIntro = 'assets/images/background_intro.png';
   static const String imagesBackgroundSplash = 'assets/images/background_splash.png';
   static const String imagesButtonRegister = 'assets/images/button_register.png';

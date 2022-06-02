@@ -1,5 +1,8 @@
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:nabny/generated/assets.dart';
+
+import '../../utils/Themes.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -11,6 +14,208 @@ class SettingScreen extends StatefulWidget {
 class _SettingScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    var widthValue = Get.width * 0.024;
+    var heightValue = Get.height * 0.024;
+    return Scaffold(
+      body: SafeArea(
+          child: SingleChildScrollView(
+        child: Container(
+          width: Get.width,
+          height: Get.height,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: Get.width,
+                height: 119,
+                decoration: BoxDecoration(
+                    color: Themes.ColorApp14,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(35),
+                        topRight: Radius.circular(35))),
+                child: Center(
+                  child: Text(
+                    'الاعدادات',
+                    style: TextStyle(
+                      color: Themes.ColorApp15,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: heightValue * 1.5,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SettingCategory(
+                            title: 'مشاركة التطبيق',
+                            imageTitle: Assets.iconsShare,
+                            heightValue: heightValue),
+                        SizedBox(
+                          width: widthValue * 1.5,
+                        ),
+                        SettingCategory(
+                            title: 'الشروط والاحكام',
+                            imageTitle: Assets.iconsTermsConditionsImage,
+                            heightValue: heightValue),
+                        SizedBox(
+                          width: widthValue * 1.5,
+                        ),
+                        SettingCategory(
+                            title: 'سياسه الخصوصيه',
+                            imageTitle: Assets.iconsPrivacyImage,
+                            heightValue: heightValue),
+                      ],
+                    ),
+                    SizedBox(
+                      height: heightValue * 1,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SettingCategory(
+                            title: 'اللغه',
+                            imageTitle: Assets.iconsLanguageImage,
+                            heightValue: heightValue),
+                        SizedBox(
+                          width: widthValue * 1.5,
+                        ),
+                        SettingCategory(
+                            title: 'اعدادات البروفايل',
+                            imageTitle: Assets.iconsProfileMenuIcon,
+                            heightValue: heightValue),
+                        SizedBox(
+                          width: widthValue * 1.5,
+                        ),
+                        SettingCategory(
+                            title: 'عن التطبيق',
+                            imageTitle: Assets.imagesAboutAppImage,
+                            heightValue: heightValue),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: heightValue * 1,
+              ),
+              Divider(height: 10, color: Themes.ColorApp8),
+              SizedBox(
+                height: heightValue * 1,
+              ),
+              ContactWithUs(heightValue: heightValue,widthValue: widthValue),
+            ],
+          ),
+        ),
+      )),
+    );
+  }
+}
+
+class SettingCategory extends StatelessWidget {
+  SettingCategory(
+      {required this.title,
+      required this.imageTitle,
+      required this.heightValue});
+
+  double? heightValue;
+  String? imageTitle, title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+        child: Container(
+      width: Get.width,
+      height: 135,
+      child: Column(
+        children: [
+          Container(
+            width: Get.width,
+            height: 100,
+            decoration: BoxDecoration(
+                color: Themes.ColorApp14,
+                borderRadius: BorderRadius.circular(15)),
+            child: Center(child: Image.asset(imageTitle!, fit: BoxFit.contain)),
+          ),
+          SizedBox(
+            height: heightValue! * .5,
+          ),
+          Text(
+            title!,
+            style: TextStyle(
+              color: Themes.ColorApp8,
+              fontSize: 15,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+        ],
+      ),
+    ));
+  }
+}
+
+class ContactWithUs extends StatelessWidget {
+  ContactWithUs({required this.heightValue, required this.widthValue});
+
+  double? heightValue,widthValue;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'للتواصل',
+            style: TextStyle(
+              color: Themes.ColorApp8,
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          SizedBox(height: heightValue! * 1,),
+         Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: [
+             ContactWithUsItem(imageTitle: Assets.iconsWhatsUpImage),
+             SizedBox(width: widthValue! * 1.5,),
+             ContactWithUsItem(imageTitle: Assets.iconsInstagramImage),
+             SizedBox(width: widthValue! * 1.5,),
+             ContactWithUsItem(imageTitle: Assets.iconsTwitterImage),
+             SizedBox(width: widthValue! * 1.5,),
+             ContactWithUsItem(imageTitle: Assets.iconsSnapshatImage),
+           ],
+         )
+        ],
+      ),
+    );
+  }
+}
+
+class ContactWithUsItem extends StatelessWidget {
+  ContactWithUsItem({required this.imageTitle});
+
+  String? imageTitle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        width: Get.width,
+        height: 75,
+        decoration: BoxDecoration(
+            color: Themes.ColorApp14, borderRadius: BorderRadius.circular(15)),
+        child: Center(child: Image.asset(imageTitle!, fit: BoxFit.contain)),
+      ),
+    );
   }
 }
