@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nabny/screens/setting_screen/setting_screen.dart';
 
 import '../../utils/Themes.dart';
 
@@ -43,9 +44,12 @@ class TermsConditionScreen extends StatelessWidget {
                   Positioned(
                     top: heightValue * 1.5,
                     right: heightValue * 1.5,
-                    child: CircleAvatar(
-                      backgroundColor: Themes.ColorApp5,
-                      child: Icon(Icons.chevron_right,color: Colors.white,),
+                    child: GestureDetector(
+                      onTap: ()=>Get.to(SettingScreen()),
+                      child: CircleAvatar(
+                        backgroundColor: Themes.ColorApp5,
+                        child: Icon(Icons.arrow_right_alt_rounded,color: Colors.white,),
+                      ),
                     ),
                   )
                 ],

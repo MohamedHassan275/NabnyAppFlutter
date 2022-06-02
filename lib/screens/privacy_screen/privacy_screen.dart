@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../utils/Themes.dart';
+import '../setting_screen/setting_screen.dart';
 
 class PrivacyScreen extends StatelessWidget {
   const PrivacyScreen({Key? key}) : super(key: key);
@@ -43,9 +44,12 @@ class PrivacyScreen extends StatelessWidget {
                   Positioned(
                     top: heightValue * 1.5,
                     right: heightValue * 1.5,
-                    child: CircleAvatar(
-                      backgroundColor: Themes.ColorApp5,
-                      child: Icon(Icons.arrow_right_alt_rounded,color: Colors.white,),
+                    child: GestureDetector(
+                      onTap: ()=>Get.to(SettingScreen()),
+                      child: CircleAvatar(
+                        backgroundColor: Themes.ColorApp5,
+                        child: Icon(Icons.arrow_right_alt_rounded,color: Colors.white,),
+                      ),
                     ),
                   )
                 ],
