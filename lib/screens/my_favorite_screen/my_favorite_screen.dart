@@ -99,7 +99,7 @@ class FactoryItemList extends StatelessWidget {
                 right: widthValue * 2,
                 child: CircleAvatar(
                   backgroundColor: Themes.whiteColor,
-                  child: Image.asset(Assets.iconsFavoriteIcon),
+                  child: Image.asset(Assets.imagesActiveFavorite),
                 ),
               )
             ],

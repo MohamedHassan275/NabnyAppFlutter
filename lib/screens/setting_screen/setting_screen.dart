@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/generated/assets.dart';
+import 'package:nabny/screens/about_app_screen/about_app_screen.dart';
+import 'package:nabny/screens/privacy_screen/privacy_screen.dart';
+import 'package:nabny/screens/terms_condition_screen/terms_condition_screen.dart';
 
 import '../../utils/Themes.dart';
 
@@ -56,11 +59,15 @@ class _SettingScreenState extends State<SettingScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SettingCategory(
+                            onTap: () {},
                             title: 'مشاركة التطبيق',
                             imageTitle: Assets.iconsShare,
                             heightValue: heightValue),
-                        SizedBox(width: widthValue * 1.5,),
+                        SizedBox(
+                          width: widthValue * 1.5,
+                        ),
                         SettingCategory(
+                            onTap: () => Get.to(PrivacyScreen()),
                             title: 'الشروط والاحكام',
                             imageTitle: Assets.iconsTermsConditionsImage,
                             heightValue: heightValue),
@@ -68,6 +75,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           width: widthValue * 1.5,
                         ),
                         SettingCategory(
+                            onTap: () => Get.to(TermsConditionScreen()),
                             title: 'سياسه الخصوصيه',
                             imageTitle: Assets.iconsPrivacyImage,
                             heightValue: heightValue),
@@ -80,6 +88,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SettingCategory(
+                            onTap: () {},
                             title: 'اللغه',
                             imageTitle: Assets.iconsLanguageImage,
                             heightValue: heightValue),
@@ -87,6 +96,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           width: widthValue * 1.5,
                         ),
                         SettingCategory(
+                            onTap: () {},
                             title: 'اعدادات البروفايل',
                             imageTitle: Assets.iconsProfileMenuIcon,
                             heightValue: heightValue),
@@ -94,6 +104,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           width: widthValue * 1.5,
                         ),
                         SettingCategory(
+                            onTap: () => Get.to(AboutAppScreen()),
                             title: 'عن التطبيق',
                             imageTitle: Assets.imagesAboutAppImage,
                             heightValue: heightValue),
@@ -109,7 +120,7 @@ class _SettingScreenState extends State<SettingScreen> {
               SizedBox(
                 height: heightValue * 1,
               ),
-              ContactWithUs(heightValue: heightValue,widthValue: widthValue),
+              ContactWithUs(heightValue: heightValue, widthValue: widthValue),
             ],
           ),
         ),
@@ -120,50 +131,57 @@ class _SettingScreenState extends State<SettingScreen> {
 
 class SettingCategory extends StatelessWidget {
   SettingCategory(
-      {required this.title,
+      {required this.onTap,
+      required this.title,
       required this.imageTitle,
       required this.heightValue});
 
   double? heightValue;
   String? imageTitle, title;
+  VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
+      child: GestureDetector(
+        onTap: onTap,
         child: Container(
-      width: Get.width,
-      height: 135,
-      child: Column(
-        children: [
-          Container(
-            width: Get.width,
-            height: 100,
-            decoration: BoxDecoration(
-                color: Themes.ColorApp14,
-                borderRadius: BorderRadius.circular(15)),
-            child: Center(child: Image.asset(imageTitle!, fit: BoxFit.contain)),
-          ),
-          SizedBox(
-            height: heightValue! * .5,
-          ),
-          Text(
-            title!,
-            style: TextStyle(
-              color: Themes.ColorApp8,
-              fontSize: 15,
-              fontWeight: FontWeight.w400,
+        width: Get.width,
+        height: 135,
+        child: Column(
+          children: [
+            Container(
+              width: Get.width,
+              height: 100,
+              decoration: BoxDecoration(
+                  color: Themes.ColorApp14,
+                  borderRadius: BorderRadius.circular(15)),
+              child:
+                  Center(child: Image.asset(imageTitle!, fit: BoxFit.contain)),
             ),
-          ),
-        ],
+            SizedBox(
+              height: heightValue! * .5,
+            ),
+            Text(
+              title!,
+              style: TextStyle(
+                color: Themes.ColorApp8,
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ],
+        ),
       ),
-    ));
+      ),
+    );
   }
 }
 
 class ContactWithUs extends StatelessWidget {
   ContactWithUs({required this.heightValue, required this.widthValue});
 
-  double? heightValue,widthValue;
+  double? heightValue, widthValue;
 
   @override
   Widget build(BuildContext context) {
@@ -180,19 +198,39 @@ class ContactWithUs extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
           ),
-          SizedBox(height: heightValue! * 1,),
-         Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: [
-             ContactWithUsItem(imageTitle: Assets.iconsWhatsUpImage),
-             SizedBox(width: widthValue! * 1.5,),
-             ContactWithUsItem(imageTitle: Assets.iconsInstagramImage),
-             SizedBox(width: widthValue! * 1.5,),
-             ContactWithUsItem(imageTitle: Assets.iconsTwitterImage),
-             SizedBox(width: widthValue! * 1.5,),
-             ContactWithUsItem(imageTitle: Assets.iconsSnapshatImage),
-           ],
-         )
+          SizedBox(
+            height: heightValue! * 1,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ContactWithUsItem(
+                imageTitle: Assets.iconsWhatsUpImage,
+                onTap: () {},
+              ),
+              SizedBox(
+                width: widthValue! * 1.5,
+              ),
+              ContactWithUsItem(
+                imageTitle: Assets.iconsInstagramImage,
+                onTap: () {},
+              ),
+              SizedBox(
+                width: widthValue! * 1.5,
+              ),
+              ContactWithUsItem(
+                imageTitle: Assets.iconsTwitterImage,
+                onTap: () {},
+              ),
+              SizedBox(
+                width: widthValue! * 1.5,
+              ),
+              ContactWithUsItem(
+                imageTitle: Assets.iconsSnapshatImage,
+                onTap: () {},
+              ),
+            ],
+          )
         ],
       ),
     );
@@ -200,19 +238,24 @@ class ContactWithUs extends StatelessWidget {
 }
 
 class ContactWithUsItem extends StatelessWidget {
-  ContactWithUsItem({required this.imageTitle});
+  ContactWithUsItem({required this.onTap, required this.imageTitle});
 
   String? imageTitle;
+  VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
-        width: Get.width,
-        height: 75,
-        decoration: BoxDecoration(
-            color: Themes.ColorApp14, borderRadius: BorderRadius.circular(15)),
-        child: Center(child: Image.asset(imageTitle!, fit: BoxFit.contain)),
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          width: Get.width,
+          height: 75,
+          decoration: BoxDecoration(
+              color: Themes.ColorApp14,
+              borderRadius: BorderRadius.circular(15)),
+          child: Center(child: Image.asset(imageTitle!, fit: BoxFit.contain)),
+        ),
       ),
     );
   }
