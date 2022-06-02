@@ -179,9 +179,11 @@ class HomeScreen_State extends State<HomeScreen> {
                   height: heightValue * .7,
                 ),
                 FactoryItemList(widthValue: widthValue,heightValue: heightValue,),
-                SizedBox(
-                  height: heightValue * 1.5,
-                ),
+                SizedBox(height: heightValue * 1,),
+                FactoryItemList(widthValue: widthValue,heightValue: heightValue,),
+                SizedBox(height: heightValue * 1,),
+                FactoryItemList(widthValue: widthValue,heightValue: heightValue,),
+                SizedBox(height: heightValue * 1,),
               ],
             ),
           ),
@@ -361,6 +363,7 @@ class UserProfileWithNotification extends StatelessWidget {
               width: widthValue * 1,
             ),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
                   'اهلا بك',
