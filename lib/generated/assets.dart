@@ -47,6 +47,7 @@ class Assets {
   static const String imagesImageConfirmActivation = 'assets/images/image_confirm_activation.png';
   static const String imagesImageLogoApp = 'assets/images/image_logo_app.png';
   static const String imagesLogoImage = 'assets/images/logo_image.png';
+  static const String imagesOrderPriceImage = 'assets/images/order_price_image.png';
   static const String imagesProfileImage = 'assets/images/profile_image.png';
   static const String imagesSkipBording = 'assets/images/skip_bording.png';
   static const String imagesSliderImage = 'assets/images/slider_image.png';

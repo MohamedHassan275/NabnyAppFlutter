@@ -13,8 +13,8 @@ class Themes {
   static const ColorApp9 = const Color(0xffe41e26);
   static const ColorApp10 = const Color(0xff448bf8);
   static const ColorApp11 = const Color(0xffc1c0c0);
-  static const ColorApp12 = const Color(0xfff5f7f9);
-  static const ColorApp13 = const Color(0xffd8d8d8);
+  static const ColorApp12 = const Color(0xffffd7ad);
+  static const ColorApp13 = const Color(0xfff39e39);
   static const ColorApp14 = const Color(0xf6e6e6e);
   static const whiteColor = Colors.white;
   static const redColor =  const Color(0xfcc40c);
