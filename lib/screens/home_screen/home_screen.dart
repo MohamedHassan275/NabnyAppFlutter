@@ -121,7 +121,37 @@ class HomeScreen_State extends State<HomeScreen> {
                 SizedBox(
                   height: heightValue * 1.5,
                 ),
-                SliderFactoryImage(SlidersList: SlidersList),
+                Card(
+                  color: Themes.whiteColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Container(
+                    height: 165,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: CarouselSlider(
+                        items: SlidersList!.map((e) => Image(
+                          image: AssetImage('${e.ImageSlider}'),
+                          height: 165,
+                          fit: BoxFit.fill,
+                        )).toList(),
+                        options: CarouselOptions(
+                          height: 275,
+                          aspectRatio: 2.0,
+                          viewportFraction: 1.0,
+                          initialPage: 0,
+                          enableInfiniteScroll: true,
+                          reverse: false,
+                          autoPlay: true,
+                          autoPlayInterval: const Duration(seconds: 3),
+                          autoPlayAnimationDuration: const Duration(seconds: 1),
+                          autoPlayCurve: Curves.fastOutSlowIn,
+                          scrollDirection: Axis.horizontal,
+                        )),
+                  ),
+                ),
                 SizedBox(
                   height: heightValue * 1.5,
                 ),
@@ -149,6 +179,9 @@ class HomeScreen_State extends State<HomeScreen> {
                   height: heightValue * .7,
                 ),
                 FactoryItemList(widthValue: widthValue,heightValue: heightValue,),
+                SizedBox(
+                  height: heightValue * 1.5,
+                ),
               ],
             ),
           ),
@@ -167,7 +200,7 @@ class FactoryItemList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: Get.width,
-      height: 175,
+      height: 250,
       decoration: BoxDecoration(
         color: Themes.whiteColor,
         borderRadius: BorderRadius.circular(15),
@@ -186,106 +219,118 @@ class FactoryItemList extends StatelessWidget {
                   placeholder: AssetImage(Assets.imagesFactoryImage),
                 ),
               ),
-              CircleAvatar(
-                backgroundColor: Themes.whiteColor,
-                child: Image.asset(Assets.iconsFavoriteIcon),
+              Positioned(
+                top: heightValue * 1,
+                right: widthValue * 2,
+                child: CircleAvatar(
+                  backgroundColor: Themes.whiteColor,
+                  child: Image.asset(Assets.iconsFavoriteIcon),
+                ),
               )
             ],
           ),
           SizedBox(
             height: heightValue * .5,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Themes.ColorApp11,
-                      borderRadius: BorderRadius.circular(25),
-                      border: Border.all(color: Themes.ColorApp1, width: 1.0),
-                    ),
-                    child: Center(
-                      child: Image(
-                        image: AssetImage(Assets.iconsFactoryNamIcon),
-                        fit: BoxFit.contain,
-                        width: 35,
-                        height: 35,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Themes.ColorApp14,
+                        borderRadius: BorderRadius.circular(15),
                       ),
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      const Text(
-                        'شركه بن لادن',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16,
-                          color: Themes.ColorApp1,
+                      child: Center(
+                        child: Image(
+                          image: AssetImage(Assets.iconsFactoryNamIcon),
+                          fit: BoxFit.contain,
+                          width: 35,
+                          height: 35,
                         ),
                       ),
-                      SizedBox(height: heightValue * .3,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            'جيد جدا',
+                            'شركه بن لادن',
                             style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 15,
-                              color: Themes.ColorApp8,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                              color: Themes.ColorApp1,
                             ),
                           ),
-                          Container(
-                            width: 70,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(35),
-                              color: Themes.ColorApp12
-                            ),
-                            child: Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Text(
-                                    '4.7',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12,
-                                      color: Themes.ColorApp13,
-                                    ),
-                                  ),
-                                  SizedBox(width: widthValue * .2,),
-                                  Icon(Icons.star,color: Themes.ColorApp13,)
-                                ],
+                          SizedBox(height: heightValue * .3,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                'جيد جدا',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 15,
+                                  color: Themes.ColorApp8,
+                                ),
                               ),
-                            ),
+                              SizedBox(width: widthValue * 1,),
+                              Container(
+                                width: 70,
+                                height: 30,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(35),
+                                  color: Themes.ColorApp12
+                                ),
+                                child: Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Text(
+                                        '4.7',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12,
+                                          color: Themes.ColorApp13,
+                                        ),
+                                      ),
+                                      SizedBox(width: widthValue * .2,),
+                                      Icon(Icons.star,color: Themes.ColorApp13,)
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
                           )
                         ],
-                      )
-                    ],
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    '45.7 km',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 12,
-                      color: Themes.ColorApp13,
+                      ),
+                    )
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      '45.7 km',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12,
+                        color: Themes.ColorApp8,
+                      ),
                     ),
-                  ),
-                  Image.asset(Assets.iconsDistanceIcon,fit: BoxFit.contain,width: 35,height: 35,)
-                ],
-              )
-            ],
+                    SizedBox(width: widthValue * 1,),
+                    Image.asset(Assets.iconsDistanceIcon,fit: BoxFit.contain,width: 35,height: 35,)
+                  ],
+                )
+              ],
+            ),
           )
         ],
       ),
@@ -358,46 +403,6 @@ class UserProfileWithNotification extends StatelessWidget {
   }
 }
 
-class SliderFactoryImage extends StatelessWidget {
-  SliderFactoryImage({required List<SliderItemsModel> SlidersList});
-
-  List<SliderItemsModel> SlidersList = [];
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: Themes.whiteColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Container(
-        height: 165,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: CarouselSlider(
-            items: SlidersList.map((e) => Image(
-                  image: AssetImage('${e.ImageSlider}'),
-                  height: 165,
-                  fit: BoxFit.fill,
-                )).toList(),
-            options: CarouselOptions(
-              height: 275,
-              aspectRatio: 2.0,
-              viewportFraction: 1.0,
-              initialPage: 0,
-              enableInfiniteScroll: true,
-              reverse: false,
-              autoPlay: true,
-              autoPlayInterval: const Duration(seconds: 3),
-              autoPlayAnimationDuration: const Duration(seconds: 1),
-              autoPlayCurve: Curves.fastOutSlowIn,
-              scrollDirection: Axis.horizontal,
-            )),
-      ),
-    );
-  }
-}
 
 class CategoryListBuild extends StatelessWidget {
   CategoryListBuild({required this.heightValue});
@@ -407,6 +412,8 @@ class CategoryListBuild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
           'كل الفئات ',
@@ -585,9 +592,9 @@ class OrderPriceRequest extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: Get.width,
-      height: 45,
+      height: 100,
       decoration: BoxDecoration(
-        color: Themes.ColorApp11,
+        color: Themes.ColorApp14,
         borderRadius: BorderRadius.circular(25),
         border: Border.all(color: Themes.ColorApp1, width: 1.0),
       ),
@@ -595,42 +602,50 @@ class OrderPriceRequest extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Column(
-            children: [
-              Image.asset(
-                Assets.imagesOrderPriceImage,
-                width: 35,
-                height: 35,
-                fit: BoxFit.contain,
-              ),
-              SizedBox(
-                height: heightValue * 1.2,
-              ),
-              const Text(
-                'طلب عروض اسعار ',
-                style: const TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 15,
-                  color: Themes.ColorApp8,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.asset(
+                  Assets.imagesOrderPriceImage,
+                  width: 35,
+                  height: 35,
+                  fit: BoxFit.contain,
                 ),
-              ),
-            ],
+                SizedBox(
+                  height: heightValue * .3,
+                ),
+                const Text(
+                  'طلب عروض اسعار ',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 15,
+                    color: Themes.ColorApp8,
+                  ),
+                ),
+              ],
+            ),
           ),
-          Card(
-            color: Themes.whiteColor,
-            elevation: 2.0,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            child: Padding(
-              padding: const EdgeInsets.all(7.0),
-              child: Container(
-                width: 45,
-                height: 45,
-                child: const Center(
-                  child: const Icon(
-                    Icons.keyboard_arrow_left,
-                    size: 25,
-                    color: Themes.ColorApp1,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Card(
+              color: Themes.whiteColor,
+              elevation: 2.0,
+              shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+              child: Padding(
+                padding: const EdgeInsets.all(7.0),
+                child: Container(
+                  width: 25,
+                  height: 25,
+                  child: const Center(
+                    child: const Icon(
+                      Icons.keyboard_arrow_left,
+                      size: 25,
+                      color: Themes.ColorApp1,
+                    ),
                   ),
                 ),
               ),
