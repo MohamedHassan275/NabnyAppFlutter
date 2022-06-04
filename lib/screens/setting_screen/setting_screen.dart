@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/about_app_screen/about_app_screen.dart';
 import 'package:nabny/screens/privacy_screen/privacy_screen.dart';
 import 'package:nabny/screens/setting_profile_screen/setting_profile_screen.dart';
+import 'package:nabny/screens/splash_screen/screen_screen.dart';
 import 'package:nabny/screens/terms_condition_screen/terms_condition_screen.dart';
 
 import '../../utils/Themes.dart';
@@ -15,120 +17,204 @@ class SettingScreen extends StatefulWidget {
   _SettingScreenState createState() => _SettingScreenState();
 }
 
+
+
 class _SettingScreenState extends State<SettingScreen> {
-  @override
-  Widget build(BuildContext context) {
-    var widthValue = Get.width * 0.024;
-    var heightValue = Get.height * 0.024;
-    return Scaffold(
-      body: SafeArea(
-          child: SingleChildScrollView(
-        child: Container(
-          width: Get.width,
-          height: Get.height,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
+
+
+    @override
+    Widget build(BuildContext context) {
+      var widthValue = Get.width * 0.024;
+      var heightValue = Get.height * 0.024;
+      return Scaffold(
+        body: SafeArea(
+            child: SingleChildScrollView(
+              child: Container(
                 width: Get.width,
-                height: 119,
-                decoration: const BoxDecoration(
-                    color: Themes.ColorApp14,
-                    borderRadius: BorderRadius.only(
-                        topLeft: const Radius.circular(35),
-                        topRight: Radius.circular(35))),
-                child: const Center(
-                  child: Text(
-                    'الاعدادات',
-                    style: TextStyle(
-                      color: Themes.ColorApp15,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: heightValue * 1.5,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+                height: Get.height,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SettingCategory(
-                            onTap: () {},
-                            title: 'مشاركة التطبيق',
-                            imageTitle: Assets.iconsShare,
-                            heightValue: heightValue),
-                        SizedBox(
-                          width: widthValue * 1.5,
+                    Container(
+                      width: Get.width,
+                      height: 119,
+                      decoration: const BoxDecoration(
+                          color: Themes.ColorApp14,
+                          borderRadius: BorderRadius.only(
+                              topLeft: const Radius.circular(35),
+                              topRight: Radius.circular(35))),
+                      child: const Center(
+                        child: Text(
+                          'الاعدادات',
+                          style: TextStyle(
+                            color: Themes.ColorApp15,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                        SettingCategory(
-                            onTap: () => Get.to(const PrivacyScreen()),
-                            title: 'الشروط والاحكام',
-                            imageTitle: Assets.iconsTermsConditionsImage,
-                            heightValue: heightValue),
-                        SizedBox(
-                          width: widthValue * 1.5,
-                        ),
-                        SettingCategory(
-                            onTap: () => Get.to(const TermsConditionScreen()),
-                            title: 'سياسه الخصوصيه',
-                            imageTitle: Assets.iconsPrivacyImage,
-                            heightValue: heightValue),
-                      ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: heightValue * 1.5,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SettingCategory(
+                                  onTap: () {},
+                                  title: 'مشاركة التطبيق',
+                                  imageTitle: Assets.iconsShare,
+                                  heightValue: heightValue),
+                              SizedBox(
+                                width: widthValue * 1.5,
+                              ),
+                              SettingCategory(
+                                  onTap: () => Get.to(const PrivacyScreen()),
+                                  title: 'الشروط والاحكام',
+                                  imageTitle: Assets.iconsTermsConditionsImage,
+                                  heightValue: heightValue),
+                              SizedBox(
+                                width: widthValue * 1.5,
+                              ),
+                              SettingCategory(
+                                  onTap: () =>
+                                      Get.to(const TermsConditionScreen()),
+                                  title: 'سياسه الخصوصيه',
+                                  imageTitle: Assets.iconsPrivacyImage,
+                                  heightValue: heightValue),
+                            ],
+                          ),
+                          SizedBox(
+                            height: heightValue * 1,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SettingCategory(
+                                  onTap: () {
+                                    Get.bottomSheet(
+                                      Container(
+                                        width: Get.width,
+                                        height: heightValue * 100,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(7.0),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                width: widthValue * 15,
+                                                height: 5,
+                                                decoration: BoxDecoration(
+                                                    color: Themes.ColorApp14,
+                                                    borderRadius:
+                                                    BorderRadius.circular(10)),
+                                              ),
+                                              SizedBox(
+                                                height: heightValue * 2.5,
+                                              ),
+                                              Text(
+                                                'تغير اللغة',
+                                                style: TextStyle(
+                                                  color: Themes.ColorApp1,
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: heightValue * 1.5,
+                                              ),
+                                              Column(
+                                                children: <Widget>[
+                                                  Radio(
+                                                    value: 1,
+                                                    groupValue: selectedRadio,
+                                                    activeColor: Colors.green,
+                                                    onChanged: (val) {
+                                                      print("Radio $val");
+                                                      setSelectedRadio(val);
+                                                    },
+                                                  ),
+                                                  Radio(
+                                                    value: 2,
+                                                    groupValue: selectedRadio,
+                                                    activeColor: Colors.blue,
+                                                    onChanged: (val) {
+                                                      print("Radio $val");
+                                                      setSelectedRadio(val);
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: heightValue * 1.5,
+                                              ),
+                                              CustomButtonImage(
+                                                  title: 'تغير',
+                                                  hight: 50,
+                                                  onTap: () => const SplashScreen())
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      backgroundColor: Themes.whiteColor,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(25),
+                                              topRight: const Radius.circular(
+                                                  25))),
+                                      elevation: 2.0,
+                                    );
+                                  },
+                                  title: 'اللغه',
+                                  imageTitle: Assets.iconsLanguageImage,
+                                  heightValue: heightValue),
+                              SizedBox(
+                                width: widthValue * 1.5,
+                              ),
+                              SettingCategory(
+                                  onTap: () =>
+                                      Get.off(const SettingProfileScreen()),
+                                  title: 'اعدادات البروفايل',
+                                  imageTitle: Assets.iconsProfileMenuIcon,
+                                  heightValue: heightValue),
+                              SizedBox(
+                                width: widthValue * 1.5,
+                              ),
+                              SettingCategory(
+                                  onTap: () => Get.to(const AboutAppScreen()),
+                                  title: 'عن التطبيق',
+                                  imageTitle: Assets.imagesAboutAppImage,
+                                  heightValue: heightValue),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: heightValue * 1,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SettingCategory(
-                            onTap: () {},
-                            title: 'اللغه',
-                            imageTitle: Assets.iconsLanguageImage,
-                            heightValue: heightValue),
-                        SizedBox(
-                          width: widthValue * 1.5,
-                        ),
-                        SettingCategory(
-                            onTap: () => Get.off(const SettingProfileScreen()),
-                            title: 'اعدادات البروفايل',
-                            imageTitle: Assets.iconsProfileMenuIcon,
-                            heightValue: heightValue),
-                        SizedBox(
-                          width: widthValue * 1.5,
-                        ),
-                        SettingCategory(
-                            onTap: () => Get.to(const AboutAppScreen()),
-                            title: 'عن التطبيق',
-                            imageTitle: Assets.imagesAboutAppImage,
-                            heightValue: heightValue),
-                      ],
+                    const Divider(height: 10, color: Themes.ColorApp8),
+                    SizedBox(
+                      height: heightValue * 1,
                     ),
+                    ContactWithUs(
+                        heightValue: heightValue, widthValue: widthValue),
                   ],
                 ),
               ),
-              SizedBox(
-                height: heightValue * 1,
-              ),
-              const Divider(height: 10, color: Themes.ColorApp8),
-              SizedBox(
-                height: heightValue * 1,
-              ),
-              ContactWithUs(heightValue: heightValue, widthValue: widthValue),
-            ],
-          ),
-        ),
-      )),
-    );
+            )),
+      );
+    }
   }
-}
+
 
 class SettingCategory extends StatelessWidget {
   SettingCategory(
@@ -147,33 +233,33 @@ class SettingCategory extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-        width: Get.width,
-        height: 135,
-        child: Column(
-          children: [
-            Container(
-              width: Get.width,
-              height: 100,
-              decoration: BoxDecoration(
-                  color: Themes.ColorApp14,
-                  borderRadius: BorderRadius.circular(15)),
-              child:
-                  Center(child: Image.asset(imageTitle!, fit: BoxFit.contain)),
-            ),
-            SizedBox(
-              height: heightValue! * .5,
-            ),
-            Text(
-              title!,
-              style: const TextStyle(
-                color: Themes.ColorApp8,
-                fontSize: 15,
-                fontWeight: FontWeight.w400,
+          width: Get.width,
+          height: 135,
+          child: Column(
+            children: [
+              Container(
+                width: Get.width,
+                height: 100,
+                decoration: BoxDecoration(
+                    color: Themes.ColorApp14,
+                    borderRadius: BorderRadius.circular(15)),
+                child: Center(
+                    child: Image.asset(imageTitle!, fit: BoxFit.contain)),
               ),
-            ),
-          ],
+              SizedBox(
+                height: heightValue! * .5,
+              ),
+              Text(
+                title!,
+                style: const TextStyle(
+                  color: Themes.ColorApp8,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
       ),
     );
   }
