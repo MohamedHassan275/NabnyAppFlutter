@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/about_app_screen/about_app_screen.dart';
+import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:nabny/screens/privacy_screen/privacy_screen.dart';
 import 'package:nabny/screens/setting_profile_screen/setting_profile_screen.dart';
 import 'package:nabny/screens/splash_screen/screen_screen.dart';
@@ -21,6 +22,14 @@ class SettingScreen extends StatefulWidget {
 
 class _SettingScreenState extends State<SettingScreen> {
 
+  String _genderRadioBtnVal = "العربية";
+
+  void _handleGenderChange(String? value) {
+    setState(() {
+      _genderRadioBtnVal = value!;
+      print(_genderRadioBtnVal);
+    });
+  }
 
     @override
     Widget build(BuildContext context) {
@@ -100,7 +109,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                     Get.bottomSheet(
                                       Container(
                                         width: Get.width,
-                                        height: heightValue * 100,
+                                        height: 325,
                                         child: Padding(
                                           padding: const EdgeInsets.all(7.0),
                                           child: Column(
@@ -109,16 +118,19 @@ class _SettingScreenState extends State<SettingScreen> {
                                             crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                             children: [
-                                              Container(
-                                                width: widthValue * 15,
-                                                height: 5,
-                                                decoration: BoxDecoration(
-                                                    color: Themes.ColorApp14,
-                                                    borderRadius:
-                                                    BorderRadius.circular(10)),
+                                              Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 100),
+                                                child: Container(
+                                                  width: Get.width,
+                                                  height: 5,
+                                                  decoration: BoxDecoration(
+                                                      color: Themes.ColorApp11,
+                                                      borderRadius:
+                                                      BorderRadius.circular(10)),
+                                                ),
                                               ),
                                               SizedBox(
-                                                height: heightValue * 2.5,
+                                                height: heightValue * 2,
                                               ),
                                               Text(
                                                 'تغير اللغة',
@@ -129,27 +141,42 @@ class _SettingScreenState extends State<SettingScreen> {
                                                 ),
                                               ),
                                               SizedBox(
-                                                height: heightValue * 1.5,
+                                                height: heightValue * 1,
                                               ),
                                               Column(
                                                 children: <Widget>[
-                                                  Radio(
-                                                    value: 1,
-                                                    groupValue: selectedRadio,
-                                                    activeColor: Colors.green,
-                                                    onChanged: (val) {
-                                                      print("Radio $val");
-                                                      setSelectedRadio(val);
-                                                    },
+                                                  Row(
+                                                    children: [
+                                                      Radio<String>(
+                                                        value: "العربية",
+                                                        activeColor: Themes.ColorApp1,
+                                                        groupValue: _genderRadioBtnVal,
+                                                        onChanged: (String? value){
+                                                          setState(() {
+                                                            _genderRadioBtnVal = value!;
+                                                            print(_genderRadioBtnVal);
+                                                          });
+                                                        },
+                                                      ),
+                                                      Text("العربية"),
+                                                    ],
                                                   ),
-                                                  Radio(
-                                                    value: 2,
-                                                    groupValue: selectedRadio,
-                                                    activeColor: Colors.blue,
-                                                    onChanged: (val) {
-                                                      print("Radio $val");
-                                                      setSelectedRadio(val);
-                                                    },
+                                                  SizedBox(height: heightValue * 1,),
+                                                  Row(
+                                                    children: [
+                                                      Radio<String>(
+                                                        value: "الانجليزية",
+                                                        activeColor: Themes.ColorApp1,
+                                                        groupValue: _genderRadioBtnVal,
+                                                        onChanged: (String? value){
+                                                          setState(() {
+                                                            _genderRadioBtnVal = value!;
+                                                            print(_genderRadioBtnVal);
+                                                          });
+                                                        },
+                                                      ),
+                                                      Text("الانجليزية"),
+                                                    ],
                                                   ),
                                                 ],
                                               ),
@@ -159,7 +186,11 @@ class _SettingScreenState extends State<SettingScreen> {
                                               CustomButtonImage(
                                                   title: 'تغير',
                                                   hight: 50,
-                                                  onTap: () => const SplashScreen())
+                                                  onTap: (){
+                                                    setState(() {
+                                                      Get.off(HomeMainScreen(valueBack: ''));
+                                                    });
+                                                  })
                                             ],
                                           ),
                                         ),
