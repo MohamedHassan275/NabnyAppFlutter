@@ -20,7 +20,7 @@ class _SuccessRegisterScreenState extends State<SuccessRegisterScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 5), ()=> Get.to(HomeMainScreen()));
+    Timer(Duration(seconds: 5), ()=> Get.to(HomeMainScreen(valueBack: '',)));
   }
   @override
   Widget build(BuildContext context) {

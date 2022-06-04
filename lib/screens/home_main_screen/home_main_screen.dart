@@ -4,8 +4,9 @@ import 'package:nabny/utils/Themes.dart';
 import 'package:provider/provider.dart';
 
 class HomeMainScreen extends StatefulWidget {
-  const HomeMainScreen({Key? key}) : super(key: key);
+  HomeMainScreen({required this.valueBack});
 
+  String? valueBack;
   @override
   _HomeMainScreenState createState() => _HomeMainScreenState();
 }

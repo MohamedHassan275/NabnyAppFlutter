@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:nabny/generated/assets.dart';
-import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:nabny/screens/register_screen/register_screen.dart';
 import 'package:nabny/screens/success_register_screen/success_register_screen.dart';
 import 'package:nabny/utils/Themes.dart';
 
 import '../../componant/CustomButtonWidget.dart';
 import '../../componant/CustomTextFieldWidget.dart';
-import '../../utils/style.dart';
 
 class CompleteRegisterScreen extends StatefulWidget {
   const CompleteRegisterScreen({Key? key}) : super(key: key);
@@ -24,10 +22,10 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
   TextEditingController LastName = TextEditingController();
   TextEditingController Email = TextEditingController();
   TextEditingController Password = TextEditingController();
-  FocusNode? _focusNodePassword;
-  FocusNode? _focusNodeConfirmPassword;
   TextEditingController ConfirmPassword = TextEditingController();
   String? firstName, lastName, email, password, confirmPassword;
+  FocusNode? _focusNodePassword;
+  FocusNode? _focusNodeConfirmPassword;
   bool isPassword = true;
   bool isConfirmPassword = true;
   bool isCheckAccepted = false;
@@ -125,7 +123,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                 SizedBox(
                                   height: heightValue * 2,
                                 ),
-                                FromTextShared(
+                                FromTextRegisterShared(
                                     labelText: 'الاسم الاول ',
                                     onChanged: (value) {
                                       setState(() {
@@ -145,7 +143,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                 SizedBox(
                                   height: heightValue * 1,
                                 ),
-                                FromTextShared(
+                                FromTextRegisterShared(
                                     labelText: 'اسم العائله ',
                                     onChanged: (value) {
                                       setState(() {
@@ -165,7 +163,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                 SizedBox(
                                   height: heightValue * 1,
                                 ),
-                                FromTextShared(
+                                FromTextRegisterShared(
                                     labelText: 'البريد الالكتروني ',
                                     onChanged: (value) {
                                       setState(() {
@@ -187,7 +185,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                 SizedBox(
                                   height: heightValue * 1,
                                 ),
-                                FromTextShared(
+                                FromTextRegisterShared(
                                   //  textAlign: TextAlign.center,
                                   labelText: 'كلمة المرور',
                                   onTapFunction: () {
@@ -228,7 +226,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                 SizedBox(
                                   height: heightValue * 1,
                                 ),
-                                FromTextShared(
+                                FromTextRegisterShared(
                                   //  textAlign: TextAlign.center,
                                   labelText: 'تأكيد كلمة المرور',
                                   onTapFunction: () {
@@ -250,7 +248,8 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                       return 'تأكيد كلمة المرور';
                                     } else if (value.length <= 6) {
                                       return 'تأكيد كلمة المرور';
-                                    } else if (!(value.contains(Password.text))) {
+                                    } else if (!(value
+                                        .contains(Password.text))) {
                                       return ' كلمة المرور غير متطابقة';
                                     }
                                     return null;
@@ -320,10 +319,22 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                   child: CustomButtonImage(
                                     hight: 50,
                                     title: 'تسحيل',
-                                    onTap: () async{
+                                    onTap: () async {
                                       //  showProgressbar = false;
-                                      if (formKey.currentState!.validate()){
-                                        Get.to(const SuccessRegisterScreen());
+                                      if (formKey.currentState!.validate()) {
+                                        if (isCheckAccepted) {
+                                          Get.to(const SuccessRegisterScreen());
+                                        } else {
+                                          Fluttertoast.showToast(
+                                            msg: 'يجب الموافقة علي الشروط والاحكام',
+                                            fontSize: 15,
+                                            backgroundColor: Themes.ColorApp14,
+                                            gravity: ToastGravity.BOTTOM,
+                                            textColor: Themes.ColorApp1,
+                                            timeInSecForIosWeb: 1,
+                                            toastLength: Toast.LENGTH_SHORT,
+                                          );
+                                        }
                                       }
                                     },
                                   ),

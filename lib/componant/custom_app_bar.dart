@@ -24,7 +24,7 @@ AppBar customAppBar(BuildContext context) {
           pushNewScreen(
             context,
             withNavBar: true,
-            screen: HomeMainScreen(),
+            screen: HomeMainScreen(valueBack: '',),
           );
         },
         icon: Image.asset(

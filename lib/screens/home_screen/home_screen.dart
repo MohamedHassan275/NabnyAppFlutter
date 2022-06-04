@@ -132,7 +132,7 @@ class HomeScreen_State extends State<HomeScreen> {
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: CarouselSlider(
-                        items: SlidersList!.map((e) => Image(
+                        items: SlidersList.map((e) => Image(
                           image: AssetImage('${e.ImageSlider}'),
                           height: 165,
                           fit: BoxFit.fill,

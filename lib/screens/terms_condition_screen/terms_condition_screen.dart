@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:nabny/screens/setting_screen/setting_screen.dart';
 
 import '../../utils/Themes.dart';
+import '../home_main_screen/home_main_screen.dart';
 
 class TermsConditionScreen extends StatelessWidget {
   const TermsConditionScreen({Key? key}) : super(key: key);
@@ -42,10 +43,10 @@ class TermsConditionScreen extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    top: heightValue * 1.5,
+                    top: heightValue * 2.3,
                     right: heightValue * 1.5,
                     child: GestureDetector(
-                      onTap: ()=>Get.to(SettingScreen()),
+                      onTap: ()=>Get.off(HomeMainScreen(valueBack: 'setting')),
                       child: CircleAvatar(
                         backgroundColor: Themes.ColorApp5,
                         child: Icon(Icons.arrow_right_alt_rounded,color: Colors.white,),

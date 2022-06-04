@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 
 import '../../utils/Themes.dart';
 import '../setting_screen/setting_screen.dart';
@@ -42,10 +43,10 @@ class AboutAppScreen extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    top: heightValue * 1.5,
+                    top: heightValue * 2.3,
                     right: heightValue * 1.5,
                     child: GestureDetector(
-                      onTap: ()=>Get.to(SettingScreen()),
+                      onTap: ()=>Get.off(HomeMainScreen(valueBack: 'setting')),
                       child: CircleAvatar(
                         backgroundColor: Themes.ColorApp5,
                         child: Icon(Icons.arrow_right_alt_rounded,color: Colors.white,),

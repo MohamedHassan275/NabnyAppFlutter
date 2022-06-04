@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/about_app_screen/about_app_screen.dart';
 import 'package:nabny/screens/privacy_screen/privacy_screen.dart';
+import 'package:nabny/screens/setting_profile_screen/setting_profile_screen.dart';
 import 'package:nabny/screens/terms_condition_screen/terms_condition_screen.dart';
 
 import '../../utils/Themes.dart';
@@ -31,12 +32,12 @@ class _SettingScreenState extends State<SettingScreen> {
               Container(
                 width: Get.width,
                 height: 119,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: Themes.ColorApp14,
                     borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(35),
+                        topLeft: const Radius.circular(35),
                         topRight: Radius.circular(35))),
-                child: Center(
+                child: const Center(
                   child: Text(
                     'الاعدادات',
                     style: TextStyle(
@@ -67,7 +68,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           width: widthValue * 1.5,
                         ),
                         SettingCategory(
-                            onTap: () => Get.to(PrivacyScreen()),
+                            onTap: () => Get.to(const PrivacyScreen()),
                             title: 'الشروط والاحكام',
                             imageTitle: Assets.iconsTermsConditionsImage,
                             heightValue: heightValue),
@@ -75,7 +76,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           width: widthValue * 1.5,
                         ),
                         SettingCategory(
-                            onTap: () => Get.to(TermsConditionScreen()),
+                            onTap: () => Get.to(const TermsConditionScreen()),
                             title: 'سياسه الخصوصيه',
                             imageTitle: Assets.iconsPrivacyImage,
                             heightValue: heightValue),
@@ -96,7 +97,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           width: widthValue * 1.5,
                         ),
                         SettingCategory(
-                            onTap: () {},
+                            onTap: () => Get.off(const SettingProfileScreen()),
                             title: 'اعدادات البروفايل',
                             imageTitle: Assets.iconsProfileMenuIcon,
                             heightValue: heightValue),
@@ -104,7 +105,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           width: widthValue * 1.5,
                         ),
                         SettingCategory(
-                            onTap: () => Get.to(AboutAppScreen()),
+                            onTap: () => Get.to(const AboutAppScreen()),
                             title: 'عن التطبيق',
                             imageTitle: Assets.imagesAboutAppImage,
                             heightValue: heightValue),
@@ -116,7 +117,7 @@ class _SettingScreenState extends State<SettingScreen> {
               SizedBox(
                 height: heightValue * 1,
               ),
-              Divider(height: 10, color: Themes.ColorApp8),
+              const Divider(height: 10, color: Themes.ColorApp8),
               SizedBox(
                 height: heightValue * 1,
               ),
@@ -164,7 +165,7 @@ class SettingCategory extends StatelessWidget {
             ),
             Text(
               title!,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Themes.ColorApp8,
                 fontSize: 15,
                 fontWeight: FontWeight.w400,
@@ -190,7 +191,7 @@ class ContactWithUs extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'للتواصل',
             style: TextStyle(
               color: Themes.ColorApp8,

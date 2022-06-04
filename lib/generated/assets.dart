@@ -40,6 +40,7 @@ class Assets {
   static const String imagesButtonRegister = 'assets/images/button_register.png';
   static const String imagesCirclerProfileMenuImage = 'assets/images/circler_profile_menu_image.png';
   static const String imagesCompleteRegister = 'assets/images/complete_register.png';
+  static const String imagesEditIamge = 'assets/images/edit_iamge.png';
   static const String imagesEditIamgeProfile = 'assets/images/edit_iamge_profile.png';
   static const String imagesFactoryImage = 'assets/images/factory_image.png';
   static const String imagesImageBackgroundIntro = 'assets/images/image_background_intro.png';

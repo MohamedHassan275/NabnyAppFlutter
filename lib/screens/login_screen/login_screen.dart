@@ -247,7 +247,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           title: 'دخول',
                                           onTap: () {
                                             if (formKey.currentState!.validate()){
-                                              Get.to(const HomeMainScreen());
+                                              Get.to(HomeMainScreen(valueBack: '',));
                                             }
                                           },
                                         ),
