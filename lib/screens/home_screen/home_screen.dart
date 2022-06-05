@@ -39,11 +39,7 @@ class HomeScreen_State extends State<HomeScreen> {
                 SizedBox(
                   height: heightValue * .5,
                 ),
-                UserProfileWithNotification(
-                    heightValue: heightValue, widthValue: widthValue),
-                SizedBox(
-                  height: heightValue * 1.2,
-                ),
+
                 const Text(
                   'التوصيل الي ',
                   style: TextStyle(
