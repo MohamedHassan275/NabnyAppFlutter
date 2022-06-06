@@ -38,9 +38,9 @@ class _MyWaitingOrderScreenState extends State<MyWaitingOrderScreen> {
                return Padding(
                  padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                  child: GestureDetector(
-                   onTap: (){
-                     Get.to(DetailsWaitingOrderScreen());
-                   },
+                   // onTap: (){
+                   //   Get.to(DetailsWaitingOrderScreen());
+                   // },
                    child: Card(
                      elevation: 2,
                      shape: RoundedRectangleBorder(
@@ -81,20 +81,25 @@ class _MyWaitingOrderScreenState extends State<MyWaitingOrderScreen> {
                            SizedBox(height: heightValue * 1,),
                            Padding(
                              padding: const EdgeInsets.symmetric(horizontal: 10),
-                             child: Container(
-                               width: Get.width,
-                               height: 50,
-                               decoration: BoxDecoration(
-                                 color: Themes.ColorApp14,
-                                 borderRadius: BorderRadius.circular(15),
-                               ),
-                               child: Center(
-                                 child:   Text(
-                                   'تفاصيل الطلب',
-                                   style: TextStyle(
-                                     fontWeight: FontWeight.w500,
-                                     fontSize: 16,
-                                     color: Themes.ColorApp1,
+                             child: GestureDetector(
+                               onTap: (){
+                                 Get.to(DetailsWaitingOrderScreen());
+                               },
+                               child: Container(
+                                 width: Get.width,
+                                 height: 50,
+                                 decoration: BoxDecoration(
+                                   color: Themes.ColorApp14,
+                                   borderRadius: BorderRadius.circular(15),
+                                 ),
+                                 child: Center(
+                                   child:   Text(
+                                     'تفاصيل الطلب',
+                                     style: TextStyle(
+                                       fontWeight: FontWeight.w500,
+                                       fontSize: 16,
+                                       color: Themes.ColorApp1,
+                                     ),
                                    ),
                                  ),
                                ),
