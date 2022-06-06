@@ -39,7 +39,6 @@ class HomeScreen_State extends State<HomeScreen> {
                 SizedBox(
                   height: heightValue * .5,
                 ),
-
                 const Text(
                   'التوصيل الي ',
                   style: TextStyle(

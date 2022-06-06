@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:nabny/screens/my_order_screen/my_sender_order_screen/my_sender_order_screen.dart';
 
 import '../../utils/Themes.dart';
-import 'my_current_order_screen/my_current_order_screen.dart';
 import 'my_old_order_screen/my_old_order_screen.dart';
+import 'my_wating_order_screen/my_waiting_order_screen.dart';
 
 class MyOrderScreen extends StatefulWidget {
   const MyOrderScreen({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(kToolbarHeight),
@@ -33,7 +34,8 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
                      borderRadius: BorderRadius.circular(25), // Creates border
                      color: Themes.whiteColor),
                  tabs: [
-                   Tab(text: 'طلباتي الحالي'),
+                   Tab(text: 'طلباتي المقدمة'),
+                   Tab( text: 'طلباتي المرسلة'),
                    Tab( text: 'طلباتي السابقه'),
                  ],
                ),)
@@ -42,8 +44,10 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
             ),
           ),),
         body: TabBarView(children: <Widget>[
-          MyCurrentOrderScreen(),
+          MyWaitingOrderScreen(),
+          MySenderOrderScreen(),
           MyOldOrderScreen(),
+
         ]),
       ),
     );

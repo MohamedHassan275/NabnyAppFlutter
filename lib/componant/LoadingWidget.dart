@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:get/get.dart';
+import 'package:nabny/utils/Themes.dart';
 
 import '../utils/style.dart';
 
@@ -16,7 +17,7 @@ class LoadingWidget extends StatelessWidget {
       decoration: const BoxDecoration(color: Colors.white),
       child: const Center(
           child: SpinKitCircle(
-        color: primaryColor,
+        color: Themes.ColorApp1,
       )),
     );
   }

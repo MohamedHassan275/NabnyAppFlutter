@@ -9,6 +9,7 @@ import 'package:nabny/screens/setting_screen/setting_screen.dart';
 
 class HomeMainController extends ChangeNotifier {
 
+
   int? indexPage = 0;
 
   List<Widget> PageList = [const HomeScreen(),const MyOrderScreen(),const MyFavoriteScreen(),const SettingScreen()];
@@ -23,5 +24,6 @@ class HomeMainController extends ChangeNotifier {
     BottomNavigationBarItem(icon: Image.asset(Assets.iconsSettingHomeIcon,width: 30,height: 30,),label: 'الاعدادات'.tr,
         activeIcon: Image.asset(Assets.iconsSettingHome2,width: 30,height: 30,)),
   ];
+
 
 }
