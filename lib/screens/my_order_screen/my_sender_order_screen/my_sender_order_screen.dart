@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:nabny/componant/LoadingWidget.dart';
 import 'package:nabny/model/my_sender_order_model.dart';
 import 'package:nabny/model/my_waiting_order_model.dart';
+import 'package:nabny/screens/my_order_screen/my_sender_order_screen/details_sender_order_screen.dart';
 
 import '../../../generated/assets.dart';
 import '../../../utils/Themes.dart';
@@ -37,76 +38,81 @@ class _MySenderOrderScreenState extends State<MySenderOrderScreen> {
               itemBuilder: (context, index) {
                return Padding(
                  padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                 child: Card(
-                   elevation: 2,
-                   shape: RoundedRectangleBorder(
-                     borderRadius: BorderRadius.circular(15)
-                   ),
-                   child: Padding(
-                     padding: const EdgeInsets.all(5.0),
-                     child: Column(
-                       mainAxisAlignment: MainAxisAlignment.start,
-                       children: [
-                         CompanyDetails(myWaitingOrderController.mySenderOrderModel[index]),
-                         SizedBox(height: heightValue * 1,),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 5),
-                            child: Divider(height: 10, color: Themes.ColorApp2,),
-                          ),
-                         SizedBox(height: heightValue * .5,),
-                         Row(
-                           children: [
-                             SizedBox(
-                               width: 15,
-                               height: 15,
-                               child: CircleAvatar(
-                                 backgroundColor: Themes.ColorApp17,
+                 child: GestureDetector(
+                   onTap: (){
+                     Get.to(DetailsSenderOrderScreen());
+                   },
+                   child: Card(
+                     elevation: 2,
+                     shape: RoundedRectangleBorder(
+                       borderRadius: BorderRadius.circular(15)
+                     ),
+                     child: Padding(
+                       padding: const EdgeInsets.all(5.0),
+                       child: Column(
+                         mainAxisAlignment: MainAxisAlignment.start,
+                         children: [
+                           CompanyDetails(myWaitingOrderController.mySenderOrderModel[index]),
+                           SizedBox(height: heightValue * 1,),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 5),
+                              child: Divider(height: 10, color: Themes.ColorApp2,),
+                            ),
+                           SizedBox(height: heightValue * .5,),
+                           Row(
+                             children: [
+                               SizedBox(
+                                 width: 15,
+                                 height: 15,
+                                 child: CircleAvatar(
+                                   backgroundColor: Themes.ColorApp17,
+                                 ),
                                ),
-                             ),
-                             SizedBox(width: widthValue * 1,),
-                             Text(
-                               'تكلفه العرض المقدم',
-                               style: TextStyle(
-                                 fontWeight: FontWeight.w500,
-                                 fontSize: 14,
-                                 color: Themes.ColorApp17,
-                               ),
-                             ),
-                             SizedBox(width: widthValue * 1,),
-                             Text(
-                               '${myWaitingOrderController.mySenderOrderModel[index].PriceOrder}',
-                               style: TextStyle(
-                                 fontWeight: FontWeight.w500,
-                                 fontSize: 14,
-                                 color: Themes.ColorApp1,
-                               ),
-                             ),
-                           ],
-                         ),
-                         SizedBox(height: heightValue * 1,),
-                         Padding(
-                           padding: const EdgeInsets.symmetric(horizontal: 10),
-                           child: Container(
-                             width: Get.width,
-                             height: 50,
-                             decoration: BoxDecoration(
-                               color: Themes.ColorApp14,
-                               borderRadius: BorderRadius.circular(15),
-                             ),
-                             child: Center(
-                               child:  Text(
-                                 'تفاصيل الطلب',
+                               SizedBox(width: widthValue * 1,),
+                               Text(
+                                 'تكلفه العرض المقدم',
                                  style: TextStyle(
                                    fontWeight: FontWeight.w500,
-                                   fontSize: 16,
+                                   fontSize: 14,
+                                   color: Themes.ColorApp17,
+                                 ),
+                               ),
+                               SizedBox(width: widthValue * 1,),
+                               Text(
+                                 '${myWaitingOrderController.mySenderOrderModel[index].PriceOrder}',
+                                 style: TextStyle(
+                                   fontWeight: FontWeight.w500,
+                                   fontSize: 14,
                                    color: Themes.ColorApp1,
+                                 ),
+                               ),
+                             ],
+                           ),
+                           SizedBox(height: heightValue * 1,),
+                           Padding(
+                             padding: const EdgeInsets.symmetric(horizontal: 10),
+                             child: Container(
+                               width: Get.width,
+                               height: 50,
+                               decoration: BoxDecoration(
+                                 color: Themes.ColorApp14,
+                                 borderRadius: BorderRadius.circular(15),
+                               ),
+                               child: Center(
+                                 child:  Text(
+                                   'تفاصيل الطلب',
+                                   style: TextStyle(
+                                     fontWeight: FontWeight.w500,
+                                     fontSize: 16,
+                                     color: Themes.ColorApp1,
+                                   ),
                                  ),
                                ),
                              ),
                            ),
-                         ),
-                         SizedBox(height: heightValue * 1,)
-                       ],
+                           SizedBox(height: heightValue * 1,)
+                         ],
+                       ),
                      ),
                    ),
                  ),
