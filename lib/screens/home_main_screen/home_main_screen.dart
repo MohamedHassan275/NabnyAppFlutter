@@ -156,7 +156,7 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                     GestureDetector(
                       onTap: () => Get.to(const SettingProfileScreen()),
                       child: Container(
-                        height: 70,
+                        height: 60,
                         width: Get.width,
                         decoration: BoxDecoration(
                             color: Themes.ColorApp14,
@@ -193,7 +193,7 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                     GestureDetector(
                       onTap: () => Get.to(const ChangePasswordProfile()),
                       child: Container(
-                        height: 70,
+                        height: 60,
                         width: Get.width,
                         decoration: BoxDecoration(
                             color: Themes.ColorApp14,
@@ -230,7 +230,7 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                     GestureDetector(
                       onTap: () => Get.to(const MyAddressScreen()),
                       child: Container(
-                        height: 70,
+                        height: 60,
                         width: Get.width,
                         decoration: BoxDecoration(
                             color: Themes.ColorApp14,
@@ -274,8 +274,9 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                               width: 70,
                               decoration: BoxDecoration(
                                 color: Themes.whiteColor,
+                                borderRadius: BorderRadius.circular(15),
                                 border: Border.all(
-                                    color: Themes.ColorApp9, width: 1.5),
+                                    color: Themes.ColorApp9, width: 1),
                               ),
                               child: Center(
                                 child: Icon(
