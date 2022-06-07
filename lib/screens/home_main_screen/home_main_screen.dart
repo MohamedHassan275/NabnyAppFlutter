@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/home_main_screen/home_main_controller.dart';
+import 'package:nabny/screens/login_screen/login_screen.dart';
 import 'package:nabny/screens/my_address_screen/my_arddress_screen.dart';
+import 'package:nabny/screens/my_wallet_screen/my_wallet_screen.dart';
 import 'package:nabny/screens/setting_profile_screen/setting_profile_screen.dart';
 import 'package:nabny/utils/Themes.dart';
 import 'package:provider/provider.dart';
@@ -191,7 +193,7 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                       height: heightValue * .7,
                     ),
                     GestureDetector(
-                      onTap: () => Get.to(const ChangePasswordProfile()),
+                      onTap: () => Get.to(const MyWalletScreen()),
                       child: Container(
                         height: 60,
                         width: Get.width,
@@ -265,7 +267,9 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                       height: heightValue * 2.5,
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Get.offAll(LoginScreen());
+                      },
                       child: Container(
                         child: Column(
                           children: [

@@ -37,7 +37,9 @@ class Assets {
   static const String imagesActiveFavorite = 'assets/images/active_favorite.png';
   static const String imagesBackgroundFactoryDetails = 'assets/images/background_factory_details.png';
   static const String imagesBackgroundIntro = 'assets/images/background_intro.png';
+  static const String imagesBackgroundMoneyWallet = 'assets/images/background_money_wallet.png';
   static const String imagesBackgroundSplash = 'assets/images/background_splash.png';
+  static const String imagesBackgroundWalletMoney = 'assets/images/background_wallet_money.png';
   static const String imagesButtonRegister = 'assets/images/button_register.png';
   static const String imagesCirclerProfileMenuImage = 'assets/images/circler_profile_menu_image.png';
   static const String imagesCompleteRegister = 'assets/images/complete_register.png';
@@ -55,5 +57,6 @@ class Assets {
   static const String imagesProfileImage = 'assets/images/profile_image.png';
   static const String imagesSkipBording = 'assets/images/skip_bording.png';
   static const String imagesSliderImage = 'assets/images/slider_image.png';
+  static const String imagesWalletMyBalance = 'assets/images/wallet_my_balance.png';
 
 }
