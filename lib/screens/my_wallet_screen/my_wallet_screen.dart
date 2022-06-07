@@ -25,74 +25,83 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
             width: Get.width,
             height: Get.height,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   AppbarDetailsOrder(widthValue, heightValue),
                   SizedBox(height: heightValue * 1.2,),
-                  Container(
-                    height: 200,
-                    width: Get.width,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(Assets.imagesBackgroundWalletMoney),
-                        fit: BoxFit.fill
-                      )
-                    ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'الرصيد المتوفر',
-                          style: TextStyle(
-                            color: Themes.whiteColor,
-                            fontSize: 19,
-                            fontWeight: FontWeight.w400,
+                        Container(
+                          height: 200,
+                          width: Get.width,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(Assets.imagesBackgroundWalletMoney),
+                              fit: BoxFit.fill
+                            )
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'الرصيد المتوفر',
+                                style: TextStyle(
+                                  color: Themes.whiteColor,
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              SizedBox(height: heightValue * .5,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    '70',
+                                    style: TextStyle(
+                                      color: Themes.whiteColor,
+                                      fontSize: 35,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  SizedBox(width: widthValue * .5,),
+                                  Text(
+                                    'SR',
+                                    style: TextStyle(
+                                      color: Themes.whiteColor,
+                                      fontSize: 32,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
                           ),
                         ),
+                        SizedBox(height: heightValue * .7,),
+                        Text(
+                          'التعاملات الاخيره',
+                          style: TextStyle(
+                            color: Themes.ColorApp8,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        SizedBox(height: heightValue * .7,),
+                        AddressDetailsOrder(balanceText: 'رصيد مرتجع', myBalance: '+ 100 ريال ', dateBalance: '12/6/2022', color: Themes.ColorApp17,),
                         SizedBox(height: heightValue * .5,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              '70',
-                              style: TextStyle(
-                                color: Themes.whiteColor,
-                                fontSize: 35,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            SizedBox(width: widthValue * .5,),
-                            Text(
-                              'SR',
-                              style: TextStyle(
-                                color: Themes.whiteColor,
-                                fontSize: 32,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ],
-                        )
+                        AddressDetailsOrder(balanceText: 'شركه بن لادن', myBalance: '- 250 ريال ', dateBalance: '12/6/2022', color: Themes.ColorApp9,),
                       ],
                     ),
                   ),
-                  SizedBox(height: heightValue * .7,),
-                  Text(
-                    'التعاملات الاخيره',
-                    style: TextStyle(
-                      color: Themes.ColorApp8,
-                      fontSize: 17,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  SizedBox(height: heightValue * .7,),
-                  AddressDetailsOrder(balanceText: 'رصيد مرتجع', myBalance: '+ 100 ريال ', dateBalance: '12/6/2022', color: Themes.ColorApp17,),
-                  SizedBox(height: heightValue * .7,),
-                  AddressDetailsOrder(balanceText: 'شركه بن لادن', myBalance: '- 250 ريال ', dateBalance: '12/6/2022', color: Themes.ColorApp9,),
                 ],
               ),
             ),
@@ -165,7 +174,7 @@ class AddressDetailsOrder extends StatelessWidget {
         padding: const EdgeInsets.all(5.0),
         child: Container(
           width: Get.width,
-          height: 90,
+          height: 75,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -174,8 +183,8 @@ class AddressDetailsOrder extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    width: 75,
-                    height: 85,
+                    width: 60,
+                    height: 60,
                     decoration: BoxDecoration(
                       color: Themes.ColorApp14,
                       borderRadius: BorderRadius.circular(10),
@@ -184,8 +193,8 @@ class AddressDetailsOrder extends StatelessWidget {
                       child: Image(
                         image: AssetImage(Assets.imagesWalletMyBalance),
                         fit: BoxFit.contain,
-                        width: 35,
-                        height: 35,
+                        width: 25,
+                        height: 25,
                       ),
                     ),
                   ),
