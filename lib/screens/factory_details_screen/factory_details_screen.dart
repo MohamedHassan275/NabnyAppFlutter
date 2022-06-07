@@ -76,16 +76,22 @@ class ImageAndFavoriteFactory extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          CirclerIcons(
-              width: 35,
-              height: 35,
-              widget: Icon(Icons.arrow_right_alt_rounded),
-              color: Themes.whiteColor),
-          CirclerIcons(
-              width: 35,
-              height: 35,
-              widget: Image.asset(Assets.iconsFavoriteIcon),
-              color: Themes.whiteColor)
+          GestureDetector(
+            onTap: ()=> Get.to(HomeMainScreen(valueBack: '')),
+            child: CirclerIcons(
+                width: 35,
+                height: 35,
+                widget: Icon(Icons.arrow_right_alt_rounded),
+                color: Themes.whiteColor),
+          ),
+          GestureDetector(
+            onTap: () {},
+            child: CirclerIcons(
+                width: 35,
+                height: 35,
+                widget: Image.asset(Assets.iconsFavoriteIcon),
+                color: Themes.whiteColor),
+          )
         ],
       ),
     );
