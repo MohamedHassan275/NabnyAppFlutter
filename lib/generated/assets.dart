@@ -35,6 +35,7 @@ class Assets {
   static const String iconsWhatsUpImage = 'assets/icons/whats_up_image.png';
   static const String imagesAboutAppImage = 'assets/images/about_app_image.png';
   static const String imagesActiveFavorite = 'assets/images/active_favorite.png';
+  static const String imagesBackgroundFactoryDetails = 'assets/images/background_factory_details.png';
   static const String imagesBackgroundIntro = 'assets/images/background_intro.png';
   static const String imagesBackgroundSplash = 'assets/images/background_splash.png';
   static const String imagesButtonRegister = 'assets/images/button_register.png';

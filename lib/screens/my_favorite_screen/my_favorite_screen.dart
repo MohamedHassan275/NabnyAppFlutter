@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/model/factory_model.dart';
+import 'package:nabny/screens/factory_details_screen/factory_details_screen.dart';
 import 'package:nabny/screens/my_favorite_screen/my_favorite_controller.dart';
 
 import '../../utils/Themes.dart';
@@ -51,50 +52,55 @@ class FactoryItemList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15)
-      ),
-      child: Container(
-        width: Get.width,
-        decoration: BoxDecoration(
-          color: Themes.whiteColor,
-          borderRadius: BorderRadius.circular(15),
+    return GestureDetector(
+      onTap: (){
+        Get.to(FactoryDetailsScreen());
+      },
+      child: Card(
+        elevation: 2,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15)
         ),
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: FadeInImage(
-                    image: AssetImage(factoryModel.ImageCompany!),
-                    fit: BoxFit.fill,
-                    height: 175,
-                    width: Get.width,
-                    placeholder: AssetImage(Assets.imagesFactoryImage),
+        child: Container(
+          width: Get.width,
+          decoration: BoxDecoration(
+            color: Themes.whiteColor,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Column(
+            children: [
+              Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: FadeInImage(
+                      image: AssetImage(factoryModel.ImageCompany!),
+                      fit: BoxFit.fill,
+                      height: 175,
+                      width: Get.width,
+                      placeholder: AssetImage(Assets.imagesFactoryImage),
+                    ),
                   ),
-                ),
-                Positioned(
-                  top: heightValue * 1,
-                  right: widthValue * 2,
-                  child: CircleAvatar(
-                    backgroundColor: Themes.whiteColor,
-                    child: Image.asset(Assets.imagesActiveFavorite),
-                  ),
-                )
-              ],
-            ),
-            SizedBox(
-              height: heightValue * .5,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: DetailsCompany(factoryModel: factoryModel, heightValue: heightValue, widthValue: widthValue),
-            ),
-            SizedBox(height: heightValue * 1,)
-          ],
+                  Positioned(
+                    top: heightValue * 1,
+                    right: widthValue * 2,
+                    child: CircleAvatar(
+                      backgroundColor: Themes.whiteColor,
+                      child: Image.asset(Assets.imagesActiveFavorite),
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: heightValue * .5,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: DetailsCompany(factoryModel: factoryModel, heightValue: heightValue, widthValue: widthValue),
+              ),
+              SizedBox(height: heightValue * 1,)
+            ],
+          ),
         ),
       ),
     );
