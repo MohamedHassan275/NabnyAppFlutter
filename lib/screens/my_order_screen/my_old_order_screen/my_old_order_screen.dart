@@ -20,90 +20,87 @@ class MyOldOrderScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-            child: Obx(() => Container(
-              width: Get.width,
-              height: Get.height,
-              child: ListView.builder(
-                itemCount: myOldOrderController.myOldOrderModel.length,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                    child: GestureDetector(
-                      onTap: (){
-                        Get.to(DetailsOldOrderScreen());
-                      },
-                      child: Card(
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15)
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              CompanyDetails(myOldOrderController.myOldOrderModel[index]),
-                              SizedBox(height: heightValue * 1,),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 5),
-                                child: Divider(height: 10, color: Themes.ColorApp2,),
-                              ),
-                              SizedBox(height: heightValue * .5,),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Container(
-                                    child: Center(
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Image.asset(Assets.iconsWalletMenuIcon,width: 15,height: 15,fit: BoxFit.contain,),
-                                          SizedBox(width: widthValue * 1,),
-                                          Text(
-                                            '${myOldOrderController.myOldOrderModel[index].DateOrder}',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 12,
-                                              color: Themes.ColorApp1,
-                                            ),
+            child: Obx(() => ListView.builder(
+              itemCount: myOldOrderController.myOldOrderModel.length,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                  child: GestureDetector(
+                    onTap: (){
+                      Get.to(DetailsOldOrderScreen());
+                    },
+                    child: Card(
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            CompanyDetails(myOldOrderController.myOldOrderModel[index]),
+                            SizedBox(height: heightValue * 1,),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 5),
+                              child: Divider(height: 10, color: Themes.ColorApp2,),
+                            ),
+                            SizedBox(height: heightValue * .5,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Container(
+                                  child: Center(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Image.asset(Assets.iconsWalletMenuIcon,width: 15,height: 15,fit: BoxFit.contain,),
+                                        SizedBox(width: widthValue * 1,),
+                                        Text(
+                                          '${myOldOrderController.myOldOrderModel[index].DateOrder}',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 12,
+                                            color: Themes.ColorApp1,
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  SizedBox(width: widthValue * 3.5,),
-                                  Container(
-                                    child: Center(
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Image.asset(Assets.iconsWalletMenuIcon,width: 15,height: 15,fit: BoxFit.contain,),
-                                          SizedBox(width: widthValue * 1,),
-                                          Text(
-                                            'تم الاستلام',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 12,
-                                              color: Themes.ColorApp1,
-                                            ),
+                                ),
+                                SizedBox(width: widthValue * 3.5,),
+                                Container(
+                                  child: Center(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Image.asset(Assets.iconsWalletMenuIcon,width: 15,height: 15,fit: BoxFit.contain,),
+                                        SizedBox(width: widthValue * 1,),
+                                        Text(
+                                          'تم الاستلام',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 12,
+                                            color: Themes.ColorApp1,
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  Icon(Icons.subdirectory_arrow_left,color: Themes.ColorApp1,size: 25,)
-                                ],
-                              ),
-                              SizedBox(height: heightValue * 1,)
-                            ],
-                          ),
+                                ),
+                                Icon(Icons.subdirectory_arrow_left,color: Themes.ColorApp1,size: 25,)
+                              ],
+                            ),
+                            SizedBox(height: heightValue * 1,)
+                          ],
                         ),
                       ),
                     ),
-                  );
-                },),
-            ),)
+                  ),
+                );
+              },),)
         ),
       ),
     );

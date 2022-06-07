@@ -2,9 +2,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/generated/assets.dart';
+import 'package:nabny/screens/home_screen/home_controller.dart';
 import 'package:nabny/utils/Themes.dart';
 
 import '../../model/SliderItemsModel.dart';
+import '../../model/factory_model.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -14,13 +16,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreen_State extends State<HomeScreen> {
-  List<SliderItemsModel> SlidersList = [
-    SliderItemsModel(Assets.imagesSliderImage),
-    SliderItemsModel(Assets.imagesSliderImage),
-    SliderItemsModel(Assets.imagesSliderImage),
-    SliderItemsModel(Assets.imagesSliderImage),
-    SliderItemsModel(Assets.imagesSliderImage),
-  ];
+
+  HomeController homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +29,7 @@ class HomeScreen_State extends State<HomeScreen> {
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Column(
+            child: Obx(() => Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -127,7 +124,7 @@ class HomeScreen_State extends State<HomeScreen> {
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: CarouselSlider(
-                        items: SlidersList.map((e) => Image(
+                        items: homeController.SlidersList.map((e) => Image(
                           image: AssetImage('${e.ImageSlider}'),
                           height: 165,
                           fit: BoxFit.fill,
@@ -173,14 +170,19 @@ class HomeScreen_State extends State<HomeScreen> {
                 SizedBox(
                   height: heightValue * .7,
                 ),
-                FactoryItemList(widthValue: widthValue,heightValue: heightValue,),
-                SizedBox(height: heightValue * 1,),
-                FactoryItemList(widthValue: widthValue,heightValue: heightValue,),
-                SizedBox(height: heightValue * 1,),
-                FactoryItemList(widthValue: widthValue,heightValue: heightValue,),
-                SizedBox(height: heightValue * 1,),
+                ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  physics: ScrollPhysics(),
+                  itemCount: homeController.factoryModel.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      child: FactoryItemList(factoryModel: homeController.factoryModel[index]),
+                    );
+                  },)
               ],
-            ),
+            )),
           ),
         ),
       ),
@@ -189,151 +191,174 @@ class HomeScreen_State extends State<HomeScreen> {
 }
 
 class FactoryItemList extends StatelessWidget {
-  FactoryItemList({required this.heightValue, required this.widthValue});
+  FactoryItemList({required this.factoryModel});
 
-  double widthValue, heightValue;
+  FactoryModel factoryModel;
+  var heightValue = Get.height * 0.024;
+  var widthValue = Get.width * 0.024;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: Get.width,
-      height: 250,
-      decoration: BoxDecoration(
-        color: Themes.whiteColor,
-        borderRadius: BorderRadius.circular(15),
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15)
       ),
-      child: Column(
+      child: Container(
+        width: Get.width,
+        decoration: BoxDecoration(
+          color: Themes.whiteColor,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: FadeInImage(
+                    image: AssetImage(factoryModel.ImageCompany!),
+                    fit: BoxFit.fill,
+                    height: 175,
+                    width: Get.width,
+                    placeholder: AssetImage(Assets.imagesFactoryImage),
+                  ),
+                ),
+                Positioned(
+                  top: heightValue * 1,
+                  right: widthValue * 2,
+                  child: CircleAvatar(
+                    backgroundColor: Themes.whiteColor,
+                    child: Image.asset(Assets.iconsFavoriteIcon),
+                  ),
+                )
+              ],
+            ),
+            SizedBox(
+              height: heightValue * .5,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: DetailsCompany(factoryModel: factoryModel, heightValue: heightValue, widthValue: widthValue),
+            ),
+            SizedBox(height: heightValue * 1,)
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class DetailsCompany extends StatelessWidget {
+  DetailsCompany({required this.factoryModel,required this.heightValue,required this.widthValue});
+
+  FactoryModel factoryModel;
+  double heightValue,widthValue;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Stack(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: FadeInImage(
-                  image: AssetImage(Assets.imagesFactoryImage),
-                  fit: BoxFit.fill,
-                  height: 175,
-                  width: Get.width,
-                  placeholder: AssetImage(Assets.imagesFactoryImage),
+              Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Themes.ColorApp14,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Center(
+                  child: Image(
+                    image: AssetImage(Assets.iconsFactoryNamIcon),
+                    fit: BoxFit.contain,
+                    width: 35,
+                    height: 35,
+                  ),
                 ),
               ),
-              Positioned(
-                top: heightValue * 1,
-                right: widthValue * 2,
-                child: CircleAvatar(
-                  backgroundColor: Themes.whiteColor,
-                  child: Image.asset(Assets.iconsFavoriteIcon),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${factoryModel.NameCompany}',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                        color: Themes.ColorApp1,
+                      ),
+                    ),
+                    SizedBox(height: heightValue * .3,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          '${factoryModel.RateText}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 15,
+                            color: Themes.ColorApp8,
+                          ),
+                        ),
+                        SizedBox(width: widthValue * 1,),
+                        Container(
+                          width: 70,
+                          height: 30,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(35),
+                              color: Themes.ColorApp12
+                          ),
+                          child: Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '${factoryModel.RateNumber}',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12,
+                                    color: Themes.ColorApp13,
+                                  ),
+                                ),
+                                SizedBox(width: widthValue * .2,),
+                                Icon(Icons.star,color: Themes.ColorApp13,)
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    )
+                  ],
                 ),
               )
             ],
           ),
-          SizedBox(
-            height: heightValue * .5,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: Themes.ColorApp14,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Center(
-                        child: Image(
-                          image: AssetImage(Assets.iconsFactoryNamIcon),
-                          fit: BoxFit.contain,
-                          width: 35,
-                          height: 35,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'شركه بن لادن',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                              color: Themes.ColorApp1,
-                            ),
-                          ),
-                          SizedBox(height: heightValue * .3,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                'جيد جدا',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 15,
-                                  color: Themes.ColorApp8,
-                                ),
-                              ),
-                              SizedBox(width: widthValue * 1,),
-                              Container(
-                                width: 70,
-                                height: 30,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(35),
-                                  color: Themes.ColorApp12
-                                ),
-                                child: Center(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const Text(
-                                        '4.7',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 12,
-                                          color: Themes.ColorApp13,
-                                        ),
-                                      ),
-                                      SizedBox(width: widthValue * .2,),
-                                      Icon(Icons.star,color: Themes.ColorApp13,)
-                                    ],
-                                  ),
-                                ),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    )
-                  ],
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '${factoryModel.DistanceCompany}',
+                style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 12,
+                  color: Themes.ColorApp8,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      '45.7 km',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12,
-                        color: Themes.ColorApp8,
-                      ),
-                    ),
-                    SizedBox(width: widthValue * 1,),
-                    Image.asset(Assets.iconsDistanceIcon,fit: BoxFit.contain,width: 35,height: 35,)
-                  ],
-                )
-              ],
-            ),
+              ),
+              SizedBox(width: widthValue * 1,),
+              Image.asset(Assets.iconsDistanceIcon,fit: BoxFit.contain,width: 35,height: 35,)
+            ],
           )
         ],
       ),
     );
   }
 }
+
 
 class UserProfileWithNotification extends StatelessWidget {
   UserProfileWithNotification(
