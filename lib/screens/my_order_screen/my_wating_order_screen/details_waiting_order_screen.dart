@@ -98,7 +98,7 @@ class _DetailsWaitingOrderScreenState extends State<DetailsWaitingOrderScreen> {
                                   padding: const EdgeInsets.symmetric(horizontal: 10),
                                   child: Center(
                                     child: Text(
-                                      'من فضلك انتظر العروض السعر المقدمة من هذا الطلب',
+                                      'من فضلك انتظر عروض السعر المقدمة من هذا الطلب',
                                       style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 15,

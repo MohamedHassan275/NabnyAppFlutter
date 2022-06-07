@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/generated/assets.dart';
+import 'package:nabny/screens/category_concrete_screen/category_concrete_screen.dart';
 import 'package:nabny/screens/home_screen/home_controller.dart';
 import 'package:nabny/utils/Themes.dart';
 
@@ -453,48 +454,51 @@ class CategoryListBuild extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-              child: Container(
-                height: 110,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Themes.ColorApp14,
-                ),
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        Assets.imagesImageCategory1,
-                        fit: BoxFit.contain,
-                      ),
-                      SizedBox(
-                        height: heightValue * .7,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            'خرسانه ',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 15,
-                              color: Themes.ColorApp8,
+              child: GestureDetector(
+                onTap: () => Get.to(CategoryConcreteScreen()),
+                child: Container(
+                  height: 110,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Themes.ColorApp14,
+                  ),
+                  child: Padding(
+                    padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.asset(
+                          Assets.imagesImageCategory1,
+                          fit: BoxFit.contain,
+                        ),
+                        SizedBox(
+                          height: heightValue * .7,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              'خرسانه ',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 15,
+                                color: Themes.ColorApp8,
+                              ),
                             ),
-                          ),
-                          const Text(
-                            '200 ',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 15,
-                              color: Themes.ColorApp8,
+                            const Text(
+                              '200 ',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 15,
+                                color: Themes.ColorApp8,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
