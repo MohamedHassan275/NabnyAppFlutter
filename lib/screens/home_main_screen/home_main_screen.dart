@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/home_main_screen/home_main_controller.dart';
+import 'package:nabny/screens/my_address_screen/my_arddress_screen.dart';
 import 'package:nabny/screens/setting_profile_screen/setting_profile_screen.dart';
 import 'package:nabny/utils/Themes.dart';
 import 'package:provider/provider.dart';
@@ -227,7 +228,7 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                       height: heightValue * .7,
                     ),
                     GestureDetector(
-                      onTap: () => Get.to(const ChangePasswordProfile()),
+                      onTap: () => Get.to(const MyAddressScreen()),
                       child: Container(
                         height: 70,
                         width: Get.width,
