@@ -5,6 +5,7 @@ import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/category_concrete_screen/category_concrete_screen.dart';
 import 'package:nabny/screens/factory_details_screen/factory_details_screen.dart';
 import 'package:nabny/screens/home_screen/home_controller.dart';
+import 'package:nabny/screens/request_offer_price_screen/request_offer_price_screen.dart';
 import 'package:nabny/utils/Themes.dart';
 
 import '../../model/SliderItemsModel.dart';
@@ -621,68 +622,71 @@ class OrderPriceRequest extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: Get.width,
-      height: 100,
-      decoration: BoxDecoration(
-        color: Themes.ColorApp14,
-        borderRadius: BorderRadius.circular(25),
-        border: Border.all(color: Themes.ColorApp1, width: 1.0),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Image.asset(
-                  Assets.imagesOrderPriceImage,
-                  width: 35,
-                  height: 35,
-                  fit: BoxFit.contain,
-                ),
-                SizedBox(
-                  height: heightValue * .3,
-                ),
-                const Text(
-                  'طلب عروض اسعار ',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 15,
-                    color: Themes.ColorApp8,
+    return GestureDetector(
+      onTap: ()=> Get.to(RequestOfferPriceScreen()),
+      child: Container(
+        width: Get.width,
+        height: 100,
+        decoration: BoxDecoration(
+          color: Themes.ColorApp14,
+          borderRadius: BorderRadius.circular(25),
+          border: Border.all(color: Themes.ColorApp1, width: 1.0),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Image.asset(
+                    Assets.imagesOrderPriceImage,
+                    width: 35,
+                    height: 35,
+                    fit: BoxFit.contain,
                   ),
-                ),
-              ],
+                  SizedBox(
+                    height: heightValue * .3,
+                  ),
+                  const Text(
+                    'طلب عروض اسعار ',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 15,
+                      color: Themes.ColorApp8,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Card(
-              color: Themes.whiteColor,
-              elevation: 2.0,
-              shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-              child: Padding(
-                padding: const EdgeInsets.all(7.0),
-                child: Container(
-                  width: 25,
-                  height: 25,
-                  child: const Center(
-                    child: const Icon(
-                      Icons.keyboard_arrow_left,
-                      size: 25,
-                      color: Themes.ColorApp1,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Card(
+                color: Themes.whiteColor,
+                elevation: 2.0,
+                shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                child: Padding(
+                  padding: const EdgeInsets.all(7.0),
+                  child: Container(
+                    width: 25,
+                    height: 25,
+                    child: const Center(
+                      child: const Icon(
+                        Icons.keyboard_arrow_left,
+                        size: 25,
+                        color: Themes.ColorApp1,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

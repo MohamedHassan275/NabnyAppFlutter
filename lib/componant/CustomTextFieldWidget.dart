@@ -174,6 +174,7 @@ class FromTextRegisterShared extends StatelessWidget {
   double? height;
   TextInputType? keyboardType;
   IconData? suffixIcon;
+  bool? readOnly = false;
   FocusNode? focusNode;
   String? labelText;
   String? hintText;
@@ -190,6 +191,7 @@ class FromTextRegisterShared extends StatelessWidget {
         this.maxLines,
         this.maxLength,
         this.focusNode,
+        this.readOnly,
         this.width,
         this.height,
         required this.keyboardType,
@@ -210,6 +212,7 @@ class FromTextRegisterShared extends StatelessWidget {
         controller: Controller,
         maxLines: maxLines,
         minLines: 1,
+        readOnly: readOnly!,
         maxLength: maxLength,
         style: TextStyle(fontSize: 15, color: Themes.ColorApp8),
         validator: onTapValidator,
