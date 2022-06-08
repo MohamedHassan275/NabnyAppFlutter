@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
+import 'package:nabny/screens/requirements_request_offer_price_screen/requirements_request_offer_price_screen.dart';
 
 import '../../generated/assets.dart';
 import '../../utils/Themes.dart';
@@ -52,7 +53,7 @@ class _FactoryDetailsScreenState extends State<FactoryDetailsScreen> {
                 Positioned(
                     bottom: heightValue * 3,
                     child: CustomButtonImage(title: 'طلب عرض سعر', hight: 50, onTap: () {
-                      Get.to(HomeMainScreen(valueBack: ''));
+                      Get.to(const RequirementsRequestOfferPriceScreen());
                     },)),
               ],
             ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
+import 'package:nabny/screens/requirements_request_offer_price_screen/requirements_request_offer_price_screen.dart';
 
 import '../../generated/assets.dart';
 import '../../utils/Themes.dart';
@@ -165,7 +166,7 @@ class AppbarDetailsOrder extends StatelessWidget {
           top: heightValue * 2.3,
           right: heightValue * 1.5,
           child: GestureDetector(
-            onTap: () => Get.off(HomeMainScreen(valueBack: '')),
+            onTap: () => Get.off( const RequirementsRequestOfferPriceScreen()),
             child: CircleAvatar(
               backgroundColor: Themes.ColorApp5,
               child: Icon(
@@ -219,108 +220,115 @@ class _BottomSheetItemState extends State<BottomSheetItem> {
             ),
            Container(
              width: Get.width,
-             child: Column(
-               mainAxisAlignment: MainAxisAlignment.start,
-               crossAxisAlignment: CrossAxisAlignment.start,
-               children: [
-                 Text(
-                   'ملخص الدفع',
-                   style: TextStyle(
-                     color: Themes.ColorApp8,
-                     fontSize: 16,
-                     fontWeight: FontWeight.w400,
+             child: Padding(
+               padding: const EdgeInsets.symmetric(horizontal: 15),
+               child: Column(
+                 mainAxisAlignment: MainAxisAlignment.start,
+                 crossAxisAlignment: CrossAxisAlignment.start,
+                 children: [
+                   Text(
+                     'ملخص الدفع',
+                     style: TextStyle(
+                       color: Themes.ColorApp8,
+                       fontSize: 16,
+                       fontWeight: FontWeight.w400,
+                     ),
                    ),
-                 ),
-                 SizedBox(
-                   height: heightValue * .7,
-                 ),
-                 Row(
-                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                   children: [
-                     Text(
-                       'قيمه الطلب',
-                       style: TextStyle(
-                         color: Themes.ColorApp8,
-                         fontSize: 14,
-                         fontWeight: FontWeight.w400,
-                       ),
-                     ),
-                     Text(
-                       '5000 ريال ',
-                       style: TextStyle(
-                         color: Themes.ColorApp1,
-                         fontSize: 14,
-                         fontWeight: FontWeight.w400,
-                       ),
-                     ),
-                   ],
-                 ),
-                 SizedBox(
-                   height: heightValue * .7,
-                 ),
-                 Row(
-                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                   children: [
-                     Text(
-                       'القيمه المضافه',
-                       style: TextStyle(
-                         color: Themes.ColorApp8,
-                         fontSize: 14,
-                         fontWeight: FontWeight.w400,
-                       ),
-                     ),
-                     Text(
-                       '200 ريال ',
-                       style: TextStyle(
-                         color: Themes.ColorApp1,
-                         fontSize: 14,
-                         fontWeight: FontWeight.w400,
-                       ),
-                     ),
-                   ],
-                 ),
-                 SizedBox(height: heightValue * .7,),
-                 Container(
-                   width: Get.width,
-                   height: 50,
-                   decoration: BoxDecoration(
-                     borderRadius: BorderRadius.circular(25),
+                   SizedBox(
+                     height: heightValue * .7,
                    ),
-                   child: Center(
-                     child:  Row(
-                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                       children: [
-                         Text(
-                           'الاجمالي',
-                           style: TextStyle(
-                             color: Themes.ColorApp8,
-                             fontSize: 18,
-                             fontWeight: FontWeight.w400,
-                           ),
+                   Row(
+                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                     children: [
+                       Text(
+                         'قيمه الطلب',
+                         style: TextStyle(
+                           color: Themes.ColorApp8,
+                           fontSize: 14,
+                           fontWeight: FontWeight.w400,
                          ),
-                         Text(
-                           '5200 ريال ',
-                           style: TextStyle(
-                             color: Themes.ColorApp1,
-                             fontSize: 14,
-                             fontWeight: FontWeight.w400,
-                           ),
+                       ),
+                       Text(
+                         '5000 ريال ',
+                         style: TextStyle(
+                           color: Themes.ColorApp1,
+                           fontSize: 14,
+                           fontWeight: FontWeight.w400,
                          ),
-                       ],
+                       ),
+                     ],
+                   ),
+                   SizedBox(
+                     height: heightValue * .7,
+                   ),
+                   Row(
+                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                     children: [
+                       Text(
+                         'القيمه المضافه',
+                         style: TextStyle(
+                           color: Themes.ColorApp8,
+                           fontSize: 14,
+                           fontWeight: FontWeight.w400,
+                         ),
+                       ),
+                       Text(
+                         '200 ريال ',
+                         style: TextStyle(
+                           color: Themes.ColorApp1,
+                           fontSize: 14,
+                           fontWeight: FontWeight.w400,
+                         ),
+                       ),
+                     ],
+                   ),
+                   SizedBox(height: heightValue * .7,),
+                   Container(
+                     width: Get.width,
+                     height: 50,
+                     decoration: BoxDecoration(
+                       color: Themes.ColorApp4,
+                       borderRadius: BorderRadius.circular(25),
+                     ),
+                     child: Center(
+                       child:  Padding(
+                         padding: const EdgeInsets.symmetric(horizontal: 15),
+                         child: Row(
+                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                           children: [
+                             Text(
+                               'الاجمالي',
+                               style: TextStyle(
+                                 color: Themes.ColorApp8,
+                                 fontSize: 18,
+                                 fontWeight: FontWeight.w400,
+                               ),
+                             ),
+                             Text(
+                               '5200 ريال ',
+                               style: TextStyle(
+                                 color: Themes.ColorApp1,
+                                 fontSize: 14,
+                                 fontWeight: FontWeight.w400,
+                               ),
+                             ),
+                           ],
+                         ),
+                       ),
                      ),
                    ),
-                 ),
-                 SizedBox(height: heightValue * 1,),
-                 CustomButtonImage(
-                     title: 'متابعة',
-                     hight: 50,
-                     onTap: (){
-                       setState(() {
-                         //  Get.off(HomeMainScreen(valueBack: ''));
-                       });
-                     }),
-                 SizedBox(height: heightValue * 1,),
-               ],
+                   SizedBox(height: heightValue * 1,),
+                   CustomButtonImage(
+                       title: 'متابعة',
+                       hight: 50,
+                       onTap: (){
+                         setState(() {
+                             Get.offAll(HomeMainScreen(valueBack: ''));
+                         });
+                       }),
+                   SizedBox(height: heightValue * 1,),
+                 ],
+               ),
              ),
            )
           ],

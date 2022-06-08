@@ -44,25 +44,6 @@ class _SettingScreenState extends State<SettingScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      width: Get.width,
-                      height: 119,
-                      decoration: const BoxDecoration(
-                          color: Themes.ColorApp14,
-                          borderRadius: BorderRadius.only(
-                              topLeft: const Radius.circular(35),
-                              topRight: Radius.circular(35))),
-                      child: const Center(
-                        child: Text(
-                          'الاعدادات',
-                          style: TextStyle(
-                            color: Themes.ColorApp15,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ),
                     SizedBox(
                       height: heightValue * 1.5,
                     ),
