@@ -163,6 +163,7 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
                       email = value;
                     });
                   },
+                  readOnly: false,
                   onTapValidator: (value) {
                     if (value!.isEmpty) {
                       return 'البريد الالكتروني فارغ';

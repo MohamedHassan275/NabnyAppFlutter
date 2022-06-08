@@ -24,20 +24,17 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen> {
       body: SafeArea(
           child: SingleChildScrollView(
         child: Obx(()=>
-            Container(
-              width: Get.width,
-              height: Get.height,
-              child: ListView.builder(
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                itemCount: myFavoriteController.factoryModel.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: FactoryItemList(factoryModel: myFavoriteController.factoryModel[index]),
-                  );
-                },),
-            )),
+            ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: myFavoriteController.factoryModel.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: FactoryItemList(factoryModel: myFavoriteController.factoryModel[index]),
+                );
+              },)),
       )),
     );
   }

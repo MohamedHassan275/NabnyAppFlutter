@@ -130,6 +130,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                         firstName = value;
                                       });
                                     },
+                                    readOnly: false,
                                     isPassword: false,
                                     onTapValidator: (value) {
                                       if (value!.isEmpty) {
@@ -150,6 +151,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                         lastName = value;
                                       });
                                     },
+                                    readOnly: false,
                                     onTapValidator: (value) {
                                       if (value!.isEmpty) {
                                         return 'اسم العائله فارغ';
@@ -178,6 +180,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                       }
                                       return null;
                                     },
+                                    readOnly: false,
                                     isPassword: false,
                                     keyboardType: TextInputType.emailAddress,
                                     Controller: Email,
@@ -195,6 +198,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                           .requestFocus(_focusNodePassword);
                                     });
                                   },
+                                  readOnly: false,
                                   focusNode: _focusNodePassword,
                                   onChanged: (value) {
                                     setState(() {
@@ -236,6 +240,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                           _focusNodeConfirmPassword);
                                     });
                                   },
+                                  readOnly: false,
                                   focusNode: _focusNodeConfirmPassword,
                                   onChanged: (value) {
                                     setState(() {

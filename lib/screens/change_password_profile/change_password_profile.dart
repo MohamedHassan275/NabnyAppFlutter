@@ -94,6 +94,7 @@ class _ChangePasswordProfileState extends State<ChangePasswordProfile> {
                       currentPassword = value;
                     });
                   },
+                  readOnly: false,
                   isPassword: isCurrentPassword,
                   onTapValidator: (value) {
                     if (value!.isEmpty) {
@@ -129,6 +130,7 @@ class _ChangePasswordProfileState extends State<ChangePasswordProfile> {
                           .requestFocus(_focusNodePassword);
                     });
                   },
+                  readOnly: false,
                   focusNode: _focusNodePassword,
                   onChanged: (value) {
                     setState(() {
@@ -170,6 +172,7 @@ class _ChangePasswordProfileState extends State<ChangePasswordProfile> {
                           _focusNodeConfirmPassword);
                     });
                   },
+                  readOnly: false,
                   focusNode: _focusNodeConfirmPassword,
                   onChanged: (value) {
                     setState(() {
