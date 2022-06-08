@@ -194,8 +194,8 @@ class _BottomSheetItemState extends State<BottomSheetItem> {
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(25), topRight: Radius.circular(25)),
-          color: Themes.whiteColor),
+              topLeft: Radius.circular(50), topRight: Radius.circular(50)),
+          color: Colors.white),
       width: Get.width,
       height: 325,
       child: Padding(

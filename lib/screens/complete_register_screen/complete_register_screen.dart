@@ -328,7 +328,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                           Fluttertoast.showToast(
                                             msg: 'يجب الموافقة علي الشروط والاحكام',
                                             fontSize: 15,
-                                            backgroundColor: Themes.ColorApp14,
+                                            backgroundColor: Themes.whiteColor,
                                             gravity: ToastGravity.BOTTOM,
                                             textColor: Themes.ColorApp1,
                                             timeInSecForIosWeb: 1,

@@ -3,7 +3,10 @@ import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/model/request_offer_order_model.dart';
+import 'package:nabny/screens/factory_offer_price_screen/factory_offer_price_screen.dart';
 import 'package:nabny/screens/request_offer_price_screen/request_offer_price_controller.dart';
+import 'package:nabny/screens/requirements_request_offer_price_screen/requirements_request_offer_price_controller.dart';
+import 'package:nabny/screens/requirements_request_offer_price_screen/requirements_request_offer_price_screen.dart';
 import 'package:nabny/utils/Themes.dart';
 
 import '../home_main_screen/home_main_screen.dart';
@@ -38,12 +41,7 @@ class _RequestOfferPriceScreenState extends State<RequestOfferPriceScreen> {
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        return Column(
-                          children: [
-                            RequestOfferOrderItems(requestOfferOrderModel: requestOfferPriceController.requestOfferOrderModel[index]),
-
-                          ],
-                        );
+                        return RequestOfferOrderItems(requestOfferOrderModel: requestOfferPriceController.requestOfferOrderModel[index]);
                       },
                     ),
               )),
@@ -55,6 +53,11 @@ class _RequestOfferPriceScreenState extends State<RequestOfferPriceScreen> {
               //       hight: 50,
               //       onTap: () => Get.to(''),
               //     ))
+              SizedBox(height: heightValue * 1.5,),
+              CustomButtonImage(title: 'اضافة طلب', hight: 50, onTap: (){
+                Get.to(const RequirementsRequestOfferPriceScreen());
+              }),
+              SizedBox(height: heightValue * 1.5,),
             ],
           ),
         ),
@@ -189,7 +192,9 @@ class RequestOfferOrderItems extends StatelessWidget {
                           ),
                         ],
                       ),
-                      CustomButtonImage2(title: 'مشاهدة', hight: 37, width: 85, onTap: (){}),
+                      CustomButtonImage2(title: 'مشاهدة', hight: 37, width: 85, onTap: (){
+                        Get.to(const FactoryOfferPriceScreen());
+                      }),
                     ],
                   ),
                 ),
