@@ -27,94 +27,35 @@ class _RequestOfferPriceScreenState extends State<RequestOfferPriceScreen> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Container(
-            width: Get.width,
-            height: Get.height,
-            child: Column(
-              children: [
-                AppbarDetailsOrder(widthValue, heightValue),
-                SizedBox(height: heightValue * 1,),
-                Obx(() => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                  child: ListView.builder(
-                    itemCount: requestOfferPriceController.requestOfferOrderModel.length,
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return Column(
-                            children: [
-                              RequestOfferOrderItems(requestOfferOrderModel: requestOfferPriceController.requestOfferOrderModel[index]),
-                              Container(
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    color: Themes.ColorApp14,
-                                    borderRadius: BorderRadius.circular(25)
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'لديك من العروض',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 18,
-                                          color: Themes.ColorApp8,
-                                        ),
-                                      ),
-                                      SizedBox(width: widthValue * .2,),
-                                      Container(
-                                        width: 40,
-                                        height: 20,
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                width: 1,
-                                                color: Themes.ColorApp1
-                                            ),
-                                            borderRadius: BorderRadius.circular(35)
-                                        ),
-                                        child: Center(
-                                          child:  Text(
-                                            '${requestOfferPriceController.requestOfferOrderModel.length}',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 16,
-                                              color: Themes.ColorApp1,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(width: widthValue * .2,),
-                                      Text(
-                                        'عروض',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 16,
-                                          color: Themes.ColorApp1,
-                                        ),
-                                      ),
-                                      CustomButtonImage(title: 'مشاهدة', hight: 50, onTap: ()=> Get.to(''))
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      ),
-                )),
-               // Align(alignment: Alignment.center, child: NoItemOFList()),
-                // Positioned(
-                //     bottom: heightValue * 2.5,
-                //     child: CustomButtonImage(
-                //       title: 'اضافه طلب',
-                //       hight: 50,
-                //       onTap: () => Get.to(''),
-                //     ))
-              ],
-            ),
+          child: Column(
+            children: [
+              AppbarDetailsOrder(widthValue, heightValue),
+              SizedBox(height: heightValue * 1,),
+              Obx(() => Padding(
+                padding: const EdgeInsets.all(0.0),
+                child: ListView.builder(
+                  itemCount: requestOfferPriceController.requestOfferOrderModel.length,
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            RequestOfferOrderItems(requestOfferOrderModel: requestOfferPriceController.requestOfferOrderModel[index]),
+
+                          ],
+                        );
+                      },
+                    ),
+              )),
+             // Align(alignment: Alignment.center, child: NoItemOFList()),
+              // Positioned(
+              //     bottom: heightValue * 2.5,
+              //     child: CustomButtonImage(
+              //       title: 'اضافه طلب',
+              //       hight: 50,
+              //       onTap: () => Get.to(''),
+              //     ))
+            ],
           ),
         ),
       ),
@@ -193,6 +134,65 @@ class RequestOfferOrderItems extends StatelessWidget {
               ),
               SizedBox(
                 height: heightValue * 1.2,
+              ),
+              Container(
+                height: 50,
+                decoration: BoxDecoration(
+                    color: Themes.ColorApp14,
+                    borderRadius: BorderRadius.circular(25)
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            'لديك من العروض',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18,
+                              color: Themes.ColorApp8,
+                            ),
+                          ),
+                          SizedBox(width: widthValue * .5,),
+                          Container(
+                            width: 40,
+                            height: 20,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 1,
+                                    color: Themes.ColorApp1
+                                ),
+                                borderRadius: BorderRadius.circular(35)
+                            ),
+                            child: Center(
+                              child:  Text(
+                                '6',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16,
+                                  color: Themes.ColorApp1,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: widthValue * .5,),
+                          Text(
+                            'عروض',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                              color: Themes.ColorApp1,
+                            ),
+                          ),
+                        ],
+                      ),
+                      CustomButtonImage2(title: 'مشاهدة', hight: 37, width: 85, onTap: (){}),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),

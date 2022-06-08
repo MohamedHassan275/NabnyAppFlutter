@@ -109,6 +109,36 @@ class CustomButtonImage extends StatelessWidget {
   }
 }
 
+class CustomButtonImage2 extends StatelessWidget {
+  CustomButtonImage2({required this.title,required this.hight,required this.width, required this.onTap});
+  double hight,width;
+  String title;
+  VoidCallback? onTap;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: hight,
+        width: width,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(Assets.imagesButtonRegister),
+                fit: BoxFit.fill
+            ),
+        borderRadius: BorderRadius.circular(25)),
+        child: Center(
+          child: Text(title,style: TextStyle(
+            color: Themes.whiteColor,
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+          )),
+        ),
+      ),
+    );
+  }
+}
+
 class defaultButton extends StatelessWidget {
   defaultButton(
       {this.width, this.isUpperCase, this.radius, this.onPressed, this.text});
