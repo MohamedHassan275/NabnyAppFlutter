@@ -45,19 +45,11 @@ class _RequestOfferPriceScreenState extends State<RequestOfferPriceScreen> {
                       },
                     ),
               )),
-             // Align(alignment: Alignment.center, child: NoItemOFList()),
-              // Positioned(
-              //     bottom: heightValue * 2.5,
-              //     child: CustomButtonImage(
-              //       title: 'اضافه طلب',
-              //       hight: 50,
-              //       onTap: () => Get.to(''),
-              //     ))
               SizedBox(height: heightValue * 1.5,),
               CustomButtonImage(title: 'اضافة طلب', hight: 50, onTap: (){
                 Get.to(const RequirementsRequestOfferPriceScreen());
               }),
-              SizedBox(height: heightValue * 1.5,),
+              SizedBox(height: heightValue * 1,),
             ],
           ),
         ),
@@ -67,12 +59,21 @@ class _RequestOfferPriceScreenState extends State<RequestOfferPriceScreen> {
 }
 
 
-class RequestOfferOrderItems extends StatelessWidget {
+class RequestOfferOrderItems extends StatefulWidget {
    RequestOfferOrderItems({required this.requestOfferOrderModel});
 
    RequestOfferOrderModel requestOfferOrderModel;
+
+  @override
+  State<RequestOfferOrderItems> createState() => _RequestOfferOrderItemsState();
+}
+
+class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
    var widthValue = Get.width * 0.024;
+
    var heightValue = Get.height * 0.024;
+
+   bool isVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +88,7 @@ class RequestOfferOrderItems extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              AddressDetailsOrder(requestOfferOrderModel: requestOfferOrderModel,),
+              AddressDetailsOrder(requestOfferOrderModel: widget.requestOfferOrderModel,),
               SizedBox(
                 height: heightValue * .7,
               ),
@@ -98,42 +99,57 @@ class RequestOfferOrderItems extends StatelessWidget {
               SizedBox(
                 height: heightValue * .7,
               ),
-              DetailsOrder(widthValue, 'نوع الصبة ؟', '${requestOfferOrderModel.typeCastingOrderRequest}'),
-              SizedBox(
-                height: heightValue * .7,
-              ),
-              DetailsOrder(widthValue, 'موعد تنفذ الطلبية ؟', '${requestOfferOrderModel.dateOrderRequest}'),
-              SizedBox(
-                height: heightValue * .7,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  DetailsOrder(widthValue, 'الكميه', '${requestOfferOrderModel.weightOrderRequest}'),
-                  SizedBox(
-                    height: heightValue * .7,
-                  ),
-                  DetailsOrder(widthValue, 'نوع الخلطه', '${requestOfferOrderModel.mixTypeOrderRequest}'),
-                  SizedBox(
-                    height: heightValue * .7,
-                  ),
-                  DetailsOrder(widthValue, 'نوع الاسمنت', '${requestOfferOrderModel.cementTypeOrderRequest}'),
-                  SizedBox(
-                    height: heightValue * .7,
-                  ),
-                  DetailsOrder(widthValue, 'مقاس الحجر', '${requestOfferOrderModel.stoneTypeOrderRequest}'),
-                  SizedBox(
-                    height: heightValue * .7,
-                  ),
-                  DetailsOrder(widthValue, 'مواصفات خاصه', '${requestOfferOrderModel.specialOrderRequest}'),
-                  SizedBox(
-                    height: heightValue * .7,
-                  ),
-                  DetailsOrder(widthValue, 'طلب مضخه', '${requestOfferOrderModel.pumpLengthOrderRequest}'),
-                  SizedBox(
-                    height: heightValue * .7,
-                  ),
+                  DetailsOrder(widthValue, 'نوع الصبة ؟', '${widget.requestOfferOrderModel.typeCastingOrderRequest}'),
+                  GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        isVisible  = !isVisible;
+                      });
+                    },
+                      child: Icon(!isVisible ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_up_rounded,size: 25,color: Themes.ColorApp1,))
                 ],
+              ),
+              SizedBox(
+                height: heightValue * .7,
+              ),
+              DetailsOrder(widthValue, 'موعد تنفذ الطلبية ؟', '${widget.requestOfferOrderModel.dateOrderRequest}'),
+              SizedBox(
+                height: heightValue * .7,
+              ),
+              Visibility(
+                visible: isVisible ? true : false,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    DetailsOrder(widthValue, 'الكميه', '${widget.requestOfferOrderModel.weightOrderRequest}'),
+                    SizedBox(
+                      height: heightValue * .7,
+                    ),
+                    DetailsOrder(widthValue, 'نوع الخلطه', '${widget.requestOfferOrderModel.mixTypeOrderRequest}'),
+                    SizedBox(
+                      height: heightValue * .7,
+                    ),
+                    DetailsOrder(widthValue, 'نوع الاسمنت', '${widget.requestOfferOrderModel.cementTypeOrderRequest}'),
+                    SizedBox(
+                      height: heightValue * .7,
+                    ),
+                    DetailsOrder(widthValue, 'مقاس الحجر', '${widget.requestOfferOrderModel.stoneTypeOrderRequest}'),
+                    SizedBox(
+                      height: heightValue * .7,
+                    ),
+                    DetailsOrder(widthValue, 'مواصفات خاصه', '${widget.requestOfferOrderModel.specialOrderRequest}'),
+                    SizedBox(
+                      height: heightValue * .7,
+                    ),
+                    DetailsOrder(widthValue, 'طلب مضخه', '${widget.requestOfferOrderModel.pumpLengthOrderRequest}'),
+                    SizedBox(
+                      height: heightValue * .7,
+                    ),
+                  ],
+                ),
               ),
               SizedBox(
                 height: heightValue * 1.2,
