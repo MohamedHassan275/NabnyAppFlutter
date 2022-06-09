@@ -84,6 +84,7 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
         currentIndex: homeMainController.indexPage!,
       ),
       drawer: Drawer(
+        backgroundColor: Themes.whiteColor,
         child: ListView(
           children: [
             new Container(
@@ -149,7 +150,6 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
             ),
             Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
               color: Themes.whiteColor,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),

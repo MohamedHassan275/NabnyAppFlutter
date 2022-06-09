@@ -44,6 +44,17 @@ class _IntroBodyPageState extends State<IntroBodyPage> {
                 fit: BoxFit.fill)),
         child: Stack(
           children: [
+            CustomPageView(
+              pageController: pageController,
+            ),
+            Positioned(
+                left: 0,
+                right: 0,
+                bottom: valueHight * 9.0,
+                child: CustomIndicator(
+                  valuePosition:
+                  pageController!.hasClients ? pageController!.page : 0,
+                )),
             GestureDetector(
               onTap: () {
                 if (pageController!.hasClients) {
@@ -69,17 +80,6 @@ class _IntroBodyPageState extends State<IntroBodyPage> {
                 ),
               ),
             ),
-            CustomPageView(
-              pageController: pageController,
-            ),
-            Positioned(
-                left: 0,
-                right: 0,
-                bottom: valueHight * 9.0,
-                child: CustomIndicator(
-                  valuePosition:
-                      pageController!.hasClients ? pageController!.page : 0,
-                )),
             Positioned(
               left: 0,
               right: 0,
@@ -91,10 +91,12 @@ class _IntroBodyPageState extends State<IntroBodyPage> {
                   hight: 50,
                   title: pageController!.hasClients ? (pageController!.page == 2 ? 'هيا نبدأ' : 'التالي') : 'التالي',
                   onTap: () {
-                    if(pageController!.hasClients){
-                      if(pageController!.page == 2){
-                        Get.to( const LoginScreen(),transition: Transition.leftToRight , duration: const Duration(milliseconds: 3));
-                      }
+                    if (pageController!.page! < 2) {
+                      pageController?.nextPage(
+                          duration: Duration(milliseconds: 500),
+                          curve: Curves.easeIn);
+                    } else {
+                      Get.to(() => LoginScreen(), transition: Transition.rightToLeft , duration: Duration(milliseconds: 500));
                     }
                   },
                 ),
