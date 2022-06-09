@@ -35,7 +35,7 @@ class _RequestOfferPriceScreenState extends State<RequestOfferPriceScreen> {
               AppbarDetailsOrder(widthValue, heightValue),
               SizedBox(height: heightValue * 1,),
               Obx(() => Padding(
-                padding: const EdgeInsets.all(0.0),
+                padding: const EdgeInsets.symmetric(vertical: 0),
                 child: ListView.builder(
                   itemCount: requestOfferPriceController.requestOfferOrderModel.length,
                       physics: NeverScrollableScrollPhysics(),
@@ -78,7 +78,7 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
       child: Card(
         elevation: 2.0,
         shape: RoundedRectangleBorder(
@@ -155,13 +155,13 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
                 height: heightValue * 1.2,
               ),
               Container(
-                height: 50,
+                height: 53,
                 decoration: BoxDecoration(
                     color: Themes.ColorApp14,
                     borderRadius: BorderRadius.circular(25)
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -208,7 +208,7 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
                           ),
                         ],
                       ),
-                      CustomButtonImage2(title: 'مشاهدة', hight: 37, width: 85, onTap: (){
+                      CustomButtonImage2(title: 'مشاهدة', hight: 38, width: 85, onTap: (){
                         Get.to(const FactoryOfferPriceScreen());
                       }),
                     ],
