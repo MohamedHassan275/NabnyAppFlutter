@@ -7,7 +7,7 @@ import 'package:nabny/screens/my_favorite_screen/my_favorite_screen.dart';
 import 'package:nabny/screens/my_order_screen/my_order_screen.dart';
 import 'package:nabny/screens/setting_screen/setting_screen.dart';
 
-class HomeMainController extends ChangeNotifier {
+class HomeMainController extends GetxController {
 
 
   int? indexPage = 0;

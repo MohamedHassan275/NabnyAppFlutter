@@ -25,8 +25,7 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
   Widget build(BuildContext context) {
     var widthValue = Get.width * 0.024;
     var heightValue = Get.height * 0.024;
-    HomeMainController homeMainController =
-        Provider.of<HomeMainController>(context);
+    HomeMainController homeMainController = Get.put(HomeMainController());
     return Scaffold(
       backgroundColor: Themes.whiteColor,
       appBar: AppBar(
