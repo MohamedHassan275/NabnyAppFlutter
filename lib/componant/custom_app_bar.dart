@@ -3,7 +3,7 @@ import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:sizer/sizer.dart';
 
-import '../utils/style.dart';
+import '../core/constant/style.dart';
 
 AppBar customAppBar(BuildContext context) {
   return AppBar(

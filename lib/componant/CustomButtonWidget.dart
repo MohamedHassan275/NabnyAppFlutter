@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/generated/assets.dart';
-import 'package:nabny/utils/style.dart';
+import '../core/constant/style.dart';
 
 import '../utils/Themes.dart';
 

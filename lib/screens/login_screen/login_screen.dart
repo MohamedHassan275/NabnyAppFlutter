@@ -7,7 +7,6 @@ import 'package:nabny/screens/get_my_location_screen/GetMyLocationUserPage.dart'
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:nabny/screens/register_screen/register_screen.dart';
 import 'package:nabny/utils/Themes.dart';
-import 'package:nabny/utils/style.dart';
 
 import '../../componant/CustomTextFieldWidget.dart';
 

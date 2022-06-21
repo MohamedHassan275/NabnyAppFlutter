@@ -1,4 +1,4 @@
-import '../../utils/style.dart';
+import '../core/constant/style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

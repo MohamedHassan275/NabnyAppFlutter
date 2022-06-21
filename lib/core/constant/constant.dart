@@ -1,4 +1,5 @@
-//Utils
+
+const String logout = 'are you logout in the application';
 const String apiUrl = "http://bneksy.first-meeting.net/api/";
 const String categoriesImagesUrl =
     "http://bneksy.first-meeting.net/images/categories";

@@ -8,7 +8,6 @@ import 'package:nabny/utils/Themes.dart';
 import '../../componant/CustomButtonWidget.dart';
 import '../../componant/CustomTextFieldWidget.dart';
 import '../../generated/assets.dart';
-import '../../utils/style.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);

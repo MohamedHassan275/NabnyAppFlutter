@@ -1,6 +1,7 @@
 //Colors
 import 'package:flutter/material.dart';
-import '../../utils/constants.dart';
+import 'package:nabny/core/constant/constant.dart';
+
 
 const Color primaryColor = Colors.lightBlue;
 const Color primaryColor2 = Color(0xFFFEA302);

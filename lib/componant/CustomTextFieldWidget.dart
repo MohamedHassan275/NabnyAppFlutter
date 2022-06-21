@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/Themes.dart';
-import '../utils/style.dart';
+import '../core/constant/style.dart';
 
 Widget SharedFromTextField({
   Function()? onTapFunction,
