@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/utils/style.dart';
@@ -76,6 +77,35 @@ class FromButtonShared extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
         )),
+      ),
+    );
+  }
+}
+
+class CustomButtonSkipOnBoarding extends StatelessWidget {
+  CustomButtonSkipOnBoarding({required this.title,required this.hight,required this.onTap});
+  double hight;
+  String title;
+  VoidCallback? onTap;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 100,
+        height: hight,
+        decoration: BoxDecoration(
+          color: Themes.ColorApp18,
+          borderRadius: BorderRadius.circular(35)
+        ),
+        child: Center(
+          child: Text(title,
+              style: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+          )),
+        ),
       ),
     );
   }

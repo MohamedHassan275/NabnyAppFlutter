@@ -39,6 +39,7 @@ class OnBoardingScreenState extends State<OnBoardingScreen>{
           children: [
             CustomPageView(),
             CustomDots(),
+          //  Positioned(top: 100,child: Image.asset(Assets.imagesSkipBording,width: 100,height: 50,)),
             Positioned(
               top: valueHight * 7,
               right: 25,
