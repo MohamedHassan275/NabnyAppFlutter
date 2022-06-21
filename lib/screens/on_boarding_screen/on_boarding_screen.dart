@@ -4,6 +4,7 @@ import 'package:nabny/screens/on_boarding_screen/Widget/custom_button.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../utils/Themes.dart';
+import '../../controller/OnBoardingController.dart';
 import '../../generated/assets.dart';
 import 'Widget/CustomIndicator.dart';
 import 'Widget/CustomPageView.dart';
@@ -18,25 +19,13 @@ class OnBoardingScreen extends StatefulWidget{
   
 }
 class OnBoardingScreenState extends State<OnBoardingScreen>{
-  PageController? pageController;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    pageController = PageController(initialPage: 0)..addListener(() {
-      setState(() {
-
-      });
-    });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     final double valueHight = Get.height * .024;
     final double valueWidth = Get.width * .024;
-
+    Get.put(OnBoardingControllerImp()) ;
     return SafeArea(
       child: Container(
         width: Get.width,
@@ -48,7 +37,12 @@ class OnBoardingScreenState extends State<OnBoardingScreen>{
                 fit: BoxFit.fill)),
         child: Stack(
           children: [
-            CustomPageView(controller: pageController,),
+            CustomPageView(),
+            Positioned(
+                left: 0,
+                right: 0,
+                bottom: valueHight * 9.0,
+                child: CustomIndicator()),
             Positioned(
               top: valueHight * 7,
               right: 25,
@@ -60,9 +54,8 @@ class OnBoardingScreenState extends State<OnBoardingScreen>{
                 height: 150,
               ),
             ),
-            CustomIndicator(pageController: pageController,),
-            CustomSkipBoarding(controller: pageController,),
-            CustomButton(pageController: pageController,),
+            CustomSkipBoarding(),
+            CustomButton(),
           ],
         ),
       ),

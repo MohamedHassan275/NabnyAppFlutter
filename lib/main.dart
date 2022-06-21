@@ -8,6 +8,7 @@ import 'package:nabny/screens/splash_screen/screen_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
+
   runApp(const MyApp());
 }
 

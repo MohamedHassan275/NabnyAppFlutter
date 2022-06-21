@@ -2,6 +2,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
+import '../core/constant/on_boarding_list.dart';
+
 abstract class OnBoardingController extends GetxController {
 
   next();
@@ -17,9 +19,9 @@ class OnBoardingControllerImp extends OnBoardingController {
   @override
   next() {
     currentPage ++;
-    // if (currentPage == myOnBoardingList.length){
-    //
-    // }
+    if (currentPage == myOnBoardingList.length){
+
+    }
   }
 
   @override
