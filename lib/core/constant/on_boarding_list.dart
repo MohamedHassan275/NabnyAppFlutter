@@ -1,10 +1,12 @@
 
 
- import '../../model/onBoardingListModel.dart';
+ import 'package:get/get.dart';
+
+import '../../model/onBoardingListModel.dart';
 
 List<OnBoardingListModel> myOnBoardingList = [
-  OnBoardingListModel(title: 'وريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم'),
-  OnBoardingListModel(title: 'وريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم'),
-  OnBoardingListModel(title: 'وريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم'),
-  OnBoardingListModel(title: 'وريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم'),
+  OnBoardingListModel(title: 'title_boarding1'.tr),
+  OnBoardingListModel(title: 'title_boarding2'.tr),
+  OnBoardingListModel(title: 'title_boarding3'.tr),
+  OnBoardingListModel(title: 'title_boarding4'.tr),
 ];

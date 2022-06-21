@@ -142,12 +142,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                           width: 25,
                                           height: 25,
                                           isPassword: false,
-                                          maxLength: 11,
-                                          maxLines: 11,
+                                          maxLength: 6,
+                                          maxLines: 6,
                                           onTapValidator: (value) {
                                             if (value!.isEmpty) {
                                               return 'mobile must not be empty';
-                                            } else if (!(value.length > 10)) {
+                                            } else if (!(value.length > 5)) {
                                               return 'mobile is not valid';
                                             }
                                             return null;
@@ -160,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                       FromTextShared(
                                         //  textAlign: TextAlign.center,
-                                        labelText: 'password',
+                                        labelText: 'كلمة المرور',
                                         onTapFunction: () {
                                           setState(() {
                                             FocusScope.of(context).unfocus();

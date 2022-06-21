@@ -297,7 +297,7 @@ class ChangeLanguageBottomSheetItem extends StatelessWidget {
             Column(
               children: <Widget>[
                 CustomButtonImage(
-                    title: 'العربية',
+                    title: 'arabic'.tr,
                     hight: 50,
                     onTap: (){
                       myLocalController.changelanguage("ar");
@@ -305,7 +305,7 @@ class ChangeLanguageBottomSheetItem extends StatelessWidget {
                     }),
                 SizedBox(height: heightValue! * 1,),
                 CustomButtonImage(
-                    title: 'الانجليزية',
+                    title: 'english'.tr,
                     hight: 50,
                     onTap: (){
                       myLocalController.changelanguage("en");

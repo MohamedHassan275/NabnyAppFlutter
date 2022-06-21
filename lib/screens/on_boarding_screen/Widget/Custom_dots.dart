@@ -26,7 +26,7 @@ class CustomDots extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ...List.generate(
-                myOnBoardingList.length,
+                4,
                 (index) => AnimatedContainer(
                       margin: const EdgeInsets.all(2),
                       child: Container(

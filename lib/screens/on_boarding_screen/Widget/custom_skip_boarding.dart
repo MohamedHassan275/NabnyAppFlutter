@@ -12,7 +12,7 @@ class CustomSkipBoarding extends StatelessWidget {
         builder: (controller) => GestureDetector(
               onTap: () {
                 if (controller.pageController!.hasClients) {
-                  if (controller.currentPage != myOnBoardingList.length - 1) {
+                  if (controller.currentPage != 3) {
                     Get.to(const LoginScreen(),
                         transition: Transition.leftToRight,
                         duration: const Duration(milliseconds: 3));
@@ -23,8 +23,7 @@ class CustomSkipBoarding extends StatelessWidget {
               },
               child: Visibility(
                 visible: controller.pageController!.hasClients
-                    ? (controller.currentPage == myOnBoardingList.length -1
-                        ? false
+                    ? (controller.currentPage == 3 ? false
                         : true)
                     : true,
                 child: Padding(

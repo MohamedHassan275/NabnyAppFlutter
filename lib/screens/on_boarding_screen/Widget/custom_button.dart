@@ -25,9 +25,9 @@ class CustomButton extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 35, vertical: 15),
           child: CustomButtonImage(
             hight: 50,
-            title: controller.pageController!.hasClients ? (controller.currentPage == myOnBoardingList.length  -1 ? 'هيا نبدأ' : 'التالي') : 'التالي',
+            title: controller.pageController!.hasClients ? (controller.currentPage == 3 ? 'get_started'.tr : 'next'.tr) : 'next'.tr,
             onTap: () {
-              if (controller.currentPage != myOnBoardingList.length - 1) {
+              if (controller.currentPage != 3) {
                 controller.pageController?.nextPage(
                     duration: Duration(milliseconds: 500),
                     curve: Curves.easeIn);
