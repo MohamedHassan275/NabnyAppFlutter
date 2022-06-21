@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:sizer/sizer.dart';
 import '../core/constant/constant.dart';
 import '../core/constant/style.dart';
@@ -35,7 +34,7 @@ class CustomButton extends StatelessWidget {
         onTap();
       },
       child: Text(
-        title.tr,
+        title,
         style: const TextStyle(
           fontFamily: fontFamily,
           fontWeight: FontWeight.w600,
