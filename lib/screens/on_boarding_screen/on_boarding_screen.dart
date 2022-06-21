@@ -38,11 +38,7 @@ class OnBoardingScreenState extends State<OnBoardingScreen>{
         child: Stack(
           children: [
             CustomPageView(),
-            Positioned(
-                left: 0,
-                right: 0,
-                bottom: valueHight * 9.0,
-                child: CustomIndicator()),
+            CustomIndicator(),
             Positioned(
               top: valueHight * 7,
               right: 25,
