@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/generated/assets.dart';
-import 'package:nabny/screens/IntroPage/Presenter/IntroViewPage.dart';
+import 'package:nabny/screens/on_boarding_screen/on_boarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 3), () => Get.offAll(IntroViewPage()));
+    Timer(Duration(seconds: 3), () => Get.offAll(OnBoardingScreen()));
   }
 
   @override

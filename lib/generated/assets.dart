@@ -53,6 +53,7 @@ class Assets {
   static const String imagesImageCategory3 = 'assets/images/image_category3.png';
   static const String imagesImageConfirmActivation = 'assets/images/image_confirm_activation.png';
   static const String imagesImageLogoApp = 'assets/images/image_logo_app.png';
+  static const String imagesLogoApp = 'assets/images/logo_app.png';
   static const String imagesLogoImage = 'assets/images/logo_image.png';
   static const String imagesOfferPrice = 'assets/images/offer_price.png';
   static const String imagesOrderPriceImage = 'assets/images/order_price_image.png';

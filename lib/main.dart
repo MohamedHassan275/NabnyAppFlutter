@@ -8,8 +8,6 @@ import 'package:nabny/screens/splash_screen/screen_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  initialServices();
   runApp(const MyApp());
 }
 
@@ -19,11 +17,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    MyLocalController myLocalController = Get.put(MyLocalController());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      translations: MyTranslation(),
-      locale: myLocalController.language,
+      locale: const Locale("ar"),
       home: const SplashScreen(),
     );
   }

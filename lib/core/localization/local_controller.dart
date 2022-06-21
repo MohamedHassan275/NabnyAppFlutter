@@ -6,7 +6,7 @@ import 'package:nabny/core/servies/services.dart';
 class MyLocalController extends GetxController {
 
   Locale? language;
-  MyServices myServices = Get.find();
+  MyServices myServices = Get.put(MyServices());
 
   changelanguage(String codeCountry){
     Locale myLocal = Locale(codeCountry);
