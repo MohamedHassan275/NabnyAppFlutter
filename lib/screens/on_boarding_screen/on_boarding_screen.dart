@@ -6,7 +6,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../utils/Themes.dart';
 import '../../controller/OnBoardingController.dart';
 import '../../generated/assets.dart';
-import 'Widget/CustomIndicator.dart';
+import 'Widget/Custom_dots.dart';
 import 'Widget/CustomPageView.dart';
 import 'Widget/custom_skip_boarding.dart';
 
@@ -38,7 +38,7 @@ class OnBoardingScreenState extends State<OnBoardingScreen>{
         child: Stack(
           children: [
             CustomPageView(),
-            CustomIndicator(),
+            CustomDots(),
             Positioned(
               top: valueHight * 7,
               right: 25,

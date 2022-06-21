@@ -6,9 +6,12 @@ import 'package:nabny/core/servies/services.dart';
 import 'package:nabny/screens/home_main_screen/home_main_controller.dart';
 import 'package:nabny/screens/splash_screen/screen_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
-
+  WidgetsFlutterBinding.ensureInitialized();
+  await initialServices();
+  await SharedPreferences.getInstance();
   runApp(const MyApp());
 }
 
@@ -18,9 +21,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    MyLocalController controller =   Get.put(MyLocalController()) ;
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      locale: const Locale("ar"),
+      translations: MyTranslation(),
+      locale: controller.language,
       home: const SplashScreen(),
     );
   }

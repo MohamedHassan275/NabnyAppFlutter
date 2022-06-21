@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
+import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/about_app_screen/about_app_screen.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
@@ -35,6 +36,7 @@ class _SettingScreenState extends State<SettingScreen> {
     Widget build(BuildContext context) {
       var widthValue = Get.width * 0.024;
       var heightValue = Get.height * 0.024;
+      MyLocalController myLocalController = Get.put(MyLocalController());
       return Scaffold(
         body: SafeArea(
             child: SingleChildScrollView(
@@ -88,94 +90,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               SettingCategory(
                                   onTap: () {
                                     Get.bottomSheet(
-                                      Container(
-                                        width: Get.width,
-                                        height: 325,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(7.0),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.symmetric(horizontal: 100),
-                                                child: Container(
-                                                  width: Get.width,
-                                                  height: 5,
-                                                  decoration: BoxDecoration(
-                                                      color: Themes.ColorApp11,
-                                                      borderRadius:
-                                                      BorderRadius.circular(10)),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: heightValue * 2,
-                                              ),
-                                              Text(
-                                                'تغير اللغة',
-                                                style: TextStyle(
-                                                  color: Themes.ColorApp1,
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: heightValue * 1,
-                                              ),
-                                              Column(
-                                                children: <Widget>[
-                                                  Row(
-                                                    children: [
-                                                      Radio<String>(
-                                                        value: "العربية",
-                                                        activeColor: Themes.ColorApp1,
-                                                        groupValue: _genderRadioBtnVal,
-                                                        onChanged: (String? value){
-                                                          setState(() {
-                                                            _genderRadioBtnVal = value!;
-                                                            print(_genderRadioBtnVal);
-                                                          });
-                                                        },
-                                                      ),
-                                                      Text("العربية"),
-                                                    ],
-                                                  ),
-                                                  SizedBox(height: heightValue * 1,),
-                                                  Row(
-                                                    children: [
-                                                      Radio<String>(
-                                                        value: "الانجليزية",
-                                                        activeColor: Themes.ColorApp1,
-                                                        groupValue: _genderRadioBtnVal,
-                                                        onChanged: (String? value){
-                                                          setState(() {
-                                                            _genderRadioBtnVal = value!;
-                                                            print(_genderRadioBtnVal);
-                                                          });
-                                                        },
-                                                      ),
-                                                      Text("الانجليزية"),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                height: heightValue * 1.5,
-                                              ),
-                                              CustomButtonImage(
-                                                  title: 'تغير',
-                                                  hight: 50,
-                                                  onTap: (){
-                                                    setState(() {
-                                                      Get.off(HomeMainScreen(valueBack: ''));
-                                                    });
-                                                  })
-                                            ],
-                                          ),
-                                        ),
-                                      ),
+                                      ChangeLanguageBottomSheetItem(myLocalController: myLocalController, heightValue: heightValue),
                                       backgroundColor: Themes.whiteColor,
                                       shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.only(
@@ -331,6 +246,78 @@ class ContactWithUs extends StatelessWidget {
             ],
           )
         ],
+      ),
+    );
+  }
+}
+
+class ChangeLanguageBottomSheetItem extends StatelessWidget {
+  double? heightValue;
+  MyLocalController myLocalController;
+  ChangeLanguageBottomSheetItem({required this.myLocalController, required this.heightValue});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: Get.width,
+      height: 325,
+      child: Padding(
+        padding: const EdgeInsets.all(7.0),
+        child: Column(
+          mainAxisAlignment:
+          MainAxisAlignment.center,
+          crossAxisAlignment:
+          CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 100),
+              child: Container(
+                width: Get.width,
+                height: 5,
+                decoration: BoxDecoration(
+                    color: Themes.ColorApp11,
+                    borderRadius:
+                    BorderRadius.circular(10)),
+              ),
+            ),
+            SizedBox(
+              height: heightValue! * 2,
+            ),
+            Text(
+              'تغير اللغة',
+              style: TextStyle(
+                color: Themes.ColorApp1,
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            SizedBox(
+              height: heightValue! * 1,
+            ),
+            Column(
+              children: <Widget>[
+                CustomButtonImage(
+                    title: 'العربية',
+                    hight: 50,
+                    onTap: (){
+                      myLocalController.changelanguage("ar");
+                      Get.offAll(const SplashScreen());
+                    }),
+                SizedBox(height: heightValue! * 1,),
+                CustomButtonImage(
+                    title: 'الانجليزية',
+                    hight: 50,
+                    onTap: (){
+                      myLocalController.changelanguage("en");
+                      Get.offAll(const SplashScreen());
+                    })
+              ],
+            ),
+            SizedBox(
+              height: heightValue! * 1.5,
+            ),
+          ],
+        ),
       ),
     );
   }

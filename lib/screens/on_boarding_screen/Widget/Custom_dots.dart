@@ -9,7 +9,9 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../utils/Themes.dart';
 
-class CustomIndicator extends StatelessWidget {
+class CustomDots extends StatelessWidget {
+ const CustomDots();
+
   @override
   Widget build(BuildContext context) {
     final double valueHight = Get.height * .024;

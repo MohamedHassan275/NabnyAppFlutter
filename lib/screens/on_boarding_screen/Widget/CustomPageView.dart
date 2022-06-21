@@ -4,7 +4,6 @@ import 'package:nabny/controller/OnBoardingController.dart';
 import 'package:nabny/core/constant/on_boarding_list.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/model/onBoardingListModel.dart';
-import 'package:nabny/screens/on_boarding_screen/Widget/custom_page_view_item.dart';
 import 'package:nabny/utils/Themes.dart';
 
 
