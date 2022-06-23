@@ -232,7 +232,7 @@ class _BottomSheetItemState extends State<BottomSheetItem> {
                  crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
                    Text(
-                     'ملخص الدفع',
+                     'payment_summary'.tr,
                      style: TextStyle(
                        color: Themes.ColorApp8,
                        fontSize: 16,
@@ -246,7 +246,7 @@ class _BottomSheetItemState extends State<BottomSheetItem> {
                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                      children: [
                        Text(
-                         'قيمه الطلب',
+                         'request_price'.tr,
                          style: TextStyle(
                            color: Themes.ColorApp8,
                            fontSize: 14,
@@ -270,7 +270,7 @@ class _BottomSheetItemState extends State<BottomSheetItem> {
                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                      children: [
                        Text(
-                         'القيمه المضافه',
+                         'value_added'.tr,
                          style: TextStyle(
                            color: Themes.ColorApp8,
                            fontSize: 14,
@@ -302,7 +302,7 @@ class _BottomSheetItemState extends State<BottomSheetItem> {
                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                            children: [
                              Text(
-                               'الاجمالي',
+                               'total'.tr,
                                style: TextStyle(
                                  color: Themes.ColorApp8,
                                  fontSize: 18,
@@ -324,7 +324,7 @@ class _BottomSheetItemState extends State<BottomSheetItem> {
                    ),
                    SizedBox(height: heightValue * 1,),
                    CustomButtonImage(
-                       title: 'متابعة',
+                       title: 'confirm'.tr,
                        hight: 50,
                        onTap: (){
                          setState(() {

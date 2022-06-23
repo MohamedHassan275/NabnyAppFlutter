@@ -102,17 +102,19 @@ class MyTranslation extends Translations {
       "date_must_request" : "يجب تحديد موعد تنفيذ الطلب",
       "Invalid_order_date" : "تاريخ موعد تنفيذ الطلب غير صالح",
       "execution_request" : "تنفيذ الطلب",
-
-
-
-
-      "with_pump" : "with pump",
-      "with_lab" : "with lab",
-      "with_out_pump" : "without pump",
-      "with_out_lab" : "without lab",
-      "with_ice" : "with snow",
-      "with_out_ice" : "Without ice",
-
+      "payment_summary" : "ملخص الدفع",
+      "value_added" : "القيمه المضافه",
+      "total" : "الاجمالي",
+      "you_have_offers" : "لديك من العروض",
+      "offers" : "عروض",
+      "watch" : "مشاهدة",
+      "no_requests_offers_have_added_before" : "لايوجد اي طلبات عروض تمت اضافتها من قبل",
+      "with_pump" : "بمضخة",
+      "with_lab" : "بمختبر",
+      "with_out_pump" : "بدون مضخة",
+      "with_out_lab" : "بدون مختبر",
+      "with_ice" : "بثلج",
+      "with_out_ice" : "بدون ثلج",
     },
     "en" : {
       "skip" : "skip",
@@ -210,6 +212,19 @@ class MyTranslation extends Translations {
       "date_must_request" : "A date must be set for the execution of the request",
       "Invalid_order_date" : "Invalid order execution date",
       "execution_request" : "Execution of the request",
+      "total" : "Total",
+      "value_added" : "Value Added",
+      "payment_summary" : "Payment Summary",
+      "you_have_offers" : "you have offers",
+      "no_requests_offers_have_added_before" : "There are no requests for offers that have been added before",
+      "watch" : "watch",
+      "offers" : "offers",
+      "with_pump" : "with pump",
+      "with_lab" : "with lab",
+      "with_out_pump" : "without pump",
+      "with_out_lab" : "without lab",
+      "with_ice" : "with snow",
+      "with_out_ice" : "Without ice",
     },
   };
 

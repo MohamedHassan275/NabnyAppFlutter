@@ -102,7 +102,7 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  DetailsOrder(widthValue, 'نوع الصبة ؟', '${widget.requestOfferOrderModel.typeCastingOrderRequest}'),
+                  DetailsOrder(widthValue, 'type_of_casting'.tr, '${widget.requestOfferOrderModel.typeCastingOrderRequest}'),
                   GestureDetector(
                     onTap: (){
                       setState(() {
@@ -115,7 +115,7 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
               SizedBox(
                 height: heightValue * .7,
               ),
-              DetailsOrder(widthValue, 'موعد تنفذ الطلبية ؟', '${widget.requestOfferOrderModel.dateOrderRequest}'),
+              DetailsOrder(widthValue, 'execution_date'.tr, '${widget.requestOfferOrderModel.dateOrderRequest}'),
               SizedBox(
                 height: heightValue * .7,
               ),
@@ -124,27 +124,27 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    DetailsOrder(widthValue, 'الكميه', '${widget.requestOfferOrderModel.weightOrderRequest}'),
+                    DetailsOrder(widthValue, 'quantity'.tr, '${widget.requestOfferOrderModel.weightOrderRequest}'),
                     SizedBox(
                       height: heightValue * .7,
                     ),
-                    DetailsOrder(widthValue, 'نوع الخلطه', '${widget.requestOfferOrderModel.mixTypeOrderRequest}'),
+                    DetailsOrder(widthValue, 'mix_type'.tr, '${widget.requestOfferOrderModel.mixTypeOrderRequest}'),
                     SizedBox(
                       height: heightValue * .7,
                     ),
-                    DetailsOrder(widthValue, 'نوع الاسمنت', '${widget.requestOfferOrderModel.cementTypeOrderRequest}'),
+                    DetailsOrder(widthValue, 'cement_type'.tr, '${widget.requestOfferOrderModel.cementTypeOrderRequest}'),
                     SizedBox(
                       height: heightValue * .7,
                     ),
-                    DetailsOrder(widthValue, 'مقاس الحجر', '${widget.requestOfferOrderModel.stoneTypeOrderRequest}'),
+                    DetailsOrder(widthValue, 'stone_size'.tr, '${widget.requestOfferOrderModel.stoneTypeOrderRequest}'),
                     SizedBox(
                       height: heightValue * .7,
                     ),
-                    DetailsOrder(widthValue, 'مواصفات خاصه', '${widget.requestOfferOrderModel.specialOrderRequest}'),
+                    DetailsOrder(widthValue, 'Special_specifications'.tr, '${widget.requestOfferOrderModel.specialOrderRequest}'),
                     SizedBox(
                       height: heightValue * .7,
                     ),
-                    DetailsOrder(widthValue, 'طلب مضخه', '${widget.requestOfferOrderModel.pumpLengthOrderRequest}'),
+                    DetailsOrder(widthValue, 'pump_order'.tr, '${widget.requestOfferOrderModel.pumpLengthOrderRequest}'),
                     SizedBox(
                       height: heightValue * .7,
                     ),
@@ -168,7 +168,7 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
                       Row(
                         children: [
                           Text(
-                            'لديك من العروض',
+                            'you_have_offers'.tr,
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 18,
@@ -199,7 +199,7 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
                           ),
                           SizedBox(width: widthValue * .5,),
                           Text(
-                            'عروض',
+                            'offers'.tr,
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 16,
@@ -208,7 +208,7 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
                           ),
                         ],
                       ),
-                      CustomButtonImage2(title: 'مشاهدة', hight: 38, width: 85, onTap: (){
+                      CustomButtonImage2(title: 'watch'.tr, hight: 38, width: 85, onTap: (){
                         Get.to(const FactoryOfferPriceScreen());
                       }),
                     ],
@@ -241,7 +241,7 @@ class AppbarDetailsOrder extends StatelessWidget {
                   topLeft: Radius.circular(35), topRight: Radius.circular(35))),
           child: Center(
             child: Text(
-              'طلب عروض اسعار',
+              'request_offer_price'.tr,
               style: TextStyle(
                 color: Themes.ColorApp15,
                 fontSize: 20,
@@ -290,7 +290,7 @@ class NoItemOFList extends StatelessWidget {
             height: heightValue * 1,
           ),
           Text(
-            'لايوجد اي طلبات عروض تمت اضافتها من قبل',
+            'no_requests_offers_have_added_before'.tr,
             style: TextStyle(
               color: Themes.ColorApp8,
               fontSize: 25,
