@@ -41,7 +41,7 @@ class HomeScreen_State extends State<HomeScreen> {
                     SizedBox(
                       height: heightValue * .5,
                     ),
-                    SearchForSomeFactories(),
+                    SearchForSomeFactories(widthValue: widthValue,heightValue: heightValue,),
                     SizedBox(
                       height: heightValue * 1.5,
                     ),
@@ -161,12 +161,13 @@ class HomeScreen_State extends State<HomeScreen> {
 }
 
 class SearchForSomeFactories extends StatelessWidget {
-  SearchForSomeFactories({Key? key}) : super(key: key);
-  double? heightValue, widthValue;
+  SearchForSomeFactories({Key? key, required this.heightValue,required this.widthValue}) : super(key: key);
+  double heightValue, widthValue;
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'delivery_to'.tr,
@@ -177,7 +178,7 @@ class SearchForSomeFactories extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: heightValue! * .7,
+          height: heightValue * .7,
         ),
         Container(
           width: Get.width,
@@ -195,7 +196,7 @@ class SearchForSomeFactories extends StatelessWidget {
                   fit: BoxFit.contain,
                 ),
                 SizedBox(
-                  width: widthValue! * 2,
+                  width: widthValue * 2,
                 ),
                 const Text(
                   'جده 22347 السعوديه ',
@@ -484,15 +485,15 @@ class CategoryListBuild extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            WidgetCategoryItem(name: 'concrete'.tr, number: '200', heightValue: heightValue, onTap: ()=> Get.to(const CategoryConcreteScreen())),
+            WidgetCategoryItem(name: 'concrete'.tr, number: '200', image: Assets.imagesImageCategory1,heightValue: heightValue, onTap: ()=> Get.to(const CategoryConcreteScreen()), ),
             const SizedBox(
               width: 5,
             ),
-            WidgetCategoryItem(name: 'bricks'.tr, number: '250', heightValue: heightValue, onTap: ()=> Get.to('')),
+            WidgetCategoryItem(name: 'bricks'.tr, number: '250', image: Assets.imagesImageCategory2,heightValue: heightValue, onTap: ()=> Get.to('')),
             const SizedBox(
               width: 5,
             ),
-            WidgetCategoryItem(name: 'block'.tr, number: '350', heightValue: heightValue, onTap: ()=> Get.to('')),
+            WidgetCategoryItem(name: 'block'.tr, number: '350', image: Assets.imagesImageCategory3,heightValue: heightValue, onTap: ()=> Get.to('')),
           ],
         ),
       ],
@@ -502,11 +503,11 @@ class CategoryListBuild extends StatelessWidget {
 
 class WidgetCategoryItem extends StatelessWidget {
   WidgetCategoryItem(
-      {Key? key, required this.name, required this.number, required this.heightValue, required this.onTap})
+      {Key? key, required this.name, required this.number, required this.image, required this.heightValue, required this.onTap})
       : super(key: key);
 
   double? heightValue;
-  String? name, number;
+  String? name, number,image;
   void Function()? onTap;
 
   @override
@@ -528,7 +529,7 @@ class WidgetCategoryItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Image.asset(
-                  Assets.imagesImageCategory1,
+                  image!,
                   fit: BoxFit.contain,
                 ),
                 SizedBox(
@@ -628,8 +629,8 @@ class OrderPriceRequest extends StatelessWidget {
                     child: Center(
                       child: Icon(
                         myLocalController.language!.languageCode == "ar" ? Icons
-                            .subdirectory_arrow_right : Icons
-                            .subdirectory_arrow_left,
+                            .subdirectory_arrow_left : Icons
+                            .subdirectory_arrow_right,
                         size: 25,
                         color: Themes.ColorApp1,
                       ),
