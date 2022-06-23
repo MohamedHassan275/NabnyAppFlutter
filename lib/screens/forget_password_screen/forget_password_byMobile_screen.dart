@@ -100,7 +100,7 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
                             child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 15),
                                 child: Text(
-                                  'استرجاع كلمة المرور',
+                                  'forget_password2'.tr,
                                   style: TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w700,
@@ -127,8 +127,8 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
                           child: Column(
                             children: [
                               FromTextShared(
-                                  labelText: 'رقم الموبيل',
-                                  maxLength: 11,
+                                  labelText: 'mobile_number'.tr,
+                                  maxLength: 6,
                                   onChanged: (value) {
                                     setState(() {
                                       mobilePhone = value;
@@ -138,7 +138,7 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
                                   onTapValidator: (value) {
                                     if (value!.isEmpty) {
                                       return 'mobile must not be empty';
-                                    } else if (!(value.length > 10)) {
+                                    } else if (!(value.length > 5)) {
                                       return 'mobile is not valid';
                                     }
                                     return null;
@@ -148,7 +148,7 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
                                   height: 25,
                                   keyboardType: TextInputType.number,
                                   Controller: MobilePhone,
-                                  hintText: 'رقم الموبيل'),
+                                  hintText: 'mobile_number'.tr),
                               SizedBox(
                                 height: valueHight * 1,
                               ),
@@ -173,7 +173,7 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
                                     horizontal: 15, vertical: 15),
                                 child: CustomButtonImage(
                                   hight: 50,
-                                  title: 'استرجاع كلمة المررو',
+                                  title: 'confirm'.tr,
                                   onTap: () async{
                                     if (formKey.currentState!.validate()){
                                       showProgressbar = false;

@@ -91,33 +91,40 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'تم ارسال كود التحقق مكون من 4 ارقام',
+                          'verification_code'.tr,
                           textAlign: TextAlign.start,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 14,
                               color: Themes.ColorApp5,
                               fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          ' علي رقم هاتفك 0096645678765',
+                          'on_mobile'.tr,
                           textAlign: TextAlign.start,
                           style:
-                              TextStyle(fontSize: 14, color: Themes.ColorApp5),
+                              const TextStyle(fontSize: 14, color: Themes.ColorApp5),
+                        ),
+                        SizedBox(width: widthValue * .2,),
+                        const Text(
+                          '56486123',
+                          textAlign: TextAlign.start,
+                          style:
+                          TextStyle(fontSize: 14, color: Themes.ColorApp5),
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 35,
                     ),
                     Form(
@@ -148,7 +155,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                                   Controller: _Code1),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           Expanded(
@@ -173,7 +180,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                                   Controller: _Code2),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           Expanded(
@@ -198,7 +205,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                                   Controller: _Code3),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           Expanded(
@@ -223,7 +230,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                                   Controller: _Code4),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           // Expanded(
@@ -251,7 +258,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 35,
                     ),
                     Row(
@@ -260,8 +267,13 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                         Row(
                           children: [
                             GestureDetector(
+                              onTap: (){
+                               setState(() {
+                                 startTimer();
+                               });
+                              },
                               child: Text(
-                                'اعاده ارسال الكود ؟ ',
+                                'resend_code'.tr,
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
                                     fontSize: 16,
@@ -270,7 +282,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                                         : Themes.ColorApp2),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             InkWell(
@@ -278,9 +290,9 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                                 //  startTimer();
                               },
                               child: Text(
-                                '00:${_start}',
+                                '00:$_start',
                                 textAlign: TextAlign.start,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 14,
                                     //    decoration: TextDecoration.underline,
                                     color: Themes.ColorApp1,
@@ -291,7 +303,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 25,
                     ),
                     Padding(
@@ -299,10 +311,10 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                           horizontal: 15, vertical: 15),
                       child: CustomButtonImage(
                         hight: 50,
-                        title: 'تفعيل',
+                        title: 'confirm'.tr,
                         onTap: () {
                          if(formKey.currentState!.validate()){
-                           Get.to(CompleteRegisterScreen());
+                           Get.to(const CompleteRegisterScreen());
                          }
                         },
                       ),

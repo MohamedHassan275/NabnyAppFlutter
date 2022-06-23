@@ -25,7 +25,7 @@ class OnBoardingScreenState extends State<OnBoardingScreen>{
     // TODO: implement build
     final double valueHight = Get.height * .024;
     final double valueWidth = Get.width * .024;
-    Get.put(OnBoardingControllerImp()) ;
+    Get.put(OnBoardingControllerImp());
     return SafeArea(
       child: Container(
         width: Get.width,
@@ -39,7 +39,7 @@ class OnBoardingScreenState extends State<OnBoardingScreen>{
           children: [
             CustomPageView(),
             CustomDots(),
-          //  Positioned(top: 100,child: Image.asset(Assets.imagesSkipBording,width: 100,height: 50,)),
+            //  Positioned(top: 100,child: Image.asset(Assets.imagesSkipBording,width: 100,height: 50,)),
             Positioned(
               top: valueHight * 7,
               right: 25,
@@ -58,5 +58,4 @@ class OnBoardingScreenState extends State<OnBoardingScreen>{
       ),
     );
   }
-  
 }

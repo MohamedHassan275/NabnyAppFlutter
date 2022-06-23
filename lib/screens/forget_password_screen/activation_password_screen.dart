@@ -106,7 +106,7 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
                             child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 15),
                                 child: Text(
-                                  'كود الاسترجاع',
+                                  'forget_code'.tr,
                                   style: TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w700,
@@ -270,7 +270,7 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
                             horizontal: 15, vertical: 15),
                         child: CustomButtonImage(
                           hight: 50,
-                          title: 'تفعيل',
+                          title: 'confirm'.tr,
                           onTap: () {
                             if(formKey.currentState!.validate()){
                               Get.to(ChagePasswordScreen());

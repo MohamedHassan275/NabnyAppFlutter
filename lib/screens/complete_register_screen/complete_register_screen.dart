@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/register_screen/register_screen.dart';
 import 'package:nabny/screens/success_register_screen/success_register_screen.dart';
@@ -32,10 +33,17 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
   var formKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     var widthValue = Get.width * 0.024;
     var heightValue = Get.height * 0.024;
     double paddingWidget = heightValue * 10;
+    MyLocalController myLocalController = Get.put(MyLocalController());
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -89,7 +97,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                         backgroundColor: Themes.ColorApp5,
                                         radius: 25,
                                         child: Icon(
-                                          Icons.arrow_right_alt_rounded,
+                                          myLocalController.language!.languageCode == 'ar' ? Icons.keyboard_arrow_right : Icons.keyboard_arrow_left,
                                           color: Colors.white,
                                         ),
                                       ),
@@ -106,7 +114,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                           MainAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'معلومات الحساب',
+                                          'account_information'.tr,
                                           style: TextStyle(
                                               fontSize: 17,
                                               fontWeight: FontWeight.w700,
@@ -124,7 +132,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                   height: heightValue * 2,
                                 ),
                                 FromTextRegisterShared(
-                                    labelText: 'الاسم الاول ',
+                                    labelText: 'first_name'.tr,
                                     onChanged: (value) {
                                       setState(() {
                                         firstName = value;
@@ -140,12 +148,12 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                     },
                                     keyboardType: TextInputType.text,
                                     Controller: FirstName,
-                                    hintText: 'الاسم الاول'),
+                                    hintText: 'first_name'.tr),
                                 SizedBox(
                                   height: heightValue * 1,
                                 ),
                                 FromTextRegisterShared(
-                                    labelText: 'اسم العائله ',
+                                    labelText: 'last_name'.tr,
                                     onChanged: (value) {
                                       setState(() {
                                         lastName = value;
@@ -161,12 +169,12 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                     isPassword: false,
                                     keyboardType: TextInputType.text,
                                     Controller: LastName,
-                                    hintText: 'اسم العائله'),
+                                    hintText: 'last_name'.tr),
                                 SizedBox(
                                   height: heightValue * 1,
                                 ),
                                 FromTextRegisterShared(
-                                    labelText: 'البريد الالكتروني ',
+                                    labelText: 'email_address'.tr,
                                     onChanged: (value) {
                                       setState(() {
                                         email = value;
@@ -184,13 +192,13 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                     isPassword: false,
                                     keyboardType: TextInputType.emailAddress,
                                     Controller: Email,
-                                    hintText: 'البريد الالكتروني'),
+                                    hintText: 'email_address'.tr),
                                 SizedBox(
                                   height: heightValue * 1,
                                 ),
                                 FromTextRegisterShared(
                                   //  textAlign: TextAlign.center,
-                                  labelText: 'كلمة المرور',
+                                  labelText: 'password'.tr,
                                   onTapFunction: () {
                                     setState(() {
                                       FocusScope.of(context).unfocus();
@@ -225,14 +233,14 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                   keyboardType: TextInputType.text,
                                   maxLines: 1,
                                   Controller: Password,
-                                  hintText: 'كلمة المرور',
+                                  hintText: 'password'.tr,
                                 ),
                                 SizedBox(
                                   height: heightValue * 1,
                                 ),
                                 FromTextRegisterShared(
                                   //  textAlign: TextAlign.center,
-                                  labelText: 'تأكيد كلمة المرور',
+                                  labelText: 'confirm_password'.tr,
                                   onTapFunction: () {
                                     setState(() {
                                       FocusScope.of(context).unfocus();
@@ -270,7 +278,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                   keyboardType: TextInputType.text,
                                   maxLines: 1,
                                   Controller: ConfirmPassword,
-                                  hintText: 'تأكيد كلمة المرور',
+                                  hintText: 'confirm_password'.tr,
                                 ),
                                 SizedBox(
                                   height: heightValue * 1,
@@ -304,7 +312,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                           // _modalBottomSheetMenu();
                                         },
                                         child: Text(
-                                          "الموافقه علي الشروط والاحكام",
+                                          "agree_to_terms".tr,
                                           style: TextStyle(
                                             color: Themes.ColorApp1,
                                             fontWeight: FontWeight.w400,
@@ -323,7 +331,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                       horizontal: 15, vertical: 15),
                                   child: CustomButtonImage(
                                     hight: 50,
-                                    title: 'تسحيل',
+                                    title: 'register'.tr,
                                     onTap: () async {
                                       //  showProgressbar = false;
                                       if (formKey.currentState!.validate()) {
@@ -331,7 +339,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                           Get.to(const SuccessRegisterScreen());
                                         } else {
                                           Fluttertoast.showToast(
-                                            msg: 'يجب الموافقة علي الشروط والاحكام',
+                                            msg: 'agree_to_terms2'.tr,
                                             fontSize: 15,
                                             backgroundColor: Themes.whiteColor,
                                             gravity: ToastGravity.BOTTOM,

@@ -68,9 +68,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: Container(
           width: Get.width,
           height: Get.height,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage(Assets.imagesBackgroundSplash),
+                  image: const AssetImage(Assets.imagesBackgroundSplash),
                   fit: BoxFit.fill)),
           child: SingleChildScrollView(
             child: Column(
@@ -86,7 +86,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: valueHight * 5.5,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Row(
                     children: [
                       SizedBox(
@@ -101,8 +101,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 15),
                                 child: Text(
-                                  'انشاء حساب',
-                                  style: TextStyle(
+                                  'create_account'.tr,
+                                  style: const TextStyle(
                                       fontSize: 17,
                                       fontWeight: FontWeight.w700,
                                       color: Themes.ColorApp1),
@@ -128,8 +128,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           child: Column(
                             children: [
                               FromTextShared(
-                                  labelText: 'رقم الموبيل',
-                                  maxLength: 11,
+                                  labelText: 'mobile_number'.tr,
+                                  maxLength: 6,
                                   onChanged: (value) {
                                     setState(() {
                                       mobilePhone = value;
@@ -139,7 +139,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   onTapValidator: (value) {
                                     if (value!.isEmpty) {
                                       return 'mobile must not be empty';
-                                    } else if (!(value.length > 10)) {
+                                    } else if (!(value.length > 5)) {
                                       return 'mobile is not valid';
                                     }
                                     return null;
@@ -149,21 +149,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   height: 25,
                                   keyboardType: TextInputType.number,
                                   Controller: MobilePhone,
-                                  hintText: 'رقم الموبيل'),
+                                  hintText: 'mobile_number'.tr),
                               SizedBox(
                                 height: valueHight * 1,
                               ),
                               showProgressbar
                                   ? Container()
                                   : Container(
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     // image: DecorationImage(
                                     //     image: AssetImage(Assets
                                     //         .imagesBackgroundRequestReviewFatora),
                                     //     fit: BoxFit.contain),
                                       color: Colors.transparent),
-                                  child: Center(
-                                      child: CircularProgressIndicator(
+                                  child: const Center(
+                                      child: const CircularProgressIndicator(
                                         color: Themes.ColorApp1,
                                       ))),
                               SizedBox(
@@ -174,11 +174,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     horizontal: 15, vertical: 15),
                                 child: CustomButtonImage(
                                   hight: 50,
-                                  title: 'تسحيل',
+                                  title: 'register'.tr,
                                   onTap: () async{
                                   //  showProgressbar = false;
                                     if (formKey.currentState!.validate()){
-                                      Get.to(VerificationCodeScreen());
+                                      Get.to(const VerificationCodeScreen());
                                     }
                                   },
                                 ),
@@ -197,25 +197,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          ' لديك حساب ؟',
-                                          style: TextStyle(
-                                            fontSize: 15,
+                                          'have_account'.tr,
+                                          style: const TextStyle(
+                                            fontSize: 12,
                                             color: Themes.ColorApp2,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 5,
                                         ),
                                         InkWell(
                                           onTap: () {
                                             //  MyNavigator.NavigatorToPage(context, RegisterUserPage());
-                                            Get.to(LoginScreen());
+                                            Get.to(const LoginScreen());
                                           },
                                           child: Text(
-                                            'تسجيل دخول',
-                                            style: TextStyle(
-                                              fontSize: 17,
+                                            'login'.tr,
+                                            style: const TextStyle(
+                                              fontSize: 14,
                                               color: Themes.ColorApp6,
                                               fontWeight: FontWeight.bold,
                                             ),

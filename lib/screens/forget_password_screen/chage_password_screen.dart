@@ -71,7 +71,7 @@ class _ChagePasswordScreenState extends State<ChagePasswordScreen> {
                             child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 15),
                                 child: Text(
-                                  'كود الاسترجاع',
+                                  'forget_code'.tr,
                                   style: TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w700,
@@ -97,7 +97,7 @@ class _ChagePasswordScreenState extends State<ChagePasswordScreen> {
                         ),
                         FromTextShared(
                           //  textAlign: TextAlign.center,
-                          labelText: 'كلمة المرور',
+                          labelText: 'password'.tr,
                           onTapFunction: () {
                             setState(() {
                               FocusScope.of(context).unfocus();
@@ -134,14 +134,14 @@ class _ChagePasswordScreenState extends State<ChagePasswordScreen> {
                           keyboardType: TextInputType.text,
                           maxLines: 1,
                           Controller: Password,
-                          hintText: 'كلمة المرور',
+                          hintText: 'password'.tr,
                         ),
                         SizedBox(
                           height: heightValue * 1,
                         ),
                         FromTextShared(
                           //  textAlign: TextAlign.center,
-                          labelText: 'تأكيد كلمة المرور',
+                          labelText: 'confirm_password'.tr,
                           onTapFunction: () {
                             setState(() {
                               FocusScope.of(context).unfocus();
@@ -180,7 +180,7 @@ class _ChagePasswordScreenState extends State<ChagePasswordScreen> {
                           keyboardType: TextInputType.text,
                           maxLines: 1,
                           Controller: ConfirmPassword,
-                          hintText: 'تأكيد كلمة المرور',
+                          hintText: 'confirm_password'.tr,
                         ),
                         SizedBox(
                           height: heightValue * 1,
@@ -190,7 +190,7 @@ class _ChagePasswordScreenState extends State<ChagePasswordScreen> {
                               horizontal: 15, vertical: 15),
                           child: CustomButtonImage(
                             hight: 50,
-                            title: 'استرجاع كلمة المرور',
+                            title: 'confirm'.tr,
                             onTap: () async{
                               //  showProgressbar = false;
                               if (formKey.currentState!.validate()){

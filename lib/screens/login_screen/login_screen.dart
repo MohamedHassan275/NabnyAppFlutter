@@ -100,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             child: Center(
                               child: Text(
-                                'اهلا بعودتك',
+                                'welcome_back'.tr,
                                 style: TextStyle(
                                     fontSize: 17,
                                     fontWeight: FontWeight.w700,
@@ -131,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: Column(
                                     children: [
                                       FromTextShared(
-                                          labelText: 'رقم الموبيل',
+                                          labelText: 'mobile_number'.tr,
                                           onChanged: (value) {
                                             setState(() {
                                               mobilePhone = value;
@@ -153,13 +153,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                           },
                                           keyboardType: TextInputType.number,
                                           Controller: MobilePhone,
-                                          hintText: 'رقم الموبيل'),
+                                          hintText: 'mobile_number'.tr),
                                       SizedBox(
                                         height: valueHight * .5,
                                       ),
                                       FromTextShared(
                                         //  textAlign: TextAlign.center,
-                                        labelText: 'كلمة المرور',
+                                        labelText: 'password'.tr,
                                         onTapFunction: () {
                                           setState(() {
                                             FocusScope.of(context).unfocus();
@@ -196,7 +196,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         keyboardType: TextInputType.text,
                                         maxLines: 1,
                                         Controller: Password,
-                                        hintText: 'كلمة المرور',
+                                        hintText: 'password'.tr,
                                       ),
                                       SizedBox(
                                         height: valueHight * 1,
@@ -207,7 +207,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
                                             GestureDetector(
-                                              child: Text('نسيت كلمه المرور ؟',
+                                              child: Text('forget_password'.tr,
                                                   textAlign: TextAlign.start,
                                                   style: TextStyle(
                                                     color: Themes.ColorApp6,
@@ -243,7 +243,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             horizontal: 25, vertical: 15),
                                         child: CustomButtonImage(
                                           hight: 50,
-                                          title: 'دخول',
+                                          title: 'login'.tr,
                                           onTap: () {
                                             if (formKey.currentState!.validate()){
                                               Get.to(HomeMainScreen(valueBack: '',));
@@ -267,9 +267,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   MainAxisAlignment.center,
                                               children: [
                                                 Text(
-                                                  ' ليس لديك حساب ؟',
+                                                  'not_account'.tr,
                                                   style: TextStyle(
-                                                    fontSize: 15,
+                                                    fontSize: 12,
                                                     color: Themes.ColorApp2,
                                                     fontWeight: FontWeight.bold,
                                                   ),
@@ -280,9 +280,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 InkWell(
                                                   onTap: () => Get.to(RegisterScreen()),
                                                   child: Text(
-                                                    'انشاء حساب',
+                                                    'create_account'.tr,
                                                     style: TextStyle(
-                                                      fontSize: 17,
+                                                      fontSize: 14,
                                                       color: Themes.ColorApp6,
                                                       fontWeight:
                                                           FontWeight.bold,
