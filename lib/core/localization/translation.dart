@@ -101,6 +101,8 @@ class MyTranslation extends Translations {
       "send" : "ارسال الطلب",
       "date_must_request" : "يجب تحديد موعد تنفيذ الطلب",
       "Invalid_order_date" : "تاريخ موعد تنفيذ الطلب غير صالح",
+      "execution_request" : "تنفيذ الطلب",
+
 
 
 
@@ -207,6 +209,7 @@ class MyTranslation extends Translations {
       "send" : "Send Order",
       "date_must_request" : "A date must be set for the execution of the request",
       "Invalid_order_date" : "Invalid order execution date",
+      "execution_request" : "Execution of the request",
     },
   };
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
+import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:nabny/screens/requirements_request_offer_price_screen/requirements_request_offer_price_screen.dart';
 
@@ -17,6 +18,9 @@ class MyAddressRequestOfferScreen extends StatefulWidget {
 
 class _MyAddressRequestOfferScreenState
     extends State<MyAddressRequestOfferScreen> {
+
+  MyLocalController myLocalController = Get.put(MyLocalController());
+
   @override
   Widget build(BuildContext context) {
     var heightValue = Get.height * 0.024;
@@ -29,7 +33,7 @@ class _MyAddressRequestOfferScreenState
             height: Get.height,
             child: Stack(
               children: [
-                AppbarDetailsOrder(widthValue, heightValue),
+                AppbarDetailsOrder(widthValue, heightValue,myLocalController),
                 SizedBox(
                   height: heightValue * 1.2,
                 ),
@@ -136,10 +140,10 @@ class AddressDetailsOrder extends StatelessWidget {
 }
 
 class AppbarDetailsOrder extends StatelessWidget {
-  AppbarDetailsOrder(this.widthValue, this.heightValue);
+  AppbarDetailsOrder(this.widthValue, this.heightValue,this.myLocalController);
 
   double heightValue, widthValue;
-
+  MyLocalController myLocalController;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -153,7 +157,7 @@ class AppbarDetailsOrder extends StatelessWidget {
                   topLeft: Radius.circular(35), topRight: Radius.circular(35))),
           child: Center(
             child: Text(
-              'تنفيذ الطلب',
+              'execution_request'.tr,
               style: TextStyle(
                 color: Themes.ColorApp15,
                 fontSize: 20,
@@ -164,13 +168,14 @@ class AppbarDetailsOrder extends StatelessWidget {
         ),
         Positioned(
           top: heightValue * 2.3,
-          right: heightValue * 1.5,
+          right: myLocalController.language!.languageCode == "ar" ? widthValue * 1.5 : 0,
+          left: myLocalController.language!.languageCode == "en" ? widthValue * 1.5 : 0,
           child: GestureDetector(
             onTap: () => Get.off( const RequirementsRequestOfferPriceScreen()),
             child: CircleAvatar(
               backgroundColor: Themes.ColorApp5,
               child: Icon(
-                Icons.arrow_right_alt_rounded,
+                myLocalController.language!.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
                 color: Colors.white,
               ),
             ),
