@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/screens/category_concrete_screen/category_concrete_contoller.dart';
 
 import '../../generated/assets.dart';
@@ -20,6 +21,8 @@ class _CategoryConcreteScreenState extends State<CategoryConcreteScreen> {
 
   CategoryConcreteContoller categoryConcreteContoller = Get.put(CategoryConcreteContoller());
 
+  MyLocalController myLocalController = Get.put(MyLocalController());
+
   @override
   Widget build(BuildContext context) {
     var widthValue = Get.width * 0.024;
@@ -29,7 +32,7 @@ class _CategoryConcreteScreenState extends State<CategoryConcreteScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              AppbarDetailsOrder(widthValue, heightValue),
+              AppbarDetailsOrder(widthValue, heightValue,myLocalController),
               SizedBox(
                 height: heightValue * 1,
               ),
@@ -38,7 +41,7 @@ class _CategoryConcreteScreenState extends State<CategoryConcreteScreen> {
                 child: ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
-                  physics: ScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   itemCount: categoryConcreteContoller.factoryModel.length,
                   itemBuilder: (context, index) {
                     return Padding(
@@ -56,8 +59,9 @@ class _CategoryConcreteScreenState extends State<CategoryConcreteScreen> {
 }
 
 class AppbarDetailsOrder extends StatelessWidget {
-  AppbarDetailsOrder(this.widthValue,this.heightValue);
+  AppbarDetailsOrder(this.widthValue,this.heightValue,this.myLocalController);
 
+  MyLocalController myLocalController;
   double heightValue,widthValue;
   @override
   Widget build(BuildContext context) {
@@ -73,7 +77,7 @@ class AppbarDetailsOrder extends StatelessWidget {
                   topRight: Radius.circular(35))),
           child: Center(
             child: Text(
-              'خرسانة',
+              'concrete'.tr,
               style: TextStyle(
                 color: Themes.ColorApp15,
                 fontSize: 20,
@@ -90,7 +94,7 @@ class AppbarDetailsOrder extends StatelessWidget {
             child: CircleAvatar(
               backgroundColor: Themes.ColorApp5,
               child: Icon(
-                Icons.arrow_right_alt_rounded,
+                myLocalController.language!.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
                 color: Colors.white,
               ),
             ),

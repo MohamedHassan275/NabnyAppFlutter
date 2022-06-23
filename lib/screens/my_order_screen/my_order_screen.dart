@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nabny/screens/my_order_screen/my_sender_order_screen/my_sender_order_screen.dart';
 
 import '../../utils/Themes.dart';
@@ -34,9 +35,9 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
                      borderRadius: BorderRadius.circular(25), // Creates border
                      color: Themes.whiteColor),
                  tabs: [
-                   Tab(text: 'طلباتي المقدمة'),
-                   Tab( text: 'طلباتي المرسلة'),
-                   Tab( text: 'طلباتي السابقه'),
+                   Tab(text: 'request_offer_price2'.tr),
+                   Tab( text: 'my_active_requests'.tr),
+                   Tab( text: 'my_previous_requests'.tr),
                  ],
                ),)
 
@@ -47,7 +48,6 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
           MyWaitingOrderScreen(),
           MySenderOrderScreen(),
           MyOldOrderScreen(),
-
         ]),
       ),
     );

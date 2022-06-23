@@ -1,13 +1,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/screens/setting_screen/setting_screen.dart';
 
 import '../../utils/Themes.dart';
 import '../home_main_screen/home_main_screen.dart';
 
 class TermsConditionScreen extends StatelessWidget {
-  const TermsConditionScreen({Key? key}) : super(key: key);
+  TermsConditionScreen({Key? key}) : super(key: key);
+
+  MyLocalController myLocalController = Get.put(MyLocalController());
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +52,9 @@ class TermsConditionScreen extends StatelessWidget {
                       onTap: ()=>Get.off(HomeMainScreen(valueBack: 'setting')),
                       child: CircleAvatar(
                         backgroundColor: Themes.ColorApp5,
-                        child: Icon(Icons.arrow_right_alt_rounded,color: Colors.white,),
+                        child: Icon(
+                          myLocalController.language!.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
+                          color: Colors.white,),
                       ),
                     ),
                   )
@@ -69,7 +74,7 @@ class TermsConditionScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text('سياسه الخصوصيه ',
+                      Text('privacy_policy'.tr,
                         style: TextStyle(
                           color: Themes.ColorApp1,
                           fontSize: 20,

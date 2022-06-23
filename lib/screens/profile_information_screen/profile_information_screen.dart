@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
+import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/setting_profile_screen/setting_profile_screen.dart';
 import 'package:nabny/utils/Themes.dart';
@@ -22,6 +23,8 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
 
   String? firstName, lastName, email;
   var formKey = GlobalKey<FormState>();
+
+  MyLocalController myLocalController = Get.put(MyLocalController());
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +48,9 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
                         borderRadius: const BorderRadius.only(
                             topRight: const Radius.circular(25),
                             topLeft: Radius.circular(25))),
-                    child: const Center(
+                    child:  Center(
                       child: Text(
-                        'معلومات الحساب',
+                        'account_information'.tr,
                         style: TextStyle(
                           color: Themes.ColorApp15,
                           fontSize: 20,
@@ -58,13 +61,14 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
                   ),
                   Positioned(
                     top: heightValue * 2.3,
-                    right: heightValue * 1.5,
+                    right: myLocalController.language!.languageCode == "ar" ? heightValue * 1.5 : 0,
+                    left: myLocalController.language!.languageCode == "en" ? heightValue * 1.5 : 0,
                     child: GestureDetector(
-                      onTap: () => Get.off(const SettingProfileScreen()),
-                      child: const CircleAvatar(
+                      onTap: () => Get.off( SettingProfileScreen()),
+                      child:  CircleAvatar(
                         backgroundColor: Themes.ColorApp5,
                         child: Icon(
-                          Icons.arrow_right_alt_rounded,
+                          myLocalController.language!.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
                           color: Colors.white,
                         ),
                       ),
@@ -111,7 +115,7 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
                   children: [
                     Expanded(
                       child: FromTextProfileShared(
-                          labelText: 'الاسم الاول ',
+                          labelText: 'first_name'.tr,
                           onChanged: (value) {
                             setState(() {
                               firstName = value;
@@ -126,14 +130,14 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
                           },
                           keyboardType: TextInputType.text,
                           Controller: FirstName,
-                          hintText: 'الاسم الاول'),
+                          hintText: 'first_name'.tr),
                     ),
                     SizedBox(
                       height: widthValue * 1.5,
                     ),
                     Expanded(
                       child: FromTextProfileShared(
-                          labelText: 'اسم العائله ',
+                          labelText: 'last_name'.tr,
                           onChanged: (value) {
                             setState(() {
                               lastName = value;
@@ -148,7 +152,7 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
                           isPassword: false,
                           keyboardType: TextInputType.text,
                           Controller: LastName,
-                          hintText: 'اسم العائله'),
+                          hintText: 'last_name'.tr),
                     ),
                   ],
                 ),
@@ -157,7 +161,7 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
                 height: heightValue * 1,
               ),
               FromTextRegisterShared(
-                  labelText: 'البريد الالكتروني ',
+                  labelText: 'email_address'.tr,
                   onChanged: (value) {
                     setState(() {
                       email = value;
@@ -175,14 +179,14 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
                   isPassword: false,
                   keyboardType: TextInputType.emailAddress,
                   Controller: EmailAddress,
-                  hintText: 'البريد الالكتروني'),
+                  hintText: 'email_address'.tr),
               SizedBox(
                 height: heightValue * 2.5,
               ),
               CustomButtonImage(
-                  title: 'حفظ ',
+                  title: 'save'.tr,
                   hight: 50,
-                  onTap: () => Get.off(const SettingProfileScreen()))
+                  onTap: () => Get.off( SettingProfileScreen()))
             ],
           ),
         ),

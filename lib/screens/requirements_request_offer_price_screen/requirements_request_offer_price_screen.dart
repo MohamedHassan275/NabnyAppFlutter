@@ -1,14 +1,14 @@
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
+import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/my_address_request_offer_screen/my_address_request_offer_screen.dart';
 import 'package:nabny/utils/Themes.dart';
-
 import '../../componant/CustomTextFieldWidget.dart';
 import '../home_main_screen/home_main_screen.dart';
 
@@ -46,6 +46,8 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
     print(formattedDateCurrent); // 2016-01-25
 
   }
+  MyLocalController myLocalController = Get.put(MyLocalController());
+
   @override
   Widget build(BuildContext context) {
     var widthValue = Get.width * 0.024;
@@ -57,7 +59,7 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
             width: Get.width,
             child: Column(
               children: [
-                AppbarDetailsOrder(widthValue, heightValue),
+                AppbarDetailsOrder(widthValue, heightValue,myLocalController),
                 SizedBox(height: heightValue * 1.2,),
                 Form(
                   key: formKey,
@@ -129,10 +131,7 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    formattedDate == null
-                                        ? "موعد تنفيذ الطلب"
-                                        : "موعد تنفيذ الطلب : ${formattedDate} ",
+                                  Text("execution_date".tr,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                     style: TextStyle(
@@ -141,8 +140,17 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                                         color: Themes.ColorApp8,
                                         fontWeight: FontWeight.w500),
                                   ),
-                                  SizedBox(width: widthValue * .5,)
-
+                                  SizedBox(width: widthValue * .5,),
+                                  Text(
+                                    formattedDate == null ? "" : formattedDate! ,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                    style: TextStyle(
+                                        fontFamily: 'FF Shamel Family',
+                                        fontSize: 14,
+                                        color: Themes.ColorApp8,
+                                        fontWeight: FontWeight.w500),
+                                  ),
                                 ],
                               ),
                             ),
@@ -151,7 +159,7 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                       ),
                       SizedBox(height: heightValue * .7,),
                       FromTextRegisterShared(
-                          labelText: 'الكميه بالمتر المكعب',
+                          labelText: 'quantity'.tr,
                           onChanged: (value) {
                             setState(() {
                               weightOrderRequest = value;
@@ -167,10 +175,10 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                           },
                           keyboardType: TextInputType.number,
                           Controller: WeightOrderRequest,
-                          hintText: 'الكميه بالمتر المكعب '),
+                          hintText: 'quantity'.tr),
                       SizedBox(height: heightValue * .7,),
                       FromTextRegisterShared(
-                          labelText: 'نوع الخلطه',
+                          labelText: 'mix_type'.tr,
                           onChanged: (value) {
                             setState(() {
                               mixTypeOrderRequest = value;
@@ -186,10 +194,10 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                           },
                           keyboardType: TextInputType.text,
                           Controller: MixTypeOrderRequest,
-                          hintText: 'نوع الخلطه '),
+                          hintText: 'mix_type'.tr),
                       SizedBox(height: heightValue * .7,),
                       FromTextRegisterShared(
-                          labelText: 'نوع الاسمنت',
+                          labelText: 'cement_type'.tr,
                           onChanged: (value) {
                             setState(() {
                               cementTypeOrderRequest = value;
@@ -205,10 +213,10 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                           },
                           keyboardType: TextInputType.text,
                           Controller: CementTypeOrderRequest,
-                          hintText: 'نوع الاسمنت '),
+                          hintText: 'cement_type'.tr),
                       SizedBox(height: heightValue * .7,),
                       FromTextRegisterShared(
-                          labelText: 'مقاس الحجر',
+                          labelText: 'stone_size'.tr,
                           onChanged: (value) {
                             setState(() {
                               stoneTypeOrderRequest = value;
@@ -224,10 +232,10 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                           },
                           keyboardType: TextInputType.number,
                           Controller: StoneTypeOrderRequest,
-                          hintText: 'مقاس الحجر '),
+                          hintText: 'stone_size'.tr),
                       SizedBox(height: heightValue * .7,),
                       FromTextRegisterShared(
-                          labelText: 'مواصفات خاصه',
+                          labelText: 'Special_specifications'.tr,
                           onChanged: (value) {
                             setState(() {
                               specialOrderRequest = value;
@@ -244,10 +252,10 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                           },
                           keyboardType: TextInputType.text,
                           Controller: SpecialOrderRequest,
-                          hintText: 'مواصفات خاصه '),
+                          hintText: 'Special_specifications'.tr),
                       SizedBox(height: heightValue * .7,),
                       FromTextRegisterShared(
-                          labelText: 'موقعك علي الخريطه',
+                          labelText: 'Your_location_map'.tr,
                           onChanged: (value) {
                             setState(() {
                               myLocationInMap = value;
@@ -264,7 +272,7 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                           },
                           keyboardType: TextInputType.text,
                           Controller: MyLocationInMap,
-                          hintText: 'موقعك علي الخريطه '),
+                          hintText: 'Your_location_map'.tr),
                       SizedBox(height: heightValue * .7,),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -273,70 +281,16 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Expanded(
-                                child: Container(
-                                  width: Get.width,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: Themes.ColorApp1,
-                                      width: 1
-                                    ),
-                                    borderRadius: BorderRadius.circular(15)
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(Assets.imagesSelectedMark,fit: BoxFit.contain,),
-                                      SizedBox(width: widthValue * 1,),
-                                      Text(
-                                        'بمضخه',
-                                        style: TextStyle(
-                                          color: Themes.ColorApp1,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                              WidgetChoseItem(widthValue: widthValue, name: 'with_pump'.tr, image: Assets.imagesSelectedMark, onTap:(){}),
                               SizedBox(width: widthValue * 1.5,),
-                              Expanded(
-                                child: Container(
-                                  width: Get.width,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: Themes.ColorApp2,
-                                          width: 1
-                                      ),
-                                      borderRadius: BorderRadius.circular(15)
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                    //  Image.asset(Assets.imagesSelectedMark,fit: BoxFit.contain,),
-                                      SizedBox(width: widthValue * 1,),
-                                      Text(
-                                        'بدون مضخه',
-                                        style: TextStyle(
-                                          color: Themes.ColorApp8,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                              WidgetChoseItem(widthValue: widthValue, name: 'with_out_pump'.tr, image: Assets.imagesSelectedMark, onTap:(){}),
                             ],
                           ),
                         ),
                       ),
                       SizedBox(height: heightValue * .7,),
                       FromTextRegisterShared(
-                          labelText: 'طول المضخة',
+                          labelText: 'pump_length'.tr,
                           onChanged: (value) {
                             setState(() {
                               pumpLengthOrderRequest = value;
@@ -353,7 +307,7 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                           },
                           keyboardType: TextInputType.number,
                           Controller: PumpLengthOrderRequest,
-                          hintText: 'طول المضخة '),
+                          hintText: 'pump_length'.tr),
                       SizedBox(height: heightValue * .7,),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -362,63 +316,9 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Expanded(
-                                child: Container(
-                                  width: Get.width,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: Themes.ColorApp1,
-                                          width: 1
-                                      ),
-                                      borderRadius: BorderRadius.circular(15)
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(Assets.imagesSelectedMark,fit: BoxFit.contain,),
-                                      SizedBox(width: widthValue * 1,),
-                                      Text(
-                                        'بثلج',
-                                        style: TextStyle(
-                                          color: Themes.ColorApp1,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                              WidgetChoseItem(widthValue: widthValue, name: 'with_ice'.tr, image: Assets.imagesSelectedMark, onTap:(){}),
                               SizedBox(width: widthValue * 1.5,),
-                              Expanded(
-                                child: Container(
-                                  width: Get.width,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: Themes.ColorApp2,
-                                          width: 1
-                                      ),
-                                      borderRadius: BorderRadius.circular(15)
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      //  Image.asset(Assets.imagesSelectedMark,fit: BoxFit.contain,),
-                                      SizedBox(width: widthValue * 1,),
-                                      Text(
-                                        'بدون ثلج',
-                                        style: TextStyle(
-                                          color: Themes.ColorApp8,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                              WidgetChoseItem(widthValue: widthValue, name: 'with_out_ice'.tr, image: Assets.imagesSelectedMark, onTap:(){}),
                             ],
                           ),
                         ),
@@ -431,73 +331,19 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Expanded(
-                                child: Container(
-                                  width: Get.width,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: Themes.ColorApp1,
-                                          width: 1
-                                      ),
-                                      borderRadius: BorderRadius.circular(15)
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(Assets.imagesSelectedMark,fit: BoxFit.contain,),
-                                      SizedBox(width: widthValue * 1,),
-                                      Text(
-                                        'بمختبر',
-                                        style: TextStyle(
-                                          color: Themes.ColorApp1,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                              WidgetChoseItem(widthValue: widthValue, name: 'with_lab'.tr, image: Assets.imagesSelectedMark, onTap:(){}),
                               SizedBox(width: widthValue * 1.5,),
-                              Expanded(
-                                child: Container(
-                                  width: Get.width,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: Themes.ColorApp2,
-                                          width: 1
-                                      ),
-                                      borderRadius: BorderRadius.circular(15)
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      //  Image.asset(Assets.imagesSelectedMark,fit: BoxFit.contain,),
-                                      SizedBox(width: widthValue * 1,),
-                                      Text(
-                                        'بدون مختبر',
-                                        style: TextStyle(
-                                          color: Themes.ColorApp8,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                              WidgetChoseItem(widthValue: widthValue, name: 'with_out_lab'.tr, image: Assets.imagesSelectedMark, onTap:(){}),
                             ],
                           ),
                         ),
                       ),
                       SizedBox(height: heightValue * 1.2,),
-                      CustomButtonImage(title: 'ارسال', hight: 50, onTap: (){
+                      CustomButtonImage(title: 'send'.tr, hight: 50, onTap: (){
                         if (formKey.currentState!.validate()){
                           if (formattedDate == null){
                             Fluttertoast.showToast(
-                              msg: 'يجب تحديد موعد تنفيذ الطلب',
+                              msg: 'date_must_request'.tr,
                               fontSize: 15,
                               backgroundColor: Themes.whiteColor,
                               gravity: ToastGravity.BOTTOM,
@@ -507,7 +353,7 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                             );
                           }else if (!(formattedDateCurrent!.compareTo(formattedDate!)  <= 0)) {
                             Fluttertoast.showToast(
-                                msg: "  تاريخ موعد تنفيذ الطلب غير صالح",
+                                msg: "Invalid_order_date".tr,
                                 toastLength: Toast.LENGTH_SHORT,
                                 gravity: ToastGravity.BOTTOM,
                                 timeInSecForIosWeb: 1,
@@ -534,9 +380,52 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
   }
 }
 
-class AppbarDetailsOrder extends StatelessWidget {
-  AppbarDetailsOrder(this.widthValue, this.heightValue);
+class WidgetChoseItem extends StatelessWidget {
+   WidgetChoseItem({Key? key,required this.widthValue,required this.name, required this.image, required this.onTap}) : super(key: key);
 
+  double? widthValue;
+  String? name,image;
+  void Function()? onTap;
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          width: Get.width,
+          height: 50,
+          decoration: BoxDecoration(
+              border: Border.all(
+                  color: Themes.ColorApp1,
+                  width: 1
+              ),
+              borderRadius: BorderRadius.circular(15)
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(image!,fit: BoxFit.contain,),
+              SizedBox(width: widthValue! * 1,),
+              Text(
+                name!,
+                style: TextStyle(
+                  color: Themes.ColorApp1,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class AppbarDetailsOrder extends StatelessWidget {
+  AppbarDetailsOrder(this.widthValue, this.heightValue,this.myLocalController);
+
+  MyLocalController myLocalController;
   double heightValue, widthValue;
 
   @override
@@ -552,7 +441,7 @@ class AppbarDetailsOrder extends StatelessWidget {
                   topLeft: Radius.circular(35), topRight: Radius.circular(35))),
           child: Center(
             child: Text(
-              'طلب عروض اسعار',
+              'request_offer_price'.tr,
               style: TextStyle(
                 color: Themes.ColorApp15,
                 fontSize: 20,
@@ -569,7 +458,7 @@ class AppbarDetailsOrder extends StatelessWidget {
             child: CircleAvatar(
               backgroundColor: Themes.ColorApp5,
               child: Icon(
-                Icons.arrow_right_alt_rounded,
+                myLocalController.language!.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
                 color: Colors.white,
               ),
             ),

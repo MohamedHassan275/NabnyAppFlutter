@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
+import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:nabny/screens/requirements_request_offer_price_screen/requirements_request_offer_price_screen.dart';
 
@@ -15,6 +16,9 @@ class FactoryDetailsScreen extends StatefulWidget {
 }
 
 class _FactoryDetailsScreenState extends State<FactoryDetailsScreen> {
+
+  MyLocalController myLocalController = Get.put(MyLocalController());
+
   @override
   Widget build(BuildContext context) {
     var heightValue = Get.height * 0.024;
@@ -34,7 +38,7 @@ class _FactoryDetailsScreenState extends State<FactoryDetailsScreen> {
                     topRight: Radius.circular(35), topLeft: Radius.circular(35))),
             child: Stack(
               children: [
-                ImageAndFavoriteFactory(heightValue: heightValue),
+                ImageAndFavoriteFactory(heightValue: heightValue, myLocalController: myLocalController,),
                 Positioned(
                     top: heightValue * 13,
                     right: widthValue * 2,
@@ -52,8 +56,8 @@ class _FactoryDetailsScreenState extends State<FactoryDetailsScreen> {
                     )),
                 Positioned(
                     bottom: heightValue * 3,
-                    child: CustomButtonImage(title: 'طلب عرض سعر', hight: 50, onTap: () {
-                      Get.to(const RequirementsRequestOfferPriceScreen());
+                    child: CustomButtonImage(title: 'request_price2'.tr, hight: 50, onTap: () {
+                      Get.to(RequirementsRequestOfferPriceScreen());
                     },)),
               ],
             ),
@@ -65,11 +69,11 @@ class _FactoryDetailsScreenState extends State<FactoryDetailsScreen> {
 }
 
 class ImageAndFavoriteFactory extends StatelessWidget {
-  ImageAndFavoriteFactory({required this.heightValue});
+  ImageAndFavoriteFactory({required this.heightValue, required this.myLocalController});
 
   double heightValue;
   double height = Get.height * 0.024 * 2;
-
+  MyLocalController myLocalController;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -82,7 +86,8 @@ class ImageAndFavoriteFactory extends StatelessWidget {
             child: CirclerIcons(
                 width: 35,
                 height: 35,
-                widget: Icon(Icons.arrow_right_alt_rounded),
+                widget: Icon(
+                  myLocalController.language!.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,),
                 color: Themes.whiteColor),
           ),
           GestureDetector(

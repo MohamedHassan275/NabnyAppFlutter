@@ -15,13 +15,13 @@ class HomeMainController extends GetxController {
   List<Widget> PageList = [const HomeScreen(),const MyOrderScreen(),const MyFavoriteScreen(),const SettingScreen()];
 
   List<BottomNavigationBarItem> navigationItem = [
-    BottomNavigationBarItem(icon: Image.asset(Assets.iconsIconHome2,width: 30,height: 30,),label: 'الرئيسيه'.tr,
+    BottomNavigationBarItem(icon: Image.asset(Assets.iconsIconHome2,width: 30,height: 30,),label: 'home'.tr,
         activeIcon: Image.asset(Assets.iconsHomeIcon,width: 30,height: 30,)),
-    BottomNavigationBarItem(icon: Image.asset(Assets.iconsMyOrderHome,width: 30,height: 30,),label: 'طلباتي'.tr,
+    BottomNavigationBarItem(icon: Image.asset(Assets.iconsMyOrderHome,width: 30,height: 30,),label: 'my_order'.tr,
         activeIcon: Image.asset(Assets.iconsMyOrderHome2,width: 30,height: 30,)),
-    BottomNavigationBarItem(icon: Image.asset(Assets.iconsFavoriteHomeIcon,width: 30,height: 30,),label: 'المفضله'.tr,
+    BottomNavigationBarItem(icon: Image.asset(Assets.iconsFavoriteHomeIcon,width: 30,height: 30,),label: 'favorite'.tr,
         activeIcon: Image.asset(Assets.iconsFavoriteIcon,width: 30,height: 30,)),
-    BottomNavigationBarItem(icon: Image.asset(Assets.iconsSettingHomeIcon,width: 30,height: 30,),label: 'الاعدادات'.tr,
+    BottomNavigationBarItem(icon: Image.asset(Assets.iconsSettingHomeIcon,width: 30,height: 30,),label: 'setting'.tr,
         activeIcon: Image.asset(Assets.iconsSettingHome2,width: 30,height: 30,)),
   ];
 

@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 
+import '../../core/localization/local_controller.dart';
 import '../../utils/Themes.dart';
 import '../setting_screen/setting_screen.dart';
 
 class AboutAppScreen extends StatelessWidget {
-  const AboutAppScreen({Key? key}) : super(key: key);
+   AboutAppScreen({Key? key}) : super(key: key);
+
+   MyLocalController myLocalController = Get.put(MyLocalController());
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,7 @@ class AboutAppScreen extends StatelessWidget {
                             topRight: Radius.circular(35))),
                     child: Center(
                       child: Text(
-                        'عن التطبيق',
+                        'about_app'.tr,
                         style: TextStyle(
                           color: Themes.ColorApp15,
                           fontSize: 20,
@@ -49,7 +52,9 @@ class AboutAppScreen extends StatelessWidget {
                       onTap: ()=>Get.off(HomeMainScreen(valueBack: 'setting')),
                       child: CircleAvatar(
                         backgroundColor: Themes.ColorApp5,
-                        child: Icon(Icons.arrow_right_alt_rounded,color: Colors.white,),
+                        child: Icon(
+                          myLocalController.language!.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
+                          color: Colors.white,),
                       ),
                     ),
                   )

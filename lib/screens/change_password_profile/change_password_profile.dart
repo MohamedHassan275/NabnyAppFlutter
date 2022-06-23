@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/screens/setting_profile_screen/setting_profile_screen.dart';
 
 import '../../componant/CustomButtonWidget.dart';
@@ -10,7 +11,7 @@ import '../../utils/Themes.dart';
 import '../home_main_screen/home_main_screen.dart';
 
 class ChangePasswordProfile extends StatefulWidget {
-  const ChangePasswordProfile({Key? key}) : super(key: key);
+   ChangePasswordProfile({Key? key}) : super(key: key);
 
   @override
   _ChangePasswordProfileState createState() => _ChangePasswordProfileState();
@@ -29,6 +30,8 @@ class _ChangePasswordProfileState extends State<ChangePasswordProfile> {
   bool isPassword = true;
   bool isConfirmPassword = true;
   var formKey = GlobalKey<FormState>();
+
+  MyLocalController myLocalController = Get.put(MyLocalController());
 
   @override
   Widget build(BuildContext context) {
@@ -68,10 +71,12 @@ class _ChangePasswordProfileState extends State<ChangePasswordProfile> {
                       top: heightValue * 2.3,
                       right: heightValue * 1.5,
                       child: GestureDetector(
-                        onTap: ()=>Get.off(const SettingProfileScreen()),
-                        child: const CircleAvatar(
+                        onTap: ()=>Get.off( SettingProfileScreen()),
+                        child:  CircleAvatar(
                           backgroundColor: Themes.whiteColor,
-                          child: Icon(Icons.arrow_right_alt_rounded,color: Colors.black87,),
+                          child: Icon(
+                            myLocalController.language!.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
+                            color: Colors.black87,),
                         ),
                       ),
                     )
@@ -80,7 +85,7 @@ class _ChangePasswordProfileState extends State<ChangePasswordProfile> {
                 SizedBox(height: heightValue * 1.5,),
                 FromTextRegisterShared(
                   //  textAlign: TextAlign.center,
-                  labelText: 'كلمة المرور الحالية',
+                  labelText: 'current_password'.tr,
                   onTapFunction: () {
                     setState(() {
                       FocusScope.of(context).unfocus();
@@ -115,14 +120,14 @@ class _ChangePasswordProfileState extends State<ChangePasswordProfile> {
                   keyboardType: TextInputType.text,
                   maxLines: 1,
                   Controller: CurrentPassword,
-                  hintText: 'كلمة المرور الحالية',
+                  hintText: 'current_password'.tr,
                 ),
                 SizedBox(
                   height: heightValue * 1,
                 ),
                 FromTextRegisterShared(
                   //  textAlign: TextAlign.center,
-                  labelText: 'كلمة المرور الجديدة',
+                  labelText: 'new_password'.tr,
                   onTapFunction: () {
                     setState(() {
                       FocusScope.of(context).unfocus();
@@ -157,14 +162,14 @@ class _ChangePasswordProfileState extends State<ChangePasswordProfile> {
                   keyboardType: TextInputType.text,
                   maxLines: 1,
                   Controller: Password,
-                  hintText: 'كلمة المرور الجديدة',
+                  hintText: 'new_password'.tr,
                 ),
                 SizedBox(
                   height: heightValue * 1,
                 ),
                 FromTextRegisterShared(
                   //  textAlign: TextAlign.center,
-                  labelText: 'تأكيد كلمة المرور الجديدة',
+                  labelText: 'confirm_new_password'.tr,
                   onTapFunction: () {
                     setState(() {
                       FocusScope.of(context).unfocus();
@@ -201,7 +206,7 @@ class _ChangePasswordProfileState extends State<ChangePasswordProfile> {
                   keyboardType: TextInputType.text,
                   maxLines: 1,
                   Controller: ConfirmPassword,
-                  hintText: 'تأكيد كلمة المرور الجديدة',
+                  hintText: 'confirm_new_password'.tr,
                 ),
                 SizedBox(
                   height: heightValue * 1,
@@ -211,12 +216,12 @@ class _ChangePasswordProfileState extends State<ChangePasswordProfile> {
                       horizontal: 15, vertical: 15),
                   child: CustomButtonImage(
                     hight: 50,
-                    title: 'تغير كلمة المرور',
+                    title: 'change_password'.tr,
                     onTap: () async{
                       //  showProgressbar = false;
                       if (formKey.currentState!.validate()){
                         Fluttertoast.showToast(
-                          msg: 'تم تغير كلمة المرور بنجاح',
+                          msg: 'change_password_successfully'.tr,
                           fontSize: 15,
                           backgroundColor: Themes.ColorApp14,
                           gravity: ToastGravity.BOTTOM,

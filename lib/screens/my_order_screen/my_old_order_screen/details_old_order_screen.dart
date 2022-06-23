@@ -58,35 +58,35 @@ class _DetailsOldOrderScreenState extends State<DetailsOldOrderScreen> {
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
-                                DetailsOrder(widthValue, 'نوع الصبة ؟', 'سقف'),
+                                DetailsOrder(widthValue, 'type_of_casting'.tr, 'سقف'),
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
-                                DetailsOrder(widthValue, 'موعد تنفذ الطلبية ؟', '22/06/2022'),
+                                DetailsOrder(widthValue, 'execution_date'.tr, '22/06/2022'),
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
-                                DetailsOrder(widthValue, 'الكميه', '1000'),
+                                DetailsOrder(widthValue, 'quantity'.tr, '1000'),
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
-                                DetailsOrder(widthValue, 'نوع الخلطه', 'نوع الخلطه'),
+                                DetailsOrder(widthValue, 'mix_type'.tr, 'نوع الخلطه'),
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
-                                DetailsOrder(widthValue, 'نوع الاسمنت', 'نوع الاسمنتنوع الاسمنت'),
+                                DetailsOrder(widthValue, 'cement_type'.tr, 'نوع الاسمنتنوع الاسمنت'),
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
-                                DetailsOrder(widthValue, 'مقاس الحجر', 'مقاس الحجر'),
+                                DetailsOrder(widthValue, 'stone_size'.tr, 'مقاس الحجر'),
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
-                                DetailsOrder(widthValue, 'مواصفات خاصه', 'مواصفات خاصه'),
+                                DetailsOrder(widthValue, 'Special_specifications'.tr, 'مواصفات خاصه'),
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
-                                DetailsOrder(widthValue, 'طلب مضخه', 'طلب مضخه'),
+                                DetailsOrder(widthValue, 'pump_order'.tr, 'طلب مضخه'),
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
@@ -103,7 +103,7 @@ class _DetailsOldOrderScreenState extends State<DetailsOldOrderScreen> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
                                         Text(
-                                          'قيمه الطلب',
+                                          'request_price'.tr,
                                           style: TextStyle(
                                             fontWeight: FontWeight.w500,
                                             fontSize: 18,
@@ -137,7 +137,7 @@ class _DetailsOldOrderScreenState extends State<DetailsOldOrderScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'تم الدفع بنجاح',
+                        'Payment_completed_successfully'.tr,
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 16,
@@ -158,7 +158,7 @@ class _DetailsOldOrderScreenState extends State<DetailsOldOrderScreen> {
                       SizedBox(
                         height: heightValue * .3,
                       ),
-                      CustomButtonImage(title: 'تم استلام الطلبيه بنجاح', hight: 50, onTap: (){
+                      CustomButtonImage(title: 'order_been_successfully_received'.tr, hight: 50, onTap: (){
                         Get.off(HomeMainScreen(valueBack: ''));
                       }),
                       SizedBox(height: heightValue * 3,)
@@ -193,7 +193,7 @@ class AppbarDetailsOrder extends StatelessWidget {
                   topRight: Radius.circular(35))),
           child: Center(
             child: Text(
-              'تفاصيل التعاقد',
+              'contract_details'.tr,
               style: TextStyle(
                 color: Themes.ColorApp15,
                 fontSize: 20,

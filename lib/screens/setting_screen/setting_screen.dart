@@ -59,15 +59,15 @@ class _SettingScreenState extends State<SettingScreen> {
                             children: [
                               SettingCategory(
                                   onTap: () {},
-                                  title: 'مشاركة التطبيق',
+                                  title: 'share_app'.tr,
                                   imageTitle: Assets.iconsShare,
                                   heightValue: heightValue),
                               SizedBox(
                                 width: widthValue * 1.5,
                               ),
                               SettingCategory(
-                                  onTap: () => Get.to(const PrivacyScreen()),
-                                  title: 'الشروط والاحكام',
+                                  onTap: () => Get.to(PrivacyScreen()),
+                                  title: 'terms_and_conditions'.tr,
                                   imageTitle: Assets.iconsTermsConditionsImage,
                                   heightValue: heightValue),
                               SizedBox(
@@ -75,8 +75,8 @@ class _SettingScreenState extends State<SettingScreen> {
                               ),
                               SettingCategory(
                                   onTap: () =>
-                                      Get.to(const TermsConditionScreen()),
-                                  title: 'سياسه الخصوصيه',
+                                      Get.to(TermsConditionScreen()),
+                                  title: 'privacy_policy'.tr,
                                   imageTitle: Assets.iconsPrivacyImage,
                                   heightValue: heightValue),
                             ],
@@ -100,7 +100,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                       elevation: 2.0,
                                     );
                                   },
-                                  title: 'اللغه',
+                                  title: 'language'.tr,
                                   imageTitle: Assets.iconsLanguageImage,
                                   heightValue: heightValue),
                               SizedBox(
@@ -108,16 +108,16 @@ class _SettingScreenState extends State<SettingScreen> {
                               ),
                               SettingCategory(
                                   onTap: () =>
-                                      Get.off(const SettingProfileScreen()),
-                                  title: 'اعدادات البروفايل',
+                                      Get.off(SettingProfileScreen()),
+                                  title: 'profile_setting'.tr,
                                   imageTitle: Assets.iconsProfileMenuIcon,
                                   heightValue: heightValue),
                               SizedBox(
                                 width: widthValue * 1.5,
                               ),
                               SettingCategory(
-                                  onTap: () => Get.to(const AboutAppScreen()),
-                                  title: 'عن التطبيق',
+                                  onTap: () => Get.to(AboutAppScreen()),
+                                  title: 'about_app'.tr,
                                   imageTitle: Assets.imagesAboutAppImage,
                                   heightValue: heightValue),
                             ],
@@ -204,8 +204,8 @@ class ContactWithUs extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'للتواصل',
+          Text(
+            'to_communicate'.tr,
             style: TextStyle(
               color: Themes.ColorApp8,
               fontSize: 20,
@@ -284,7 +284,7 @@ class ChangeLanguageBottomSheetItem extends StatelessWidget {
               height: heightValue! * 2,
             ),
             Text(
-              'تغير اللغة',
+              'chose_language'.tr,
               style: TextStyle(
                 color: Themes.ColorApp1,
                 fontSize: 20,

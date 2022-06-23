@@ -37,7 +37,7 @@ class _SuccessRegisterScreenState extends State<SuccessRegisterScreen> {
                   Image.asset(Assets.imagesCompleteRegister),
                   SizedBox(height: hight * 1.5,),
                   Text(
-                    'تم تسجيل دخولك بنجاح',
+                    'register_complete'.tr,
                     style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.w700,

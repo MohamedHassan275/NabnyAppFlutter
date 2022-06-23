@@ -67,7 +67,7 @@ class _MyWaitingOrderScreenState extends State<MyWaitingOrderScreen> {
                              ),
                              SizedBox(width: widthValue * 1,),
                              Text(
-                               'بانتظار ارسال عرض السعر',
+                               'waiting_send_offer_price'.tr,
                                style: TextStyle(
                                  fontWeight: FontWeight.w500,
                                  fontSize: 14,
@@ -92,7 +92,7 @@ class _MyWaitingOrderScreenState extends State<MyWaitingOrderScreen> {
                                ),
                                child: Center(
                                  child:   Text(
-                                   'تفاصيل الطلب',
+                                   'order_details'.tr,
                                    style: TextStyle(
                                      fontWeight: FontWeight.w500,
                                      fontSize: 16,
@@ -170,7 +170,7 @@ class CompanyDetails extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'نوع الطلب : ',
+                                'request_type'.tr,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 12,
@@ -196,8 +196,8 @@ class CompanyDetails extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text(
-                                'الكمية : ',
+                               Text(
+                                'quantity'.tr,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 12,

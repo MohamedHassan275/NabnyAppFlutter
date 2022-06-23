@@ -37,13 +37,13 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
     // TODO: implement initState
     super.initState();
   }
+  MyLocalController myLocalController = Get.put(MyLocalController());
+
   @override
   Widget build(BuildContext context) {
     var widthValue = Get.width * 0.024;
     var heightValue = Get.height * 0.024;
     double paddingWidget = heightValue * 10;
-    MyLocalController myLocalController = Get.put(MyLocalController());
-
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -97,7 +97,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                         backgroundColor: Themes.ColorApp5,
                                         radius: 25,
                                         child: Icon(
-                                          myLocalController.language!.languageCode == 'ar' ? Icons.keyboard_arrow_right : Icons.keyboard_arrow_left,
+                                          myLocalController.language!.languageCode == 'ar' ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
                                           color: Colors.white,
                                         ),
                                       ),

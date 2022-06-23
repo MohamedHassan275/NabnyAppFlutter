@@ -79,7 +79,7 @@ class MyOldOrderScreen extends StatelessWidget {
                                         Image.asset(Assets.iconsWalletMenuIcon,width: 15,height: 15,fit: BoxFit.contain,),
                                         SizedBox(width: widthValue * 1,),
                                         Text(
-                                          'تم الاستلام',
+                                          'received'.tr,
                                           style: TextStyle(
                                             fontWeight: FontWeight.w400,
                                             fontSize: 12,
@@ -180,7 +180,7 @@ class CompanyDetails extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'نوع الطلب : ',
+                                'request_type'.tr,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 12,

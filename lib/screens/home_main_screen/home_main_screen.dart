@@ -35,8 +35,7 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
           height: 75,
           child: Row(
             children: [
-              UserProfileWithNotification(
-                  heightValue: heightValue, widthValue: widthValue),
+              UserProfileWithNotification(heightValue: heightValue, widthValue: widthValue),
             ],
           ),
         ),
@@ -86,67 +85,7 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
         backgroundColor: Themes.whiteColor,
         child: ListView(
           children: [
-            new Container(
-              child: new DrawerHeader(
-                  child: new Container(
-                child: Wrap(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CircleAvatar(
-                          backgroundColor: Themes.ColorApp16,
-                          radius: 45,
-                          child: ClipOval(
-                            child: Image.asset(
-                              Assets.imagesFactoryImage,
-                              fit: BoxFit.cover,
-                              width: 82,
-                              height: 82,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          'Mohamed Hassan',
-                          style:
-                              TextStyle(fontSize: 13, color: Themes.ColorApp8),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              'رقم الحساب ',
-                              style: TextStyle(
-                                  fontSize: 13, color: Themes.ColorApp8),
-                            ),
-                            SizedBox(
-                              width: widthValue * .5,
-                            ),
-                            Text(
-                              '#34567898',
-                              style: TextStyle(
-                                  fontSize: 13, color: Themes.ColorApp8),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              )),
-              color: Themes.whiteColor,
-            ),
+            UserDetailsInMenu(widthValue: widthValue,),
             Container(
               width: MediaQuery.of(context).size.width,
               color: Themes.whiteColor,
@@ -154,155 +93,22 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Column(
                   children: [
-                    GestureDetector(
-                      onTap: () => Get.to(const SettingProfileScreen()),
-                      child: Container(
-                        height: 60,
-                        width: Get.width,
-                        decoration: BoxDecoration(
-                            color: Themes.ColorApp14,
-                            borderRadius: BorderRadius.circular(25)),
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  Assets.iconsProfileMenuIcon,
-                                  fit: BoxFit.contain,
-                                ),
-                                SizedBox(
-                                  width: widthValue * 1,
-                                ),
-                                Text(
-                                  'حسابي',
-                                  style: TextStyle(
-                                    color: Themes.ColorApp15,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    WidgetMenuItem(title: 'my_account', widthValue: widthValue, image: Assets.iconsProfileMenuIcon,
+                      onTap: () => Get.to( SettingProfileScreen()),),
                     SizedBox(
                       height: heightValue * .7,
                     ),
-                    GestureDetector(
-                      onTap: () => Get.to(const MyWalletScreen()),
-                      child: Container(
-                        height: 60,
-                        width: Get.width,
-                        decoration: BoxDecoration(
-                            color: Themes.ColorApp14,
-                            borderRadius: BorderRadius.circular(25)),
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  Assets.iconsWalletMenuIcon,
-                                  fit: BoxFit.contain,
-                                ),
-                                SizedBox(
-                                  width: widthValue * 1,
-                                ),
-                                Text(
-                                  'المحفظه',
-                                  style: TextStyle(
-                                    color: Themes.ColorApp15,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    WidgetMenuItem(title: 'my_wallet', widthValue: widthValue, image: Assets.iconsWalletMenuIcon,
+                      onTap: ()=>Get.to(const MyWalletScreen()),),
                     SizedBox(
                       height: heightValue * .7,
                     ),
-                    GestureDetector(
-                      onTap: () => Get.to(const MyAddressScreen()),
-                      child: Container(
-                        height: 60,
-                        width: Get.width,
-                        decoration: BoxDecoration(
-                            color: Themes.ColorApp14,
-                            borderRadius: BorderRadius.circular(25)),
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  Assets.iconsMyLocationMenuIcon,
-                                  fit: BoxFit.contain,
-                                ),
-                                SizedBox(
-                                  width: widthValue * 1,
-                                ),
-                                Text(
-                                  'عناويني',
-                                  style: TextStyle(
-                                    color: Themes.ColorApp15,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    WidgetMenuItem(title: 'my_addresses', widthValue: widthValue, image: Assets.iconsMyLocationMenuIcon,
+                      onTap: () => Get.to(const MyAddressScreen()),),
                     SizedBox(
                       height: heightValue * 2.5,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Get.offAll(LoginScreen());
-                      },
-                      child: Container(
-                        child: Column(
-                          children: [
-                            Container(
-                              height: 70,
-                              width: 70,
-                              decoration: BoxDecoration(
-                                color: Themes.whiteColor,
-                                borderRadius: BorderRadius.circular(15),
-                                border: Border.all(
-                                    color: Themes.ColorApp9, width: 1),
-                              ),
-                              child: Center(
-                                child: Icon(
-                                  Icons.power_settings_new,
-                                  color: Themes.ColorApp9,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: heightValue * .7,
-                            ),
-                            Text(
-                              'تسجيل خروج',
-                              style: TextStyle(
-                                color: Themes.ColorApp9,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
+                    WidgetMenuItemLogOut(heightValue: heightValue, onTap: () => Get.offAll(const LoginScreen()),)
                   ],
                 ),
               ),
@@ -310,6 +116,167 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class WidgetMenuItem extends StatelessWidget {
+  WidgetMenuItem({Key? key,required this.title, required this.image ,required this.widthValue, required this.onTap}) : super(key: key);
+
+  String? title,image;
+  double? widthValue;
+  void Function()? onTap;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 60,
+        width: Get.width,
+        decoration: BoxDecoration(
+            color: Themes.ColorApp14,
+            borderRadius: BorderRadius.circular(25)),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Row(
+              children: [
+                Image.asset(
+                  image!,
+                  fit: BoxFit.contain,
+                ),
+                SizedBox(
+                  width: widthValue! * 1,
+                ),
+                Text(
+                  title!.tr,
+                  style: TextStyle(
+                    color: Themes.ColorApp15,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class WidgetMenuItemLogOut extends StatelessWidget {
+  WidgetMenuItemLogOut({Key? key, required this.heightValue,required this.onTap}) : super(key: key);
+  double? heightValue;
+  void Function()? onTap;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        child: Column(
+          children: [
+            Container(
+              height: 70,
+              width: 70,
+              decoration: BoxDecoration(
+                color: Themes.whiteColor,
+                borderRadius: BorderRadius.circular(15),
+                border: Border.all(
+                    color: Themes.ColorApp9, width: 1),
+              ),
+              child: Center(
+                child: Icon(
+                  Icons.power_settings_new,
+                  color: Themes.ColorApp9,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: heightValue! * .7,
+            ),
+            Text(
+              'log_out'.tr,
+              style: TextStyle(
+                color: Themes.ColorApp9,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class UserDetailsInMenu extends StatelessWidget {
+  UserDetailsInMenu({required this.widthValue});
+  double? widthValue;
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return  Container(
+      child: new DrawerHeader(
+          child: new Container(
+            child: Wrap(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Themes.ColorApp16,
+                      radius: 45,
+                      child: ClipOval(
+                        child: Image.asset(
+                          Assets.imagesFactoryImage,
+                          fit: BoxFit.cover,
+                          width: 82,
+                          height: 82,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      'Mohamed Hassan',
+                      style:
+                      TextStyle(fontSize: 13, color: Themes.ColorApp8),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'account_number'.tr,
+                          style: TextStyle(
+                              fontSize: 13, color: Themes.ColorApp8),
+                        ),
+                        SizedBox(
+                          width: widthValue! * .5,
+                        ),
+                        Text(
+                          '#34567898',
+                          style: TextStyle(
+                              fontSize: 13, color: Themes.ColorApp8),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          )),
+      color: Themes.whiteColor,
     );
   }
 }
@@ -339,7 +306,7 @@ class UserProfileWithNotification extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'اهلا بك',
+            'welcome_back'.tr,
             style: TextStyle(fontSize: 15, color: Colors.white),
           ),
           SizedBox(

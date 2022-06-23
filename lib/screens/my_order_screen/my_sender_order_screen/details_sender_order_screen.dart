@@ -58,35 +58,35 @@ class _DetailsSenderOrderScreenState extends State<DetailsSenderOrderScreen> {
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
-                                DetailsOrder(widthValue, 'نوع الصبة ؟', 'سقف'),
+                                DetailsOrder(widthValue, 'type_of_casting'.tr, 'سقف'),
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
-                                DetailsOrder(widthValue, 'موعد تنفذ الطلبية ؟', '22/06/2022'),
+                                DetailsOrder(widthValue, 'execution_date'.tr, '22/06/2022'),
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
-                                DetailsOrder(widthValue, 'الكميه', '1000'),
+                                DetailsOrder(widthValue, 'quantity'.tr, '1000'),
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
-                                DetailsOrder(widthValue, 'نوع الخلطه', 'نوع الخلطه'),
+                                DetailsOrder(widthValue, 'mix_type'.tr, 'نوع الخلطه'),
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
-                                DetailsOrder(widthValue, 'نوع الاسمنت', 'نوع الاسمنتنوع الاسمنت'),
+                                DetailsOrder(widthValue, 'cement_type'.tr, 'نوع الاسمنتنوع الاسمنت'),
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
-                                DetailsOrder(widthValue, 'مقاس الحجر', 'مقاس الحجر'),
+                                DetailsOrder(widthValue, 'stone_size'.tr, 'مقاس الحجر'),
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
-                                DetailsOrder(widthValue, 'مواصفات خاصه', 'مواصفات خاصه'),
+                                DetailsOrder(widthValue, 'Special_specifications'.tr, 'مواصفات خاصه'),
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
-                                DetailsOrder(widthValue, 'طلب مضخه', 'طلب مضخه'),
+                                DetailsOrder(widthValue, 'pump_order'.tr, 'طلب مضخه'),
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
@@ -103,7 +103,7 @@ class _DetailsSenderOrderScreenState extends State<DetailsSenderOrderScreen> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
                                         Text(
-                                          'تكلفه العرض المقدم',
+                                          'The_cost_bid'.tr,
                                           style: TextStyle(
                                             fontWeight: FontWeight.w500,
                                             fontSize: 18,
@@ -137,9 +137,9 @@ class _DetailsSenderOrderScreenState extends State<DetailsSenderOrderScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      CustomButtonImage(title: 'قبول', hight: 50, onTap: (){
+                      CustomButtonImage(title: 'accept'.tr, hight: 50, onTap: (){
                         Get.off(HomeMainScreen(valueBack: ''));
-                        Fluttertoast.showToast(msg: 'تم قبول الطلب ',
+                        Fluttertoast.showToast(msg: 'accepted_order'.tr,
                         backgroundColor: Themes.ColorApp8,
                         toastLength: Toast.LENGTH_LONG,
                         textColor: Themes.whiteColor,
@@ -150,7 +150,7 @@ class _DetailsSenderOrderScreenState extends State<DetailsSenderOrderScreen> {
                       GestureDetector(
                         onTap: (){
                           Get.off(HomeMainScreen(valueBack: ''));
-                          Fluttertoast.showToast(msg: 'تم قبول الطلب ',
+                          Fluttertoast.showToast(msg: 'canceled_order'.tr,
                             backgroundColor: Themes.ColorApp8,
                             toastLength: Toast.LENGTH_LONG,
                             textColor: Themes.whiteColor,
@@ -162,7 +162,7 @@ class _DetailsSenderOrderScreenState extends State<DetailsSenderOrderScreen> {
                           height: 50,
                           child: Center(
                             child:  Text(
-                              'الغاء الطلب ',
+                              'cancel_order'.tr,
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 16,
@@ -204,7 +204,7 @@ class AppbarDetailsOrder extends StatelessWidget {
                   topRight: Radius.circular(35))),
           child: Center(
             child: Text(
-              'تفاصيل التعاقد',
+              'contract_details'.tr,
               style: TextStyle(
                 color: Themes.ColorApp15,
                 fontSize: 20,

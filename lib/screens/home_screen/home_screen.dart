@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/category_concrete_screen/category_concrete_screen.dart';
 import 'package:nabny/screens/factory_details_screen/factory_details_screen.dart';
@@ -21,12 +22,11 @@ class HomeScreen extends StatefulWidget {
 class HomeScreen_State extends State<HomeScreen> {
 
   HomeController homeController = Get.put(HomeController());
-
+  MyLocalController myLocalController = Get.put(MyLocalController());
   @override
   Widget build(BuildContext context) {
     var widthValue = Get.width * 0.024;
     var heightValue = Get.height * 0.024;
-
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -39,47 +39,7 @@ class HomeScreen_State extends State<HomeScreen> {
                 SizedBox(
                   height: heightValue * .5,
                 ),
-                const Text(
-                  'التوصيل الي ',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 18,
-                    color: Themes.ColorApp2,
-                  ),
-                ),
-                SizedBox(
-                  height: heightValue * .7,
-                ),
-                Container(
-                  width: Get.width,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      border: Border.all(color: Themes.ColorApp2, width: 1.2)),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Image.asset(
-                          Assets.iconsLocationIcon,
-                          fit: BoxFit.contain,
-                        ),
-                        SizedBox(
-                          width: widthValue * 2,
-                        ),
-                        const Text(
-                          'جده 22347 السعوديه ',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 15,
-                            color: Themes.ColorApp8,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                SearchForSomeFactories(),
                 SizedBox(
                   height: heightValue * 1.5,
                 ),
@@ -101,8 +61,8 @@ class HomeScreen_State extends State<HomeScreen> {
                         SizedBox(
                           width: widthValue * 2,
                         ),
-                        const Text(
-                          'ابحث عن مصنع !! ',
+                        Text(
+                          'Looking_factory'.tr,
                           style: const TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 15,
@@ -157,13 +117,13 @@ class HomeScreen_State extends State<HomeScreen> {
                   height: heightValue * 2,
                 ),
                 OrderPriceRequest(
-                  heightValue: heightValue,
+                  heightValue: heightValue, myLocalController: myLocalController,
                 ),
                 SizedBox(
                   height: heightValue * 2,
                 ),
-                const Text(
-                  'بعض المصانع',
+                 Text(
+                  'some_factories'.tr,
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 16,
@@ -189,6 +149,59 @@ class HomeScreen_State extends State<HomeScreen> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class SearchForSomeFactories extends StatelessWidget {
+  SearchForSomeFactories({Key? key}) : super(key: key);
+  double? heightValue,widthValue;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          'delivery_to'.tr,
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 18,
+            color: Themes.ColorApp2,
+          ),
+        ),
+        SizedBox(
+          height: heightValue! * .7,
+        ),
+        Container(
+          width: Get.width,
+          height: 50,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              border: Border.all(color: Themes.ColorApp2, width: 1.2)),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Image.asset(
+                  Assets.iconsLocationIcon,
+                  fit: BoxFit.contain,
+                ),
+                SizedBox(
+                  width: widthValue! * 2,
+                ),
+                const Text(
+                  'جده 22347 السعوديه ',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 15,
+                    color: Themes.ColorApp8,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -365,7 +378,6 @@ class DetailsCompany extends StatelessWidget {
   }
 }
 
-
 class UserProfileWithNotification extends StatelessWidget {
   UserProfileWithNotification(
       {required this.heightValue, required this.widthValue});
@@ -432,7 +444,6 @@ class UserProfileWithNotification extends StatelessWidget {
   }
 }
 
-
 class CategoryListBuild extends StatelessWidget {
   CategoryListBuild({required this.heightValue});
 
@@ -440,12 +451,13 @@ class CategoryListBuild extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MyLocalController myLocalController = Get.put(MyLocalController());
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'كل الفئات ',
+         Text(
+          'all_categories'.tr,
           style: const TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: 16,
@@ -484,8 +496,8 @@ class CategoryListBuild extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
-                              'خرسانه ',
+                             Text(
+                              'concrete'.tr,
                               style: const TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 15,
@@ -535,8 +547,8 @@ class CategoryListBuild extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
-                            'طوب ',
+                           Text(
+                            'bricks'.tr,
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 15,
@@ -585,8 +597,8 @@ class CategoryListBuild extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
-                            'بلوك ',
+                           Text(
+                            'block'.tr,
                             style: const TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 15,
@@ -616,10 +628,10 @@ class CategoryListBuild extends StatelessWidget {
 }
 
 class OrderPriceRequest extends StatelessWidget {
-  OrderPriceRequest({required this.heightValue});
+  OrderPriceRequest({required this.heightValue, required this.myLocalController});
 
   double heightValue;
-
+  MyLocalController myLocalController;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -651,8 +663,8 @@ class OrderPriceRequest extends StatelessWidget {
                   SizedBox(
                     height: heightValue * .3,
                   ),
-                  const Text(
-                    'طلب عروض اسعار ',
+                   Text(
+                    'request_offer_price'.tr,
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 15,
@@ -674,9 +686,9 @@ class OrderPriceRequest extends StatelessWidget {
                   child: Container(
                     width: 25,
                     height: 25,
-                    child: const Center(
-                      child: const Icon(
-                        Icons.keyboard_arrow_left,
+                    child:  Center(
+                      child: Icon(
+                       myLocalController.language!.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
                         size: 25,
                         color: Themes.ColorApp1,
                       ),

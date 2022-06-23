@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/change_password_profile/change_password_profile.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
@@ -8,8 +9,9 @@ import 'package:nabny/screens/profile_information_screen/profile_information_scr
 import 'package:nabny/utils/Themes.dart';
 
 class SettingProfileScreen extends StatelessWidget {
-  const SettingProfileScreen({Key? key}) : super(key: key);
+   SettingProfileScreen({Key? key}) : super(key: key);
 
+   MyLocalController myLocalController = Get.put(MyLocalController());
   @override
   Widget build(BuildContext context) {
     var widthValue = Get.width * 0.024;
@@ -33,7 +35,7 @@ class SettingProfileScreen extends StatelessWidget {
                       ),
                       child: Center(
                         child: Text(
-                          'اعدادات البروفايل',
+                          'profile_setting'.tr,
                           style: TextStyle(
                             color: Themes.ColorApp15,
                             fontSize: 20,
@@ -44,12 +46,15 @@ class SettingProfileScreen extends StatelessWidget {
                     ),
                     Positioned(
                       top: heightValue * 2.3,
-                      right: heightValue * 1.5,
+                      right: myLocalController.language!.languageCode == "ar" ? widthValue * 1.5 : 0,
+                      left: myLocalController.language!.languageCode == "en" ? widthValue * 1.5 : 0,
                       child: GestureDetector(
                         onTap: ()=>Get.off(HomeMainScreen(valueBack: 'setting')),
                         child: CircleAvatar(
                           backgroundColor: Themes.ColorApp5,
-                          child: Icon(Icons.arrow_right_alt_rounded,color: Colors.white,),
+                          child: Icon(
+                           myLocalController.language!.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
+                            color: Colors.white,),
                         ),
                       ),
                     )
@@ -59,7 +64,7 @@ class SettingProfileScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: GestureDetector(
-                    onTap: ()=> Get.off(const ProfileInformationScreen()),
+                    onTap: ()=> Get.off(ProfileInformationScreen()),
                     child: Container(
                       height: 70,
                       width: Get.width,
@@ -78,7 +83,7 @@ class SettingProfileScreen extends StatelessWidget {
                               ),
                               SizedBox(width: widthValue * 1,),
                               Text(
-                                'معلومات الحساب',
+                                'account_information'.tr,
                                 style: TextStyle(
                                   color: Themes.ColorApp15,
                                   fontSize: 14,
@@ -96,7 +101,7 @@ class SettingProfileScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: GestureDetector(
-                    onTap: ()=> Get.to(const ChangePasswordProfile()),
+                    onTap: ()=> Get.to(ChangePasswordProfile()),
                     child: Container(
                       height: 70,
                       width: Get.width,
@@ -115,7 +120,7 @@ class SettingProfileScreen extends StatelessWidget {
                               ),
                               SizedBox(width: widthValue * 1,),
                               Text(
-                                'تغيير كلمه المرور',
+                                'change_password'.tr,
                                 style: TextStyle(
                                   color: Themes.ColorApp15,
                                   fontSize: 14,

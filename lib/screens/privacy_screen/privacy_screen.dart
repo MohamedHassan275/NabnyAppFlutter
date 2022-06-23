@@ -1,14 +1,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 
 import '../../utils/Themes.dart';
 import '../setting_screen/setting_screen.dart';
 
 class PrivacyScreen extends StatelessWidget {
-  const PrivacyScreen({Key? key}) : super(key: key);
+   PrivacyScreen({Key? key}) : super(key: key);
 
+  MyLocalController myLocalController = Get.put(MyLocalController());
   @override
   Widget build(BuildContext context) {
     var widthValue = Get.width * 0.024;
@@ -33,7 +35,7 @@ class PrivacyScreen extends StatelessWidget {
                             topRight: Radius.circular(35))),
                     child: Center(
                       child: Text(
-                        'الشروط والاحكام ',
+                        'terms_and_conditions'.tr,
                         style: TextStyle(
                           color: Themes.ColorApp15,
                           fontSize: 20,
@@ -49,7 +51,9 @@ class PrivacyScreen extends StatelessWidget {
                       onTap: ()=>Get.off(HomeMainScreen(valueBack: 'setting')),
                       child: CircleAvatar(
                         backgroundColor: Themes.ColorApp5,
-                        child: Icon(Icons.arrow_right_alt_rounded,color: Colors.white,),
+                        child: Icon(
+                          myLocalController.language!.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
+                          color: Colors.white,),
                       ),
                     ),
                   )
@@ -69,7 +73,7 @@ class PrivacyScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text('الشروط والاحكام ',
+                      Text('terms_and_conditions'.tr,
                         style: TextStyle(
                           color: Themes.ColorApp1,
                           fontSize: 20,
