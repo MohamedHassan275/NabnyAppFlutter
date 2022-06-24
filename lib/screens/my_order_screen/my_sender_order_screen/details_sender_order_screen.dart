@@ -175,7 +175,8 @@ class _DetailsSenderOrderScreenState extends State<DetailsSenderOrderScreen> {
                             ),
                           ),
                         ),
-                      )
+                      ),
+                      SizedBox(height: heightValue * 1.5,),
                     ],
                   ),
                   SizedBox(height: heightValue * 2,)

@@ -65,7 +65,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 width: widthValue * 1.5,
                               ),
                               SettingCategory(
-                                  onTap: () => Get.to(PrivacyScreen()),
+                                  onTap: () => Get.to(TermsConditionScreen()),
                                   title: 'terms_and_conditions'.tr,
                                   imageTitle: Assets.iconsTermsConditionsImage,
                                   heightValue: heightValue),
@@ -74,7 +74,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               ),
                               SettingCategory(
                                   onTap: () =>
-                                      Get.to(TermsConditionScreen()),
+                                      Get.to(PrivacyScreen()),
                                   title: 'privacy_policy'.tr,
                                   imageTitle: Assets.iconsPrivacyImage,
                                   heightValue: heightValue),

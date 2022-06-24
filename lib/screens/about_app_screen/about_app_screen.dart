@@ -39,7 +39,7 @@ class AboutAppScreen extends StatelessWidget {
                         'about_app'.tr,
                         style: TextStyle(
                           color: Themes.ColorApp15,
-                          fontSize: 20,
+                          fontSize: 17,
                           fontWeight: FontWeight.w500,
                         ),
                       ),

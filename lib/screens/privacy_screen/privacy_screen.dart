@@ -35,10 +35,10 @@ class PrivacyScreen extends StatelessWidget {
                             topRight: Radius.circular(35))),
                     child: Center(
                       child: Text(
-                        'terms_and_conditions'.tr,
+                        'privacy_policy'.tr,
                         style: TextStyle(
                           color: Themes.ColorApp15,
-                          fontSize: 20,
+                          fontSize: 17,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -73,10 +73,10 @@ class PrivacyScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text('terms_and_conditions'.tr,
+                      Text('privacy_policy'.tr,
                         style: TextStyle(
                           color: Themes.ColorApp1,
-                          fontSize: 20,
+                          fontSize: 17,
                           fontWeight: FontWeight.w500,
                         ),
                       ),

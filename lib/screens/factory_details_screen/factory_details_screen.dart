@@ -86,7 +86,7 @@ class ImageAndFavoriteFactory extends StatelessWidget {
                 width: 35,
                 height: 35,
                 widget: Icon(
-                  myLocalController.language!.languageCode == "en" ? Icons.language : Icons.subdirectory_arrow_left,),
+                  myLocalController.language!.languageCode == "en" ? Icons.subdirectory_arrow_left : Icons.subdirectory_arrow_left,),
                 color: Themes.whiteColor),
           ),
           GestureDetector(

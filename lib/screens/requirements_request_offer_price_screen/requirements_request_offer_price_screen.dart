@@ -81,12 +81,16 @@ class _RequirementsRequestOfferPriceScreenState
                   key: formKey,
                   child: Column(
                     children: [
-                      Text(
-                        'من فضلك اخبرنا عن متطلباتك',
-                        style: TextStyle(
-                          color: Themes.ColorApp8,
-                          fontSize: 25,
-                          fontWeight: FontWeight.w500,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Text(
+                          'tell_us_about_your_requirements'.tr,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Themes.ColorApp8,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -160,9 +164,8 @@ class _RequirementsRequestOfferPriceScreenState
                                     maxLines: 2,
                                     style: TextStyle(
                                         fontFamily: 'FF Shamel Family',
-                                        fontSize: 14,
-                                        color: Themes.ColorApp8,
-                                        fontWeight: FontWeight.w500),
+                                        fontSize: 15,
+                                        color: Themes.ColorApp8),
                                   ),
                                   SizedBox(
                                     width: widthValue * .5,
@@ -173,9 +176,8 @@ class _RequirementsRequestOfferPriceScreenState
                                     maxLines: 2,
                                     style: TextStyle(
                                         fontFamily: 'FF Shamel Family',
-                                        fontSize: 14,
-                                        color: Themes.ColorApp8,
-                                        fontWeight: FontWeight.w500),
+                                        fontSize: 15,
+                                        color: Themes.ColorApp8,),
                                   ),
                                 ],
                               ),

@@ -38,7 +38,7 @@ class SettingProfileScreen extends StatelessWidget {
                           'profile_setting'.tr,
                           style: TextStyle(
                             color: Themes.ColorApp15,
-                            fontSize: 20,
+                            fontSize: 17,
                             fontWeight: FontWeight.w500,
                           ),
                         ),

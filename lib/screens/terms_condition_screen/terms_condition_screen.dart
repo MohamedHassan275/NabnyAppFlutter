@@ -36,10 +36,10 @@ class TermsConditionScreen extends StatelessWidget {
                             topRight: Radius.circular(35))),
                     child: Center(
                       child: Text(
-                        'سياسه الخصوصيه ',
+                        'terms_and_conditions'.tr,
                         style: TextStyle(
                           color: Themes.ColorApp15,
-                          fontSize: 20,
+                          fontSize: 17,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -74,10 +74,10 @@ class TermsConditionScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text('privacy_policy'.tr,
+                      Text('terms_and_conditions'.tr,
                         style: TextStyle(
                           color: Themes.ColorApp1,
-                          fontSize: 20,
+                          fontSize: 17,
                           fontWeight: FontWeight.w500,
                         ),
                       ),

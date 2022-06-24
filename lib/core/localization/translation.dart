@@ -122,6 +122,8 @@ class MyTranslation extends Translations {
       "recent_transactions" : "التعاملات الاخيره",
       "back_credit" : "رصيد مرتجع",
       "bin_Laden_company" : "شركه بن لادن",
+      "tell_us_about_your_requirements" : "من فضلك اخبرنا عن متطلباتك",
+
     },
     "en" : {
       "skip" : "skip",
@@ -194,6 +196,7 @@ class MyTranslation extends Translations {
       "contract_details" : "Contract details",
       "The_cost_bid" : "The cost of the bid",
       "accept" : "Accept",
+      "accepted_order" : "تم قبول الطلب بنجاح",
       "canceled_order" : "Canceled order successfully",
       "cancel_order" : "Cancel order",
       "request_price" : "request price",
@@ -240,6 +243,7 @@ class MyTranslation extends Translations {
       "available_balance" : "available balance",
       "recent_transactions" : "recent transactions",
       "recent_transactions" : "recent transactions",
+      "tell_us_about_your_requirements" : "Please tell us about your requirements",
 
     },
   };
