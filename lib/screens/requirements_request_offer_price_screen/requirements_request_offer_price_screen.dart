@@ -93,7 +93,7 @@ class _RequirementsRequestOfferPriceScreenState
                         height: heightValue * 1.2,
                       ),
                       FromTextRegisterShared(
-                          labelText: 'نوع الصبة  ',
+                          labelText: 'type_of_casting'.tr,
                           onChanged: (value) {
                             setState(() {
                               typeCastingOrderRequest = value;
@@ -109,7 +109,7 @@ class _RequirementsRequestOfferPriceScreenState
                           },
                           keyboardType: TextInputType.text,
                           Controller: TypeCastingOrderRequest,
-                          hintText: 'نوع الصبة '),
+                          hintText: 'type_of_casting'.tr),
                       SizedBox(
                         height: heightValue * .7,
                       ),

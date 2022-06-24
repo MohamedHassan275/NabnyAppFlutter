@@ -65,8 +65,8 @@ class MyTranslation extends Translations {
       "cost_of_bid" : "تكلفه العرض المقدم",
       "received" : "تم الاستلام",
       "save" : "حفظ",
-      "type_of_casting" : "نوع الصبة ؟",
-      "execution_date" : "موعد تنفيذ الطلبية ؟",
+      "type_of_casting" : "نوع الصبة",
+      "execution_date" : "موعد تنفيذ الطلبية",
       "mix_type" : "نوع الخلطه",
       "cement_type" : "نوع الاسمنت",
       "stone_size" : "مقاس الحجر",
@@ -116,6 +116,7 @@ class MyTranslation extends Translations {
       "with_ice" : "بثلج",
       "with_out_ice" : "بدون ثلج",
       "add_new_address" : "اضافة عنوان جديد",
+      "add_order" : "اضافة طلب",
       "order_will_be_received" : "سيتم استلام الطلبيه بتاريخ",
       "available_balance" : "الرصيد المتوفر",
       "recent_transactions" : "التعاملات الاخيره",
@@ -232,12 +233,14 @@ class MyTranslation extends Translations {
       "with_ice" : "with snow",
       "with_out_ice" : "Without ice",
       "add_new_address" : "Add New Address",
+      "add_order" : "Add order",
       "order_will_be_received" : "The order will be received on the date",
       "bin_Laden_company" : "Bin Laden company",
       "back_credit" : "Back credit",
       "available_balance" : "available balance",
       "recent_transactions" : "recent transactions",
       "recent_transactions" : "recent transactions",
+
     },
   };
 

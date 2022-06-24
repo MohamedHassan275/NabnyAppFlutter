@@ -46,7 +46,7 @@ class _RequestOfferPriceScreenState extends State<RequestOfferPriceScreen> {
                     ),
               )),
               SizedBox(height: heightValue * 1.5,),
-              CustomButtonImage(title: 'اضافة طلب', hight: 50, onTap: (){
+              CustomButtonImage(title: 'add_order'.tr, hight: 50, onTap: (){
                 Get.to(const RequirementsRequestOfferPriceScreen());
               }),
               SizedBox(height: heightValue * 1,),
@@ -161,7 +161,7 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
                     borderRadius: BorderRadius.circular(25)
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -171,7 +171,7 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
                             'you_have_offers'.tr,
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
-                              fontSize: 18,
+                              fontSize: 16,
                               color: Themes.ColorApp8,
                             ),
                           ),
@@ -208,9 +208,12 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
                           ),
                         ],
                       ),
-                      CustomButtonImage2(title: 'watch'.tr, hight: 38, width: 85, onTap: (){
-                        Get.to(const FactoryOfferPriceScreen());
-                      }),
+                      SizedBox(width: widthValue *.5,),
+                      Expanded(
+                        child: CustomButtonImage2(title: 'watch'.tr, hight: 38, width: 85, onTap: (){
+                          Get.to(const FactoryOfferPriceScreen());
+                        }),
+                      ),
                     ],
                   ),
                 ),
