@@ -128,8 +128,6 @@ class MyTranslation extends Translations {
       "you_will_accept_Bin_Laden_offer" : "هل انت متاكد من قبول عرض شركه بن لادن ",
       "cancel" : "الغاء",
 
-
-
     },
     "en" : {
       "skip" : "skip",

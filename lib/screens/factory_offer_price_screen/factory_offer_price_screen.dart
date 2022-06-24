@@ -143,7 +143,7 @@ class AppbarDetailsOrder extends StatelessWidget {
                   topRight: Radius.circular(35))),
           child: Center(
             child: Text(
-              'طلب عروض اسعار',
+              'request_offer_price2'.tr,
               style: TextStyle(
                 color: Themes.ColorApp15,
                 fontSize: 20,
@@ -483,17 +483,24 @@ class _BottomSheetItemState extends State<BottomSheetItem> {
                   });
                 }),
             SizedBox(
-              height: heightValue * .7,
+              height: heightValue * 1.2,
             ),
-            Container(
-              width: Get.width,
-              child: Center(
-                child:  Text(
-                  'cancel'.tr,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16,
-                    color: Themes.ColorApp1,
+            GestureDetector(
+              onTap: (){
+                setState(() {
+                  Get.off(HomeMainScreen(valueBack: ''));
+                });
+              },
+              child: Container(
+                width: Get.width,
+                child: Center(
+                  child:  Text(
+                    'cancel'.tr,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16,
+                      color: Themes.ColorApp1,
+                    ),
                   ),
                 ),
               ),
