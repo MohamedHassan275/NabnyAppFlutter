@@ -52,7 +52,7 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                'الرصيد المتوفر',
+                                'available_balance'.tr,
                                 style: TextStyle(
                                   color: Themes.whiteColor,
                                   fontSize: 19,
@@ -88,7 +88,7 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
                         ),
                         SizedBox(height: heightValue * .7,),
                         Text(
-                          'التعاملات الاخيره',
+                          'recent_transactions'.tr,
                           style: TextStyle(
                             color: Themes.ColorApp8,
                             fontSize: 17,
@@ -96,9 +96,9 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
                           ),
                         ),
                         SizedBox(height: heightValue * .7,),
-                        AddressDetailsOrder(balanceText: 'رصيد مرتجع', myBalance: '+ 100 ريال ', dateBalance: '12/6/2022', color: Themes.ColorApp17,),
+                        AddressDetailsOrder(balanceText: 'back_credit'.tr, myBalance: '+ 100 ريال ', dateBalance: '12/6/2022', color: Themes.ColorApp17,),
                         SizedBox(height: heightValue * .5,),
-                        AddressDetailsOrder(balanceText: 'شركه بن لادن', myBalance: '- 250 ريال ', dateBalance: '12/6/2022', color: Themes.ColorApp9,),
+                        AddressDetailsOrder(balanceText: 'bin_Laden_company'.tr, myBalance: '- 250 ريال ', dateBalance: '12/6/2022', color: Themes.ColorApp9,),
                       ],
                     ),
                   ),
@@ -130,7 +130,7 @@ class AppbarDetailsOrder extends StatelessWidget {
                   topLeft: Radius.circular(35), topRight: Radius.circular(35))),
           child: Center(
             child: Text(
-              'المحفظه',
+              'my_wallet'.tr,
               style: TextStyle(
                 color: Themes.ColorApp15,
                 fontSize: 20,

@@ -117,6 +117,10 @@ class MyTranslation extends Translations {
       "with_out_ice" : "بدون ثلج",
       "add_new_address" : "اضافة عنوان جديد",
       "order_will_be_received" : "سيتم استلام الطلبيه بتاريخ",
+      "available_balance" : "الرصيد المتوفر",
+      "recent_transactions" : "التعاملات الاخيره",
+      "back_credit" : "رصيد مرتجع",
+      "bin_Laden_company" : "شركه بن لادن",
     },
     "en" : {
       "skip" : "skip",
@@ -229,6 +233,11 @@ class MyTranslation extends Translations {
       "with_out_ice" : "Without ice",
       "add_new_address" : "Add New Address",
       "order_will_be_received" : "The order will be received on the date",
+      "bin_Laden_company" : "Bin Laden company",
+      "back_credit" : "Back credit",
+      "available_balance" : "available balance",
+      "recent_transactions" : "recent transactions",
+      "recent_transactions" : "recent transactions",
     },
   };
 

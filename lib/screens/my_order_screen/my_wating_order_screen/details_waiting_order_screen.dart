@@ -93,6 +93,7 @@ class _DetailsWaitingOrderScreenState extends State<DetailsWaitingOrderScreen> {
                                 height: heightValue * .7,
                               ),
                               Container(
+                                height: 50,
                                 decoration: BoxDecoration(
                                   color: Themes.ColorApp14,
                                   borderRadius: BorderRadius.circular(25)

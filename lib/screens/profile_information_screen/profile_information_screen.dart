@@ -61,7 +61,7 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
                   ),
                   Positioned(
                     top: heightValue * 2.3,
-                    right: myLocalController.language!.languageCode == "ar" ? heightValue * 1.5 : 0,
+                    right: widthValue * 1.5,
                     child: GestureDetector(
                       onTap: () => Get.off( SettingProfileScreen()),
                       child:  CircleAvatar(
