@@ -473,8 +473,10 @@ class _RequirementsRequestOfferPriceScreenState
                                   widthValue: widthValue,
                                   name: 'with_lab'.tr,
                                   onTap: () {
-                                    isVisibleLab = true;
-                                    isVisibleNotLab = false;
+                                   setState(() {
+                                     isVisibleLab = true;
+                                     isVisibleNotLab = false;
+                                   });
                                   }),
                               SizedBox(
                                 width: widthValue * 1.5,
@@ -494,8 +496,10 @@ class _RequirementsRequestOfferPriceScreenState
                                   widthValue: widthValue,
                                   name: 'with_out_lab'.tr,
                                   onTap: () {
-                                    isVisibleNotLab = true;
-                                    isVisibleLab = false;
+                                    setState(() {
+                                      isVisibleNotLab = true;
+                                      isVisibleLab = false;
+                                    });
                                   }),
                             ],
                           ),
