@@ -41,7 +41,12 @@ class _RequirementsRequestOfferPriceScreenState
       pumpLengthOrderRequest,
       myLocationInMap;
   String? formattedDate;
-  bool isVisible = false;
+  bool isVisiblePump = true;
+  bool isVisibleNotPump = false;
+  bool isVisibleIce = true;
+  bool isVisibleNotIce = false;
+  bool isVisibleLab = false;
+  bool isVisibleNotLab = false;
   var formKey = GlobalKey<FormState>();
   String? formattedDateCurrent;
 
@@ -316,27 +321,50 @@ class _RequirementsRequestOfferPriceScreenState
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
+                              isVisiblePump ?
                               ActiveWidgetChoseItem(
                                   widthValue: widthValue,
                                   name: 'with_pump'.tr,
                                   image: Assets.imagesSelectedMark,
                                   onTap: () {
                                     setState(() {
-                                      isVisible = !isVisible;
+                                      isVisiblePump = true;
+                                      isVisibleNotPump = false;
                                     });
-                                  }),
+                                  }) : NotActiveWidgetChoseItem(
+                                widthValue: widthValue,
+                                name: 'with_pump'.tr,
+                                onTap: () {
+                                  setState(() {
+                                    isVisiblePump = true;
+                                    isVisibleNotPump = false;
+                                  });
+                                },
+                              ),
                               SizedBox(
                                 width: widthValue * 1.5,
                               ),
+                              isVisibleNotPump ?
+                              ActiveWidgetChoseItem(
+                                  widthValue: widthValue,
+                                  name: 'with_out_pump'.tr,
+                                  image: Assets.imagesSelectedMark,
+                                  onTap: () {
+                                    setState(() {
+                                      isVisibleNotPump = true;
+                                      isVisiblePump = false;
+                                    });
+                                  }) :
                               NotActiveWidgetChoseItem(
                                 widthValue: widthValue,
                                 name: 'with_out_pump'.tr,
                                 onTap: () {
-                              setState(() {
-                                isVisible = !isVisible;
-                              });
+                                  setState(() {
+                                    isVisibleNotPump = true;
+                                    isVisiblePump = false;
+                                  });
                                 },
-                              ),
+                              )
                             ],
                           ),
                         ),
@@ -373,26 +401,49 @@ class _RequirementsRequestOfferPriceScreenState
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
+                              isVisibleIce ?
                               ActiveWidgetChoseItem(
                                   widthValue: widthValue,
                                   name: 'with_ice'.tr,
                                   image: Assets.imagesSelectedMark,
                                   onTap: () {
                                     setState(() {
-                                      isVisible = !isVisible;
+                                      isVisibleIce = true;
+                                      isVisibleNotIce = false;
+                                    });
+                                  }) :
+                              NotActiveWidgetChoseItem(
+                                  widthValue: widthValue,
+                                  name: 'with_ice'.tr,
+                                  onTap: () {
+                                    setState(() {
+                                      isVisibleIce = true;
+                                      isVisibleNotIce = false;
                                     });
                                   }),
                               SizedBox(
                                 width: widthValue * 1.5,
                               ),
+                              isVisibleNotIce ?
+                              ActiveWidgetChoseItem(
+                                  widthValue: widthValue,
+                                  name: 'with_out_ice'.tr,
+                                  image: Assets.imagesSelectedMark,
+                                  onTap: () {
+                                    setState(() {
+                                      isVisibleNotIce = true;
+                                      isVisibleIce = false;
+                                    });
+                                  }) :
                               NotActiveWidgetChoseItem(
                                   widthValue: widthValue,
                                   name: 'with_out_ice'.tr,
                                   onTap: () {
                                     setState(() {
-                                      isVisible = !isVisible;
+                                      isVisibleNotIce = true;
+                                      isVisibleIce = false;
                                     });
-                                  }),
+                                  })
                             ],
                           ),
                         ),
@@ -407,18 +458,45 @@ class _RequirementsRequestOfferPriceScreenState
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
+                              isVisibleLab ?
                               ActiveWidgetChoseItem(
                                   widthValue: widthValue,
                                   name: 'with_lab'.tr,
                                   image: Assets.imagesSelectedMark,
-                                  onTap: () {}),
+                                  onTap: () {
+                                    setState(() {
+                                      isVisibleLab = true;
+                                      isVisibleNotLab = false;
+                                    });
+                                  }) :
+                              NotActiveWidgetChoseItem(
+                                  widthValue: widthValue,
+                                  name: 'with_lab'.tr,
+                                  onTap: () {
+                                    isVisibleLab = true;
+                                    isVisibleNotLab = false;
+                                  }),
                               SizedBox(
                                 width: widthValue * 1.5,
                               ),
+                              isVisibleNotLab ?
+                              ActiveWidgetChoseItem(
+                                  widthValue: widthValue,
+                                  name: 'with_out_lab'.tr,
+                                  image: Assets.imagesSelectedMark,
+                                  onTap: () {
+                                    setState(() {
+                                      isVisibleNotLab = true;
+                                      isVisibleLab = false;
+                                    });
+                                  }) :
                               NotActiveWidgetChoseItem(
                                   widthValue: widthValue,
                                   name: 'with_out_lab'.tr,
-                                  onTap: () {}),
+                                  onTap: () {
+                                    isVisibleNotLab = true;
+                                    isVisibleLab = false;
+                                  }),
                             ],
                           ),
                         ),
