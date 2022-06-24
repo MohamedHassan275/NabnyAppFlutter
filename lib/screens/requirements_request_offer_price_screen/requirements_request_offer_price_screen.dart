@@ -45,7 +45,7 @@ class _RequirementsRequestOfferPriceScreenState
   bool isVisibleNotPump = false;
   bool isVisibleIce = true;
   bool isVisibleNotIce = false;
-  bool isVisibleLab = false;
+  bool isVisibleLab = true;
   bool isVisibleNotLab = false;
   var formKey = GlobalKey<FormState>();
   String? formattedDateCurrent;
