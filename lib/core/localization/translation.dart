@@ -123,6 +123,12 @@ class MyTranslation extends Translations {
       "back_credit" : "رصيد مرتجع",
       "bin_Laden_company" : "شركه بن لادن",
       "tell_us_about_your_requirements" : "من فضلك اخبرنا عن متطلباتك",
+      "view" : "عرض",
+      "accept_offer" : "قبول العرض",
+      "you_will_accept_Bin_Laden_offer" : "هل انت متاكد من قبول عرض شركه بن لادن ",
+      "cancel" : "الغاء",
+
+
 
     },
     "en" : {
@@ -244,7 +250,10 @@ class MyTranslation extends Translations {
       "recent_transactions" : "recent transactions",
       "recent_transactions" : "recent transactions",
       "tell_us_about_your_requirements" : "Please tell us about your requirements",
-
+      "view" : "View",
+      "accept_offer" : "Accepted offer",
+      "you_will_accept_Bin_Laden_offer" : "Are you sure you will accept Bin Laden's offer",
+      "cancel" : "cancel",
     },
   };
 

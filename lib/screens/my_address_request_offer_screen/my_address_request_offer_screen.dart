@@ -160,7 +160,7 @@ class AppbarDetailsOrder extends StatelessWidget {
               'execution_request'.tr,
               style: TextStyle(
                 color: Themes.ColorApp15,
-                fontSize: 20,
+                fontSize: 16,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -168,8 +168,7 @@ class AppbarDetailsOrder extends StatelessWidget {
         ),
         Positioned(
           top: heightValue * 2.3,
-          right: myLocalController.language!.languageCode == "ar" ? widthValue * 1.5 : 0,
-          left: myLocalController.language!.languageCode == "en" ? widthValue * 1.5 : 0,
+          right: widthValue * 1.5,
           child: GestureDetector(
             onTap: () => Get.off( const RequirementsRequestOfferPriceScreen()),
             child: CircleAvatar(

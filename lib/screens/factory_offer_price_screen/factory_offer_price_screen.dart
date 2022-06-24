@@ -79,10 +79,10 @@ class NumberOfOfferPrice extends StatelessWidget {
             ),
             SizedBox(width: widthValue * 1,),
             Text(
-              'لديك من العروض',
+              'you_have_offers'.tr,
               style: TextStyle(
                 color: Themes.ColorApp8,
-                fontSize: 25,
+                fontSize: 17,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -111,10 +111,10 @@ class NumberOfOfferPrice extends StatelessWidget {
             ),
             SizedBox(width: widthValue * .5,),
             Text(
-              'عرض',
+              'view'.tr,
               style: TextStyle(
                 color: Themes.ColorApp8,
-                fontSize: 20,
+                fontSize: 17,
                 fontWeight: FontWeight.w400,
               ),
             ),
@@ -362,7 +362,7 @@ class _OfferPriceAndAcceptedOfferState extends State<OfferPriceAndAcceptedOffer>
               ),
               SizedBox(width: widthValue * 1,),
               Text(
-                'تكلفه العرض المقدم',
+                'cost_of_bid'.tr,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 14,
@@ -402,7 +402,7 @@ class _OfferPriceAndAcceptedOfferState extends State<OfferPriceAndAcceptedOffer>
               ),
               child: Center(
                 child:  Text(
-                  'قبول العرض',
+                  'accept_offer'.tr,
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     fontSize: 16,
@@ -462,11 +462,11 @@ class _BottomSheetItemState extends State<BottomSheetItem> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 35),
               child: Text(
-                'هل انت متاكد من قبول عرض شركه بن لادن',
+                'you_will_accept_Bin_Laden_offer'.tr,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Themes.ColorApp8,
-                  fontSize: 22,
+                  fontSize: 15,
                   fontWeight: FontWeight.w400,
                 ),
               ),
@@ -475,7 +475,7 @@ class _BottomSheetItemState extends State<BottomSheetItem> {
               height: heightValue * 1,
             ),
             CustomButtonImage(
-                title: 'تاكيد',
+                title: 'confirm'.tr,
                 hight: 50,
                 onTap: (){
                   setState(() {
@@ -489,7 +489,7 @@ class _BottomSheetItemState extends State<BottomSheetItem> {
               width: Get.width,
               child: Center(
                 child:  Text(
-                  'الغاء',
+                  'cancel'.tr,
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     fontSize: 16,
