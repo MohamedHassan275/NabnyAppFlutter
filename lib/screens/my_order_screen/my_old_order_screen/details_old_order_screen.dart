@@ -148,32 +148,32 @@ class _DetailsOldOrderScreenState extends State<DetailsOldOrderScreen> {
                         ),
                       ),
                       SizedBox(
-                        height: heightValue * .2,
+                        height: heightValue * .5,
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'سيتم استلام الطلبيه بتارريخ',
+                            'order_will_be_received'.tr,
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
-                              fontSize: 13,
+                              fontSize: 15,
                               color: Themes.ColorApp8,
                             ),
                           ),
-                          SizedBox(width: widthValue * 1,),
+                          SizedBox(width: widthValue * .5,),
                           Text(
                             '13/6/2022',
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
-                              fontSize: 13,
+                              fontSize: 15,
                               color: Themes.ColorApp8,
                             ),
                           ),
                         ],
                       ),
                       SizedBox(
-                        height: heightValue * .3,
+                        height: heightValue * .6,
                       ),
                       CustomButtonImage(title: 'order_been_successfully_received'.tr, hight: 50, onTap: (){
                         Get.off(HomeMainScreen(valueBack: ''));

@@ -117,8 +117,6 @@ class MyTranslation extends Translations {
       "with_out_ice" : "بدون ثلج",
       "add_new_address" : "اضافة عنوان جديد",
       "order_will_be_received" : "سيتم استلام الطلبيه بتاريخ",
-
-
     },
     "en" : {
       "skip" : "skip",
@@ -180,7 +178,7 @@ class MyTranslation extends Translations {
       "cost_of_bid" : "The cost of the bid",
       "received" : "Received",
       "save" : "Save",
-      "type_of_casting" : "type of casting ?",
+      "type_of_casting" : "type of casting",
       "execution_date" : "Execution Date",
       "mix_type" : "Mix type",
       "cement_type" : "cement type",
