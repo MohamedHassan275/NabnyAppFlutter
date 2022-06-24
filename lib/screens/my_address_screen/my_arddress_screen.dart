@@ -42,7 +42,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                 Positioned(
                   bottom: heightValue * 3,
                     child: CustomButtonImage(
-                        title: 'اضافة عنوان جديد',
+                        title: 'add_new_address'.tr,
                         hight: 50,
                         onTap: () => Get.to(HomeMainScreen(valueBack: ''))))
               ],
@@ -154,7 +154,7 @@ class AppbarDetailsOrder extends StatelessWidget {
                   topLeft: Radius.circular(35), topRight: Radius.circular(35))),
           child: Center(
             child: Text(
-              'عناويني',
+              'my_addresses'.tr,
               style: TextStyle(
                 color: Themes.ColorApp15,
                 fontSize: 20,

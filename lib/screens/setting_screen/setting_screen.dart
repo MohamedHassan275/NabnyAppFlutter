@@ -42,7 +42,6 @@ class _SettingScreenState extends State<SettingScreen> {
             child: SingleChildScrollView(
               child: Container(
                 width: Get.width,
-                height: Get.height,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -159,9 +158,8 @@ class SettingCategory extends StatelessWidget {
     return Expanded(
       child: GestureDetector(
         onTap: onTap,
-        child: Container(
+        child: SizedBox(
           width: Get.width,
-          height: 135,
           child: Column(
             children: [
               Container(

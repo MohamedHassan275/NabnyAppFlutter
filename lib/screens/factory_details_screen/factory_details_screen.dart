@@ -38,7 +38,7 @@ class _FactoryDetailsScreenState extends State<FactoryDetailsScreen> {
                     topRight: Radius.circular(35), topLeft: Radius.circular(35))),
             child: Stack(
               children: [
-                ImageAndFavoriteFactory(heightValue: heightValue, myLocalController: myLocalController,),
+                ImageAndFavoriteFactory(heightValue: heightValue),
                 Positioned(
                     top: heightValue * 13,
                     right: widthValue * 2,
@@ -69,14 +69,13 @@ class _FactoryDetailsScreenState extends State<FactoryDetailsScreen> {
 }
 
 class ImageAndFavoriteFactory extends StatelessWidget {
-  ImageAndFavoriteFactory({required this.heightValue, required this.myLocalController});
+  ImageAndFavoriteFactory({required this.heightValue});
 
   double heightValue;
   double height = Get.height * 0.024 * 2;
-  MyLocalController myLocalController;
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return GetBuilder<MyLocalController>(builder: (myLocalController) => Padding(
       padding: EdgeInsets.symmetric(horizontal: 25, vertical: height),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -87,7 +86,7 @@ class ImageAndFavoriteFactory extends StatelessWidget {
                 width: 35,
                 height: 35,
                 widget: Icon(
-                  myLocalController.language!.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,),
+                  myLocalController.language!.languageCode == "en" ? Icons.language : Icons.subdirectory_arrow_left,),
                 color: Themes.whiteColor),
           ),
           GestureDetector(
@@ -100,7 +99,7 @@ class ImageAndFavoriteFactory extends StatelessWidget {
           )
         ],
       ),
-    );
+    ));
   }
 }
 

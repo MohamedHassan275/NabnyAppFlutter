@@ -37,7 +37,6 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
     // TODO: implement initState
     super.initState();
   }
-  MyLocalController myLocalController = Get.put(MyLocalController());
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +76,9 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                             SizedBox(
                               height: 6,
                             ),
-                            Container(
+                            GetBuilder<MyLocalController>(
+                              init: MyLocalController(),
+                                builder: (myLocalController) => Container(
                               height: 200,
                               decoration: BoxDecoration(
                                   color: Themes.ColorApp4,
@@ -97,7 +98,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                         backgroundColor: Themes.ColorApp5,
                                         radius: 25,
                                         child: Icon(
-                                          myLocalController.language!.languageCode == 'ar' ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
+                                          myLocalController.language!.languageCode == 'en' ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
                                           color: Colors.white,
                                         ),
                                       ),
@@ -111,7 +112,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                         horizontal: 25),
                                     child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      MainAxisAlignment.start,
                                       children: [
                                         Text(
                                           'account_information'.tr,
@@ -125,7 +126,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                   ),
                                 ],
                               ),
-                            ),
+                            )),
                             Column(
                               children: [
                                 SizedBox(

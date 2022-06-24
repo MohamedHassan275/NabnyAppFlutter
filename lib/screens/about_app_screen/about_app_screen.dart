@@ -74,7 +74,7 @@ class AboutAppScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text('عن التطبيق ',
+                      Text('about_app'.tr,
                         style: TextStyle(
                           color: Themes.ColorApp1,
                           fontSize: 20,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
+import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/generated/assets.dart';
 
 import '../../../utils/Themes.dart';
@@ -14,6 +15,8 @@ class DetailsOldOrderScreen extends StatefulWidget {
 }
 
 class _DetailsOldOrderScreenState extends State<DetailsOldOrderScreen> {
+  MyLocalController myLocalController = Get.put(MyLocalController());
+
   @override
   Widget build(BuildContext context) {
     var heightValue = Get.height * 0.024;
@@ -32,7 +35,7 @@ class _DetailsOldOrderScreenState extends State<DetailsOldOrderScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AppbarDetailsOrder(widthValue, heightValue),
+                      AppbarDetailsOrder(widthValue, heightValue,myLocalController),
                       SizedBox(
                         height: heightValue * 1.2,
                       ),
@@ -147,13 +150,27 @@ class _DetailsOldOrderScreenState extends State<DetailsOldOrderScreen> {
                       SizedBox(
                         height: heightValue * .2,
                       ),
-                      Text(
-                        'سيتتم استلام الطلبيه بتارريخ 13/6/2022 ',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16,
-                          color: Themes.ColorApp8,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            'سيتم استلام الطلبيه بتارريخ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 13,
+                              color: Themes.ColorApp8,
+                            ),
+                          ),
+                          SizedBox(width: widthValue * 1,),
+                          Text(
+                            '13/6/2022',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 13,
+                              color: Themes.ColorApp8,
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(
                         height: heightValue * .3,
@@ -176,8 +193,9 @@ class _DetailsOldOrderScreenState extends State<DetailsOldOrderScreen> {
 
 
 class AppbarDetailsOrder extends StatelessWidget {
-   AppbarDetailsOrder(this.widthValue,this.heightValue);
+   AppbarDetailsOrder(this.widthValue,this.heightValue,this.myLocalController);
 
+   MyLocalController myLocalController;
    double heightValue,widthValue;
   @override
   Widget build(BuildContext context) {
@@ -210,7 +228,7 @@ class AppbarDetailsOrder extends StatelessWidget {
             child: CircleAvatar(
               backgroundColor: Themes.ColorApp5,
               child: Icon(
-                Icons.arrow_right_alt_rounded,
+                myLocalController.language!.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
                 color: Colors.white,
               ),
             ),

@@ -115,6 +115,10 @@ class MyTranslation extends Translations {
       "with_out_lab" : "بدون مختبر",
       "with_ice" : "بثلج",
       "with_out_ice" : "بدون ثلج",
+      "add_new_address" : "اضافة عنوان جديد",
+      "order_will_be_received" : "سيتم استلام الطلبيه بتاريخ",
+
+
     },
     "en" : {
       "skip" : "skip",
@@ -225,6 +229,8 @@ class MyTranslation extends Translations {
       "with_out_lab" : "without lab",
       "with_ice" : "with snow",
       "with_out_ice" : "Without ice",
+      "add_new_address" : "Add New Address",
+      "order_will_be_received" : "The order will be received on the date",
     },
   };
 

@@ -46,8 +46,7 @@ class SettingProfileScreen extends StatelessWidget {
                     ),
                     Positioned(
                       top: heightValue * 2.3,
-                      right: myLocalController.language!.languageCode == "ar" ? widthValue * 1.5 : 0,
-                      left: myLocalController.language!.languageCode == "en" ? widthValue * 1.5 : 0,
+                      right: widthValue * 1.5,
                       child: GestureDetector(
                         onTap: ()=>Get.off(HomeMainScreen(valueBack: 'setting')),
                         child: CircleAvatar(

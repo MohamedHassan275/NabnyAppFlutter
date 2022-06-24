@@ -57,34 +57,37 @@ class _MySenderOrderScreenState extends State<MySenderOrderScreen> {
                             child: Divider(height: 10, color: Themes.ColorApp2,),
                           ),
                          SizedBox(height: heightValue * .5,),
-                         Row(
-                           children: [
-                             SizedBox(
-                               width: 15,
-                               height: 15,
-                               child: CircleAvatar(
-                                 backgroundColor: Themes.ColorApp17,
+                         Padding(
+                           padding: const EdgeInsets.symmetric(horizontal: 5),
+                           child: Row(
+                             children: [
+                               SizedBox(
+                                 width: 15,
+                                 height: 15,
+                                 child: CircleAvatar(
+                                   backgroundColor: Themes.ColorApp17,
+                                 ),
                                ),
-                             ),
-                             SizedBox(width: widthValue * 1,),
-                             Text(
-                               'cost_of_bid'.tr,
-                               style: TextStyle(
-                                 fontWeight: FontWeight.w500,
-                                 fontSize: 14,
-                                 color: Themes.ColorApp17,
+                               SizedBox(width: widthValue * 1,),
+                               Text(
+                                 'cost_of_bid'.tr,
+                                 style: TextStyle(
+                                   fontWeight: FontWeight.w500,
+                                   fontSize: 14,
+                                   color: Themes.ColorApp17,
+                                 ),
                                ),
-                             ),
-                             SizedBox(width: widthValue * 1,),
-                             Text(
-                               '${myWaitingOrderController.mySenderOrderModel[index].PriceOrder}',
-                               style: TextStyle(
-                                 fontWeight: FontWeight.w500,
-                                 fontSize: 14,
-                                 color: Themes.ColorApp1,
+                               SizedBox(width: widthValue * 1,),
+                               Text(
+                                 '${myWaitingOrderController.mySenderOrderModel[index].PriceOrder}',
+                                 style: TextStyle(
+                                   fontWeight: FontWeight.w500,
+                                   fontSize: 14,
+                                   color: Themes.ColorApp1,
+                                 ),
                                ),
-                             ),
-                           ],
+                             ],
+                           ),
                          ),
                          SizedBox(height: heightValue * 1,),
                          Padding(
@@ -128,40 +131,39 @@ class _MySenderOrderScreenState extends State<MySenderOrderScreen> {
 }
 
 class CompanyDetails extends StatelessWidget {
-   CompanyDetails(this.myCurrentOrderModel);
+  CompanyDetails(this.myCurrentOrderModel);
 
   MySenderOrderModel? myCurrentOrderModel;
-   var heightValue = Get.height * 0.024;
-   var widthValue = Get.width * 0.024;
+  var heightValue = Get.height * 0.024;
+  var widthValue = Get.width * 0.024;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              width: 65,
-              height: 65,
-              decoration: BoxDecoration(
-                color: Themes.ColorApp14,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Center(
-                child: Image(
-                  image: AssetImage('${myCurrentOrderModel!.ImageCompany}'),
-                  fit: BoxFit.contain,
-                  width: 50,
-                  height: 50,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
                 children: [
+                  Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Themes.ColorApp14,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Center(
+                      child: Image(
+                        image: AssetImage('${myCurrentOrderModel!.ImageCompany}'),
+                        fit: BoxFit.contain,
+                        width: 35,
+                        height: 35,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: widthValue *1,),
                   Text(
                     '${myCurrentOrderModel!.NameCompany}',
                     style: TextStyle(
@@ -170,83 +172,72 @@ class CompanyDetails extends StatelessWidget {
                       color: Themes.ColorApp1,
                     ),
                   ),
-                  SizedBox(height: heightValue * .3,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        child: Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'request_type'.tr,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12,
-                                  color: Themes.ColorApp2,
-                                ),
-                              ),
-                              SizedBox(width: widthValue * .2,),
-                              Text(
-                                '${myCurrentOrderModel!.OrderStyle}',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12,
-                                  color: Themes.ColorApp1,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: widthValue * 3.5,),
-                      Container(
-                        child: Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                               Text(
-                                'quantity'.tr,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12,
-                                  color: Themes.ColorApp2,
-                                ),
-                              ),
-                              SizedBox(width: widthValue * .2,),
-                              Text(
-                                '${myCurrentOrderModel!.Wight}',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12,
-                                  color: Themes.ColorApp1,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  )
                 ],
               ),
-            )
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              '${myCurrentOrderModel!.OrderNumber}',
-              style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 12,
-                color: Themes.ColorApp2,
+              Text(
+                '${myCurrentOrderModel!.OrderNumber}',
+                style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 13,
+                  color: Themes.ColorApp2,
+                ),
               ),
-            ),
-            SizedBox(width: widthValue * 1,),
-          ],
+            ],
+          ),
+        ),
+        SizedBox(height: heightValue* .5,),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Container(
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Image.asset(Assets.iconsWalletMenuIcon,width: 15,height: 15,fit: BoxFit.contain,),
+                      SizedBox(width: widthValue * 1,),
+                      Text(
+                        '${myCurrentOrderModel!.PriceOrder}',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                          color: Themes.ColorApp1,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'request_type'.tr,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                          color: Themes.ColorApp2,
+                        ),
+                      ),
+                      SizedBox(width: widthValue * .2,),
+                      Text(
+                        '${myCurrentOrderModel!.OrderStyle}',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                          color: Themes.ColorApp1,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         )
       ],
     );
