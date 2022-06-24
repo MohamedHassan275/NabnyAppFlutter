@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -16,11 +15,12 @@ class RequirementsRequestOfferPriceScreen extends StatefulWidget {
   const RequirementsRequestOfferPriceScreen({Key? key}) : super(key: key);
 
   @override
-  _RequirementsRequestOfferPriceScreenState createState() => _RequirementsRequestOfferPriceScreenState();
+  _RequirementsRequestOfferPriceScreenState createState() =>
+      _RequirementsRequestOfferPriceScreenState();
 }
 
-class _RequirementsRequestOfferPriceScreenState extends State<RequirementsRequestOfferPriceScreen> {
-
+class _RequirementsRequestOfferPriceScreenState
+    extends State<RequirementsRequestOfferPriceScreen> {
   TextEditingController TypeCastingOrderRequest = TextEditingController();
   TextEditingController DateOrderRequest = TextEditingController();
   TextEditingController WeightOrderRequest = TextEditingController();
@@ -31,11 +31,20 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
   TextEditingController PumpLengthOrderRequest = TextEditingController();
   TextEditingController MyLocationInMap = TextEditingController();
   bool isSelected = false;
-  String? typeCastingOrderRequest,dateOrderRequest,weightOrderRequest,mixTypeOrderRequest,
-      cementTypeOrderRequest,stoneTypeOrderRequest,specialOrderRequest,pumpLengthOrderRequest,myLocationInMap;
+  String? typeCastingOrderRequest,
+      dateOrderRequest,
+      weightOrderRequest,
+      mixTypeOrderRequest,
+      cementTypeOrderRequest,
+      stoneTypeOrderRequest,
+      specialOrderRequest,
+      pumpLengthOrderRequest,
+      myLocationInMap;
   String? formattedDate;
+  bool isVisible = false;
   var formKey = GlobalKey<FormState>();
   String? formattedDateCurrent;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -44,8 +53,8 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
     var formatter = new DateFormat('yyyy-MM-dd');
     formattedDateCurrent = formatter.format(now);
     print(formattedDateCurrent); // 2016-01-25
-
   }
+
   MyLocalController myLocalController = Get.put(MyLocalController());
 
   @override
@@ -59,8 +68,10 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
             width: Get.width,
             child: Column(
               children: [
-                AppbarDetailsOrder(widthValue, heightValue,myLocalController),
-                SizedBox(height: heightValue * 1.2,),
+                AppbarDetailsOrder(widthValue, heightValue, myLocalController),
+                SizedBox(
+                  height: heightValue * 1.2,
+                ),
                 Form(
                   key: formKey,
                   child: Column(
@@ -73,7 +84,9 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      SizedBox(height: heightValue * 1.2,),
+                      SizedBox(
+                        height: heightValue * 1.2,
+                      ),
                       FromTextRegisterShared(
                           labelText: 'نوع الصبة  ',
                           onChanged: (value) {
@@ -92,7 +105,9 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                           keyboardType: TextInputType.text,
                           Controller: TypeCastingOrderRequest,
                           hintText: 'نوع الصبة '),
-                      SizedBox(height: heightValue * .7,),
+                      SizedBox(
+                        height: heightValue * .7,
+                      ),
                       InkWell(
                         onTap: () async {
                           DateTime? pickedDate = await showDatePicker(
@@ -103,14 +118,17 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                               lastDate: DateTime(2101));
 
                           if (pickedDate != null) {
-                            print(pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000 yyyy-MM-dd
-                            formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
-                            print(formattedDate); //formatted date output using intl package =>  2021-03-16
+                            print(
+                                pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000 yyyy-MM-dd
+                            formattedDate =
+                                DateFormat('yyyy-MM-dd').format(pickedDate);
+                            print(
+                                formattedDate); //formatted date output using intl package =>  2021-03-16
                             //you can implement different kind of Date Format here according to your requirement
 
                             setState(() {
                               DateOrderRequest.text =
-                              formattedDate!; //set output date to TextField value.
+                                  formattedDate!; //set output date to TextField value.
                             });
                           }
                         },
@@ -120,18 +138,19 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                             height: 65,
                             width: Get.width,
                             decoration: BoxDecoration(
-                              color: Themes.whiteColor,
+                                color: Themes.whiteColor,
                                 borderRadius: BorderRadius.circular(25),
                                 border: Border.all(
-                                    color: Themes.ColorApp2,
-                                    width: 1)),
+                                    color: Themes.ColorApp2, width: 1)),
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Text("execution_date".tr,
+                                  Text(
+                                    "execution_date".tr,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                     style: TextStyle(
@@ -140,9 +159,11 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                                         color: Themes.ColorApp8,
                                         fontWeight: FontWeight.w500),
                                   ),
-                                  SizedBox(width: widthValue * .5,),
+                                  SizedBox(
+                                    width: widthValue * .5,
+                                  ),
                                   Text(
-                                    formattedDate == null ? "" : formattedDate! ,
+                                    formattedDate == null ? "" : formattedDate!,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                     style: TextStyle(
@@ -157,7 +178,9 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                           ),
                         ),
                       ),
-                      SizedBox(height: heightValue * .7,),
+                      SizedBox(
+                        height: heightValue * .7,
+                      ),
                       FromTextRegisterShared(
                           labelText: 'quantity'.tr,
                           onChanged: (value) {
@@ -176,7 +199,9 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                           keyboardType: TextInputType.number,
                           Controller: WeightOrderRequest,
                           hintText: 'quantity'.tr),
-                      SizedBox(height: heightValue * .7,),
+                      SizedBox(
+                        height: heightValue * .7,
+                      ),
                       FromTextRegisterShared(
                           labelText: 'mix_type'.tr,
                           onChanged: (value) {
@@ -195,7 +220,9 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                           keyboardType: TextInputType.text,
                           Controller: MixTypeOrderRequest,
                           hintText: 'mix_type'.tr),
-                      SizedBox(height: heightValue * .7,),
+                      SizedBox(
+                        height: heightValue * .7,
+                      ),
                       FromTextRegisterShared(
                           labelText: 'cement_type'.tr,
                           onChanged: (value) {
@@ -214,7 +241,9 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                           keyboardType: TextInputType.text,
                           Controller: CementTypeOrderRequest,
                           hintText: 'cement_type'.tr),
-                      SizedBox(height: heightValue * .7,),
+                      SizedBox(
+                        height: heightValue * .7,
+                      ),
                       FromTextRegisterShared(
                           labelText: 'stone_size'.tr,
                           onChanged: (value) {
@@ -233,7 +262,9 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                           keyboardType: TextInputType.number,
                           Controller: StoneTypeOrderRequest,
                           hintText: 'stone_size'.tr),
-                      SizedBox(height: heightValue * .7,),
+                      SizedBox(
+                        height: heightValue * .7,
+                      ),
                       FromTextRegisterShared(
                           labelText: 'Special_specifications'.tr,
                           onChanged: (value) {
@@ -253,7 +284,9 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                           keyboardType: TextInputType.text,
                           Controller: SpecialOrderRequest,
                           hintText: 'Special_specifications'.tr),
-                      SizedBox(height: heightValue * .7,),
+                      SizedBox(
+                        height: heightValue * .7,
+                      ),
                       FromTextRegisterShared(
                           labelText: 'Your_location_map'.tr,
                           onChanged: (value) {
@@ -273,7 +306,9 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                           keyboardType: TextInputType.text,
                           Controller: MyLocationInMap,
                           hintText: 'Your_location_map'.tr),
-                      SizedBox(height: heightValue * .7,),
+                      SizedBox(
+                        height: heightValue * .7,
+                      ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         child: Padding(
@@ -281,14 +316,34 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              WidgetChoseItem(widthValue: widthValue, name: 'with_pump'.tr, image: Assets.imagesSelectedMark, onTap:(){}),
-                              SizedBox(width: widthValue * 1.5,),
-                              WidgetChoseItem(widthValue: widthValue, name: 'with_out_pump'.tr, image: Assets.imagesSelectedMark, onTap:(){}),
+                              ActiveWidgetChoseItem(
+                                  widthValue: widthValue,
+                                  name: 'with_pump'.tr,
+                                  image: Assets.imagesSelectedMark,
+                                  onTap: () {
+                                    setState(() {
+                                      isVisible = !isVisible;
+                                    });
+                                  }),
+                              SizedBox(
+                                width: widthValue * 1.5,
+                              ),
+                              NotActiveWidgetChoseItem(
+                                widthValue: widthValue,
+                                name: 'with_out_pump'.tr,
+                                onTap: () {
+                              setState(() {
+                                isVisible = !isVisible;
+                              });
+                                },
+                              ),
                             ],
                           ),
                         ),
                       ),
-                      SizedBox(height: heightValue * .7,),
+                      SizedBox(
+                        height: heightValue * .7,
+                      ),
                       FromTextRegisterShared(
                           labelText: 'pump_length'.tr,
                           onChanged: (value) {
@@ -308,7 +363,9 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                           keyboardType: TextInputType.number,
                           Controller: PumpLengthOrderRequest,
                           hintText: 'pump_length'.tr),
-                      SizedBox(height: heightValue * .7,),
+                      SizedBox(
+                        height: heightValue * .7,
+                      ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         child: Padding(
@@ -316,14 +373,33 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              WidgetChoseItem(widthValue: widthValue, name: 'with_ice'.tr, image: Assets.imagesSelectedMark, onTap:(){}),
-                              SizedBox(width: widthValue * 1.5,),
-                              WidgetChoseItem(widthValue: widthValue, name: 'with_out_ice'.tr, image: Assets.imagesSelectedMark, onTap:(){}),
+                              ActiveWidgetChoseItem(
+                                  widthValue: widthValue,
+                                  name: 'with_ice'.tr,
+                                  image: Assets.imagesSelectedMark,
+                                  onTap: () {
+                                    setState(() {
+                                      isVisible = !isVisible;
+                                    });
+                                  }),
+                              SizedBox(
+                                width: widthValue * 1.5,
+                              ),
+                              NotActiveWidgetChoseItem(
+                                  widthValue: widthValue,
+                                  name: 'with_out_ice'.tr,
+                                  onTap: () {
+                                    setState(() {
+                                      isVisible = !isVisible;
+                                    });
+                                  }),
                             ],
                           ),
                         ),
                       ),
-                      SizedBox(height: heightValue * .7,),
+                      SizedBox(
+                        height: heightValue * .7,
+                      ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         child: Padding(
@@ -331,43 +407,59 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              WidgetChoseItem(widthValue: widthValue, name: 'with_lab'.tr, image: Assets.imagesSelectedMark, onTap:(){}),
-                              SizedBox(width: widthValue * 1.5,),
-                              WidgetChoseItem(widthValue: widthValue, name: 'with_out_lab'.tr, image: Assets.imagesSelectedMark, onTap:(){}),
+                              ActiveWidgetChoseItem(
+                                  widthValue: widthValue,
+                                  name: 'with_lab'.tr,
+                                  image: Assets.imagesSelectedMark,
+                                  onTap: () {}),
+                              SizedBox(
+                                width: widthValue * 1.5,
+                              ),
+                              NotActiveWidgetChoseItem(
+                                  widthValue: widthValue,
+                                  name: 'with_out_lab'.tr,
+                                  onTap: () {}),
                             ],
                           ),
                         ),
                       ),
-                      SizedBox(height: heightValue * 1.2,),
-                      CustomButtonImage(title: 'send'.tr, hight: 50, onTap: (){
-                        if (formKey.currentState!.validate()){
-                          if (formattedDate == null){
-                            Fluttertoast.showToast(
-                              msg: 'date_must_request'.tr,
-                              fontSize: 15,
-                              backgroundColor: Themes.whiteColor,
-                              gravity: ToastGravity.BOTTOM,
-                              textColor: Themes.ColorApp1,
-                              timeInSecForIosWeb: 1,
-                              toastLength: Toast.LENGTH_SHORT,
-                            );
-                          }else if (!(formattedDateCurrent!.compareTo(formattedDate!)  <= 0)) {
-                            Fluttertoast.showToast(
-                                msg: "Invalid_order_date".tr,
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor:
-                                Colors.grey.shade300,
-                                textColor: Colors.black,
-                                fontSize: 15.0);
-                          } else {
-                            Get.to(const MyAddressRequestOfferScreen());
-                          }
-
-                        }
-                      }),
-                      SizedBox(height: heightValue * 1.2,),
+                      SizedBox(
+                        height: heightValue * 1.2,
+                      ),
+                      CustomButtonImage(
+                          title: 'send'.tr,
+                          hight: 50,
+                          onTap: () {
+                            if (formKey.currentState!.validate()) {
+                              if (formattedDate == null) {
+                                Fluttertoast.showToast(
+                                  msg: 'date_must_request'.tr,
+                                  fontSize: 15,
+                                  backgroundColor: Themes.whiteColor,
+                                  gravity: ToastGravity.BOTTOM,
+                                  textColor: Themes.ColorApp1,
+                                  timeInSecForIosWeb: 1,
+                                  toastLength: Toast.LENGTH_SHORT,
+                                );
+                              } else if (!(formattedDateCurrent!
+                                      .compareTo(formattedDate!) <=
+                                  0)) {
+                                Fluttertoast.showToast(
+                                    msg: "Invalid_order_date".tr,
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.grey.shade300,
+                                    textColor: Colors.black,
+                                    fontSize: 15.0);
+                              } else {
+                                Get.to(const MyAddressRequestOfferScreen());
+                              }
+                            }
+                          }),
+                      SizedBox(
+                        height: heightValue * 1.2,
+                      ),
                     ],
                   ),
                 )
@@ -380,12 +472,19 @@ class _RequirementsRequestOfferPriceScreenState extends State<RequirementsReques
   }
 }
 
-class WidgetChoseItem extends StatelessWidget {
-   WidgetChoseItem({Key? key,required this.widthValue,required this.name, required this.image, required this.onTap}) : super(key: key);
+class ActiveWidgetChoseItem extends StatelessWidget {
+  ActiveWidgetChoseItem(
+      {Key? key,
+      required this.widthValue,
+      required this.name,
+      required this.image,
+      required this.onTap})
+      : super(key: key);
 
   double? widthValue;
-  String? name,image;
+  String? name, image;
   void Function()? onTap;
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -395,17 +494,18 @@ class WidgetChoseItem extends StatelessWidget {
           width: Get.width,
           height: 50,
           decoration: BoxDecoration(
-              border: Border.all(
-                  color: Themes.ColorApp1,
-                  width: 1
-              ),
-              borderRadius: BorderRadius.circular(15)
-          ),
+              border: Border.all(color: Themes.ColorApp1, width: 1),
+              borderRadius: BorderRadius.circular(15)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(image!,fit: BoxFit.contain,),
-              SizedBox(width: widthValue! * 1,),
+              Image.asset(
+                image!,
+                fit: BoxFit.contain,
+              ),
+              SizedBox(
+                width: widthValue! * 1,
+              ),
               Text(
                 name!,
                 style: TextStyle(
@@ -422,8 +522,50 @@ class WidgetChoseItem extends StatelessWidget {
   }
 }
 
+class NotActiveWidgetChoseItem extends StatelessWidget {
+  NotActiveWidgetChoseItem(
+      {Key? key,
+      required this.widthValue,
+      required this.name,
+      required this.onTap})
+      : super(key: key);
+
+  double? widthValue;
+  String? name;
+  void Function()? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          width: Get.width,
+          height: 50,
+          decoration: BoxDecoration(
+              border: Border.all(color: Themes.ColorApp2, width: 1),
+              borderRadius: BorderRadius.circular(15)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                name!,
+                style: TextStyle(
+                  color: Themes.ColorApp8,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class AppbarDetailsOrder extends StatelessWidget {
-  AppbarDetailsOrder(this.widthValue, this.heightValue,this.myLocalController);
+  AppbarDetailsOrder(this.widthValue, this.heightValue, this.myLocalController);
 
   MyLocalController myLocalController;
   double heightValue, widthValue;
@@ -458,7 +600,9 @@ class AppbarDetailsOrder extends StatelessWidget {
             child: CircleAvatar(
               backgroundColor: Themes.ColorApp5,
               child: Icon(
-                myLocalController.language!.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
+                myLocalController.language!.languageCode == "ar"
+                    ? Icons.subdirectory_arrow_right
+                    : Icons.subdirectory_arrow_left,
                 color: Colors.white,
               ),
             ),
