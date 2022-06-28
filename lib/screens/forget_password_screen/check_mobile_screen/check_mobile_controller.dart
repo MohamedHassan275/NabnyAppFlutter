@@ -1,8 +1,8 @@
 
-import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:http/http.dart';
+import 'package:nabny/repositries/repositries_status.dart';
+import 'package:nabny/repositries/servies_api/MyServiceApi.dart';
 
 import '../../../core/constant/constant.dart';
 import '../../../model/forget_password_model/CheckMobileModel.dart';
@@ -29,6 +29,13 @@ class CheckMobileController extends GetxController {
     errorResponse = _errorResponse;
   }
 
-
+  checkMobilePhone(String phone) async{
+    var Resposne = await MyServiceApi.checkMobileByForgetPassword2(phone);
+    if (Resposne is SUCCESS){
+      setCheckMobileModel(Resposne.response as CheckMobileModel);
+    }else if (Resposne is Failure){
+      setErrorResponse(Resposne.errorResponse.toString());
+    }
+  }
 
 }

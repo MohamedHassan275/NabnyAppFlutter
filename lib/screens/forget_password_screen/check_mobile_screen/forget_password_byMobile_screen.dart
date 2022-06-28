@@ -178,17 +178,16 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
                                   hight: 50,
                                   title: 'confirm',
                                   onTap: () async{
+                                    mobilePhone = MobilePhone.text.toString();
                                     if (formKey.currentState!.validate()){
                                       showProgressbar = false;
-                                   final  CheckMobileModel _checkMobileModel  = await MyServiceApi.checkMobileByForgetPassword2(MobilePhone.text.toString());
-                                   setState(() {
-                                     checkMobileModel = _checkMobileModel;
-                                   });
-                                      if (checkMobileModel!.success == true){
+                                      checkMobileController.checkMobilePhone(mobilePhone!);
+                                      if (checkMobileController.checkMobileModel?.success == true){
+                                        print(checkMobileController.checkMobileModel?.message);
                                         showProgressbar = true;
                                        String? registercode = checkMobileController.checkMobileModel?.data.registercode.toString();
                                         Fluttertoast.showToast(
-                                          msg: registercode!,
+                                          msg: '${registercode}',
                                           fontSize: 15,
                                           backgroundColor: Themes.whiteColor,
                                           gravity: ToastGravity.BOTTOM,
@@ -196,10 +195,10 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
                                           timeInSecForIosWeb: 1,
                                           toastLength: Toast.LENGTH_SHORT,
                                         );
-                                        print(registercode);
+                                        print('${registercode}');
 
                                       //  Get.to( ActivationPasswordScreen(registercode: registercode,));
-                                      }else if (checkMobileModel!.success == false){
+                                      }else if (checkMobileController.checkMobileModel?.success == false){
                                         showProgressbar = true;
                                         Fluttertoast.showToast(
                                           msg: checkMobileController.checkMobileModel!.message,
