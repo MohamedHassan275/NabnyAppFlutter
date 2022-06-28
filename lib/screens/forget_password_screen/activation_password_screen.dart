@@ -11,7 +11,8 @@ import '../../generated/assets.dart';
 import 'chage_password_screen.dart';
 
 class ActivationPasswordScreen extends StatefulWidget {
-  const ActivationPasswordScreen({Key? key}) : super(key: key);
+  String? registercode;
+  ActivationPasswordScreen({required this.registercode});
 
   @override
   _ActivationPasswordScreenState createState() => _ActivationPasswordScreenState();

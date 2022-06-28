@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/generated/assets.dart';
-import 'package:nabny/screens/forget_password_screen/forget_password_byMobile_screen.dart';
+import 'package:nabny/screens/forget_password_screen/check_mobile_screen/forget_password_byMobile_screen.dart';
 import 'package:nabny/screens/get_my_location_screen/GetMyLocationUserPage.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:nabny/screens/register_screen/register_screen.dart';

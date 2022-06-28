@@ -1,12 +1,17 @@
 
+import 'dart:ffi';
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import '../../componant/CustomButtonWidget.dart';
-import '../../componant/CustomTextFieldWidget.dart';
-import '../../generated/assets.dart';
-import '../../utils/Themes.dart';
-import '../verification_code/verification_code_screen.dart';
-import 'activation_password_screen.dart';
+import 'package:nabny/model/forget_password_model/CheckMobileModel.dart';
+import 'package:nabny/repositries/servies_api/MyServiceApi.dart';
+import 'package:nabny/screens/forget_password_screen/check_mobile_screen/check_mobile_controller.dart';
+import '../../../componant/CustomButtonWidget.dart';
+import '../../../componant/CustomTextFieldWidget.dart';
+import '../../../generated/assets.dart';
+import '../../../utils/Themes.dart';
 
 class ForgetPasswordByMobile extends StatefulWidget {
   const ForgetPasswordByMobile({Key? key}) : super(key: key);
@@ -23,7 +28,7 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
   bool isPassword = true;
   String? mobilePhone;
   TextEditingController MobilePhone = new TextEditingController();
-
+  CheckMobileModel? checkMobileModel;
 
 
   @override
@@ -59,15 +64,16 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
   Widget build(BuildContext context) {
     final double valueHight = Get.height * .024;
     final double valueWidth = Get.width * .024;
+    CheckMobileController checkMobileController = Get.put(CheckMobileController());
 
     return Scaffold(
       body: SafeArea(
         child: Container(
           width: Get.width,
           height: Get.height,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage(Assets.imagesBackgroundSplash),
+          decoration: const BoxDecoration(
+              image: const DecorationImage(
+                  image: const AssetImage(Assets.imagesBackgroundSplash),
                   fit: BoxFit.fill)),
           child: SingleChildScrollView(
             child: Column(
@@ -83,7 +89,7 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
                   height: valueHight * 5.5,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Row(
                     children: [
                       SizedBox(
@@ -98,8 +104,8 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
                             child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 15),
                                 child: Text(
-                                  'forget_password2'.tr,
-                                  style: TextStyle(
+                                  'forget_password',
+                                  style: const TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w700,
                                       color: Themes.ColorApp1),
@@ -125,8 +131,8 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
                           child: Column(
                             children: [
                               FromTextShared(
-                                  labelText: 'mobile_number'.tr,
-                                  maxLength: 6,
+                                  labelText: 'mobile_number',
+                                  maxLength: 11,
                                   onChanged: (value) {
                                     setState(() {
                                       mobilePhone = value;
@@ -136,7 +142,7 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
                                   onTapValidator: (value) {
                                     if (value!.isEmpty) {
                                       return 'mobile must not be empty';
-                                    } else if (!(value.length > 5)) {
+                                    } else if (!(value.length > 10)) {
                                       return 'mobile is not valid';
                                     }
                                     return null;
@@ -146,23 +152,22 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
                                   height: 25,
                                   keyboardType: TextInputType.number,
                                   Controller: MobilePhone,
-                                  hintText: 'mobile_number'.tr),
+                                  hintText: 'mobile_number'),
                               SizedBox(
                                 height: valueHight * 1,
                               ),
-                              showProgressbar
-                                  ? Container()
-                                  : Container(
-                                  decoration: BoxDecoration(
+                              showProgressbar ? Container() :
+                              Container(
+                                  decoration: const BoxDecoration(
                                     // image: DecorationImage(
                                     //     image: AssetImage(Assets
                                     //         .imagesBackgroundRequestReviewFatora),
                                     //     fit: BoxFit.contain),
                                       color: Colors.transparent),
-                                  child: Center(
+                                  child: const Center(
                                       child: CircularProgressIndicator(
                                         color: Themes.ColorApp1,
-                                      ))),
+                                      ))) ,
                               SizedBox(
                                 height: valueHight * .5,
                               ),
@@ -171,11 +176,42 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
                                     horizontal: 15, vertical: 15),
                                 child: CustomButtonImage(
                                   hight: 50,
-                                  title: 'confirm'.tr,
+                                  title: 'confirm',
                                   onTap: () async{
                                     if (formKey.currentState!.validate()){
                                       showProgressbar = false;
-                                      Get.to(ActivationPasswordScreen());
+                                   final  CheckMobileModel _checkMobileModel  = await MyServiceApi.checkMobileByForgetPassword2(MobilePhone.text.toString());
+                                   setState(() {
+                                     checkMobileModel = _checkMobileModel;
+                                   });
+                                      if (checkMobileModel!.success == true){
+                                        showProgressbar = true;
+                                       String? registercode = checkMobileController.checkMobileModel?.data.registercode.toString();
+                                        Fluttertoast.showToast(
+                                          msg: registercode!,
+                                          fontSize: 15,
+                                          backgroundColor: Themes.whiteColor,
+                                          gravity: ToastGravity.BOTTOM,
+                                          textColor: Themes.ColorApp1,
+                                          timeInSecForIosWeb: 1,
+                                          toastLength: Toast.LENGTH_SHORT,
+                                        );
+                                        print(registercode);
+
+                                      //  Get.to( ActivationPasswordScreen(registercode: registercode,));
+                                      }else if (checkMobileModel!.success == false){
+                                        showProgressbar = true;
+                                        Fluttertoast.showToast(
+                                          msg: checkMobileController.checkMobileModel!.message,
+                                          fontSize: 15,
+                                          backgroundColor: Themes.whiteColor,
+                                          gravity: ToastGravity.BOTTOM,
+                                          textColor: Themes.ColorApp1,
+                                          timeInSecForIosWeb: 1,
+                                          toastLength: Toast.LENGTH_SHORT,
+                                        );
+
+                                      }
                                     }
                                   },
                                 ),
