@@ -21,6 +21,7 @@ class _SuccessRegisterScreenState extends State<SuccessRegisterScreen> {
     // TODO: implement initState
     super.initState();
     Timer(Duration(seconds: 3), ()=> Get.to(HomeMainScreen(valueBack: '',)));
+
   }
 
   @override
@@ -29,7 +30,7 @@ class _SuccessRegisterScreenState extends State<SuccessRegisterScreen> {
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
-            child: Container(
+            child: SizedBox(
               height: Get.height,
               width: Get.width,
               child: Column(
@@ -39,7 +40,7 @@ class _SuccessRegisterScreenState extends State<SuccessRegisterScreen> {
                   SizedBox(height: hight * 1.5,),
                   Text(
                     'register_complete'.tr,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.w700,
                         color: Themes.ColorApp8),

@@ -1,14 +1,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nabny/screens/forget_password_screen/activation_password_screen.dart';
-import 'package:nabny/screens/success_register_screen/success_register_screen.dart';
-
 import '../../componant/CustomButtonWidget.dart';
 import '../../componant/CustomTextFieldWidget.dart';
 import '../../generated/assets.dart';
 import '../../utils/Themes.dart';
 import '../verification_code/verification_code_screen.dart';
+import 'activation_password_screen.dart';
 
 class ForgetPasswordByMobile extends StatefulWidget {
   const ForgetPasswordByMobile({Key? key}) : super(key: key);

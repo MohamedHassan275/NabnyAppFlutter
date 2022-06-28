@@ -134,7 +134,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Expanded(
-                            child: Container(
+                            child: SizedBox(
                               height: 100,
                               child: SharedFromTextField(
                                   textAlign: TextAlign.center,
@@ -159,7 +159,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                             width: 10,
                           ),
                           Expanded(
-                            child: Container(
+                            child: SizedBox(
                               height: 100,
                               child: SharedFromTextField(
                                   textAlign: TextAlign.center,
@@ -184,7 +184,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                             width: 10,
                           ),
                           Expanded(
-                            child: Container(
+                            child: SizedBox(
                               height: 100,
                               child: SharedFromTextField(
                                   textAlign: TextAlign.center,
@@ -209,7 +209,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                             width: 10,
                           ),
                           Expanded(
-                            child: Container(
+                            child: SizedBox(
                               height: 100,
                               child: SharedFromTextField(
                                   textAlign: TextAlign.center,
@@ -314,6 +314,8 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                         title: 'confirm'.tr,
                         onTap: () {
                          if(formKey.currentState!.validate()){
+                           String? VerificationCode = _Code1.text.toString() + _Code2.text.toString()+ _Code3.text.toString() + _Code4.text.toString();
+                           print(VerificationCode);
                            Get.to(const CompleteRegisterScreen());
                          }
                         },

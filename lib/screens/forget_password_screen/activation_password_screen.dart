@@ -23,9 +23,8 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
   TextEditingController _Code2 = TextEditingController();
   TextEditingController _Code3 = TextEditingController();
   TextEditingController _Code4 = TextEditingController();
-  TextEditingController _Code5 = TextEditingController();
 
-  late String Code1, Code2, Code3, Code4, Code5;
+  late String Code1, Code2, Code3, Code4;
 
   var formKey = GlobalKey<FormState>();
 
@@ -73,8 +72,8 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
         child: Container(
           width: Get.width,
           height: Get.height,
-          decoration: BoxDecoration(
-              image: DecorationImage(
+          decoration: const BoxDecoration(
+              image: const DecorationImage(
                   image: AssetImage(Assets.imagesBackgroundSplash),
                   fit: BoxFit.fill)),
           child: SingleChildScrollView(
@@ -91,7 +90,7 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
                   height: valueHight * 5.5,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Row(
                     children: [
                       SizedBox(
@@ -107,7 +106,7 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
                                 padding: const EdgeInsets.symmetric(horizontal: 15),
                                 child: Text(
                                   'forget_code'.tr,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w700,
                                       color: Themes.ColorApp1),
@@ -137,7 +136,7 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Expanded(
-                                child: Container(
+                                child: SizedBox(
                                   height: 100,
                                   child: SharedFromTextField(
                                       textAlign: TextAlign.center,
@@ -158,11 +157,11 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
                                       Controller: _Code1),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Expanded(
-                                child: Container(
+                                child: SizedBox(
                                   height: 100,
                                   child: SharedFromTextField(
                                       textAlign: TextAlign.center,
@@ -183,11 +182,11 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
                                       Controller: _Code2),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Expanded(
-                                child: Container(
+                                child: SizedBox(
                                   height: 100,
                                   child: SharedFromTextField(
                                       textAlign: TextAlign.center,
@@ -208,11 +207,11 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
                                       Controller: _Code3),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Expanded(
-                                child: Container(
+                                child: SizedBox(
                                   height: 100,
                                   child: SharedFromTextField(
                                       textAlign: TextAlign.center,
@@ -233,7 +232,7 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
                                       Controller: _Code4),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               // Expanded(
@@ -262,7 +261,7 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 25,
                       ),
                       Padding(
@@ -273,7 +272,9 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
                           title: 'confirm'.tr,
                           onTap: () {
                             if(formKey.currentState!.validate()){
-                              Get.to(ChagePasswordScreen());
+                              String? VerificationCode = _Code1.text.toString() + _Code2.text.toString()+ _Code3.text.toString() + _Code4.text.toString();
+                              print(VerificationCode);
+                              Get.to(const ChagePasswordScreen());
                             }
                           },
                         ),

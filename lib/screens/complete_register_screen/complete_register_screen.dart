@@ -48,8 +48,8 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
         child: Container(
           height: Get.height,
           width: Get.width,
-          decoration: BoxDecoration(
-            image: DecorationImage(
+          decoration: const BoxDecoration(
+            image: const DecorationImage(
                 image: AssetImage(Assets.imagesBackgroundSplash),
                 fit: BoxFit.fill),
           ),
@@ -60,11 +60,11 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
               ),
               Flexible(
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                           topRight: Radius.circular(50),
-                          topLeft: Radius.circular(50))),
+                          topLeft: const Radius.circular(50))),
                   child: Container(
                     width: Get.width,
                     height: Get.height,
@@ -73,16 +73,16 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 6,
                             ),
                             GetBuilder<MyLocalController>(
                               init: MyLocalController(),
                                 builder: (myLocalController) => Container(
                               height: 200,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                   color: Themes.ColorApp4,
-                                  borderRadius: BorderRadius.only(
+                                  borderRadius: const BorderRadius.only(
                                       topRight: Radius.circular(50),
                                       topLeft: Radius.circular(50))),
                               child: Column(
@@ -90,7 +90,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   GestureDetector(
-                                    onTap: () => Get.to(RegisterScreen()),
+                                    onTap: () => Get.to(const RegisterScreen()),
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 25, vertical: 25),
@@ -116,7 +116,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                       children: [
                                         Text(
                                           'account_information'.tr,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 17,
                                               fontWeight: FontWeight.w700,
                                               color: Themes.ColorApp1),
@@ -299,7 +299,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                               shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(5)),
-                                              side: BorderSide(
+                                              side: const BorderSide(
                                                   color: Themes.ColorApp1,
                                                   width: 2.0),
                                               activeColor: Themes.ColorApp1,
@@ -314,7 +314,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                         },
                                         child: Text(
                                           "agree_to_terms".tr,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Themes.ColorApp1,
                                             fontWeight: FontWeight.w400,
                                             fontSize: 15,
@@ -353,7 +353,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                     },
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 16,
                                 ),
                               ],
