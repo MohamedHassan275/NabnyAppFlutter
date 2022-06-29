@@ -1,62 +1,285 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:nabny/core/constant/constant.dart';
+import 'package:nabny/model/logout_user_model.dart';
 import 'package:nabny/repositries/repositries_status.dart';
 
-import '../../model/forget_password_model/CheckMobileModel.dart';
+import '../../model/check_mobile_user_model.dart';
 
 class MyServiceApi {
+  static String URL = 'https://nebny.net/api/v2/';
 
+  static Future<Object> checkLoginUser(
+      String phone, String password, String fcm_token) async {
+    CheckMobileUserModel? checkMobileModel;
+    var fromData = FormData.fromMap({
+      'phone': phone,
+      'password': password,
+      'fcm_token': fcm_token,
+    });
+    try {
+      Response response = await Dio().post(URL + 'login', data: fromData);
 
- // static  Future<CheckMobileModel> checkMobileByForgetPassword(int mobilePhone) async {
- //   var response = await Dio().post(Uri.parse( 'https://nebny.net/api/v2/forgetpassword'),
- //       body: {
- //         'phone',mobilePhone,
- //       });
- //   if(response.statusCode == 200){
- //     var responseBody = json.decode(response.body);
- //     print(responseBody);
- //     return CheckMobileModel.fromJson(responseBody);
- //   }else {
- //     throw Exception('can`t send data');
- //   }
- //
- // }
+      if (response.statusCode == 200) {
+        return SUCCESS(response: CheckMobileUserModel.fromJson(response.data));
+      } else {
+        print('${response.statusMessage} : ${response.statusCode}');
+        throw response.statusMessage!;
+        // return Failure(errorResponse: 'can`t have data');
+      }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print('Dio error!');
+        print('STATUS: ${e.response?.statusCode}');
+        print('DATA: ${e.response?.data}');
+        print('HEADERS: ${e.response?.headers}');
+      } else {
+        // Error due to setting up or sending the request
+        print('Error sending request!');
+        print(e.message);
+      }
+    }
+    return checkMobileModel != null;
+  }
 
- static Future<Object> checkMobileByForgetPassword2(String phone) async {
-   CheckMobileModel? checkMobileModel;
-   var fromData = FormData.fromMap({
-     'phone': phone,
-   });
+  static Future<Object> CreateAccountUserByMobile(String phone) async {
+    CheckMobileUserModel? checkMobileModel;
+    var fromData = FormData.fromMap({
+      'phone': phone,
+    });
+    try {
+      Response response =
+          await Dio().post(URL + 'step1/register', data: fromData);
 
-   var URL = 'https://nebny.net/api/v2/';
+      if (response.statusCode == 200) {
+        return SUCCESS(response: CheckMobileUserModel.fromJson(response.data));
+      } else {
+        print('${response.statusMessage} : ${response.statusCode}');
+        throw response.statusMessage!;
+        // return Failure(errorResponse: 'can`t have data');
+      }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print('Dio error!');
+        print('STATUS: ${e.response?.statusCode}');
+        print('DATA: ${e.response?.data}');
+        print('HEADERS: ${e.response?.headers}');
+      } else {
+        // Error due to setting up or sending the request
+        print('Error sending request!');
+        print(e.message);
+      }
+    }
+    return checkMobileModel != null;
+  }
 
-   try {
-     Response response = await Dio().post(
-         URL+'forgetpassword', data: fromData);
+  static Future<Object> activeCodeByRegister(String phone, String code) async {
+    CheckMobileUserModel? checkMobileModel;
+    var fromData = FormData.fromMap({
+      'phone': phone,
+      'code': code,
+    });
+    try {
+      Response response =
+      await Dio().post(URL + 'register/code', data: fromData);
 
-     if (response.statusCode == 200) {
-       print(response.statusCode);
-       print(response.data);
-       return SUCCESS(response: CheckMobileModel.fromJson(response.data));
-     } else {
-       // print('${response.statusMessage} : ${response.statusCode}');
-       // throw response.statusMessage!;
-       return Failure(errorResponse: 'can`t have data');
-     }
-   }on DioError catch (e){
-     // if (e.response != null) {
-     //   print('Dio error!');
-     //   print('STATUS: ${e.response?.statusCode}');
-     //   print('DATA: ${e.response?.data}');
-     //   print('HEADERS: ${e.response?.headers}');
-     // } else {
-     //   // Error due to setting up or sending the request
-     //   print('Error sending request!');
-     //   print(e.message);
-     // }
-   }
-   return checkMobileModel!;
- }
+      if (response.statusCode == 200) {
+        print(response.statusCode);
+        print(response.data);
+        return SUCCESS(response: CheckMobileUserModel.fromJson(response.data));
+      } else {
+        // print('${response.statusMessage} : ${response.statusCode}');
+        // throw response.statusMessage!;
+        return Failure(errorResponse: 'can`t have data');
+      }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print('Dio error!');
+        print('STATUS: ${e.response?.statusCode}');
+        print('DATA: ${e.response?.data}');
+        print('HEADERS: ${e.response?.headers}');
+      } else {
+        // Error due to setting up or sending the request
+        print('Error sending request!');
+        print(e.message);
+      }
+    }
+    return checkMobileModel != null;
+  }
+
+  static Future<Object> CreateAccountByDetailUser(
+      String phone, String firstname,
+      String lastname, String email,
+      String password, String fcm_token) async {
+    CheckMobileUserModel? checkMobileModel;
+    var fromData = FormData.fromMap({
+      'phone': phone,
+      'firstname': firstname,
+      'lastname': lastname,
+      'email': email,
+      'password': password,
+      'fcm_token': fcm_token,
+    });
+    try {
+      Response response =
+          await Dio().post(URL + 'step2/register', data: fromData);
+
+      if (response.statusCode == 200) {
+        return SUCCESS(response: CheckMobileUserModel.fromJson(response.data));
+      } else {
+        print('${response.statusMessage} : ${response.statusCode}');
+        throw response.statusMessage!;
+        // return Failure(errorResponse: 'can`t have data');
+      }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print('Dio error!');
+        print('STATUS: ${e.response?.statusCode}');
+        print('DATA: ${e.response?.data}');
+        print('HEADERS: ${e.response?.headers}');
+      } else {
+        // Error due to setting up or sending the request
+        print('Error sending request!');
+        print(e.message);
+      }
+    }
+    return checkMobileModel != null;
+  }
+
+  static Future<Object> LogoutUser(String Authorization) async {
+    LogoutUserModel? logoutUserModel;
+    try {
+      Response response =
+      await Dio().get(URL + 'logout', options: Options(
+        headers: {
+          'Authorization': 'Bearer $Authorization'
+        }
+      ));
+
+      if (response.statusCode == 200) {
+        print(response.statusCode);
+        print(response.data);
+        return SUCCESS(response: CheckMobileUserModel.fromJson(response.data));
+      } else {
+        // print('${response.statusMessage} : ${response.statusCode}');
+        // throw response.statusMessage!;
+        return Failure(errorResponse: 'can`t have data');
+      }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print('Dio error!');
+        print('STATUS: ${e.response?.statusCode}');
+        print('DATA: ${e.response?.data}');
+        print('HEADERS: ${e.response?.headers}');
+      } else {
+        // Error due to setting up or sending the request
+        print('Error sending request!');
+        print(e.message);
+      }
+    }
+    return logoutUserModel != null;
+  }
+
+  static Future<Object> checkMobileByForgetPassword(String phone) async {
+    CheckMobileUserModel? checkMobileModel;
+    var fromData = FormData.fromMap({
+      'phone': phone,
+    });
+    try {
+      Response response =
+          await Dio().post(URL + 'forgetpassword', data: fromData);
+
+      if (response.statusCode == 200) {
+        print(response.statusCode);
+        print(response.data);
+        return SUCCESS(response: CheckMobileUserModel.fromJson(response.data));
+      } else {
+        // print('${response.statusMessage} : ${response.statusCode}');
+        // throw response.statusMessage!;
+        return Failure(errorResponse: 'can`t have data');
+      }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print('Dio error!');
+        print('STATUS: ${e.response?.statusCode}');
+        print('DATA: ${e.response?.data}');
+        print('HEADERS: ${e.response?.headers}');
+      } else {
+        // Error due to setting up or sending the request
+        print('Error sending request!');
+        print(e.message);
+      }
+    }
+    return checkMobileModel != null;
+  }
+
+  static Future<Object> activeCodeByForegetPassword(
+      String phone, String code) async {
+    CheckMobileUserModel? checkMobileModel;
+    var fromData = FormData.fromMap({
+      'phone': phone,
+      'code': code,
+    });
+    try {
+      Response response = await Dio().post(URL + 'activcode', data: fromData);
+
+      if (response.statusCode == 200) {
+        print(response.statusCode);
+        print(response.data);
+        return SUCCESS(response: CheckMobileUserModel.fromJson(response.data));
+      } else {
+        // print('${response.statusMessage} : ${response.statusCode}');
+        // throw response.statusMessage!;
+        return Failure(errorResponse: 'can`t have data');
+      }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print('Dio error!');
+        print('STATUS: ${e.response?.statusCode}');
+        print('DATA: ${e.response?.data}');
+        print('HEADERS: ${e.response?.headers}');
+      } else {
+        // Error due to setting up or sending the request
+        print('Error sending request!');
+        print(e.message);
+      }
+    }
+    return checkMobileModel != null;
+  }
+
+  static Future<Object> ReChangePasswordUser(
+      String phone, String password) async {
+    CheckMobileUserModel? checkMobileModel;
+    var fromData = FormData.fromMap({
+      'phone': phone,
+      'code': password,
+    });
+    try {
+      Response response = await Dio().post(URL + 'rechangepass', data: fromData);
+
+      if (response.statusCode == 200) {
+        print(response.statusCode);
+        print(response.data);
+        return SUCCESS(response: CheckMobileUserModel.fromJson(response.data));
+      } else {
+        // print('${response.statusMessage} : ${response.statusCode}');
+        // throw response.statusMessage!;
+        return Failure(errorResponse: 'can`t have data');
+      }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print('Dio error!');
+        print('STATUS: ${e.response?.statusCode}');
+        print('DATA: ${e.response?.data}');
+        print('HEADERS: ${e.response?.headers}');
+      } else {
+        // Error due to setting up or sending the request
+        print('Error sending request!');
+        print(e.message);
+      }
+    }
+    return checkMobileModel != null;
+  }
 
 }

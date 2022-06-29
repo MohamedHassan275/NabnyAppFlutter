@@ -5,7 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:nabny/model/forget_password_model/CheckMobileModel.dart';
+import 'package:nabny/model/check_mobile_user_model.dart';
 import 'package:nabny/repositries/servies_api/MyServiceApi.dart';
 import 'package:nabny/screens/forget_password_screen/check_mobile_screen/check_mobile_controller.dart';
 import '../../../componant/CustomButtonWidget.dart';
@@ -24,11 +24,10 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
 
   var formKey = GlobalKey<FormState>();
   FocusNode? _focusNodePassword;
-  bool showProgressbar = true;
   bool isPassword = true;
   String? mobilePhone;
   TextEditingController MobilePhone = new TextEditingController();
-  CheckMobileModel? checkMobileModel;
+  CheckMobileUserModel? checkMobileModel;
 
 
   @override
@@ -156,8 +155,7 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
                               SizedBox(
                                 height: valueHight * 1,
                               ),
-                              showProgressbar ? Container() :
-                              Container(
+                              checkMobileController.isLoading ?  Container(
                                   decoration: const BoxDecoration(
                                     // image: DecorationImage(
                                     //     image: AssetImage(Assets
@@ -167,7 +165,7 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
                                   child: const Center(
                                       child: CircularProgressIndicator(
                                         color: Themes.ColorApp1,
-                                      ))) ,
+                                      ))) : Container(),
                               SizedBox(
                                 height: valueHight * .5,
                               ),
@@ -179,12 +177,17 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
                                   title: 'confirm',
                                   onTap: () async{
                                     mobilePhone = MobilePhone.text.toString();
+                                    print(mobilePhone);
                                     if (formKey.currentState!.validate()){
-                                      showProgressbar = false;
+                                      setState(() {
+                                        checkMobileController.setLoading(true);
+                                      });
                                       checkMobileController.checkMobilePhone(mobilePhone!);
                                       if (checkMobileController.checkMobileModel?.success == true){
                                         print(checkMobileController.checkMobileModel?.message);
-                                        showProgressbar = true;
+                                        setState(() {
+                                          checkMobileController.setLoading(false);
+                                        });
                                        String? registercode = checkMobileController.checkMobileModel?.data.registercode.toString();
                                         Fluttertoast.showToast(
                                           msg: '${registercode}',
@@ -196,10 +199,11 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
                                           toastLength: Toast.LENGTH_SHORT,
                                         );
                                         print('${registercode}');
-
                                       //  Get.to( ActivationPasswordScreen(registercode: registercode,));
                                       }else if (checkMobileController.checkMobileModel?.success == false){
-                                        showProgressbar = true;
+                                        setState(() {
+                                          checkMobileController.setLoading(false);
+                                        });
                                         Fluttertoast.showToast(
                                           msg: checkMobileController.checkMobileModel!.message,
                                           fontSize: 15,

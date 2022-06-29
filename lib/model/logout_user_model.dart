@@ -1,5 +1,5 @@
-class CheckMobileModel {
-  CheckMobileModel({
+class LogoutUserModel {
+  LogoutUserModel({
     required this.success,
     required this.data,
     required this.message,
@@ -8,7 +8,7 @@ class CheckMobileModel {
   late final Data data;
   late final String message;
 
-  CheckMobileModel.fromJson(Map<String, dynamic> json){
+  LogoutUserModel.fromJson(Map<String, dynamic> json){
     success = json['success'];
     data = Data.fromJson(json['data']);
     message = json['message'];
