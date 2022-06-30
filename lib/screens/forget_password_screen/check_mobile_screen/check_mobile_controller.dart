@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/repositries/repositries_status.dart';
 import 'package:nabny/repositries/servies_api/MyServiceApi.dart';
 import 'package:nabny/screens/forget_password_screen/activation_password/activation_password_screen.dart';
