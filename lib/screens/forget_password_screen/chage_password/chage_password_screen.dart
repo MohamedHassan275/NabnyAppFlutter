@@ -100,9 +100,9 @@ class _ChagePasswordScreenState extends State<ChagePasswordScreen> {
                           isPassword: isPassword,
                           onTapValidator: (value) {
                             if (value!.isEmpty) {
-                              return 'كلمة المرور فارغة';
+                              return 'must_not_empty'.tr;
                             } else if (value.length <= 6) {
-                              return 'كلمة المرور قصيرة';
+                              return 'short_password'.tr;
                             }
                             return null;
                           },
@@ -144,11 +144,11 @@ class _ChagePasswordScreenState extends State<ChagePasswordScreen> {
                           isPassword: isConfirmPassword,
                           onTapValidator: (value) {
                             if (value!.isEmpty) {
-                              return 'تأكيد كلمة المرور فارغة';
+                              return 'must_not_empty'.tr;
                             } else if (value.length <= 6) {
-                              return ' تأكيد كلمة المرور قصيرة';
+                              return 'short_password'.tr;
                             } else if (!(value.contains(Password.text))) {
-                              return ' كلمة المرور غير متطابقة';
+                              return ' Password_does_not_match'.tr;
                             }
                             return null;
                           },

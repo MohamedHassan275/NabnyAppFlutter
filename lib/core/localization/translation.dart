@@ -127,7 +127,10 @@ class MyTranslation extends Translations {
       "accept_offer" : "قبول العرض",
       "you_will_accept_Bin_Laden_offer" : "هل انت متاكد من قبول عرض شركه بن لادن ",
       "cancel" : "الغاء",
-
+      "must_not_empty" : "يجب ألا يكون هذا فارغًا",
+      "not_valid" : "هذه القيمة غير صالحة",
+      "short_password" : "كلمة المرور قصيرة",
+      "Password_does_not_match" : "كلمة المرور غير متطابقة",
     },
     "en" : {
       "skip" : "skip",
@@ -252,6 +255,10 @@ class MyTranslation extends Translations {
       "accept_offer" : "Accepted offer",
       "you_will_accept_Bin_Laden_offer" : "Are you sure you will accept Bin Laden's offer",
       "cancel" : "cancel",
+      "must_not_empty" : "must not be empty",
+      "not_valid" : "not valid",
+      "short_password" : "short password",
+      "Password_does_not_match" : "Password does not match",
     },
   };
 

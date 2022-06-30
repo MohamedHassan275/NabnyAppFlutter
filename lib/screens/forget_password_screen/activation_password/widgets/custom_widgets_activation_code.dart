@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../componant/CustomTextFieldWidget.dart';
 
@@ -19,7 +20,7 @@ class CustomTextFieldActivationCode extends StatelessWidget {
             onChanged: onChanged,
             onTapValidator: (value) {
               if (value!.isEmpty) {
-                return 'Code  must not be empty';
+                return 'must_not_empty'.tr;
               }
               return null;
             },

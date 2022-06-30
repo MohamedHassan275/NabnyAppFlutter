@@ -30,9 +30,9 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
         isPassword: false,
         onTapValidator: (value) {
           if (value!.isEmpty) {
-            return 'mobile must not be empty';
+            return 'must_not_empty'.tr;
           } else if (!(value.length > 10)) {
-            return 'mobile is not valid';
+            return 'not_valid'.tr;
           }
           return null;
         },
@@ -41,6 +41,6 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
         height: 25,
         keyboardType: TextInputType.number,
         Controller: widget.textEditingController,
-        hintText: 'mobile_number');
+        hintText: 'mobile_number'.tr);
   }
 }
