@@ -4,15 +4,16 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomTextFieldWidget.dart';
+import 'package:nabny/screens/forget_password_screen/activation_password/activation_password_controller.dart';
 import 'package:nabny/utils/Themes.dart';
 
-import '../../componant/CustomButtonWidget.dart';
-import '../../generated/assets.dart';
-import 'chage_password_screen.dart';
+import '../../../componant/CustomButtonWidget.dart';
+import '../../../generated/assets.dart';
+import '../chage_password/chage_password_screen.dart';
 
 class ActivationPasswordScreen extends StatefulWidget {
-  String? registercode;
-  ActivationPasswordScreen({required this.registercode});
+  String? registercode,mobilePhone;
+  ActivationPasswordScreen({required this.registercode,required this.mobilePhone});
 
   @override
   _ActivationPasswordScreenState createState() => _ActivationPasswordScreenState();
@@ -28,40 +29,6 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
   late String Code1, Code2, Code3, Code4;
 
   var formKey = GlobalKey<FormState>();
-
-  Timer? _timer;
-  int _start = 60;
-
-  void startTimer() {
-    const oneSec = const Duration(seconds: 1);
-    _timer = new Timer.periodic(
-      oneSec,
-          (Timer timer) {
-        if (_start == 0) {
-          setState(() {
-            timer.cancel();
-          });
-        } else {
-          setState(() {
-            _start--;
-          });
-        }
-      },
-    );
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    startTimer();
-  }
-
-  @override
-  void dispose() {
-    _timer!.cancel();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +87,9 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
                   ),
                 ),
                 SizedBox(height: valueHight*.2,),
-                Container(
+                GetBuilder<ActivationPasswordController>(
+                  init: ActivationPasswordController(),
+                  builder: (controller) => Container(
                   width: Get.width,
                   color: Colors.white,
                   child: Column(
@@ -128,8 +97,18 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
                       SizedBox(
                         height: valueHight * 1.5,
                       ),
+                      Text(
+                        '${widget.registercode}',
+                        style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700,
+                            color: Themes.ColorApp1),
+                      ),
+                      SizedBox(
+                        height: valueHight * 1,
+                      ),
                       Form(
-                        key: formKey,
+                        key: controller.formKey,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Row(
@@ -236,34 +215,73 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
                               const SizedBox(
                                 width: 10,
                               ),
-                              // Expanded(
-                              //   child: Container(
-                              //     height: 100,
-                              //     child: SharedFromTextField(
-                              //         textAlign: TextAlign.center,
-                              //         hintText: 'ـــــ',
-                              //         onChanged: (value) {
-                              //           setState(() {
-                              //             Code5 = value;
-                              //           });
-                              //         },
-                              //         onTapValidator: (value) {
-                              //           if (value!.isEmpty) {
-                              //             return 'Code  must not be empty';
-                              //           }
-                              //           return null;
-                              //         },
-                              //         keyboardType: TextInputType.number,
-                              //         maxLines: 1,
-                              //         Controller: _Code5),
-                              //   ),
-                              // ),
                             ],
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 25,
+                      SizedBox(
+                        height: valueHight * 1,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () => setState(() {
+                                  // _start == 0 ? startTimer() : startTimer();
+                                  print('start Time');
+                                }),
+                                child: Text(
+                                  'resend_code'.tr,
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: Themes.ColorApp1),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              // InkWell(
+                              //   onTap: () {
+                              //     //  startTimer();
+                              //   },
+                              //   child: Text(
+                              //     '00:$_start',
+                              //     textAlign: TextAlign.start,
+                              //     style:  TextStyle(
+                              //         fontSize: 14,
+                              //         //    decoration: TextDecoration.underline,
+                              //         color: _start == 0
+                              //             ? Themes.ColorApp2
+                              //             : Themes.ColorApp1,
+                              //         fontWeight: FontWeight.w500),
+                              //   ),
+                              // ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: valueHight * 1,
+                      ),
+                      Visibility(
+                        visible: controller.isLoading ? true : false,
+                        child: Container(
+                            decoration: const BoxDecoration(
+                              // image: DecorationImage(
+                              //     image: AssetImage(Assets
+                              //         .imagesBackgroundRequestReviewFatora),
+                              //     fit: BoxFit.contain),
+                                color: Colors.transparent),
+                            child: const Center(
+                                child: CircularProgressIndicator(
+                                  color: Themes.ColorApp1,
+                                ))),
+                      ),
+                      SizedBox(
+                        height: valueHight * .5,
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
@@ -272,18 +290,15 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
                           hight: 50,
                           title: 'confirm'.tr,
                           onTap: () {
-                            if(formKey.currentState!.validate()){
-                              String? VerificationCode = _Code1.text.toString() + _Code2.text.toString()+ _Code3.text.toString() + _Code4.text.toString();
-                              print(VerificationCode);
-                              Get.to(const ChagePasswordScreen());
-                            }
+                            String? VerificationCode = _Code1.text.toString() + _Code2.text.toString()+ _Code3.text.toString() + _Code4.text.toString();
+                            Get.find<ActivationPasswordController>().activeCodeByMobilePhone(widget.mobilePhone, VerificationCode);
                           },
                         ),
                       ),
-                      SizedBox(height: valueHight * 3,)
+                      SizedBox(height: valueHight * .5,)
                     ],
                   ),
-                ),
+                ),)
               ],
             ),
           ),

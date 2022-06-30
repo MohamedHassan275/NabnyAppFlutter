@@ -2,14 +2,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/generated/assets.dart';
+import 'package:nabny/screens/forget_password_screen/chage_password/chage_password_controller.dart';
 import 'package:nabny/screens/login_screen/login_screen.dart';
 
-import '../../componant/CustomButtonWidget.dart';
-import '../../componant/CustomTextFieldWidget.dart';
-import '../../utils/Themes.dart';
+import '../../../componant/CustomButtonWidget.dart';
+import '../../../componant/CustomTextFieldWidget.dart';
+import '../../../utils/Themes.dart';
 
 class ChagePasswordScreen extends StatefulWidget {
-  const ChagePasswordScreen({Key? key}) : super(key: key);
+  String? mobilePhone;
+   ChagePasswordScreen({required this.mobilePhone});
 
   @override
   _ChagePasswordScreenState createState() => _ChagePasswordScreenState();
@@ -27,6 +29,12 @@ class _ChagePasswordScreenState extends State<ChagePasswordScreen> {
   bool isCheckAccepted = false;
   var formKey = GlobalKey<FormState>();
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print('this is my phone ${widget.mobilePhone}');
+  }
   @override
   Widget build(BuildContext context) {
     var widthValue = Get.width * 0.024;
@@ -85,11 +93,13 @@ class _ChagePasswordScreenState extends State<ChagePasswordScreen> {
                   ),
                 ),
                 SizedBox(height: heightValue*.2,),
-                Container(
+                GetBuilder<ChangePasswordController>(
+                  init: ChangePasswordController(),
+                    builder: (controller) => Container(
                   width: Get.width,
                   color: Colors.white,
                   child: Form(
-                    key: formKey,
+                    key: controller.formKey,
                     child: Column(
                       children: [
                         SizedBox(
@@ -185,18 +195,30 @@ class _ChagePasswordScreenState extends State<ChagePasswordScreen> {
                         SizedBox(
                           height: heightValue * 1,
                         ),
+                        Visibility(
+                          visible: controller.isLoading ? true : false,
+                          child: Container(
+                              decoration: const BoxDecoration(
+                                // image: DecorationImage(
+                                //     image: AssetImage(Assets
+                                //         .imagesBackgroundRequestReviewFatora),
+                                //     fit: BoxFit.contain),
+                                  color: Colors.transparent),
+                              child: const Center(
+                                  child: CircularProgressIndicator(
+                                    color: Themes.ColorApp1,
+                                  ))),
+                        ),
+                        SizedBox(
+                          height: heightValue * .5,
+                        ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 15, vertical: 15),
                           child: CustomButtonImage(
                             hight: 50,
                             title: 'confirm'.tr,
-                            onTap: () async{
-                              //  showProgressbar = false;
-                              if (formKey.currentState!.validate()){
-                                Get.to(const LoginScreen());
-                              }
-                            },
+                            onTap: () => Get.find<ChangePasswordController>().changePasswordByForgetPassword(widget.mobilePhone,Password.text.toString())
                           ),
                         ),
                         SizedBox(
@@ -205,7 +227,7 @@ class _ChagePasswordScreenState extends State<ChagePasswordScreen> {
                       ],
                     ),
                   ),
-                ),
+                )),
               ],
             ),
           ),

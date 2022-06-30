@@ -25,9 +25,12 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
   var formKey = GlobalKey<FormState>();
   FocusNode? _focusNodePassword;
   bool isPassword = true;
+  bool showProgressbar = true;
   String? mobilePhone;
   TextEditingController MobilePhone = new TextEditingController();
-  CheckMobileUserModel? checkMobileModel;
+  CheckMobileUserModel? _checkMobileModel;
+
+  String? registercode,massageFailer;
 
 
   @override
@@ -63,7 +66,6 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
   Widget build(BuildContext context) {
     final double valueHight = Get.height * .024;
     final double valueWidth = Get.width * .024;
-    CheckMobileController checkMobileController = Get.put(CheckMobileController());
 
     return Scaffold(
       body: SafeArea(
@@ -125,104 +127,68 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
                       SizedBox(
                         height: valueHight * 1.5,
                       ),
-                      Form(
-                          key: formKey,
-                          child: Column(
-                            children: [
-                              FromTextShared(
-                                  labelText: 'mobile_number',
-                                  maxLength: 11,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      mobilePhone = value;
-                                    });
-                                  },
-                                  isPassword: false,
-                                  onTapValidator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'mobile must not be empty';
-                                    } else if (!(value.length > 10)) {
-                                      return 'mobile is not valid';
-                                    }
-                                    return null;
-                                  },
-                                  namePath: Assets.iconsMobilePhoneIcon,
-                                  width: 25,
-                                  height: 25,
-                                  keyboardType: TextInputType.number,
-                                  Controller: MobilePhone,
-                                  hintText: 'mobile_number'),
-                              SizedBox(
-                                height: valueHight * 1,
-                              ),
-                              checkMobileController.isLoading ?  Container(
-                                  decoration: const BoxDecoration(
-                                    // image: DecorationImage(
-                                    //     image: AssetImage(Assets
-                                    //         .imagesBackgroundRequestReviewFatora),
-                                    //     fit: BoxFit.contain),
-                                      color: Colors.transparent),
-                                  child: const Center(
-                                      child: CircularProgressIndicator(
-                                        color: Themes.ColorApp1,
-                                      ))) : Container(),
-                              SizedBox(
-                                height: valueHight * .5,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 15),
-                                child: CustomButtonImage(
-                                  hight: 50,
-                                  title: 'confirm',
-                                  onTap: () async{
-                                    mobilePhone = MobilePhone.text.toString();
-                                    print(mobilePhone);
-                                    if (formKey.currentState!.validate()){
-                                      setState(() {
-                                        checkMobileController.setLoading(true);
-                                      });
-                                      checkMobileController.checkMobilePhone(mobilePhone!);
-                                      if (checkMobileController.checkMobileModel?.success == true){
-                                        print(checkMobileController.checkMobileModel?.message);
-                                        setState(() {
-                                          checkMobileController.setLoading(false);
-                                        });
-                                       String? registercode = checkMobileController.checkMobileModel?.data.registercode.toString();
-                                        Fluttertoast.showToast(
-                                          msg: '${registercode}',
-                                          fontSize: 15,
-                                          backgroundColor: Themes.whiteColor,
-                                          gravity: ToastGravity.BOTTOM,
-                                          textColor: Themes.ColorApp1,
-                                          timeInSecForIosWeb: 1,
-                                          toastLength: Toast.LENGTH_SHORT,
-                                        );
-                                        print('${registercode}');
-                                      //  Get.to( ActivationPasswordScreen(registercode: registercode,));
-                                      }else if (checkMobileController.checkMobileModel?.success == false){
-                                        setState(() {
-                                          checkMobileController.setLoading(false);
-                                        });
-                                        Fluttertoast.showToast(
-                                          msg: checkMobileController.checkMobileModel!.message,
-                                          fontSize: 15,
-                                          backgroundColor: Themes.whiteColor,
-                                          gravity: ToastGravity.BOTTOM,
-                                          textColor: Themes.ColorApp1,
-                                          timeInSecForIosWeb: 1,
-                                          toastLength: Toast.LENGTH_SHORT,
-                                        );
-
-                                      }
-                                    }
-                                  },
-                                ),
-                              ),
-                              SizedBox(height: valueHight*3.0,),
-                            ],
-                          )),
-
+                     GetBuilder<CheckMobileController>(
+                       init: CheckMobileController(),
+                       builder: (controller) =>  Form(
+                         key: controller.formKey,
+                         child: Column(
+                           children: [
+                             FromTextShared(
+                                 labelText: 'mobile_number',
+                                 maxLength: 11,
+                                 onChanged: (value) {
+                                   mobilePhone = value;
+                                 },
+                                 onSaved: (String? value){
+                                   mobilePhone = value!;
+                                 },
+                                 isPassword: false,
+                                 onTapValidator: (value) {
+                                   if (value!.isEmpty) {
+                                     return 'mobile must not be empty';
+                                   } else if (!(value.length > 10)) {
+                                     return 'mobile is not valid';
+                                   }
+                                   return null;
+                                 },
+                                 namePath: Assets.iconsMobilePhoneIcon,
+                                 width: 25,
+                                 height: 25,
+                                 keyboardType: TextInputType.number,
+                                 Controller: MobilePhone,
+                                 hintText: 'mobile_number'),
+                             SizedBox(
+                               height: valueHight * 1,
+                             ),
+                             Visibility(
+                               visible: controller.isLoading ? true : false,
+                               child: Container(
+                                   decoration: const BoxDecoration(
+                                     // image: DecorationImage(
+                                     //     image: AssetImage(Assets
+                                     //         .imagesBackgroundRequestReviewFatora),
+                                     //     fit: BoxFit.contain),
+                                       color: Colors.transparent),
+                                   child: const Center(
+                                       child: CircularProgressIndicator(
+                                         color: Themes.ColorApp1,
+                                       ))),
+                             ),
+                             SizedBox(
+                               height: valueHight * .5,
+                             ),
+                             Padding(
+                               padding: const EdgeInsets.symmetric(
+                                   horizontal: 15, vertical: 15),
+                               child: CustomButtonImage(
+                                 hight: 50,
+                                 title: 'confirm',
+                                 onTap: () => Get.find<CheckMobileController>().checkMobilePhone(MobilePhone.text.toString())
+                               ),
+                             ),
+                             SizedBox(height: valueHight*3.0,),
+                           ],
+                         )),)
                     ],
                   ),
                 ),

@@ -4,9 +4,9 @@ class CheckMobileUserModel {
     required this.data,
     required this.message,
   });
-  late final bool success;
-  late final Data data;
-  late final String message;
+    bool? success;
+    Data? data;
+    String? message;
 
   CheckMobileUserModel.fromJson(Map<String, dynamic> json){
     success = json['success'];
@@ -17,17 +17,15 @@ class CheckMobileUserModel {
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['success'] = success;
-    _data['data'] = data.toJson();
+    _data['data'] = data!.toJson();
     _data['message'] = message;
     return _data;
   }
 }
 
 class Data {
-  Data({
-    required this.registercode,
-  });
-  late final int registercode;
+  Data({required this.registercode,});
+   int? registercode;
 
   Data.fromJson(Map<String, dynamic> json){
     registercode = json['registercode'];

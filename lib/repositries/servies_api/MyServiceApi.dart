@@ -181,7 +181,7 @@ class MyServiceApi {
     return logoutUserModel != null;
   }
 
-  static Future<Object> checkMobileByForgetPassword(String phone) async {
+  static Future<CheckMobileUserModel?> checkMobileByForgetPassword(String phone) async {
     CheckMobileUserModel? checkMobileModel;
     var fromData = FormData.fromMap({
       'phone': phone,
@@ -193,11 +193,11 @@ class MyServiceApi {
       if (response.statusCode == 200) {
         print(response.statusCode);
         print(response.data);
-        return SUCCESS(response: CheckMobileUserModel.fromJson(response.data));
+        return CheckMobileUserModel.fromJson(response.data);
       } else {
         // print('${response.statusMessage} : ${response.statusCode}');
         // throw response.statusMessage!;
-        return Failure(errorResponse: 'can`t have data');
+        return  throw Exception('can`t have data');
       }
     } on DioError catch (e) {
       if (e.response != null) {
@@ -211,10 +211,10 @@ class MyServiceApi {
         print(e.message);
       }
     }
-    return checkMobileModel != null;
+    return checkMobileModel;
   }
 
-  static Future<Object> activeCodeByForegetPassword(
+  static Future<CheckMobileUserModel?> activeCodeByForgetPassword(
       String phone, String code) async {
     CheckMobileUserModel? checkMobileModel;
     var fromData = FormData.fromMap({
@@ -227,11 +227,10 @@ class MyServiceApi {
       if (response.statusCode == 200) {
         print(response.statusCode);
         print(response.data);
-        return SUCCESS(response: CheckMobileUserModel.fromJson(response.data));
+        return CheckMobileUserModel.fromJson(response.data);
       } else {
         // print('${response.statusMessage} : ${response.statusCode}');
-        // throw response.statusMessage!;
-        return Failure(errorResponse: 'can`t have data');
+        return throw Exception(response.statusMessage!);
       }
     } on DioError catch (e) {
       if (e.response != null) {
@@ -245,10 +244,10 @@ class MyServiceApi {
         print(e.message);
       }
     }
-    return checkMobileModel != null;
+    return checkMobileModel;
   }
 
-  static Future<Object> ReChangePasswordUser(
+  static Future<CheckMobileUserModel?> ReChangePasswordUser(
       String phone, String password) async {
     CheckMobileUserModel? checkMobileModel;
     var fromData = FormData.fromMap({
@@ -261,11 +260,10 @@ class MyServiceApi {
       if (response.statusCode == 200) {
         print(response.statusCode);
         print(response.data);
-        return SUCCESS(response: CheckMobileUserModel.fromJson(response.data));
+        return CheckMobileUserModel.fromJson(response.data);
       } else {
         // print('${response.statusMessage} : ${response.statusCode}');
-        // throw response.statusMessage!;
-        return Failure(errorResponse: 'can`t have data');
+        return throw  Exception(response.statusMessage!);
       }
     } on DioError catch (e) {
       if (e.response != null) {
@@ -279,7 +277,7 @@ class MyServiceApi {
         print(e.message);
       }
     }
-    return checkMobileModel != null;
+    return checkMobileModel;
   }
 
 }

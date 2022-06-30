@@ -1,32 +1,31 @@
-import 'package:flutter/cupertino.dart';
+
+import 'dart:async';
+
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:nabny/repositries/repositries_status.dart';
 import 'package:nabny/repositries/servies_api/MyServiceApi.dart';
-import 'package:nabny/screens/forget_password_screen/activation_password/activation_password_screen.dart';
+import 'package:nabny/screens/forget_password_screen/chage_password/chage_password_screen.dart';
 
 import '../../../core/constant/Themes.dart';
-import '../../../core/constant/constant.dart';
-import '../../../model/check_mobile_user_model.dart';
 
-class CheckMobileController extends GetxController {
+class ActivationPasswordController extends GetxController {
+
   bool isLoading = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   bool? get isloading => isLoading;
+  get formKey => _formKey;
 
   setLoading(bool isloading) {
     isLoading = isloading;
     update();
   }
 
-  get formKey => _formKey;
-
-  checkMobilePhone(phone) {
-    if (_formKey.currentState!.validate()) {
+  activeCodeByMobilePhone (phone,code) async {
+    if (_formKey.currentState!.validate()){
       setLoading(true);
-      print('${phone}');
-      MyServiceApi.checkMobileByForgetPassword(phone).then((value) {
+      MyServiceApi.activeCodeByForgetPassword(phone, code).then((value) {
         if (value?.success == true) {
           setLoading(false);
           print(value?.message);
@@ -39,12 +38,9 @@ class CheckMobileController extends GetxController {
             timeInSecForIosWeb: 1,
             toastLength: Toast.LENGTH_SHORT,
           );
-          print('${value?.data!.registercode}');
+         // print('${value?.data!.registercode}');
           print('${phone}');
-          Get.to(ActivationPasswordScreen(
-            registercode: '${value?.data!.registercode}',
-            mobilePhone: '$phone',
-          ));
+          Get.to(ChagePasswordScreen(mobilePhone: '$phone',));
         } else if (value?.success == false) {
           setLoading(false);
           Fluttertoast.showToast(
@@ -60,13 +56,5 @@ class CheckMobileController extends GetxController {
       });
     }
   }
-// checkMobilePhone(String phone) async{
-//   var Resposne = await MyServiceApi.checkMobileByForgetPassword(phone);
-//   if (Resposne is SUCCESS){
-//     setCheckMobileModel(Resposne.response as CheckMobileUserModel);
-//   }else if (Resposne is Failure){
-//     setErrorResponse(Resposne.errorResponse.toString());
-//   }
-// }
 
 }

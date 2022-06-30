@@ -80,6 +80,7 @@ class FromTextShared extends StatelessWidget {
   Function()? onTapFunction;
   String? Function(String? value)? onTapValidator;
   Function(String)? onChanged;
+  Function(String?)? onSaved;
   Function()? onTapsuffixIcon;
   Function? validator;
   TextEditingController? Controller;
@@ -101,6 +102,7 @@ class FromTextShared extends StatelessWidget {
        this.onTapValidator,
        this.onChanged,
       this.onTapsuffixIcon,
+      this.onSaved,
        this.validator,
       required this.Controller,
        this.maxLines,
@@ -122,6 +124,7 @@ class FromTextShared extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: TextFormField(
         onChanged: onChanged,
+        onSaved: onSaved,
         onTap: onTapFunction,
         focusNode: focusNode,
         controller: Controller,
