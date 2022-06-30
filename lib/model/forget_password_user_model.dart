@@ -1,39 +1,39 @@
 class ForgetPasswordUserModel {
-  ForgetPasswordUserModel({
-    required this.success,
-    required this.data,
-    required this.message,
-  });
-    bool? success;
-    Data? data;
-    String? message;
+  bool? success;
+  Data? data;
+  String? message;
 
-  ForgetPasswordUserModel.fromJson(Map<String, dynamic> json){
+  ForgetPasswordUserModel({this.success, this.data, this.message});
+
+  ForgetPasswordUserModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
-    data = Data.fromJson(json['data']);
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
     message = json['message'];
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['success'] = success;
-    _data['data'] = data!.toJson();
-    _data['message'] = message;
-    return _data;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['success'] = this.success;
+    if (this.data != null) {
+      data['data'] = this.data!.toJson();
+    }
+    data['message'] = this.message;
+    return data;
   }
 }
 
 class Data {
-  Data({required this.registercode,});
-   int? registercode;
+  int? registercode;
 
-  Data.fromJson(Map<String, dynamic> json){
+  Data({this.registercode});
+
+  Data.fromJson(Map<String, dynamic> json) {
     registercode = json['registercode'];
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['registercode'] = registercode;
-    return _data;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['registercode'] = this.registercode;
+    return data;
   }
 }
