@@ -8,6 +8,7 @@ import 'package:nabny/repositries/servies_api/MyServiceApi.dart';
 import 'package:nabny/screens/forget_password_screen/chage_password/chage_password_screen.dart';
 
 import '../../../core/constant/Themes.dart';
+import '../../../core/constant/constant.dart';
 
 class ActivationPasswordController extends GetxController {
 
@@ -28,29 +29,13 @@ class ActivationPasswordController extends GetxController {
       MyServiceApi.activeCodeByForgetPassword(phone, code).then((value) {
         if (value?.success == true) {
           setLoading(false);
-          Fluttertoast.showToast(
-            msg: '${value?.message}',
-            fontSize: 15,
-            backgroundColor: Themes.whiteColor,
-            gravity: ToastGravity.BOTTOM,
-            textColor: Themes.ColorApp1,
-            timeInSecForIosWeb: 1,
-            toastLength: Toast.LENGTH_SHORT,
-          );
+          CustomFlutterToast('${value?.message}');
          // print('${value?.data!.registercode}');
           print('${phone}');
           Get.to(ChagePasswordScreen(mobilePhone: '$phone',));
         } else if (value?.success == false) {
           setLoading(false);
-          Fluttertoast.showToast(
-            msg: '${value?.message}',
-            fontSize: 15,
-            backgroundColor: Themes.whiteColor,
-            gravity: ToastGravity.BOTTOM,
-            textColor: Themes.ColorApp1,
-            timeInSecForIosWeb: 1,
-            toastLength: Toast.LENGTH_SHORT,
-          );
+          CustomFlutterToast('${value?.message}');
         }
       });
     }

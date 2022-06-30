@@ -140,7 +140,7 @@ class FromTextShared extends StatelessWidget {
             hintText: hintText,
             filled: true,
             fillColor: Colors.white,
-            prefixIcon: Image.asset(namePath!,width: width!,height: height!,),
+            prefixIcon: Image.asset(namePath!,width: width,height: height,),
             suffixIcon: suffixIcon != null
                 ? IconButton(
                     icon: Icon(suffixIcon),

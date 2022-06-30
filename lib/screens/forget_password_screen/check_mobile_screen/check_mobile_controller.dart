@@ -8,7 +8,7 @@ import 'package:nabny/screens/forget_password_screen/activation_password/activat
 
 import '../../../core/constant/Themes.dart';
 import '../../../core/constant/constant.dart';
-import '../../../model/check_mobile_user_model.dart';
+import '../../../model/forget_password_user_model.dart';
 
 class CheckMobileController extends GetxController {
   bool isLoading = false;
@@ -31,32 +31,16 @@ class CheckMobileController extends GetxController {
         if (value?.success == true) {
           setLoading(false);
           print(value?.message);
-          Fluttertoast.showToast(
-            msg: '${value?.data!.registercode}',
-            fontSize: 15,
-            backgroundColor: Themes.whiteColor,
-            gravity: ToastGravity.BOTTOM,
-            textColor: Themes.ColorApp1,
-            timeInSecForIosWeb: 1,
-            toastLength: Toast.LENGTH_SHORT,
-          );
+          CustomFlutterToast('${value?.data!.registercode}');
           print('${value?.data!.registercode}');
           print('${phone}');
-          Get.to(ActivationPasswordScreen(
+          Get.offAll(ActivationPasswordScreen(
             registercode: '${value?.data!.registercode}',
             mobilePhone: '$phone',
           ));
         } else if (value?.success == false) {
           setLoading(false);
-          Fluttertoast.showToast(
-            msg: '${value?.message}',
-            fontSize: 15,
-            backgroundColor: Themes.whiteColor,
-            gravity: ToastGravity.BOTTOM,
-            textColor: Themes.ColorApp1,
-            timeInSecForIosWeb: 1,
-            toastLength: Toast.LENGTH_SHORT,
-          );
+          CustomFlutterToast('${value?.message}');
         }
       });
     }

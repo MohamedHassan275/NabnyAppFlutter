@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
+import 'package:nabny/core/widget/custom_widget.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/forget_password_screen/check_mobile_screen/forget_password_byMobile_screen.dart';
+import 'package:nabny/screens/forget_password_screen/check_mobile_screen/widget/custom_text_field_widget.dart';
 import 'package:nabny/screens/get_my_location_screen/GetMyLocationUserPage.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
+import 'package:nabny/screens/login_screen/login_controller.dart';
+import 'package:nabny/screens/login_screen/widget/custom_text_field_widget.dart';
 import 'package:nabny/screens/register_screen/register_screen.dart';
 import 'package:nabny/utils/Themes.dart';
 
@@ -67,9 +71,9 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Container(
           width: double.infinity,
           height: Get.height,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage(Assets.imagesBackgroundSplash),
+          decoration: const BoxDecoration(
+              image: const DecorationImage(
+                  image: const AssetImage(Assets.imagesBackgroundSplash),
                   fit: BoxFit.fill)),
           child: Container(
             child: SingleChildScrollView(
@@ -101,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Center(
                               child: Text(
                                 'welcome_back'.tr,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 17,
                                     fontWeight: FontWeight.w700,
                                     color: Themes.ColorApp1),
@@ -115,8 +119,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: valueHight * .2,
                   ),
-                  Container(
-                    child: Container(
+                  GetBuilder<LoginController>(
+                    init: LoginController(),
+                    builder: (controller) => Container(
                       width: Get.width,
                       color: Colors.white,
                       child: Column(
@@ -125,173 +130,27 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: valueHight * 1.5,
                           ),
                           Form(
-                              key: formKey,
+                              key: controller.formKey,
                               child: Column(
                                 children: [
-                                  FromTextShared(
-                                      labelText: 'mobile_number'.tr,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          mobilePhone = value;
-                                        });
-                                      },
-                                      namePath: Assets.iconsMobilePhoneIcon,
-                                      width: 25,
-                                      height: 25,
-                                      isPassword: false,
-                                      maxLength: 11,
-                                      maxLines: 11,
-                                      onTapValidator: (value) {
-                                        if (value!.isEmpty) {
-                                          return 'mobile must not be empty';
-                                        } else if (!(value.length > 10)) {
-                                          return 'mobile is not valid';
-                                        }
-                                        return null;
-                                      },
-                                      keyboardType: TextInputType.number,
-                                      Controller: MobilePhone,
-                                      hintText: 'mobile_number'.tr),
-                                  SizedBox(
-                                    height: valueHight * .5,
-                                  ),
-                                  FromTextShared(
-                                    //  textAlign: TextAlign.center,
-                                    labelText: 'password'.tr,
-                                    onTapFunction: () {
-                                      setState(() {
-                                        FocusScope.of(context).unfocus();
-                                        FocusScope.of(context).requestFocus(
-                                            _focusNodePassword);
-                                      });
-                                    },
-                                    focusNode: _focusNodePassword,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        password = value;
-                                      });
-                                    },
-                                    isPassword: isPassword,
-                                    onTapValidator: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'password must not be empty';
-                                      } else if (value.length <= 6) {
-                                        return 'password is short';
-                                      }
-                                      return null;
-                                    },
-                                    namePath: Assets.iconsPasswordIcon,
-                                    width: 25,
-                                    height: 25,
-                                    suffixIcon: isPassword
-                                        ? Icons.visibility_sharp
-                                        : Icons.visibility_off,
-                                    onTapsuffixIcon: () {
-                                      setState(() {
-                                        isPassword = !isPassword;
-                                      });
-                                    },
-                                    keyboardType: TextInputType.text,
-                                    maxLines: 1,
-                                    Controller: Password,
-                                    hintText: 'password'.tr,
-                                  ),
-                                  SizedBox(
-                                    height: valueHight * 1,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 25),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        GestureDetector(
-                                          child: Text('forget_password'.tr,
-                                              textAlign: TextAlign.start,
-                                              style: TextStyle(
-                                                color: Themes.ColorApp6,
-                                                fontSize: 17,
-                                              )),
-                                          onTap: () =>  Get.to(ForgetPasswordByMobile())
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: valueHight * .2,
-                                  ),
-                                  showProgressbar
-                                      ? Container()
-                                      : Container(
-                                          decoration: BoxDecoration(
-                                              // image: DecorationImage(
-                                              //     image: AssetImage(Assets
-                                              //         .imagesBackgroundRequestReviewFatora),
-                                              //     fit: BoxFit.contain),
-                                              color: Colors.transparent),
-                                          child: Center(
-                                              child:
-                                                  CircularProgressIndicator(
-                                            color: Themes.ColorApp1,
-                                          ))),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
+                                  CustomTextFieldLoginWidget(textEditingController: MobilePhone, value: mobilePhone),
+                                  SizedBox(height: valueHight * .5,),
+                                  FormFieldPasswordWidget(textEditingController: Password, isPassword: isPassword,),
+                                  SizedBox(height: valueHight * 1,),
+                                  const ForgetPasswordWidget(),
+                                  SizedBox(height: valueHight * .2,),
+                                  CirclerProgressIndicatorWidget(isLoading: controller.isLoading ? true : false),
+                                  const SizedBox(height: 15),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 25, vertical: 15),
                                     child: CustomButtonImage(
                                       hight: 50,
                                       title: 'login'.tr,
-                                      onTap: () {
-                                        if (formKey.currentState!.validate()){
-                                          Get.to(HomeMainScreen(valueBack: '',));
-                                        }
-                                      },
+                                      onTap: () => Get.find<LoginController>().checkLoginUser(MobilePhone.text, Password.text, 'token')
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 25),
-                                    child: Container(
-                                      width: Get.width,
-                                      height: 50,
-                                      decoration: BoxDecoration(
-                                        color: Themes.ColorApp7,
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      child: Center(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              'not_account'.tr,
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                color: Themes.ColorApp2,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 5,
-                                            ),
-                                            InkWell(
-                                              onTap: () => Get.to(RegisterScreen()),
-                                              child: Text(
-                                                'create_account'.tr,
-                                                style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: Themes.ColorApp6,
-                                                  fontWeight:
-                                                      FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                  const CreateAccountFromLogin(),
                                 ],
                               )),
                           SizedBox(

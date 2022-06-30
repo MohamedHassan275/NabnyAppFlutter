@@ -1,5 +1,5 @@
-class CheckMobileUserModel {
-  CheckMobileUserModel({
+class ForgetPasswordUserModel {
+  ForgetPasswordUserModel({
     required this.success,
     required this.data,
     required this.message,
@@ -8,7 +8,7 @@ class CheckMobileUserModel {
     Data? data;
     String? message;
 
-  CheckMobileUserModel.fromJson(Map<String, dynamic> json){
+  ForgetPasswordUserModel.fromJson(Map<String, dynamic> json){
     success = json['success'];
     data = Data.fromJson(json['data']);
     message = json['message'];

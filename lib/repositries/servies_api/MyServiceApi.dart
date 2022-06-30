@@ -2,17 +2,18 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:nabny/core/constant/constant.dart';
+import 'package:nabny/model/login_user_model.dart';
 import 'package:nabny/model/logout_user_model.dart';
 import 'package:nabny/repositries/repositries_status.dart';
 
-import '../../model/check_mobile_user_model.dart';
+import '../../model/forget_password_user_model.dart';
 
 class MyServiceApi {
   static String URL = 'https://nebny.net/api/v2/';
 
-  static Future<Object> checkLoginUser(
+  static Future<LoginUserModel?> checkLoginUser(
       String phone, String password, String fcm_token) async {
-    CheckMobileUserModel? checkMobileModel;
+    LoginUserModel? loginUserModel;
     var fromData = FormData.fromMap({
       'phone': phone,
       'password': password,
@@ -22,11 +23,10 @@ class MyServiceApi {
       Response response = await Dio().post(URL + 'login', data: fromData);
 
       if (response.statusCode == 200) {
-        return SUCCESS(response: CheckMobileUserModel.fromJson(response.data));
+        return LoginUserModel.fromJson(response.data);
       } else {
         print('${response.statusMessage} : ${response.statusCode}');
-        throw response.statusMessage!;
-        // return Failure(errorResponse: 'can`t have data');
+       return throw Exception(response.statusMessage!);
       }
     } on DioError catch (e) {
       if (e.response != null) {
@@ -40,11 +40,11 @@ class MyServiceApi {
         print(e.message);
       }
     }
-    return checkMobileModel != null;
+    return loginUserModel;
   }
 
   static Future<Object> CreateAccountUserByMobile(String phone) async {
-    CheckMobileUserModel? checkMobileModel;
+    ForgetPasswordUserModel? checkMobileModel;
     var fromData = FormData.fromMap({
       'phone': phone,
     });
@@ -53,7 +53,7 @@ class MyServiceApi {
           await Dio().post(URL + 'step1/register', data: fromData);
 
       if (response.statusCode == 200) {
-        return SUCCESS(response: CheckMobileUserModel.fromJson(response.data));
+        return SUCCESS(response: ForgetPasswordUserModel.fromJson(response.data));
       } else {
         print('${response.statusMessage} : ${response.statusCode}');
         throw response.statusMessage!;
@@ -75,7 +75,7 @@ class MyServiceApi {
   }
 
   static Future<Object> activeCodeByRegister(String phone, String code) async {
-    CheckMobileUserModel? checkMobileModel;
+    ForgetPasswordUserModel? checkMobileModel;
     var fromData = FormData.fromMap({
       'phone': phone,
       'code': code,
@@ -87,7 +87,7 @@ class MyServiceApi {
       if (response.statusCode == 200) {
         print(response.statusCode);
         print(response.data);
-        return SUCCESS(response: CheckMobileUserModel.fromJson(response.data));
+        return SUCCESS(response: ForgetPasswordUserModel.fromJson(response.data));
       } else {
         // print('${response.statusMessage} : ${response.statusCode}');
         // throw response.statusMessage!;
@@ -112,7 +112,7 @@ class MyServiceApi {
       String phone, String firstname,
       String lastname, String email,
       String password, String fcm_token) async {
-    CheckMobileUserModel? checkMobileModel;
+    ForgetPasswordUserModel? checkMobileModel;
     var fromData = FormData.fromMap({
       'phone': phone,
       'firstname': firstname,
@@ -126,7 +126,7 @@ class MyServiceApi {
           await Dio().post(URL + 'step2/register', data: fromData);
 
       if (response.statusCode == 200) {
-        return SUCCESS(response: CheckMobileUserModel.fromJson(response.data));
+        return SUCCESS(response: ForgetPasswordUserModel.fromJson(response.data));
       } else {
         print('${response.statusMessage} : ${response.statusCode}');
         throw response.statusMessage!;
@@ -160,7 +160,7 @@ class MyServiceApi {
       if (response.statusCode == 200) {
         print(response.statusCode);
         print(response.data);
-        return SUCCESS(response: CheckMobileUserModel.fromJson(response.data));
+        return SUCCESS(response: ForgetPasswordUserModel.fromJson(response.data));
       } else {
         // print('${response.statusMessage} : ${response.statusCode}');
         // throw response.statusMessage!;
@@ -181,8 +181,8 @@ class MyServiceApi {
     return logoutUserModel != null;
   }
 
-  static Future<CheckMobileUserModel?> checkMobileByForgetPassword(String phone) async {
-    CheckMobileUserModel? checkMobileModel;
+  static Future<ForgetPasswordUserModel?> checkMobileByForgetPassword(String phone) async {
+    ForgetPasswordUserModel? checkMobileModel;
     var fromData = FormData.fromMap({
       'phone': phone,
     });
@@ -193,7 +193,7 @@ class MyServiceApi {
       if (response.statusCode == 200) {
         print(response.statusCode);
         print(response.data);
-        return CheckMobileUserModel.fromJson(response.data);
+        return ForgetPasswordUserModel.fromJson(response.data);
       } else {
         // print('${response.statusMessage} : ${response.statusCode}');
         // throw response.statusMessage!;
@@ -214,9 +214,9 @@ class MyServiceApi {
     return checkMobileModel;
   }
 
-  static Future<CheckMobileUserModel?> activeCodeByForgetPassword(
+  static Future<ForgetPasswordUserModel?> activeCodeByForgetPassword(
       String phone, String code) async {
-    CheckMobileUserModel? checkMobileModel;
+    ForgetPasswordUserModel? checkMobileModel;
     var fromData = FormData.fromMap({
       'phone': phone,
       'code': code,
@@ -227,7 +227,7 @@ class MyServiceApi {
       if (response.statusCode == 200) {
         print(response.statusCode);
         print(response.data);
-        return CheckMobileUserModel.fromJson(response.data);
+        return ForgetPasswordUserModel.fromJson(response.data);
       } else {
         // print('${response.statusMessage} : ${response.statusCode}');
         return throw Exception(response.statusMessage!);
@@ -247,9 +247,9 @@ class MyServiceApi {
     return checkMobileModel;
   }
 
-  static Future<CheckMobileUserModel?> ReChangePasswordUser(
+  static Future<ForgetPasswordUserModel?> ReChangePasswordUser(
       String phone, String password) async {
-    CheckMobileUserModel? checkMobileModel;
+    ForgetPasswordUserModel? checkMobileModel;
     var fromData = FormData.fromMap({
       'phone': phone,
       'password': password,
@@ -260,7 +260,7 @@ class MyServiceApi {
       if (response.statusCode == 200) {
         print(response.statusCode);
         print(response.data);
-        return CheckMobileUserModel.fromJson(response.data);
+        return ForgetPasswordUserModel.fromJson(response.data);
       } else {
         // print('${response.statusMessage} : ${response.statusCode}');
         return throw  Exception(response.statusMessage!);

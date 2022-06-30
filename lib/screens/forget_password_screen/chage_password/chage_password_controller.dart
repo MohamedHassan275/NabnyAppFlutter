@@ -6,6 +6,7 @@ import 'package:nabny/repositries/servies_api/MyServiceApi.dart';
 import 'package:nabny/screens/login_screen/login_screen.dart';
 
 import '../../../core/constant/Themes.dart';
+import '../../../core/constant/constant.dart';
 
 class ChangePasswordController extends GetxController {
 
@@ -35,27 +36,11 @@ class ChangePasswordController extends GetxController {
         if (value?.success == true) {
           setLoading(false);
           print(value?.message);
-          Fluttertoast.showToast(
-            msg: '${value?.message}',
-            fontSize: 15,
-            backgroundColor: Themes.whiteColor,
-            gravity: ToastGravity.BOTTOM,
-            textColor: Themes.ColorApp1,
-            timeInSecForIosWeb: 1,
-            toastLength: Toast.LENGTH_SHORT,
-          );
-          Get.to(const LoginScreen());
+          CustomFlutterToast('${value?.message}');
+          Get.offAll(const LoginScreen());
         } else if (value?.success == false) {
           setLoading(false);
-          Fluttertoast.showToast(
-            msg: '${value?.message}',
-            fontSize: 15,
-            backgroundColor: Themes.whiteColor,
-            gravity: ToastGravity.BOTTOM,
-            textColor: Themes.ColorApp1,
-            timeInSecForIosWeb: 1,
-            toastLength: Toast.LENGTH_SHORT,
-          );
+          CustomFlutterToast('${value?.message}');
         }
       });
     }
