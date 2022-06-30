@@ -28,9 +28,8 @@ class ActivationPasswordController extends GetxController {
       MyServiceApi.activeCodeByForgetPassword(phone, code).then((value) {
         if (value?.success == true) {
           setLoading(false);
-          print(value?.message);
           Fluttertoast.showToast(
-            msg: '${value?.data!.registercode}',
+            msg: '${value?.message}',
             fontSize: 15,
             backgroundColor: Themes.whiteColor,
             gravity: ToastGravity.BOTTOM,

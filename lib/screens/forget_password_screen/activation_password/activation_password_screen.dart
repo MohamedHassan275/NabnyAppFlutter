@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomTextFieldWidget.dart';
 import 'package:nabny/screens/forget_password_screen/activation_password/activation_password_controller.dart';
+import 'package:nabny/screens/forget_password_screen/activation_password/widgets/custom_widgets_activation_code.dart';
 import 'package:nabny/utils/Themes.dart';
 
 import '../../../componant/CustomButtonWidget.dart';
@@ -27,8 +28,7 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
   TextEditingController _Code4 = TextEditingController();
 
   late String Code1, Code2, Code3, Code4;
-
-  var formKey = GlobalKey<FormState>();
+  String? VerificationCode;
 
   @override
   Widget build(BuildContext context) {
@@ -115,106 +115,20 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Expanded(
-                                child: SizedBox(
-                                  height: 100,
-                                  child: SharedFromTextField(
-                                      textAlign: TextAlign.center,
-                                      hintText: 'ـــــ',
-                                      onChanged: (value) {
-                                        setState(() {
-                                          Code1 = value;
-                                        });
-                                      },
-                                      onTapValidator: (value) {
-                                        if (value!.isEmpty) {
-                                          return 'Code  must not be empty';
-                                        }
-                                        return null;
-                                      },
-                                      keyboardType: TextInputType.number,
-                                      maxLines: 1,
-                                      Controller: _Code1),
-                                ),
-                              ),
+                              CustomTextFieldActivationCode(controller: _Code1),
                               const SizedBox(
                                 width: 10,
                               ),
-                              Expanded(
-                                child: SizedBox(
-                                  height: 100,
-                                  child: SharedFromTextField(
-                                      textAlign: TextAlign.center,
-                                      hintText: 'ـــــ',
-                                      onChanged: (value) {
-                                        setState(() {
-                                          Code2 = value;
-                                        });
-                                      },
-                                      onTapValidator: (value) {
-                                        if (value!.isEmpty) {
-                                          return 'Code  must not be empty';
-                                        }
-                                        return null;
-                                      },
-                                      keyboardType: TextInputType.number,
-                                      maxLines: 1,
-                                      Controller: _Code2),
-                                ),
-                              ),
+                              CustomTextFieldActivationCode(controller: _Code2),
                               const SizedBox(
                                 width: 10,
                               ),
-                              Expanded(
-                                child: SizedBox(
-                                  height: 100,
-                                  child: SharedFromTextField(
-                                      textAlign: TextAlign.center,
-                                      hintText: 'ـــــ',
-                                      onChanged: (value) {
-                                        setState(() {
-                                          Code3 = value;
-                                        });
-                                      },
-                                      onTapValidator: (value) {
-                                        if (value!.isEmpty) {
-                                          return 'Code  must not be empty';
-                                        }
-                                        return null;
-                                      },
-                                      keyboardType: TextInputType.number,
-                                      maxLines: 1,
-                                      Controller: _Code3),
-                                ),
-                              ),
+                              CustomTextFieldActivationCode(controller: _Code3),
                               const SizedBox(
                                 width: 10,
                               ),
-                              Expanded(
-                                child: SizedBox(
-                                  height: 100,
-                                  child: SharedFromTextField(
-                                      textAlign: TextAlign.center,
-                                      hintText: 'ـــــ',
-                                      onChanged: (value) {
-                                        setState(() {
-                                          Code4 = value;
-                                        });
-                                      },
-                                      onTapValidator: (value) {
-                                        if (value!.isEmpty) {
-                                          return 'Code  must not be empty';
-                                        }
-                                        return null;
-                                      },
-                                      keyboardType: TextInputType.number,
-                                      maxLines: 1,
-                                      Controller: _Code4),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
+                              CustomTextFieldActivationCode(controller: _Code4),
+                              const SizedBox(width: 10),
                             ],
                           ),
                         ),
@@ -270,10 +184,6 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
                         visible: controller.isLoading ? true : false,
                         child: Container(
                             decoration: const BoxDecoration(
-                              // image: DecorationImage(
-                              //     image: AssetImage(Assets
-                              //         .imagesBackgroundRequestReviewFatora),
-                              //     fit: BoxFit.contain),
                                 color: Colors.transparent),
                             child: const Center(
                                 child: CircularProgressIndicator(
@@ -290,7 +200,7 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
                           hight: 50,
                           title: 'confirm'.tr,
                           onTap: () {
-                            String? VerificationCode = _Code1.text.toString() + _Code2.text.toString()+ _Code3.text.toString() + _Code4.text.toString();
+                            VerificationCode = _Code1.text.toString() + _Code2.text.toString()+ _Code3.text.toString() + _Code4.text.toString();
                             Get.find<ActivationPasswordController>().activeCodeByMobilePhone(widget.mobilePhone, VerificationCode);
                           },
                         ),

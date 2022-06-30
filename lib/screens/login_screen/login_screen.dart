@@ -119,187 +119,183 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Container(
                       width: Get.width,
                       color: Colors.white,
-                      child: Stack(
+                      child: Column(
                         children: [
-                          Column(
-                            children: [
-                              SizedBox(
-                                height: valueHight * 1.5,
-                              ),
-                              Form(
-                                  key: formKey,
-                                  child: Column(
-                                    children: [
-                                      FromTextShared(
-                                          labelText: 'mobile_number'.tr,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              mobilePhone = value;
-                                            });
-                                          },
-                                          namePath: Assets.iconsMobilePhoneIcon,
-                                          width: 25,
-                                          height: 25,
-                                          isPassword: false,
-                                          maxLength: 6,
-                                          maxLines: 6,
-                                          onTapValidator: (value) {
-                                            if (value!.isEmpty) {
-                                              return 'mobile must not be empty';
-                                            } else if (!(value.length > 5)) {
-                                              return 'mobile is not valid';
-                                            }
-                                            return null;
-                                          },
-                                          keyboardType: TextInputType.number,
-                                          Controller: MobilePhone,
-                                          hintText: 'mobile_number'.tr),
-                                      SizedBox(
-                                        height: valueHight * .5,
+                          SizedBox(
+                            height: valueHight * 1.5,
+                          ),
+                          Form(
+                              key: formKey,
+                              child: Column(
+                                children: [
+                                  FromTextShared(
+                                      labelText: 'mobile_number'.tr,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          mobilePhone = value;
+                                        });
+                                      },
+                                      namePath: Assets.iconsMobilePhoneIcon,
+                                      width: 25,
+                                      height: 25,
+                                      isPassword: false,
+                                      maxLength: 11,
+                                      maxLines: 11,
+                                      onTapValidator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'mobile must not be empty';
+                                        } else if (!(value.length > 10)) {
+                                          return 'mobile is not valid';
+                                        }
+                                        return null;
+                                      },
+                                      keyboardType: TextInputType.number,
+                                      Controller: MobilePhone,
+                                      hintText: 'mobile_number'.tr),
+                                  SizedBox(
+                                    height: valueHight * .5,
+                                  ),
+                                  FromTextShared(
+                                    //  textAlign: TextAlign.center,
+                                    labelText: 'password'.tr,
+                                    onTapFunction: () {
+                                      setState(() {
+                                        FocusScope.of(context).unfocus();
+                                        FocusScope.of(context).requestFocus(
+                                            _focusNodePassword);
+                                      });
+                                    },
+                                    focusNode: _focusNodePassword,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        password = value;
+                                      });
+                                    },
+                                    isPassword: isPassword,
+                                    onTapValidator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'password must not be empty';
+                                      } else if (value.length <= 6) {
+                                        return 'password is short';
+                                      }
+                                      return null;
+                                    },
+                                    namePath: Assets.iconsPasswordIcon,
+                                    width: 25,
+                                    height: 25,
+                                    suffixIcon: isPassword
+                                        ? Icons.visibility_sharp
+                                        : Icons.visibility_off,
+                                    onTapsuffixIcon: () {
+                                      setState(() {
+                                        isPassword = !isPassword;
+                                      });
+                                    },
+                                    keyboardType: TextInputType.text,
+                                    maxLines: 1,
+                                    Controller: Password,
+                                    hintText: 'password'.tr,
+                                  ),
+                                  SizedBox(
+                                    height: valueHight * 1,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 25),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        GestureDetector(
+                                          child: Text('forget_password'.tr,
+                                              textAlign: TextAlign.start,
+                                              style: TextStyle(
+                                                color: Themes.ColorApp6,
+                                                fontSize: 17,
+                                              )),
+                                          onTap: () =>  Get.to(ForgetPasswordByMobile())
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: valueHight * .2,
+                                  ),
+                                  showProgressbar
+                                      ? Container()
+                                      : Container(
+                                          decoration: BoxDecoration(
+                                              // image: DecorationImage(
+                                              //     image: AssetImage(Assets
+                                              //         .imagesBackgroundRequestReviewFatora),
+                                              //     fit: BoxFit.contain),
+                                              color: Colors.transparent),
+                                          child: Center(
+                                              child:
+                                                  CircularProgressIndicator(
+                                            color: Themes.ColorApp1,
+                                          ))),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 25, vertical: 15),
+                                    child: CustomButtonImage(
+                                      hight: 50,
+                                      title: 'login'.tr,
+                                      onTap: () {
+                                        if (formKey.currentState!.validate()){
+                                          Get.to(HomeMainScreen(valueBack: '',));
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 25),
+                                    child: Container(
+                                      width: Get.width,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        color: Themes.ColorApp7,
+                                        borderRadius: BorderRadius.circular(15),
                                       ),
-                                      FromTextShared(
-                                        //  textAlign: TextAlign.center,
-                                        labelText: 'password'.tr,
-                                        onTapFunction: () {
-                                          setState(() {
-                                            FocusScope.of(context).unfocus();
-                                            FocusScope.of(context).requestFocus(
-                                                _focusNodePassword);
-                                          });
-                                        },
-                                        focusNode: _focusNodePassword,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            password = value;
-                                          });
-                                        },
-                                        isPassword: isPassword,
-                                        onTapValidator: (value) {
-                                          if (value!.isEmpty) {
-                                            return 'password must not be empty';
-                                          } else if (value.length <= 6) {
-                                            return 'password is short';
-                                          }
-                                          return null;
-                                        },
-                                        namePath: Assets.iconsPasswordIcon,
-                                        width: 25,
-                                        height: 25,
-                                        suffixIcon: isPassword
-                                            ? Icons.visibility_sharp
-                                            : Icons.visibility_off,
-                                        onTapsuffixIcon: () {
-                                          setState(() {
-                                            isPassword = !isPassword;
-                                          });
-                                        },
-                                        keyboardType: TextInputType.text,
-                                        maxLines: 1,
-                                        Controller: Password,
-                                        hintText: 'password'.tr,
-                                      ),
-                                      SizedBox(
-                                        height: valueHight * 1,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                                      child: Center(
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: [
-                                            GestureDetector(
-                                              child: Text('forget_password'.tr,
-                                                  textAlign: TextAlign.start,
-                                                  style: TextStyle(
-                                                    color: Themes.ColorApp6,
-                                                    fontSize: 17,
-                                                  )),
-                                              onTap: () =>  Get.to(ForgetPasswordByMobile())
+                                            Text(
+                                              'not_account'.tr,
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: Themes.ColorApp2,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 5,
+                                            ),
+                                            InkWell(
+                                              onTap: () => Get.to(RegisterScreen()),
+                                              child: Text(
+                                                'create_account'.tr,
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Themes.ColorApp6,
+                                                  fontWeight:
+                                                      FontWeight.bold,
+                                                ),
+                                              ),
                                             ),
                                           ],
                                         ),
                                       ),
-                                      SizedBox(
-                                        height: valueHight * .2,
-                                      ),
-                                      showProgressbar
-                                          ? Container()
-                                          : Container(
-                                              decoration: BoxDecoration(
-                                                  // image: DecorationImage(
-                                                  //     image: AssetImage(Assets
-                                                  //         .imagesBackgroundRequestReviewFatora),
-                                                  //     fit: BoxFit.contain),
-                                                  color: Colors.transparent),
-                                              child: Center(
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                color: Themes.ColorApp1,
-                                              ))),
-                                      SizedBox(
-                                        height: 15,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 25, vertical: 15),
-                                        child: CustomButtonImage(
-                                          hight: 50,
-                                          title: 'login'.tr,
-                                          onTap: () {
-                                            if (formKey.currentState!.validate()){
-                                              Get.to(HomeMainScreen(valueBack: '',));
-                                            }
-                                          },
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 25),
-                                        child: Container(
-                                          width: Get.width,
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                            color: Themes.ColorApp7,
-                                            borderRadius: BorderRadius.circular(15),
-                                          ),
-                                          child: Center(
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  'not_account'.tr,
-                                                  style: TextStyle(
-                                                    fontSize: 12,
-                                                    color: Themes.ColorApp2,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 5,
-                                                ),
-                                                InkWell(
-                                                  onTap: () => Get.to(RegisterScreen()),
-                                                  child: Text(
-                                                    'create_account'.tr,
-                                                    style: TextStyle(
-                                                      fontSize: 14,
-                                                      color: Themes.ColorApp6,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  )),
-                              SizedBox(
-                                height: valueHight * 1.5,
-                              )
-                            ],
+                                    ),
+                                  ),
+                                ],
+                              )),
+                          SizedBox(
+                            height: valueHight * 1.5,
                           )
                         ],
                       ),

@@ -1,13 +1,11 @@
 
 import 'dart:ffi';
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:nabny/model/check_mobile_user_model.dart';
-import 'package:nabny/repositries/servies_api/MyServiceApi.dart';
 import 'package:nabny/screens/forget_password_screen/check_mobile_screen/check_mobile_controller.dart';
+import 'package:nabny/screens/forget_password_screen/check_mobile_screen/widget/custom_text_field_widget.dart';
 import '../../../componant/CustomButtonWidget.dart';
 import '../../../componant/CustomTextFieldWidget.dart';
 import '../../../generated/assets.dart';
@@ -105,7 +103,7 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
                             child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 15),
                                 child: Text(
-                                  'forget_password',
+                                  'forget_password'.tr,
                                   style: const TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w700,
@@ -127,68 +125,45 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
                       SizedBox(
                         height: valueHight * 1.5,
                       ),
-                     GetBuilder<CheckMobileController>(
-                       init: CheckMobileController(),
-                       builder: (controller) =>  Form(
-                         key: controller.formKey,
-                         child: Column(
-                           children: [
-                             FromTextShared(
-                                 labelText: 'mobile_number',
-                                 maxLength: 11,
-                                 onChanged: (value) {
-                                   mobilePhone = value;
-                                 },
-                                 onSaved: (String? value){
-                                   mobilePhone = value!;
-                                 },
-                                 isPassword: false,
-                                 onTapValidator: (value) {
-                                   if (value!.isEmpty) {
-                                     return 'mobile must not be empty';
-                                   } else if (!(value.length > 10)) {
-                                     return 'mobile is not valid';
-                                   }
-                                   return null;
-                                 },
-                                 namePath: Assets.iconsMobilePhoneIcon,
-                                 width: 25,
-                                 height: 25,
-                                 keyboardType: TextInputType.number,
-                                 Controller: MobilePhone,
-                                 hintText: 'mobile_number'),
-                             SizedBox(
-                               height: valueHight * 1,
-                             ),
-                             Visibility(
-                               visible: controller.isLoading ? true : false,
-                               child: Container(
-                                   decoration: const BoxDecoration(
-                                     // image: DecorationImage(
-                                     //     image: AssetImage(Assets
-                                     //         .imagesBackgroundRequestReviewFatora),
-                                     //     fit: BoxFit.contain),
-                                       color: Colors.transparent),
-                                   child: const Center(
-                                       child: CircularProgressIndicator(
-                                         color: Themes.ColorApp1,
-                                       ))),
-                             ),
-                             SizedBox(
-                               height: valueHight * .5,
-                             ),
-                             Padding(
-                               padding: const EdgeInsets.symmetric(
-                                   horizontal: 15, vertical: 15),
-                               child: CustomButtonImage(
-                                 hight: 50,
-                                 title: 'confirm',
-                                 onTap: () => Get.find<CheckMobileController>().checkMobilePhone(MobilePhone.text.toString())
-                               ),
-                             ),
-                             SizedBox(height: valueHight*3.0,),
-                           ],
-                         )),)
+                      GetBuilder<CheckMobileController>(
+                        init: CheckMobileController(),
+                        builder: (controller) =>  Form(
+                            key: controller.formKey,
+                            child: Column(
+                              children: [
+                                CustomTextFieldWidget(textEditingController: MobilePhone, value: mobilePhone),
+                                SizedBox(
+                                  height: valueHight * 1,
+                                ),
+                                Visibility(
+                                  visible: controller.isLoading ? true : false,
+                                  child: Container(
+                                      decoration: const BoxDecoration(
+                                        // image: DecorationImage(
+                                        //     image: AssetImage(Assets
+                                        //         .imagesBackgroundRequestReviewFatora),
+                                        //     fit: BoxFit.contain),
+                                          color: Colors.transparent),
+                                      child: const Center(
+                                          child: CircularProgressIndicator(
+                                            color: Themes.ColorApp1,
+                                          ))),
+                                ),
+                                SizedBox(
+                                  height: valueHight * .5,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15, vertical: 15),
+                                  child: CustomButtonImage(
+                                      hight: 50,
+                                      title: 'confirm'.tr,
+                                      onTap: () => Get.find<CheckMobileController>().checkMobilePhone(MobilePhone.text)
+                                  ),
+                                ),
+                                SizedBox(height: valueHight*3.0,),
+                              ],
+                            )),)
                     ],
                   ),
                 ),
