@@ -218,7 +218,7 @@ class _ChagePasswordScreenState extends State<ChagePasswordScreen> {
                           child: CustomButtonImage(
                             hight: 50,
                             title: 'confirm'.tr,
-                            onTap: () => Get.find<ChangePasswordController>().changePasswordByForgetPassword(widget.mobilePhone,Password.text.toString())
+                            onTap: () => Get.find<ChangePasswordController>().changePasswordByForgetPassword(widget.mobilePhone,Password.text)
                           ),
                         ),
                         SizedBox(

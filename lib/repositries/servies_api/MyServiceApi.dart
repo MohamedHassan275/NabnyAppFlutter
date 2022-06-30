@@ -252,7 +252,7 @@ class MyServiceApi {
     CheckMobileUserModel? checkMobileModel;
     var fromData = FormData.fromMap({
       'phone': phone,
-      'code': password,
+      'password': password,
     });
     try {
       Response response = await Dio().post(URL + 'rechangepass', data: fromData);

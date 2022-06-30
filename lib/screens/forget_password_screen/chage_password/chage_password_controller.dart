@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:nabny/repositries/servies_api/MyServiceApi.dart';
+import 'package:nabny/screens/login_screen/login_screen.dart';
 
 import '../../../core/constant/Themes.dart';
 
@@ -35,7 +36,7 @@ class ChangePasswordController extends GetxController {
           setLoading(false);
           print(value?.message);
           Fluttertoast.showToast(
-            msg: '${value?.data!.registercode}',
+            msg: '${value?.message}',
             fontSize: 15,
             backgroundColor: Themes.whiteColor,
             gravity: ToastGravity.BOTTOM,
@@ -43,7 +44,7 @@ class ChangePasswordController extends GetxController {
             timeInSecForIosWeb: 1,
             toastLength: Toast.LENGTH_SHORT,
           );
-        //  Get.to(ChagePasswordScreen(mobilePhone: '$phone',));
+          Get.to(const LoginScreen());
         } else if (value?.success == false) {
           setLoading(false);
           Fluttertoast.showToast(
