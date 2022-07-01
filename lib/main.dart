@@ -4,8 +4,7 @@ import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/core/localization/translation.dart';
 import 'package:nabny/core/servies/services.dart';
 import 'package:nabny/screens/home_main_screen/home_main_controller.dart';
-import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
-import 'package:nabny/screens/splash_screen/screen_screen.dart';
+import 'package:nabny/screens/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       translations: MyTranslation(),
       locale: controller.language,
-      home: Get.find<StorageService>().GetToken != "" ? HomeMainScreen(valueBack: '') : const SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }

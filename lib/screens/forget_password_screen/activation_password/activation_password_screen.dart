@@ -4,8 +4,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomTextFieldWidget.dart';
+import 'package:nabny/core/widget/text_field_activate_code.dart';
 import 'package:nabny/screens/forget_password_screen/activation_password/activation_password_controller.dart';
-import 'package:nabny/screens/forget_password_screen/activation_password/widgets/custom_widgets_activation_code.dart';
 import 'package:nabny/utils/Themes.dart';
 
 import '../../../componant/CustomButtonWidget.dart';
@@ -27,7 +27,6 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
   TextEditingController _Code3 = TextEditingController();
   TextEditingController _Code4 = TextEditingController();
 
-  late String Code1, Code2, Code3, Code4;
   String? VerificationCode;
 
   @override
@@ -115,19 +114,19 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              CustomTextFieldActivationCode(controller: _Code1),
+                              TextFieldActivateCode(controller: _Code1),
                               const SizedBox(
                                 width: 10,
                               ),
-                              CustomTextFieldActivationCode(controller: _Code2),
+                              TextFieldActivateCode(controller: _Code2),
                               const SizedBox(
                                 width: 10,
                               ),
-                              CustomTextFieldActivationCode(controller: _Code3),
+                              TextFieldActivateCode(controller: _Code3),
                               const SizedBox(
                                 width: 10,
                               ),
-                              CustomTextFieldActivationCode(controller: _Code4),
+                              TextFieldActivateCode(controller: _Code4),
                               const SizedBox(width: 10),
                             ],
                           ),

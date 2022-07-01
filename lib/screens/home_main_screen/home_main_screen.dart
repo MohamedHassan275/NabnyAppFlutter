@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/core/constant/constant.dart';
-import 'package:nabny/core/widget/custom_widget.dart';
+import 'package:nabny/core/widget/custom_circler_progress_indicator_widget.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/home_main_screen/home_main_controller.dart';
 import 'package:nabny/screens/login_screen/login_screen.dart';
@@ -109,7 +109,10 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                       height: heightValue * .7,
                     ),
                     WidgetMenuItem(title: 'my_addresses', widthValue: widthValue, image: Assets.iconsMyLocationMenuIcon,
-                      onTap: () => CustomFlutterToast(Get.find<StorageService>().GetToken)),
+                      onTap: () {
+                      print(Get.find<StorageService>().GetToken);
+                      CustomFlutterToast(Get.find<StorageService>().GetToken);
+                      }),
                     SizedBox(
                       height: heightValue * 2.5,
                     ),

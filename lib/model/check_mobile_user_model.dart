@@ -1,11 +1,11 @@
-class ForgetPasswordUserModel {
+class CheckMobileUserModel {
   bool? success;
   Data? data;
   String? message;
 
-  ForgetPasswordUserModel({this.success, this.data, this.message});
+  CheckMobileUserModel({this.success, this.data, this.message});
 
-  ForgetPasswordUserModel.fromJson(Map<String, dynamic> json) {
+  CheckMobileUserModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
     message = json['message'];

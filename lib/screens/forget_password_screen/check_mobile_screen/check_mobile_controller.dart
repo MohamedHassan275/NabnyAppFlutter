@@ -8,7 +8,7 @@ import 'package:nabny/screens/forget_password_screen/activation_password/activat
 
 import '../../../core/constant/Themes.dart';
 import '../../../core/constant/constant.dart';
-import '../../../model/forget_password_user_model.dart';
+import '../../../model/check_mobile_user_model.dart';
 
 class CheckMobileController extends GetxController {
   bool isLoading = false;

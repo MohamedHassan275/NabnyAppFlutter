@@ -7,7 +7,7 @@ import 'package:nabny/screens/about_app_screen/about_app_screen.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:nabny/screens/privacy_screen/privacy_screen.dart';
 import 'package:nabny/screens/setting_profile_screen/setting_profile_screen.dart';
-import 'package:nabny/screens/splash_screen/screen_screen.dart';
+import 'package:nabny/screens/splash_screen/splash_screen.dart';
 import 'package:nabny/screens/terms_condition_screen/terms_condition_screen.dart';
 
 import '../../utils/Themes.dart';

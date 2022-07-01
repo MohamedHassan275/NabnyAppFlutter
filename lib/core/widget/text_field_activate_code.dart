@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../componant/CustomTextFieldWidget.dart';
+import '../../componant/CustomTextFieldWidget.dart';
 
-class CustomTextFieldActivationCode extends StatelessWidget {
+class TextFieldActivateCode extends StatelessWidget {
   Function(String)? onChanged;
   TextEditingController controller = TextEditingController();
-  CustomTextFieldActivationCode({required this.controller});
+  TextFieldActivateCode({required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -32,4 +32,3 @@ class CustomTextFieldActivationCode extends StatelessWidget {
   }
 
 }
-

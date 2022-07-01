@@ -1,7 +1,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nabny/core/widget/custom_circler_progress_indicator_widget.dart';
+import 'package:nabny/core/widget/custom_phone_and_password_widget.dart';
 import 'package:nabny/screens/login_screen/login_screen.dart';
+import 'package:nabny/screens/register_screen/register_controller.dart';
 import 'package:nabny/screens/verification_code/verification_code_screen.dart';
 import 'package:nabny/utils/Themes.dart';
 
@@ -115,7 +118,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
                 SizedBox(height: valueHight*.2,),
-                Container(
+                GetBuilder<RegisterController>(
+                  init: RegisterController(),
+                  builder: (controller) => Container(
                   width: Get.width,
                   color: Colors.white,
                   child: Column(
@@ -124,48 +129,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         height: valueHight * 1.5,
                       ),
                       Form(
-                          key: formKey,
+                          key: controller.formKey,
                           child: Column(
                             children: [
-                              FromTextShared(
-                                  labelText: 'mobile_number'.tr,
-                                  maxLength: 6,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      mobilePhone = value;
-                                    });
-                                  },
-                                  isPassword: false,
-                                  onTapValidator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'mobile must not be empty';
-                                    } else if (!(value.length > 5)) {
-                                      return 'mobile is not valid';
-                                    }
-                                    return null;
-                                  },
-                                  namePath: Assets.iconsMobilePhoneIcon,
-                                  width: 25,
-                                  height: 25,
-                                  keyboardType: TextInputType.number,
-                                  Controller: MobilePhone,
-                                  hintText: 'mobile_number'.tr),
+                              TextFieldMobileWidget(textEditingController: MobilePhone, value: mobilePhone),
                               SizedBox(
                                 height: valueHight * 1,
                               ),
-                              showProgressbar
-                                  ? Container()
-                                  : Container(
-                                  decoration: const BoxDecoration(
-                                    // image: DecorationImage(
-                                    //     image: AssetImage(Assets
-                                    //         .imagesBackgroundRequestReviewFatora),
-                                    //     fit: BoxFit.contain),
-                                      color: Colors.transparent),
-                                  child: const Center(
-                                      child: const CircularProgressIndicator(
-                                        color: Themes.ColorApp1,
-                                      ))),
+                              CirclerProgressIndicatorWidget(isLoading: controller.isLoading ? true : false),
                               SizedBox(
                                 height: valueHight * .5,
                               ),
@@ -173,67 +144,74 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 15, vertical: 15),
                                 child: CustomButtonImage(
-                                  hight: 50,
-                                  title: 'register'.tr,
-                                  onTap: () async{
-                                  //  showProgressbar = false;
-                                    if (formKey.currentState!.validate()){
-                                      Get.to(const VerificationCodeScreen());
+                                    hight: 50,
+                                    title: 'register'.tr,
+                                    onTap: () {
+                                      print(MobilePhone.text);
+                                      Get.find<RegisterController>().createAccount(MobilePhone.text);
                                     }
-                                  },
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 15),
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    color: Themes.ColorApp7,
-                                    borderRadius: BorderRadius.circular(17),
-                                  ),
-                                  child: Center(
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'have_account'.tr,
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                            color: Themes.ColorApp2,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            //  MyNavigator.NavigatorToPage(context, RegisterUserPage());
-                                            Get.to(const LoginScreen());
-                                          },
-                                          child: Text(
-                                            'login'.tr,
-                                            style: const TextStyle(
-                                              fontSize: 14,
-                                              color: Themes.ColorApp6,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
+                            const LoginUserFromRegisterWidget()
                             ],
                           )),
                       SizedBox(height: valueHight*2.0,),
                     ],
                   ),
-                )
+                ),)
               ],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class LoginUserFromRegisterWidget extends StatelessWidget {
+  const LoginUserFromRegisterWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        height: 50,
+        decoration: BoxDecoration(
+          color: Themes.ColorApp7,
+          borderRadius: BorderRadius.circular(17),
+        ),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'have_account'.tr,
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: Themes.ColorApp2,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              InkWell(
+                onTap: () {
+                  //  MyNavigator.NavigatorToPage(context, RegisterUserPage());
+                  Get.to(const LoginScreen());
+                },
+                child: Text(
+                  'login'.tr,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Themes.ColorApp6,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

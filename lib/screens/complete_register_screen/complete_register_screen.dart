@@ -12,7 +12,8 @@ import '../../componant/CustomButtonWidget.dart';
 import '../../componant/CustomTextFieldWidget.dart';
 
 class CompleteRegisterScreen extends StatefulWidget {
-  const CompleteRegisterScreen({Key? key}) : super(key: key);
+  String mobilePhone;
+  CompleteRegisterScreen({required this.mobilePhone});
 
   @override
   _CompleteRegisterScreenState createState() => _CompleteRegisterScreenState();

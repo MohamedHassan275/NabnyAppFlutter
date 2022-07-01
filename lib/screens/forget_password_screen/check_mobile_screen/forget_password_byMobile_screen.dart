@@ -3,7 +3,7 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nabny/model/forget_password_user_model.dart';
+import 'package:nabny/model/check_mobile_user_model.dart';
 import 'package:nabny/screens/forget_password_screen/check_mobile_screen/check_mobile_controller.dart';
 import 'package:nabny/screens/forget_password_screen/check_mobile_screen/widget/custom_text_field_widget.dart';
 import '../../../componant/CustomButtonWidget.dart';
@@ -26,7 +26,7 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
   bool showProgressbar = true;
   String? mobilePhone;
   TextEditingController MobilePhone = new TextEditingController();
-  ForgetPasswordUserModel? _checkMobileModel;
+  CheckMobileUserModel? _checkMobileModel;
 
   String? registercode,massageFailer;
 
