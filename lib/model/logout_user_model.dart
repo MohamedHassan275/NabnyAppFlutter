@@ -1,41 +1,37 @@
 class LogoutUserModel {
-  LogoutUserModel({
-    required this.success,
-    required this.data,
-    required this.message,
-  });
-  late final bool success;
-  late final Data data;
-  late final String message;
+  bool? success;
+  Data? data;
+  String? message;
 
-  LogoutUserModel.fromJson(Map<String, dynamic> json){
+  LogoutUserModel({this.success, this.data, this.message});
+
+  LogoutUserModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
-    data = Data.fromJson(json['data']);
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
     message = json['message'];
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['success'] = success;
-    _data['data'] = data.toJson();
-    _data['message'] = message;
-    return _data;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['success'] = this.success;
+    if (this.data != null) {
+      data['data'] = this.data!.toJson();
+    }
+    data['message'] = this.message;
+    return data;
   }
 }
 
 class Data {
-  Data({
-    required this.registercode,
-  });
-  late final int registercode;
 
-  Data.fromJson(Map<String, dynamic> json){
-    registercode = json['registercode'];
-  }
 
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['registercode'] = registercode;
-    return _data;
-  }
+  Data();
+
+Data.fromJson(Map<String, dynamic> json) {
+}
+
+Map<String, dynamic> toJson() {
+  final Map<String, dynamic> data = new Map<String, dynamic>();
+  return data;
+}
 }

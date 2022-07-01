@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nabny/core/constant/constant.dart';
+import 'package:nabny/core/widget/custom_widget.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/home_main_screen/home_main_controller.dart';
 import 'package:nabny/screens/login_screen/login_screen.dart';
@@ -9,6 +11,7 @@ import 'package:nabny/screens/setting_profile_screen/setting_profile_screen.dart
 import 'package:nabny/utils/Themes.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/servies/storage_service.dart';
 import '../change_password_profile/change_password_profile.dart';
 
 class HomeMainScreen extends StatefulWidget {
@@ -83,7 +86,9 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
       ),
       drawer: Drawer(
         backgroundColor: Themes.whiteColor,
-        child: ListView(
+        child: GetBuilder<HomeMainController>(
+          init: HomeMainController(),
+          builder: (controller) => ListView(
           children: [
             UserDetailsInMenu(widthValue: widthValue,),
             Container(
@@ -94,7 +99,7 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                 child: Column(
                   children: [
                     WidgetMenuItem(title: 'my_account', widthValue: widthValue, image: Assets.iconsProfileMenuIcon,
-                      onTap: () => Get.to( SettingProfileScreen()),),
+                      onTap: () => Get.to(SettingProfileScreen()),),
                     SizedBox(
                       height: heightValue * .7,
                     ),
@@ -104,17 +109,21 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                       height: heightValue * .7,
                     ),
                     WidgetMenuItem(title: 'my_addresses', widthValue: widthValue, image: Assets.iconsMyLocationMenuIcon,
-                      onTap: () => Get.to(const MyAddressScreen()),),
+                      onTap: () => CustomFlutterToast(Get.find<StorageService>().GetToken)),
                     SizedBox(
                       height: heightValue * 2.5,
                     ),
-                    WidgetMenuItemLogOut(heightValue: heightValue, onTap: () => Get.offAll(const LoginScreen()),)
+                    CirclerProgressIndicatorWidget(isLoading: controller.isLogout ? true : false),
+                    SizedBox(
+                      height: heightValue * 1.5,
+                    ),
+                    WidgetMenuItemLogOut(heightValue: heightValue, onTap: () => controller.logoutUser('Bearer'+Get.find<StorageService>().GetToken),)
                   ],
                 ),
               ),
             ),
           ],
-        ),
+        ),),
       ),
     );
   }

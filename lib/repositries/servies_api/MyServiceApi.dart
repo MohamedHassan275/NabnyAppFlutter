@@ -12,12 +12,12 @@ class MyServiceApi {
   static String URL = 'https://nebny.net/api/v2/';
 
   static Future<LoginUserModel?> checkLoginUser(
-      String phone, String password, String fcm_token) async {
+      String phone, String password, String fcmToken) async {
     LoginUserModel? loginUserModel;
     var fromData = FormData.fromMap({
       'phone': phone,
       'password': password,
-      'fcm_token': fcm_token,
+      'fcm_token': fcmToken,
     });
     try {
       Response response = await Dio().post(URL + 'login', data: fromData);
@@ -111,7 +111,7 @@ class MyServiceApi {
   static Future<Object> CreateAccountByDetailUser(
       String phone, String firstname,
       String lastname, String email,
-      String password, String fcm_token) async {
+      String password, String fcmToken) async {
     ForgetPasswordUserModel? checkMobileModel;
     var fromData = FormData.fromMap({
       'phone': phone,
@@ -119,7 +119,7 @@ class MyServiceApi {
       'lastname': lastname,
       'email': email,
       'password': password,
-      'fcm_token': fcm_token,
+      'fcm_token': fcmToken,
     });
     try {
       Response response =
@@ -147,7 +147,7 @@ class MyServiceApi {
     return checkMobileModel != null;
   }
 
-  static Future<Object> LogoutUser(String Authorization) async {
+  static Future<LogoutUserModel?> LogoutUser(String Authorization) async {
     LogoutUserModel? logoutUserModel;
     try {
       Response response =
@@ -160,17 +160,17 @@ class MyServiceApi {
       if (response.statusCode == 200) {
         print(response.statusCode);
         print(response.data);
-        return SUCCESS(response: ForgetPasswordUserModel.fromJson(response.data));
+        return LogoutUserModel.fromJson(response.data);
       } else {
         // print('${response.statusMessage} : ${response.statusCode}');
-        // throw response.statusMessage!;
-        return Failure(errorResponse: 'can`t have data');
+        return throw Exception(response.statusMessage!);
       }
     } on DioError catch (e) {
       if (e.response != null) {
         print('Dio error!');
         print('STATUS: ${e.response?.statusCode}');
         print('DATA: ${e.response?.data}');
+        print('DATA: ${e.response?.statusMessage}');
         print('HEADERS: ${e.response?.headers}');
       } else {
         // Error due to setting up or sending the request
@@ -178,7 +178,7 @@ class MyServiceApi {
         print(e.message);
       }
     }
-    return logoutUserModel != null;
+    return logoutUserModel;
   }
 
   static Future<ForgetPasswordUserModel?> checkMobileByForgetPassword(String phone) async {

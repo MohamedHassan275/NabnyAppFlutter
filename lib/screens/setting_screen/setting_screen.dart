@@ -298,7 +298,7 @@ class ChangeLanguageBottomSheetItem extends StatelessWidget {
                     title: 'arabic'.tr,
                     hight: 50,
                     onTap: (){
-                      myLocalController.changelanguage("ar");
+                   //   myLocalController.changelanguage("ar");
                       Get.offAll(const SplashScreen());
                     }),
                 SizedBox(height: heightValue! * 1,),

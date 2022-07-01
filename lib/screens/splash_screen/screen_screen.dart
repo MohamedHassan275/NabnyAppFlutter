@@ -5,6 +5,9 @@ import 'package:get/get.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/on_boarding_screen/on_boarding_screen.dart';
 
+import '../../core/servies/storage_service.dart';
+import '../home_main_screen/home_main_screen.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -17,7 +20,11 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 3), () => Get.offAll(OnBoardingScreen()));
+    Timer(
+        const Duration(seconds: 3),
+        () => Get.offAll(Get.find<StorageService>().GetToken != ""
+            ? HomeMainScreen(valueBack: '')
+            : OnBoardingScreen()));
   }
 
   @override
@@ -28,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Container(
           width: Get.width,
           height: Get.height,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage(Assets.imagesBackgroundSplash),
                   fit: BoxFit.fill)),

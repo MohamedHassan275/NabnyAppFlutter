@@ -1,8 +1,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nabny/core/constant/constant.dart';
+import 'package:nabny/core/servies/storage_service.dart';
 import 'package:nabny/generated/assets.dart';
+import 'package:nabny/repositries/servies_api/MyServiceApi.dart';
 import 'package:nabny/screens/home_screen/home_screen.dart';
+import 'package:nabny/screens/login_screen/login_screen.dart';
 import 'package:nabny/screens/my_favorite_screen/my_favorite_screen.dart';
 import 'package:nabny/screens/my_order_screen/my_order_screen.dart';
 import 'package:nabny/screens/setting_screen/setting_screen.dart';
@@ -10,8 +14,15 @@ import 'package:nabny/screens/setting_screen/setting_screen.dart';
 class HomeMainController extends GetxController {
 
 
+  bool isLogout = false;
   int? indexPage = 0;
 
+  get islogout => isLogout;
+
+  setLogout(bool logout){
+    isLogout = logout;
+    update();
+  }
   List<Widget> PageList = [const HomeScreen(),const MyOrderScreen(),const MyFavoriteScreen(),const SettingScreen()];
 
   List<BottomNavigationBarItem> navigationItem = [
@@ -25,5 +36,21 @@ class HomeMainController extends GetxController {
         activeIcon: Image.asset(Assets.iconsSettingHome2,width: 30,height: 30,)),
   ];
 
+  logoutUser(Authorization){
+    setLogout(true);
+    print(Authorization);
+    MyServiceApi.LogoutUser(Authorization).then((value) {
+      if(value?.success == true){
+        setLogout(true);
+        CustomFlutterToast(value?.message);
+        Get.find<StorageService>().clear();
+        Get.offAll(const LoginScreen());
+      }else if(value?.success == false){
+        setLogout(true);
+        CustomFlutterToast(value?.message);
+      }
+      setLogout(true);
+    });
+  }
 
 }
