@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:nabny/core/localization/local_controller.dart';
+import 'package:nabny/core/servies/storage_service.dart';
 import 'package:nabny/generated/assets.dart';
+import 'package:nabny/screens/complete_register_screen/complete_register_controller.dart';
 import 'package:nabny/screens/register_screen/register_screen.dart';
 import 'package:nabny/screens/success_register_screen/success_register_screen.dart';
 import 'package:nabny/utils/Themes.dart';
@@ -25,7 +27,6 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
   TextEditingController Email = TextEditingController();
   TextEditingController Password = TextEditingController();
   TextEditingController ConfirmPassword = TextEditingController();
-  String? firstName, lastName, email, password, confirmPassword;
   FocusNode? _focusNodePassword;
   FocusNode? _focusNodeConfirmPassword;
   bool isPassword = true;
@@ -60,7 +61,9 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                 height: heightValue * 5,
               ),
               Flexible(
-                child: Container(
+                child: GetBuilder<CompleteRegisterController>(
+                  init: CompleteRegisterController(),
+                    builder: (controller) => Container(
                   decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: const BorderRadius.only(
@@ -70,16 +73,14 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                     width: Get.width,
                     height: Get.height,
                     child: Form(
-                      key: formKey,
+                      key: controller.formKey,
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
                             const SizedBox(
                               height: 6,
                             ),
-                            GetBuilder<MyLocalController>(
-                              init: MyLocalController(),
-                                builder: (myLocalController) => Container(
+                            Container(
                               height: 200,
                               decoration: const BoxDecoration(
                                   color: Themes.ColorApp4,
@@ -99,7 +100,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                         backgroundColor: Themes.ColorApp5,
                                         radius: 25,
                                         child: Icon(
-                                          myLocalController.language!.languageCode == 'en' ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
+                                          Get.find<MyLocalController>().language?.languageCode == 'en' ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
                                           color: Colors.white,
                                         ),
                                       ),
@@ -125,9 +126,29 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                       ],
                                     ),
                                   ),
+                                  SizedBox(
+                                    height: heightValue * 3,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 25),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          widget.mobilePhone,
+                                          style: const TextStyle(
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.w700,
+                                              color: Themes.ColorApp1),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ],
                               ),
-                            )),
+                            ),
                             Column(
                               children: [
                                 SizedBox(
@@ -135,16 +156,11 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                 ),
                                 FromTextRegisterShared(
                                     labelText: 'first_name'.tr,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        firstName = value;
-                                      });
-                                    },
                                     readOnly: false,
                                     isPassword: false,
                                     onTapValidator: (value) {
                                       if (value!.isEmpty) {
-                                        return 'الاسم الاول فارغ';
+                                        return 'must_not_empty'.tr;
                                       }
                                       return null;
                                     },
@@ -156,15 +172,10 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                 ),
                                 FromTextRegisterShared(
                                     labelText: 'last_name'.tr,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        lastName = value;
-                                      });
-                                    },
                                     readOnly: false,
                                     onTapValidator: (value) {
                                       if (value!.isEmpty) {
-                                        return 'اسم العائله فارغ';
+                                        return 'must_not_empty'.tr;
                                       }
                                       return null;
                                     },
@@ -177,16 +188,11 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                 ),
                                 FromTextRegisterShared(
                                     labelText: 'email_address'.tr,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        email = value;
-                                      });
-                                    },
                                     onTapValidator: (value) {
                                       if (value!.isEmpty) {
-                                        return 'البريد الالكتروني فارغ';
+                                        return 'must_not_empty'.tr;
                                       } else if (!(value.contains("@"))) {
-                                        return 'البريد الالكتروني غير صالح';
+                                        return 'not_valid'.tr;
                                       }
                                       return null;
                                     },
@@ -210,17 +216,12 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                   },
                                   readOnly: false,
                                   focusNode: _focusNodePassword,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      password = value;
-                                    });
-                                  },
                                   isPassword: isPassword,
                                   onTapValidator: (value) {
                                     if (value!.isEmpty) {
-                                      return 'كلمة المرور فارغة';
-                                    } else if (value.length <= 6) {
-                                      return 'كلمة المرور قصيرة';
+                                      return 'must_not_empty'.tr;
+                                    } else if (value.length <= 5) {
+                                      return 'short_password'.tr;
                                     }
                                     return null;
                                   },
@@ -252,20 +253,15 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                   },
                                   readOnly: false,
                                   focusNode: _focusNodeConfirmPassword,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      confirmPassword = value;
-                                    });
-                                  },
                                   isPassword: isConfirmPassword,
                                   onTapValidator: (value) {
                                     if (value!.isEmpty) {
-                                      return 'تأكيد كلمة المرور';
-                                    } else if (value.length <= 6) {
-                                      return 'تأكيد كلمة المرور';
+                                      return 'must_not_empty'.tr;
+                                    } else if (value.length <= 5) {
+                                      return 'short_password'.tr;
                                     } else if (!(value
                                         .contains(Password.text))) {
-                                      return ' كلمة المرور غير متطابقة';
+                                      return 'Password_does_not_match'.tr;
                                     }
                                     return null;
                                   },
@@ -293,13 +289,13 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                       Theme(
                                           data: ThemeData(
                                               unselectedWidgetColor:
-                                                  Themes.ColorApp1),
+                                              Themes.ColorApp1),
                                           child: Checkbox(
                                               value: isCheckAccepted,
                                               tristate: false,
                                               shape: RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(5)),
+                                                  BorderRadius.circular(5)),
                                               side: const BorderSide(
                                                   color: Themes.ColorApp1,
                                                   width: 2.0),
@@ -334,24 +330,8 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                   child: CustomButtonImage(
                                     hight: 50,
                                     title: 'register'.tr,
-                                    onTap: () async {
-                                      //  showProgressbar = false;
-                                      if (formKey.currentState!.validate()) {
-                                        if (isCheckAccepted) {
-                                          Get.to(const SuccessRegisterScreen());
-                                        } else {
-                                          Fluttertoast.showToast(
-                                            msg: 'agree_to_terms2'.tr,
-                                            fontSize: 15,
-                                            backgroundColor: Themes.whiteColor,
-                                            gravity: ToastGravity.BOTTOM,
-                                            textColor: Themes.ColorApp1,
-                                            timeInSecForIosWeb: 1,
-                                            toastLength: Toast.LENGTH_SHORT,
-                                          );
-                                        }
-                                      }
-                                    },
+                                    onTap: () => Get.find<CompleteRegisterController>().createAccount(widget.mobilePhone, FirstName.text,
+                                        LastName.text, Email.text, Password.text, 'token')
                                   ),
                                 ),
                                 const SizedBox(
@@ -364,7 +344,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                       ),
                     ),
                   ),
-                ),
+                )),
               )
             ],
           ),

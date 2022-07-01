@@ -7,6 +7,7 @@ import 'package:nabny/model/logout_user_model.dart';
 import 'package:nabny/repositries/repositries_status.dart';
 
 import '../../model/check_mobile_user_model.dart';
+import '../../model/profile_user_model.dart';
 
 class MyServiceApi {
   static String URL = 'https://nebny.net/api/v2/';
@@ -107,11 +108,11 @@ class MyServiceApi {
     return checkMobileModel;
   }
 
-  static Future<Object> CreateAccountByDetailUser(
+  static Future<LoginUserModel?> createAccountByDetailUser(
       String phone, String firstname,
       String lastname, String email,
       String password, String fcmToken) async {
-    CheckMobileUserModel? checkMobileModel;
+    LoginUserModel? loginUserModel;
     var fromData = FormData.fromMap({
       'phone': phone,
       'firstname': firstname,
@@ -125,11 +126,10 @@ class MyServiceApi {
           await Dio().post(URL + 'step2/register', data: fromData);
 
       if (response.statusCode == 200) {
-        return SUCCESS(response: CheckMobileUserModel.fromJson(response.data));
+        return LoginUserModel.fromJson(response.data);
       } else {
         print('${response.statusMessage} : ${response.statusCode}');
-        throw response.statusMessage!;
-        // return Failure(errorResponse: 'can`t have data');
+       return throw Exception(response.statusMessage!);
       }
     } on DioError catch (e) {
       if (e.response != null) {
@@ -143,8 +143,9 @@ class MyServiceApi {
         print(e.message);
       }
     }
-    return checkMobileModel != null;
+    return loginUserModel;
   }
+
 
   static Future<LogoutUserModel?> LogoutUser(String Authorization) async {
     LogoutUserModel? logoutUserModel;
@@ -178,6 +179,40 @@ class MyServiceApi {
       }
     }
     return logoutUserModel;
+  }
+
+  static Future<ProfileUserModel?> checkProfileDetails(String Authorization) async {
+    ProfileUserModel? profileUserModel;
+    try {
+      Response response =
+      await Dio().get(URL + 'profile', options: Options(
+        headers: {
+          'Authorization': 'Bearer $Authorization'
+        }
+      ));
+
+      if (response.statusCode == 200) {
+        print(response.statusCode);
+        print(response.data);
+        return ProfileUserModel.fromJson(response.data);
+      } else {
+        // print('${response.statusMessage} : ${response.statusCode}');
+        return throw Exception(response.statusMessage!);
+      }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print('Dio error!');
+        print('STATUS: ${e.response?.statusCode}');
+        print('DATA: ${e.response?.data}');
+        print('DATA: ${e.response?.statusMessage}');
+        print('HEADERS: ${e.response?.headers}');
+      } else {
+        // Error due to setting up or sending the request
+        print('Error sending request!');
+        print(e.message);
+      }
+    }
+    return profileUserModel;
   }
 
   static Future<CheckMobileUserModel?> checkMobileByForgetPassword(String phone) async {
@@ -222,6 +257,46 @@ class MyServiceApi {
     });
     try {
       Response response = await Dio().post(URL + 'activcode', data: fromData);
+
+      if (response.statusCode == 200) {
+        print(response.statusCode);
+        print(response.data);
+        return CheckMobileUserModel.fromJson(response.data);
+      } else {
+        // print('${response.statusMessage} : ${response.statusCode}');
+        return throw Exception(response.statusMessage!);
+      }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print('Dio error!');
+        print('STATUS: ${e.response?.statusCode}');
+        print('DATA: ${e.response?.data}');
+        print('HEADERS: ${e.response?.headers}');
+      } else {
+        // Error due to setting up or sending the request
+        print('Error sending request!');
+        print(e.message);
+      }
+    }
+    return checkMobileModel;
+  }
+
+  static Future<CheckMobileUserModel?> updateProfileUser(
+      String firstname, String lastname,String Authorization,
+      String email, String image) async {
+    CheckMobileUserModel? checkMobileModel;
+    var fromData = FormData.fromMap({
+      'firstname': firstname,
+      'lastname': lastname,
+      'email': email,
+      'image': image,
+    });
+    try {
+      Response response = await Dio().post(URL + 'activcode', data: fromData, options: Options(
+          headers: {
+            'Authorization': 'Bearer $Authorization'
+          }
+      ));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
