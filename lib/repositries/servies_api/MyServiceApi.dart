@@ -321,6 +321,44 @@ class MyServiceApi {
     return checkMobileModel;
   }
 
+  static Future<CheckMobileUserModel?> changPasswordUser(
+      String Authorization, String password,String old_password) async {
+    CheckMobileUserModel? checkMobileModel;
+    var fromData = FormData.fromMap({
+      'old_password': old_password,
+      'password': password,
+    });
+    try {
+      Response response = await Dio().post(URL + 'changepassword', data: fromData, options: Options(
+          headers: {
+            'Authorization': 'Bearer $Authorization'
+          }
+      ));
+
+      if (response.statusCode == 200) {
+        print(response.statusCode);
+        print(response.data);
+        return CheckMobileUserModel.fromJson(response.data);
+      } else {
+        // print('${response.statusMessage} : ${response.statusCode}');
+        return throw Exception(response.statusMessage!);
+      }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print('Dio error!');
+        print('STATUS: ${e.response?.statusCode}');
+        print('DATA: ${e.response?.data}');
+        print('HEADERS: ${e.response?.headers}');
+      } else {
+        // Error due to setting up or sending the request
+        print('Error sending request!');
+        print(e.message);
+      }
+    }
+    return checkMobileModel;
+  }
+
+
   static Future<CheckMobileUserModel?> ReChangePasswordUser(
       String phone, String password) async {
     CheckMobileUserModel? checkMobileModel;
