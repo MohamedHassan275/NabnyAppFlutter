@@ -7,6 +7,7 @@ import 'package:nabny/core/widget/custom_circler_progress_indicator_widget.dart'
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/category_concrete_screen/category_concrete_screen.dart';
 import 'package:nabny/screens/factory_details_screen/factory_details_screen.dart';
+import 'package:nabny/screens/home_main_screen/home_main_controller.dart';
 import 'package:nabny/screens/home_screen/home_controller.dart';
 import 'package:nabny/screens/request_offer_price_screen/request_offer_price_screen.dart';
 import 'package:nabny/utils/Themes.dart';
@@ -24,17 +25,19 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreen_State extends State<HomeScreen> {
 
-  HomeController? homeController;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    homeController = Get.put(HomeController());
+    Get.lazyPut(()=>HomeController());
+    Get.find<HomeController>().getHomeDetailsUser(Get.find<StorageService>().GetToken, Get.find<MyLocalController>().language?.languageCode,
+        24.595779, 46.799713);
   }
   @override
   Widget build(BuildContext context) {
     var widthValue = Get.width * 0.024;
     var heightValue = Get.height * 0.024;
+    HomeController homeController = Get.put(HomeController());
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -50,7 +53,7 @@ class HomeScreen_State extends State<HomeScreen> {
 
 HomeUserDetailsWidget(HomeController? homeController,double heightValue,double widthValue){
   if (homeController!.isLoading){
-    return CirclerProgressIndicatorWidget(isLoading: true);
+    return const Center(child: CircularProgressIndicator(color: Themes.ColorApp1,));
   }
   return Column(
     mainAxisAlignment: MainAxisAlignment.start,
@@ -99,20 +102,22 @@ HomeUserDetailsWidget(HomeController? homeController,double heightValue,double w
       ),
       Card(
         color: Themes.whiteColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         child: Container(
           height: 165,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-          ),
           child: CarouselSlider(
               items: homeController.homeUserModel?.homeUserResponseModel?.sliders?.map((e) =>
-                  Image(
-                    image: AssetImage('${e.image}'),
-                    height: 165,
-                    fit: BoxFit.fill,
+                  SizedBox(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15.0),
+                      child: FadeInImage(
+                        image: NetworkImage('${e.image}'),
+                        fit: BoxFit.fill,
+                        placeholder: AssetImage(Assets.iconsCirclerMenuIcon),
+                      ),
+                    ),
+                    width: Get.width,
+                    height: 275,
                   )).toList(),
               options: CarouselOptions(
                 height: 275,
