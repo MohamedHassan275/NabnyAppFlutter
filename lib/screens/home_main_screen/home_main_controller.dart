@@ -11,11 +11,18 @@ import 'package:nabny/screens/my_favorite_screen/my_favorite_screen.dart';
 import 'package:nabny/screens/my_order_screen/my_order_screen.dart';
 import 'package:nabny/screens/setting_screen/setting_screen.dart';
 
-class HomeMainController extends GetxController {
+import '../../model/profile_user_model.dart';
 
+class HomeMainController extends GetxController {
 
   bool isLogout = false;
   int? indexPage = 0;
+
+  bool isLoading = false;
+  ProfileUserResponseModel? _profileUserModel;
+
+  get isloading => isLoading;
+  get profileUserModel => _profileUserModel;
 
   get islogout => isLogout;
 
@@ -23,6 +30,14 @@ class HomeMainController extends GetxController {
     isLogout = logout;
     update();
   }
+  setprofileUser(ProfileUserResponseModel? profile){
+    _profileUserModel = profile;
+  }
+  setLoading(bool loading) {
+    isLoading = loading;
+    update();
+  }
+
   List<Widget> PageList = [const HomeScreen(),const MyOrderScreen(),const MyFavoriteScreen(),const SettingScreen()];
 
   List<BottomNavigationBarItem> navigationItem = [
@@ -35,6 +50,22 @@ class HomeMainController extends GetxController {
     BottomNavigationBarItem(icon: Image.asset(Assets.iconsSettingHomeIcon,width: 30,height: 30,),label: 'setting'.tr,
         activeIcon: Image.asset(Assets.iconsSettingHome2,width: 30,height: 30,)),
   ];
+
+  HomeMainController(){
+    getProfileDetailsUser();
+  }
+  getProfileDetailsUser() {
+    setLoading(true);
+    MyServiceApi.checkProfileDetails(Get.find<StorageService>().GetToken).then((value) {
+      if(value?.success == true){
+        setLoading(false);
+        setprofileUser(value?.profileUserResponseModel);
+      }else if (value?.success == false){
+        setLoading(false);
+        CustomFlutterToast('${value?.message}');
+      }
+    });
+  }
 
   logoutUser(Authorization){
     setLogout(true);

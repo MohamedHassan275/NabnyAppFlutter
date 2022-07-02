@@ -12,6 +12,7 @@ import 'package:nabny/utils/Themes.dart';
 
 import '../../componant/CustomButtonWidget.dart';
 import '../../componant/CustomTextFieldWidget.dart';
+import '../../core/widget/custom_circler_progress_indicator_widget.dart';
 
 class CompleteRegisterScreen extends StatefulWidget {
   String mobilePhone;
@@ -323,6 +324,10 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                 ),
                                 SizedBox(
                                   height: heightValue * .2,
+                                ),
+                                CirclerProgressIndicatorWidget(isLoading: controller.isLoading ? true : false),
+                                SizedBox(
+                                  height: heightValue * 1,
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(

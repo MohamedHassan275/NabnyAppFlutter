@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:nabny/core/constant/constant.dart';
 import 'package:nabny/core/widget/custom_circler_progress_indicator_widget.dart';
 import 'package:nabny/generated/assets.dart';
+import 'package:nabny/model/profile_user_model.dart';
 import 'package:nabny/screens/home_main_screen/home_main_controller.dart';
 import 'package:nabny/screens/login_screen/login_screen.dart';
 import 'package:nabny/screens/my_address_screen/my_arddress_screen.dart';
@@ -24,6 +25,13 @@ class HomeMainScreen extends StatefulWidget {
 }
 
 class _HomeMainScreenState extends State<HomeMainScreen> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Get.put(() => HomeMainController());
+  }
   @override
   Widget build(BuildContext context) {
     var widthValue = Get.width * 0.024;
@@ -32,41 +40,41 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
     return Scaffold(
       backgroundColor: Themes.whiteColor,
       appBar: AppBar(
-        backgroundColor: Themes.ColorApp1,
-        toolbarHeight: 75,
-        title: Container(
-          height: 75,
-          child: Row(
-            children: [
-              UserProfileWithNotification(heightValue: heightValue, widthValue: widthValue),
-            ],
-          ),
-        ),
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: new Icon(
-              Icons.menu,
-              color: Colors.white,
+          backgroundColor: Themes.ColorApp1,
+          toolbarHeight: 75,
+          title: Container(
+            height: 75,
+            child: Row(
+              children: [
+                UserProfileWithNotification(heightValue: heightValue, widthValue: widthValue, profileUserResponseModel: homeMainController.profileUserModel,),
+              ],
             ),
-            onPressed: () => Scaffold.of(context).openDrawer(),
           ),
-        ),
+          leading: Builder(
+            builder: (context) => IconButton(
+              icon: new Icon(
+                Icons.menu,
+                color: Colors.white,
+              ),
+              onPressed: () => Scaffold.of(context).openDrawer(),
+            ),
+          ),
           actions: [
             InkWell(
-              onTap: (){
-               // MyNavigator.NavigatorToPage(context, SearchSessionUserPage());
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(7.0),
-                child: CircleAvatar(
-                  backgroundColor: Themes.whiteColor,
-                  child: Center(
-                      child: const Icon(
-                        Icons.notifications_none,
-                        color: Themes.ColorApp1,
-                      )),
-                ),
-              )
+                onTap: (){
+                  // MyNavigator.NavigatorToPage(context, SearchSessionUserPage());
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(7.0),
+                  child: CircleAvatar(
+                    backgroundColor: Themes.whiteColor,
+                    child: Center(
+                        child: const Icon(
+                          Icons.notifications_none,
+                          color: Themes.ColorApp1,
+                        )),
+                  ),
+                )
             )
           ]
       ),
@@ -86,11 +94,9 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
       ),
       drawer: Drawer(
         backgroundColor: Themes.whiteColor,
-        child: GetBuilder<HomeMainController>(
-          init: HomeMainController(),
-          builder: (controller) => ListView(
+        child: ListView(
           children: [
-            UserDetailsInMenu(widthValue: widthValue,),
+            UserDetailsInMenu(widthValue: widthValue, profileUserResponseModel: homeMainController.profileUserModel,),
             Container(
               width: MediaQuery.of(context).size.width,
               color: Themes.whiteColor,
@@ -109,24 +115,24 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                       height: heightValue * .7,
                     ),
                     WidgetMenuItem(title: 'my_addresses', widthValue: widthValue, image: Assets.iconsMyLocationMenuIcon,
-                      onTap: () {
-                      print(Get.find<StorageService>().GetToken);
-                      CustomFlutterToast(Get.find<StorageService>().GetToken);
-                      }),
+                        onTap: () {
+                          print(Get.find<StorageService>().GetToken);
+                          CustomFlutterToast(Get.find<StorageService>().GetToken);
+                        }),
                     SizedBox(
                       height: heightValue * 2.5,
                     ),
-                    CirclerProgressIndicatorWidget(isLoading: controller.isLogout ? true : false),
+                    CirclerProgressIndicatorWidget(isLoading: homeMainController.isLogout ? true : false),
                     SizedBox(
                       height: heightValue * 1.5,
                     ),
-                    WidgetMenuItemLogOut(heightValue: heightValue, onTap: () => controller.logoutUser('Bearer'+Get.find<StorageService>().GetToken),)
+                    WidgetMenuItemLogOut(heightValue: heightValue, onTap: () => homeMainController.logoutUser('Bearer'+Get.find<StorageService>().GetToken),)
                   ],
                 ),
               ),
             ),
           ],
-        ),),
+        ),
       ),
     );
   }
@@ -223,7 +229,8 @@ class WidgetMenuItemLogOut extends StatelessWidget {
 }
 
 class UserDetailsInMenu extends StatelessWidget {
-  UserDetailsInMenu({required this.widthValue});
+  UserDetailsInMenu({required this.widthValue,required this.profileUserResponseModel});
+  ProfileUserResponseModel? profileUserResponseModel;
   double? widthValue;
 
   @override
@@ -254,7 +261,7 @@ class UserDetailsInMenu extends StatelessWidget {
                       height: 5,
                     ),
                     Text(
-                      'Mohamed Hassan',
+                      '${profileUserResponseModel?.firstname} ${profileUserResponseModel?.lastname}',
                       style:
                       TextStyle(fontSize: 13, color: Themes.ColorApp8),
                     ),
@@ -295,8 +302,9 @@ class UserDetailsInMenu extends StatelessWidget {
 
 class UserProfileWithNotification extends StatelessWidget {
   UserProfileWithNotification(
-      {required this.heightValue, required this.widthValue});
+      {required this.heightValue, required this.widthValue,required this.profileUserResponseModel});
 
+  ProfileUserResponseModel? profileUserResponseModel;
   double widthValue, heightValue;
 
   @override
@@ -327,7 +335,7 @@ class UserProfileWithNotification extends StatelessWidget {
           Row(
             children: [
               Text(
-                'محمد حسن',
+                '${profileUserResponseModel?.firstname} ${profileUserResponseModel?.lastname}',
                 style: TextStyle(fontSize: 13, color: Colors.white),
               ),
             ],

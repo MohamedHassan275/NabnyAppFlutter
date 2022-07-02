@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/core/localization/local_controller.dart';
+import 'package:nabny/core/widget/custom_circler_progress_indicator_widget.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/model/profile_user_model.dart';
 import 'package:nabny/screens/profile_information_screen/profile_information_controller.dart';
@@ -23,17 +24,12 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
   TextEditingController FirstName = TextEditingController();
   TextEditingController LastName = TextEditingController();
   TextEditingController EmailAddress = TextEditingController();
-
-  String? firstName, lastName, email;
-  var formKey = GlobalKey<FormState>();
-
-
+  
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Get.find<ProfileInformationController>()
-        .getProfileDetailsUser(Get.find<StorageService>().GetToken);
+    Get.lazyPut(()=>ProfileInformationController());
   }
 
   @override
@@ -47,96 +43,103 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
           builder: (controller) => Container(
             width: Get.width,
             height: Get.height,
-            child: Column(
-              children: [
-                Stack(
-                  children: [
-                    Container(
-                      height: 119,
-                      width: Get.width,
-                      decoration: const BoxDecoration(
-                          color: Themes.ColorApp14,
-                          borderRadius: const BorderRadius.only(
-                              topRight: const Radius.circular(25),
-                              topLeft: Radius.circular(25))),
-                      child: Center(
-                        child: Text(
-                          'account_information'.tr,
-                          style: TextStyle(
-                            color: Themes.ColorApp15,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
+            child: Form(
+              key: controller.formKey,
+              child: Column(
+                children: [
+                  Stack(
+                    children: [
+                      Container(
+                        height: 119,
+                        width: Get.width,
+                        decoration: const BoxDecoration(
+                            color: Themes.ColorApp14,
+                            borderRadius: const BorderRadius.only(
+                                topRight: const Radius.circular(25),
+                                topLeft: Radius.circular(25))),
+                        child: Center(
+                          child: Text(
+                            'account_information'.tr,
+                            style: TextStyle(
+                              color: Themes.ColorApp15,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Positioned(
-                      top: heightValue * 2.3,
-                      right: widthValue * 1.5,
-                      child: GestureDetector(
-                        onTap: () => Get.off(SettingProfileScreen()),
-                        child: CircleAvatar(
-                          backgroundColor: Themes.ColorApp5,
-                          child: Icon(
-                            Get.find<MyLocalController>().language?.languageCode == "ar"
-                                ? Icons.subdirectory_arrow_right
-                                : Icons.subdirectory_arrow_left,
-                            color: Colors.white,
+                      Positioned(
+                        top: heightValue * 2.3,
+                        right: widthValue * 1.5,
+                        child: GestureDetector(
+                          onTap: () => Get.off(SettingProfileScreen()),
+                          child: CircleAvatar(
+                            backgroundColor: Themes.ColorApp5,
+                            child: Icon(
+                              Get.find<MyLocalController>().language?.languageCode == "en"
+                                  ? Icons.keyboard_arrow_right
+                                  : Icons.keyboard_arrow_left,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: heightValue * 1.5,
+                  ),
+                  Stack(
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: Themes.ColorApp16,
+                        radius: 75,
+                        child: ClipOval(
+                          child: Image.asset(
+                            Assets.imagesFactoryImage,
+                            fit: BoxFit.cover,
+                            width: 137,
+                            height: 137,
                           ),
                         ),
                       ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: heightValue * 1.5,
-                ),
-                Stack(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: Themes.ColorApp16,
-                      radius: 75,
-                      child: ClipOval(
+                      Positioned(
+                        bottom: heightValue * .3,
+                        right: widthValue * 1,
                         child: Image.asset(
-                          Assets.imagesFactoryImage,
+                          Assets.imagesEditIamge,
                           fit: BoxFit.cover,
-                          width: 137,
-                          height: 137,
+                          width: 35,
+                          height: 35,
                         ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: heightValue * .3,
-                      right: widthValue * 1,
-                      child: Image.asset(
-                        Assets.imagesEditIamge,
-                        fit: BoxFit.cover,
-                        width: 35,
-                        height: 35,
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: heightValue * 1.5,
-                ),
-                UserDetailsWidget(
-                  profileUserModel: controller.profileUserModel,
-                  heightValue: heightValue,
-                  widthValue: widthValue,
-                  FirstName: FirstName,
-                  LastName: LastName,
-                  Email: EmailAddress,
-                ),
-                SizedBox(
-                  height: heightValue * 2.5,
-                ),
-                CustomButtonImage(
-                    title: 'save'.tr,
-                    hight: 50,
-                    onTap: () => Get.find<ProfileInformationController>().updateProfileUser(FirstName.text, LastName.text, EmailAddress.text,
-                        '', Get.find<StorageService>().GetToken))
-              ],
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: heightValue * 1.5,
+                  ),
+                  UserDetailsWidget(
+                    profileUserResponseModel: controller.profileUserModel,
+                    heightValue: heightValue,
+                    widthValue: widthValue,
+                    FirstName: FirstName,
+                    LastName: LastName,
+                    Email: EmailAddress,
+                  ),
+                  SizedBox(
+                    height: heightValue * 2.5,
+                  ),
+                  CirclerProgressIndicatorWidget(isLoading: controller.isLoading ? true : false),
+                  SizedBox(
+                    height: heightValue * 1,
+                  ),
+                  CustomButtonImage(
+                      title: 'save'.tr,
+                      hight: 50,
+                      onTap: () => Get.find<ProfileInformationController>().updateProfileUser(FirstName.text, LastName.text, EmailAddress.text,
+                          '', Get.find<StorageService>().GetToken))
+                ],
+              ),
             ),
           ),
         ),
@@ -146,12 +149,12 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
 }
 
 class UserDetailsWidget extends StatelessWidget {
-  ProfileUserModel profileUserModel;
+  ProfileUserResponseModel? profileUserResponseModel;
   double heightValue, widthValue;
   TextEditingController FirstName, LastName, Email;
 
   UserDetailsWidget(
-      {required this.profileUserModel,
+      {required this.profileUserResponseModel,
       required this.FirstName,
       required this.LastName,
       required this.Email,
@@ -169,7 +172,7 @@ class UserDetailsWidget extends StatelessWidget {
             children: [
               Expanded(
                 child: FromTextProfileShared(
-                    labelText: '${profileUserModel.profileUserResponseModel?.firstname}',
+                    labelText: profileUserResponseModel?.firstname == null ? '' : '${profileUserResponseModel?.firstname}',
                     isPassword: false,
                     onTapValidator: (value) {
                       if (value!.isEmpty) {
@@ -179,14 +182,14 @@ class UserDetailsWidget extends StatelessWidget {
                     },
                     keyboardType: TextInputType.text,
                     Controller: FirstName,
-                    hintText: '${profileUserModel.profileUserResponseModel?.firstname}'),
+                    hintText: '${profileUserResponseModel?.firstname}'),
               ),
               SizedBox(
                 height: widthValue * 1.5,
               ),
               Expanded(
                 child: FromTextProfileShared(
-                    labelText: '${profileUserModel.profileUserResponseModel?.lastname}',
+                    labelText: profileUserResponseModel?.lastname == null ? '' : '${profileUserResponseModel?.lastname}',
                     onTapValidator: (value) {
                       if (value!.isEmpty) {
                         return 'must_not_empty'.tr;
@@ -196,7 +199,7 @@ class UserDetailsWidget extends StatelessWidget {
                     isPassword: false,
                     keyboardType: TextInputType.text,
                     Controller: LastName,
-                    hintText: '${profileUserModel.profileUserResponseModel?.lastname}'),
+                    hintText: '${profileUserResponseModel?.lastname}'),
               ),
             ],
           ),
@@ -205,7 +208,7 @@ class UserDetailsWidget extends StatelessWidget {
           height: heightValue * 1,
         ),
         FromTextRegisterShared(
-            labelText: '${profileUserModel.profileUserResponseModel?.email}',
+            labelText: profileUserResponseModel?.email == null ? '' : '${profileUserResponseModel?.email}',
             readOnly: false,
             onTapValidator: (value) {
               if (value!.isEmpty) {
@@ -218,7 +221,7 @@ class UserDetailsWidget extends StatelessWidget {
             isPassword: false,
             keyboardType: TextInputType.emailAddress,
             Controller: Email,
-            hintText: '${profileUserModel.profileUserResponseModel?.email}'),
+            hintText: '${profileUserResponseModel?.email}'),
       ],
     );
   }

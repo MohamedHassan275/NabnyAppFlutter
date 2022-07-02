@@ -292,7 +292,7 @@ class MyServiceApi {
       'image': image,
     });
     try {
-      Response response = await Dio().post(URL + 'activcode', data: fromData, options: Options(
+      Response response = await Dio().post(URL + 'updateprofile', data: fromData, options: Options(
           headers: {
             'Authorization': 'Bearer $Authorization'
           }
