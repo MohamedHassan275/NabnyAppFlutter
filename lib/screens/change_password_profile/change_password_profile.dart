@@ -38,6 +38,7 @@ class _ChangePasswordProfileState extends State<ChangePasswordProfile> {
     var widthValue = Get.width * 0.024;
     var heightValue = Get.height * 0.024;
     ChangePasswordController controller = Get.put(ChangePasswordController());
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
