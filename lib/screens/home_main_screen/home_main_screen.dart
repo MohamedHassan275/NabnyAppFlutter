@@ -30,7 +30,7 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Get.put(() => HomeMainController());
+    Get.lazyPut(() => HomeMainController());
   }
   @override
   Widget build(BuildContext context) {
@@ -126,7 +126,7 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                     SizedBox(
                       height: heightValue * 1.5,
                     ),
-                    WidgetMenuItemLogOut(heightValue: heightValue, onTap: () => homeMainController.logoutUser('Bearer'+Get.find<StorageService>().GetToken),)
+                    WidgetMenuItemLogOut(heightValue: heightValue, onTap: () => homeMainController.logoutUser('Bearer '+Get.find<StorageService>().GetToken),)
                   ],
                 ),
               ),
@@ -261,7 +261,7 @@ class UserDetailsInMenu extends StatelessWidget {
                       height: 5,
                     ),
                     Text(
-                      '${profileUserResponseModel?.firstname} ${profileUserResponseModel?.lastname}',
+                      profileUserResponseModel?.firstname != null ?'${profileUserResponseModel?.firstname} ${profileUserResponseModel?.lastname}' : '',
                       style:
                       TextStyle(fontSize: 13, color: Themes.ColorApp8),
                     ),
@@ -335,7 +335,7 @@ class UserProfileWithNotification extends StatelessWidget {
           Row(
             children: [
               Text(
-                '${profileUserResponseModel?.firstname} ${profileUserResponseModel?.lastname}',
+               profileUserResponseModel?.firstname !=null ? '${profileUserResponseModel?.firstname} ${profileUserResponseModel?.lastname}' : '',
                 style: TextStyle(fontSize: 13, color: Colors.white),
               ),
             ],

@@ -72,15 +72,14 @@ class HomeMainController extends GetxController {
     print(Authorization);
     MyServiceApi.LogoutUser(Authorization).then((value) {
       if(value?.success == true){
-        setLogout(true);
+        setLogout(false);
         CustomFlutterToast(value?.message);
         Get.find<StorageService>().clear();
         Get.offAll(const LoginScreen());
       }else if(value?.success == false){
-        setLogout(true);
+        setLogout(false);
         CustomFlutterToast(value?.message);
       }
-      setLogout(true);
     });
   }
 
