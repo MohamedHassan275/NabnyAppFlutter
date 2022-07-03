@@ -5,6 +5,7 @@ import 'package:nabny/core/constant/constant.dart';
 import 'package:nabny/model/home_user_model.dart';
 import 'package:nabny/model/login_user_model.dart';
 import 'package:nabny/model/logout_user_model.dart';
+import 'package:nabny/model/response_user_model.dart';
 import 'package:nabny/repositries/repositries_status.dart';
 
 import '../../model/check_mobile_user_model.dart';
@@ -216,6 +217,7 @@ class MyServiceApi {
     return profileUserModel;
   }
 
+
   static Future<HomeUserModel?> checkHomeDetailsUser(String Authorization, String Language, double lat, double lng) async {
     HomeUserModel? homeUserModel;
     var formData = FormData.fromMap({
@@ -253,6 +255,46 @@ class MyServiceApi {
       }
     }
     return homeUserModel;
+  }
+
+  static Future<ResponseUserModel?> updateMyLocationInMap(String Authorization, String Language, double lat, double lng, String myLocation) async {
+    ResponseUserModel? responseUserModel;
+    var formData = FormData.fromMap({
+      'lat' : lat,
+      'lng' : lng,
+      'myLocation' : myLocation,
+    });
+    try {
+      Response response =
+      await Dio().post(URL + 'update_user_location',data: formData, options: Options(
+          headers: {
+            'Authorization': 'Bearer $Authorization',
+            'Accept-Language' : '$Language'
+          }
+      ));
+
+      if (response.statusCode == 200) {
+        print(response.statusCode);
+        print(response.data);
+        return ResponseUserModel.fromJson(response.data);
+      } else {
+        // print('${response.statusMessage} : ${response.statusCode}');
+        return throw Exception(response.statusMessage!);
+      }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print('Dio error!');
+        print('STATUS: ${e.response?.statusCode}');
+        print('DATA: ${e.response?.data}');
+        print('DATA: ${e.response?.statusMessage}');
+        print('HEADERS: ${e.response?.headers}');
+      } else {
+        // Error due to setting up or sending the request
+        print('Error sending request!');
+        print(e.message);
+      }
+    }
+    return responseUserModel;
   }
 
   static Future<CheckMobileUserModel?> checkMobileByForgetPassword(String phone) async {

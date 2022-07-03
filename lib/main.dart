@@ -3,13 +3,12 @@ import 'package:get/get.dart';
 import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/core/localization/translation.dart';
 import 'package:nabny/core/servies/services.dart';
-import 'package:nabny/screens/home_main_screen/home_main_controller.dart';
 import 'package:nabny/screens/profile_information_screen/profile_information_controller.dart';
 import 'package:nabny/screens/splash_screen/splash_screen.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/servies/storage_service.dart';
+import 'screens/location_map_user_screen/google_map_locaiton_user_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

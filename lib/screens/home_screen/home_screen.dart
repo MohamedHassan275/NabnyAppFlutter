@@ -42,124 +42,124 @@ class HomeScreen_State extends State<HomeScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: GetBuilder<HomeController>(builder: (controller) => Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: heightValue * .5,
-                ),
-                SearchForSomeFactories(widthValue: widthValue,heightValue: heightValue,),
-                SizedBox(
-                  height: heightValue * 1.5,
-                ),
-                Container(
-                  width: Get.width,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      border: Border.all(
-                          color: Themes.ColorApp2, width: 1.2)),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Image.asset(
-                          Assets.iconsSearchIcon,
-                          fit: BoxFit.contain,
-                        ),
-                        SizedBox(
-                          width: widthValue * 2,
-                        ),
-                        Text(
-                          'Looking_factory'.tr,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 15,
-                            color: Themes.ColorApp8,
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: heightValue * .5,
+                  ),
+                  SearchForSomeFactories(widthValue: widthValue,heightValue: heightValue,),
+                  SizedBox(
+                    height: heightValue * 1.5,
+                  ),
+                  Container(
+                    width: Get.width,
+                    height: 50,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        border: Border.all(
+                            color: Themes.ColorApp2, width: 1.2)),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Image.asset(
+                            Assets.iconsSearchIcon,
+                            fit: BoxFit.contain,
                           ),
-                        ),
-                      ],
+                          SizedBox(
+                            width: widthValue * 2,
+                          ),
+                          Text(
+                            'Looking_factory'.tr,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 15,
+                              color: Themes.ColorApp8,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: heightValue * 1.5,
-                ),
-                Card(
-                  color: Themes.whiteColor,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                  child: Container(
-                    height: 165,
-                    child: CarouselSlider(
-                        items: homeController.homeUserModel?.homeUserResponseModel?.sliders?.map((e) =>
-                            SizedBox(
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15.0),
-                                child: FadeInImage(
-                                  image: NetworkImage('${e.image}'),
-                                  fit: BoxFit.fill,
-                                  placeholder: AssetImage(Assets.iconsCirclerMenuIcon),
+                  SizedBox(
+                    height: heightValue * 1.5,
+                  ),
+                  Card(
+                    color: Themes.whiteColor,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                    child: Container(
+                      height: 165,
+                      child: CarouselSlider(
+                          items: homeController.homeUserModel?.homeUserResponseModel?.sliders?.map((e) =>
+                              SizedBox(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  child: FadeInImage(
+                                    image: NetworkImage('${e.image}'),
+                                    fit: BoxFit.fill,
+                                    placeholder: AssetImage(Assets.iconsCirclerMenuIcon),
+                                  ),
                                 ),
-                              ),
-                              width: Get.width,
-                              height: 275,
-                            )).toList(),
-                        options: CarouselOptions(
-                          height: 275,
-                          aspectRatio: 2.0,
-                          viewportFraction: 1.0,
-                          initialPage: 0,
-                          enableInfiniteScroll: true,
-                          reverse: false,
-                          autoPlay: true,
-                          autoPlayInterval: const Duration(seconds: 3),
-                          autoPlayAnimationDuration: const Duration(
-                              seconds: 1),
-                          autoPlayCurve: Curves.fastOutSlowIn,
-                          scrollDirection: Axis.horizontal,
-                        )),
+                                width: Get.width,
+                                height: 275,
+                              )).toList(),
+                          options: CarouselOptions(
+                            height: 275,
+                            aspectRatio: 2.0,
+                            viewportFraction: 1.0,
+                            initialPage: 0,
+                            enableInfiniteScroll: true,
+                            reverse: false,
+                            autoPlay: true,
+                            autoPlayInterval: const Duration(seconds: 3),
+                            autoPlayAnimationDuration: const Duration(
+                                seconds: 1),
+                            autoPlayCurve: Curves.fastOutSlowIn,
+                            scrollDirection: Axis.horizontal,
+                          )),
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: heightValue * 1.5,
-                ),
-                CategoryListBuild(heightValue: heightValue, homeController: homeController,),
-                SizedBox(
-                  height: heightValue * 2,
-                ),
-                OrderPriceRequest(
-                  heightValue: heightValue,
-                ),
-                SizedBox(
-                  height: heightValue * 2,
-                ),
-                Text(
-                  'some_factories'.tr,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
-                    color: Themes.ColorApp1,
+                  SizedBox(
+                    height: heightValue * 1.5,
                   ),
-                ),
-                SizedBox(
-                  height: heightValue * .7,
-                ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  physics: const ScrollPhysics(),
-                  itemCount: homeController.homeUserModel?.homeUserResponseModel?.companies?.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: FactoryItemList(companiesModel: homeController.homeUserModel?.homeUserResponseModel?.companies?[index]),
-                    );
-                  },)
-              ],
-            ),)
+                  CategoryListBuild(heightValue: heightValue, homeController: homeController,),
+                  SizedBox(
+                    height: heightValue * 2,
+                  ),
+                  OrderPriceRequest(
+                    heightValue: heightValue,
+                  ),
+                  SizedBox(
+                    height: heightValue * 2,
+                  ),
+                  Text(
+                    'some_factories'.tr,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      color: Themes.ColorApp1,
+                    ),
+                  ),
+                  SizedBox(
+                    height: heightValue * .7,
+                  ),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    physics: const ScrollPhysics(),
+                    itemCount: homeController.homeUserModel?.homeUserResponseModel?.companies?.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: FactoryItemList(companiesModel: homeController.homeUserModel?.homeUserResponseModel?.companies?[index]),
+                      );
+                    },)
+                ],
+              )
           ),
         ),
       ),
@@ -526,56 +526,58 @@ class WidgetCategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: 110,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: Themes.ColorApp14,
-        ),
-        child: Padding(
-          padding:
-          const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: FadeInImage(
-                  image: NetworkImage('${categoriesModel?.image}'),
-                  fit: BoxFit.fill,
-                  height: 175,
-                  width: Get.width,
-                  placeholder: const AssetImage(Assets.imagesFactoryImage),
+    return Expanded(
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          height: 110,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: Themes.ColorApp14,
+          ),
+          child: Padding(
+            padding:
+            const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: FadeInImage(
+                    image: NetworkImage('${categoriesModel?.image}'),
+                    fit: BoxFit.fill,
+                    height: 175,
+                    width: Get.width,
+                    placeholder: const AssetImage(Assets.imagesFactoryImage),
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: heightValue! * .7,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '${categoriesModel?.name}',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 15,
-                      color: Themes.ColorApp8,
+                SizedBox(
+                  height: heightValue! * .7,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      '${categoriesModel?.name}',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 15,
+                        color: Themes.ColorApp8,
+                      ),
                     ),
-                  ),
-                  Text(
-                    '${categoriesModel?.count}',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 15,
-                      color: Themes.ColorApp8,
+                    Text(
+                      '${categoriesModel?.count}',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 15,
+                        color: Themes.ColorApp8,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
