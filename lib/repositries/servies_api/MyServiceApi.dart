@@ -218,15 +218,15 @@ class MyServiceApi {
   }
 
 
-  static Future<HomeUserModel?> checkHomeDetailsUser(String Authorization, String Language, double lat, double lng) async {
+  static Future<HomeUserModel?> checkHomeDetailsUser(String Authorization, String Language) async {
     HomeUserModel? homeUserModel;
-    var formData = FormData.fromMap({
-      'lat' : lat,
-      'lng' : lng,
-    });
+    // var formData = FormData.fromMap({
+    //   'lat' : lat,
+    //   'lng' : lng,
+    // });
     try {
       Response response =
-      await Dio().post(URL + 'home',data: formData, options: Options(
+      await Dio().post(URL + 'home', options: Options(
           headers: {
             'Authorization': 'Bearer $Authorization',
             'Accept-Language' : '$Language'

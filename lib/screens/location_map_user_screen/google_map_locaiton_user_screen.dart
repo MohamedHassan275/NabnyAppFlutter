@@ -111,7 +111,7 @@ class _GoogleMapLocationUserScreenState extends State<GoogleMapLocationUserScree
                       CustomFlutterToast('${latlong!.latitude} ${latlong!.longitude}');
                       CustomFlutterToast(Get.find<MyLocalController>().language!.languageCode);
 
-                    //  googleMapLocaitonUserController.updateMyLocationFromMap(latlong?.latitude, latlong?.longitude, Location);
+                      googleMapLocaitonUserController.updateMyLocationFromMap(latlong?.latitude, latlong?.longitude, Location);
                     },),
                 ),
                 alignment: Alignment.bottomCenter,

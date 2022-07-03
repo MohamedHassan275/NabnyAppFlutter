@@ -44,7 +44,7 @@ class HomeController extends GetxController{
 
   getHomeDetailsUser(Authorization,Language,lat,lng){
     setLoading(true);
-    MyServiceApi.checkHomeDetailsUser(Authorization, Language, lat, lng).then((value){
+    MyServiceApi.checkHomeDetailsUser(Authorization, Language).then((value){
       if(value?.success == true){
         setLoading(false);
         CustomFlutterToast('${value?.homeUserResponseModel?.currentLocation?.address}');
