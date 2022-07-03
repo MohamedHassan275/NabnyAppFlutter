@@ -64,6 +64,7 @@ class _GoogleMapLocationUserScreenState extends State<GoogleMapLocationUserScree
                 markers: _markers,
 
               ) : GoogleMap(
+                mapType: MapType.hybrid,
                 initialCameraPosition: CameraPosition(
                     target: LatLng(31.132112313, 30.212312321), zoom: 10.0),
                 onMapCreated: (GoogleMapController controller) {
