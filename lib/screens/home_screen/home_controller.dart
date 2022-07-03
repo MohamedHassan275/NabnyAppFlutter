@@ -4,6 +4,8 @@ import 'package:nabny/core/constant/constant.dart';
 import 'package:nabny/model/home_user_model.dart';
 import 'package:nabny/repositries/servies_api/MyServiceApi.dart';
 
+import '../../core/localization/local_controller.dart';
+import '../../core/servies/storage_service.dart';
 import '../../generated/assets.dart';
 import '../../model/SliderItemsModel.dart';
 import '../../model/factory_model.dart';
@@ -25,6 +27,9 @@ class HomeController extends GetxController{
     _homeUserModel = homeUserModel;
   }
 
+  HomeController(){
+    getHomeDetailsUser();
+  }
   RxList<SliderItemsModel> SlidersList = List<SliderItemsModel>.from([
     SliderItemsModel(Assets.imagesSliderImage),
     SliderItemsModel(Assets.imagesSliderImage),
@@ -42,9 +47,9 @@ class HomeController extends GetxController{
     FactoryModel(Assets.imagesFactoryImage, 'شركه بن لادن', 'جيد جدا', '4.7', '250 km'),
   ]).obs;
 
-  getHomeDetailsUser(Authorization,Language,lat,lng){
+  getHomeDetailsUser(){
     setLoading(true);
-    MyServiceApi.checkHomeDetailsUser(Authorization, Language).then((value){
+    MyServiceApi.checkHomeDetailsUser(Get.find<StorageService>().GetToken, '${Get.find<MyLocalController>().language?.languageCode}').then((value){
       if(value?.success == true){
         setLoading(false);
         CustomFlutterToast('${value?.homeUserResponseModel?.currentLocation?.address}');

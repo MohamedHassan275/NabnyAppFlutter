@@ -29,9 +29,7 @@ class HomeScreen_State extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Get.lazyPut(()=>HomeController());
-    Get.find<HomeController>().getHomeDetailsUser(Get.find<StorageService>().GetToken, Get.find<MyLocalController>().language?.languageCode,
-        24.595779, 46.799713);
+    Get.lazyPut(() => HomeController());
   }
   @override
   Widget build(BuildContext context) {
