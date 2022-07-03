@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1043902554782",
+    "project_id": "nabnyapplication",
+    "storage_bucket": "nabnyapplication.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1043902554782:android:587542bab0d45fc828518f",
+        "android_client_info": {
+          "package_name": "com.waslny.nabny"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1043902554782-s79elc1qjvntpd6enhk0e20rt8s0br56.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjitRzV7AHwWG7f7996nbg6VTrQOOEPeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1043902554782-s79elc1qjvntpd6enhk0e20rt8s0br56.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

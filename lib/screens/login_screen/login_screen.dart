@@ -40,15 +40,15 @@ class _LoginScreenState extends State<LoginScreen> {
     _focusNodePassword = FocusNode();
 
     setState(() {
-      //   Firebase.initializeApp().whenComplete(() {
-      //     print("completed");
-      //     setState(() {});
-      //   });
-      //   _firebaseMessaging.getToken().then((value){
-      //     print('The Token is $value');
-      //     firebase_token = value!;
-      //     print(firebase_token);
-      //   });
+        Firebase.initializeApp().whenComplete(() {
+          print("completed");
+          setState(() {});
+        });
+        _firebaseMessaging.getToken().then((value){
+          print('The Token is $value');
+          firebase_token = value!;
+          print(firebase_token);
+        });
     });
 
     // IsUserAcesstoken();
