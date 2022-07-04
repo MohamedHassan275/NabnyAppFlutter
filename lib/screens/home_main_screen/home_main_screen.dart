@@ -36,102 +36,104 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
   Widget build(BuildContext context) {
     var widthValue = Get.width * 0.024;
     var heightValue = Get.height * 0.024;
-    HomeMainController homeMainController = Get.put(HomeMainController());
-    return Scaffold(
-      backgroundColor: Themes.whiteColor,
-      appBar: AppBar(
-          backgroundColor: Themes.ColorApp1,
-          toolbarHeight: 75,
-          title: Container(
-            height: 75,
-            child: Row(
-              children: [
-                UserProfileWithNotification(heightValue: heightValue, widthValue: widthValue, profileUserResponseModel: homeMainController.profileUserModel,),
-              ],
-            ),
-          ),
-          leading: Builder(
-            builder: (context) => IconButton(
-              icon: new Icon(
-                Icons.menu,
-                color: Colors.white,
-              ),
-              onPressed: () => Scaffold.of(context).openDrawer(),
-            ),
-          ),
-          actions: [
-            InkWell(
-                onTap: (){
-                  // MyNavigator.NavigatorToPage(context, SearchSessionUserPage());
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(7.0),
-                  child: CircleAvatar(
-                    backgroundColor: Themes.whiteColor,
-                    child: Center(
-                        child: const Icon(
-                          Icons.notifications_none,
-                          color: Themes.ColorApp1,
-                        )),
-                  ),
-                )
-            )
-          ]
-      ),
-      body: homeMainController.PageList[homeMainController.indexPage!],
-      bottomNavigationBar: BottomNavigationBar(
-        items: homeMainController.navigationItem,
-        selectedItemColor: Themes.ColorApp1,
-        unselectedItemColor: Themes.ColorApp2,
-        type: BottomNavigationBarType.fixed,
-        onTap: (int? index) {
-          setState(() {
-            homeMainController.indexPage = index;
-          });
-          homeMainController.PageList[homeMainController.indexPage!];
-        },
-        currentIndex: homeMainController.indexPage!,
-      ),
-      drawer: Drawer(
+    return GetBuilder<HomeMainController>(
+      init: HomeMainController(),
+      builder: (controller) => Scaffold(
         backgroundColor: Themes.whiteColor,
-        child: ListView(
-          children: [
-            UserDetailsInMenu(widthValue: widthValue, profileUserResponseModel: homeMainController.profileUserModel,),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              color: Themes.whiteColor,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Column(
-                  children: [
-                    WidgetMenuItem(title: 'my_account', widthValue: widthValue, image: Assets.iconsProfileMenuIcon,
-                      onTap: () => Get.to(SettingProfileScreen()),),
-                    SizedBox(
-                      height: heightValue * .7,
+        appBar: AppBar(
+            backgroundColor: Themes.ColorApp1,
+            toolbarHeight: 75,
+            title: Container(
+              height: 75,
+              child: Row(
+                children: [
+                  UserProfileWithNotification(heightValue: heightValue, widthValue: widthValue, profileUserResponseModel: controller.profileUserModel,),
+                ],
+              ),
+            ),
+            leading: Builder(
+              builder: (context) => IconButton(
+                icon: new Icon(
+                  Icons.menu,
+                  color: Colors.white,
+                ),
+                onPressed: () => Scaffold.of(context).openDrawer(),
+              ),
+            ),
+            actions: [
+              InkWell(
+                  onTap: (){
+                    // MyNavigator.NavigatorToPage(context, SearchSessionUserPage());
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(7.0),
+                    child: CircleAvatar(
+                      backgroundColor: Themes.whiteColor,
+                      child: Center(
+                          child: const Icon(
+                            Icons.notifications_none,
+                            color: Themes.ColorApp1,
+                          )),
                     ),
-                    WidgetMenuItem(title: 'my_wallet', widthValue: widthValue, image: Assets.iconsWalletMenuIcon,
-                      onTap: ()=>Get.to(const MyWalletScreen()),),
-                    SizedBox(
-                      height: heightValue * .7,
-                    ),
-                    WidgetMenuItem(title: 'my_addresses', widthValue: widthValue, image: Assets.iconsMyLocationMenuIcon,
-                        onTap: () {
-                          print(Get.find<StorageService>().GetToken);
-                          CustomFlutterToast(Get.find<StorageService>().GetToken);
-                        }),
-                    SizedBox(
-                      height: heightValue * 2.5,
-                    ),
-                    CirclerProgressIndicatorWidget(isLoading: homeMainController.isLogout ? true : false),
-                    SizedBox(
-                      height: heightValue * 1.5,
-                    ),
-                    WidgetMenuItemLogOut(heightValue: heightValue, onTap: () => homeMainController.logoutUser('Bearer '+Get.find<StorageService>().GetToken),)
-                  ],
+                  )
+              )
+            ]
+        ),
+        body: controller.PageList[controller.indexPage!],
+        bottomNavigationBar: BottomNavigationBar(
+          items: controller.navigationItem,
+          selectedItemColor: Themes.ColorApp1,
+          unselectedItemColor: Themes.ColorApp2,
+          type: BottomNavigationBarType.fixed,
+          onTap: (int? index) {
+            setState(() {
+              controller.indexPage = index;
+            });
+            controller.PageList[controller.indexPage!];
+          },
+          currentIndex: controller.indexPage!,
+        ),
+        drawer: Drawer(
+          backgroundColor: Themes.whiteColor,
+          child: ListView(
+            children: [
+              UserDetailsInMenu(widthValue: widthValue, profileUserResponseModel: controller.profileUserModel,),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                color: Themes.whiteColor,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Column(
+                    children: [
+                      WidgetMenuItem(title: 'my_account', widthValue: widthValue, image: Assets.iconsProfileMenuIcon,
+                        onTap: () => Get.to(SettingProfileScreen()),),
+                      SizedBox(
+                        height: heightValue * .7,
+                      ),
+                      WidgetMenuItem(title: 'my_wallet', widthValue: widthValue, image: Assets.iconsWalletMenuIcon,
+                        onTap: ()=>Get.to(const MyWalletScreen()),),
+                      SizedBox(
+                        height: heightValue * .7,
+                      ),
+                      WidgetMenuItem(title: 'my_addresses', widthValue: widthValue, image: Assets.iconsMyLocationMenuIcon,
+                          onTap: () {
+                            print(Get.find<StorageService>().GetToken);
+                            CustomFlutterToast(Get.find<StorageService>().GetToken);
+                          }),
+                      SizedBox(
+                        height: heightValue * 2.5,
+                      ),
+                      CirclerProgressIndicatorWidget(isLoading: controller.isLogout ? true : false),
+                      SizedBox(
+                        height: heightValue * 1.5,
+                      ),
+                      WidgetMenuItemLogOut(heightValue: heightValue, onTap: () => controller.logoutUser('Bearer '+Get.find<StorageService>().GetToken),)
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

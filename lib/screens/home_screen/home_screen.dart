@@ -37,14 +37,10 @@ class HomeScreen_State extends State<HomeScreen> {
     var widthValue = Get.width * 0.024;
     var heightValue = Get.height * 0.024;
   //  HomeController homeController = Get.put(HomeController());
-    return GetBuilder<HomeController>(
-      init: HomeController(),
-      builder: (controller) {
-      return controller.isLoading ? const LoadingWidget() : SafeArea(
-        child: Scaffold(
+        return Scaffold(
           body: SingleChildScrollView(
             child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,85 +86,63 @@ class HomeScreen_State extends State<HomeScreen> {
                     SizedBox(
                       height: heightValue * 1.5,
                     ),
-                    Card(
-                      color: Themes.whiteColor,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                      child: Container(
-                        height: 165,
-                        child: CarouselSlider(
-                            items: controller.homeUserModel?.homeUserResponseModel?.sliders?.map((e) =>
-                                SizedBox(
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                    child: FadeInImage(
-                                      image: NetworkImage('${e.image}'),
-                                      fit: BoxFit.fill,
-                                      placeholder: AssetImage(Assets.iconsCirclerMenuIcon),
-                                    ),
-                                  ),
-                                  width: Get.width,
-                                  height: 275,
-                                )).toList(),
-                            options: CarouselOptions(
-                              height: 275,
-                              aspectRatio: 2.0,
-                              viewportFraction: 1.0,
-                              initialPage: 0,
-                              enableInfiniteScroll: true,
-                              reverse: false,
-                              autoPlay: true,
-                              autoPlayInterval: const Duration(seconds: 3),
-                              autoPlayAnimationDuration: const Duration(
-                                  seconds: 1),
-                              autoPlayCurve: Curves.fastOutSlowIn,
-                              scrollDirection: Axis.horizontal,
-                            )),
-                      ),
-                    ),
-                    SizedBox(
-                      height: heightValue * 1.5,
-                    ),
-                    CategoryListBuild(heightValue: heightValue, homeController: controller,),
-                    SizedBox(
-                      height: heightValue * 2,
-                    ),
+
+                    SizedBox(height: heightValue * 1.5,),
                     OrderPriceRequest(
                       heightValue: heightValue,
                     ),
                     SizedBox(
                       height: heightValue * 2,
                     ),
-                    Text(
-                      'some_factories'.tr,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                        color: Themes.ColorApp1,
-                      ),
-                    ),
-                    SizedBox(
-                      height: heightValue * .7,
-                    ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      physics: const ScrollPhysics(),
-                      itemCount: controller.homeUserModel?.homeUserResponseModel?.companies?.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5),
-                          child: FactoryItemList(companiesModel: controller.homeUserModel?.homeUserResponseModel?.companies?[index]),
+                    // GetBuilder<HomeController>(
+                    //   init: HomeController(),
+                    //   builder: (controller) {
+                    //     print(controller.homeUserModel?.homeUserResponseModel?.categories?.length);
+                    //     return   CategoryListBuild(heightValue: heightValue, homeController: controller,);
+                    //   },
+                    // ),
+                    GetBuilder<HomeController>(
+                      init: HomeController(),
+                      builder: (controller) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'some_factories'.tr,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16,
+                                color: Themes.ColorApp1,
+                              ),
+                            ),
+                            SizedBox(
+                              height: heightValue * .7,
+                            ),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              physics: const ScrollPhysics(),
+                              itemCount: controller.homeUserModel?.homeUserResponseModel?.companies?.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 5),
+                                  child: FactoryItemList(companiesModel: controller.homeUserModel?.homeUserResponseModel?.companies?[index]),
+                                );
+                              },),
+                          ],
                         );
-                      },)
+                      },
+                    ),
+
                   ],
                 )
             ),
           ),
-        ),
-      );
-    },);
-  }
-}
+        );
+      }
+    }
+
 
 class SearchForSomeFactories extends StatelessWidget {
   SearchForSomeFactories({Key? key, required this.heightValue,required this.widthValue}) : super(key: key);
@@ -250,6 +224,7 @@ class FactoryItemList extends StatelessWidget {
           child: Column(
             children: [
               Stack(
+
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(15),
@@ -492,18 +467,18 @@ class CategoryListBuild extends StatelessWidget {
         SizedBox(
           height: heightValue * 1,
         ),
-        ListView.builder(
-          shrinkWrap: true,
-          scrollDirection: Axis.horizontal,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: homeController?.homeUserModel?.homeUserResponseModel?.categories?.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5),
-              child:  WidgetCategoryItem( onTap: ()=> Get.to(const CategoryConcreteScreen()),
-                categoriesModel: homeController?.homeUserModel?.homeUserResponseModel?.categories?[index], heightValue: heightValue, ),
-            );
-          },),
+        // ListView.builder(
+        //   shrinkWrap: true,
+        //   scrollDirection: Axis.horizontal,
+        //   physics: const NeverScrollableScrollPhysics(),
+        //   itemCount: homeController?.homeUserModel?.homeUserResponseModel?.categories?.length,
+        //   itemBuilder: (context, index) {
+        //     return Padding(
+        //       padding: const EdgeInsets.symmetric(vertical: 5),
+        //       child:  WidgetCategoryItem( onTap: ()=> Get.to(const CategoryConcreteScreen()),
+        //         categoriesModel: homeController?.homeUserModel?.homeUserResponseModel?.categories?[index], heightValue: heightValue, ),
+        //     );
+        //   },),
 
       ],
     );
