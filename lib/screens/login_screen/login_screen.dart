@@ -1,3 +1,5 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
@@ -25,10 +27,10 @@ class _LoginScreenState extends State<LoginScreen> {
   FocusNode? _focusNodePassword;
   bool showProgressbar = true;
   bool isPassword = true;
-  String? mobilePhone, password;
+  String? mobilePhone, password,firebase_token;
   TextEditingController MobilePhone = new TextEditingController();
   TextEditingController Password = new TextEditingController();
-
+  late FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
   var formKey = GlobalKey<FormState>();
 
   var Scaffoldkey = GlobalKey<ScaffoldState>();
@@ -39,18 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
     // IsUserAcesstoken();
     _focusNodePassword = FocusNode();
 
-    setState(() {
-        Firebase.initializeApp().whenComplete(() {
-          print("completed");
-          setState(() {});
-        });
-        _firebaseMessaging.getToken().then((value){
-          print('The Token is $value');
-          firebase_token = value!;
-          print(firebase_token);
-        });
-    });
-
+ //   Get.lazyPut(()=>LoginController());
     // IsUserAcesstoken();
   }
 
@@ -147,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: CustomButtonImage(
                                       hight: 50,
                                       title: 'login'.tr,
-                                      onTap: () => Get.find<LoginController>().checkLoginUser(MobilePhone.text, Password.text, 'token')
+                                      onTap: () => Get.find<LoginController>().checkLoginUser(MobilePhone.text, Password.text,controller.firebase_token)
                                     ),
                                   ),
                                   const CreateAccountFromLoginWidget(),

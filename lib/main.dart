@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/core/localization/local_controller.dart';
@@ -15,6 +16,7 @@ void main() async {
   await initialServices();
   await initialServicesUser();
   await SharedPreferences.getInstance();
+  await Firebase.initializeApp();
   Get.lazyPut(()=>ProfileInformationController());
   runApp(const MyApp());
 }
