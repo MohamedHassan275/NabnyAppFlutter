@@ -262,7 +262,7 @@ class MyServiceApi {
     var formData = FormData.fromMap({
       'lat' : lat,
       'lng' : lng,
-      'myLocation' : myLocation,
+      'address' : myLocation,
     });
     try {
       Response response =
