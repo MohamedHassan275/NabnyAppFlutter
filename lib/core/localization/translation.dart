@@ -131,6 +131,7 @@ class MyTranslation extends Translations {
       "not_valid" : "هذه القيمة غير صالحة",
       "short_password" : "كلمة المرور قصيرة",
       "Password_does_not_match" : "كلمة المرور غير متطابقة",
+      "save_location" : "Save Location",
     },
     "en" : {
       "skip" : "skip",
@@ -260,6 +261,7 @@ class MyTranslation extends Translations {
       "short_password" : "short password",
       "Password_does_not_match" : "Password does not match",
       "change_password" : "Password does not match",
+      "save_location" : "حفظ الموقع",
     },
   };
 

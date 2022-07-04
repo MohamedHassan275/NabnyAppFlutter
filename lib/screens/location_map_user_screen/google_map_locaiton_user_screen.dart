@@ -13,16 +13,18 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../../componant/CustomButtonWidget.dart';
 import '../../core/constant/Themes.dart';
+import '../../core/widget/custom_circler_progress_indicator_widget.dart';
 
 class GoogleMapLocationUserScreen extends StatefulWidget {
   const GoogleMapLocationUserScreen({Key? key}) : super(key: key);
 
   @override
-  _GoogleMapLocationUserScreenState createState() => _GoogleMapLocationUserScreenState();
+  _GoogleMapLocationUserScreenState createState() =>
+      _GoogleMapLocationUserScreenState();
 }
 
-class _GoogleMapLocationUserScreenState extends State<GoogleMapLocationUserScreen> {
-
+class _GoogleMapLocationUserScreenState
+    extends State<GoogleMapLocationUserScreen> {
   LatLng? latlong;
   late CameraPosition _cameraPosition;
   GoogleMapController? _controller;
@@ -31,7 +33,6 @@ class _GoogleMapLocationUserScreenState extends State<GoogleMapLocationUserScree
   late Position userLocation;
   prefix.Location currentLocation = prefix.Location();
   TextEditingController locationController = TextEditingController();
-
 
   @override
   void initState() {
@@ -44,94 +45,120 @@ class _GoogleMapLocationUserScreenState extends State<GoogleMapLocationUserScree
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
-    GoogleMapLocaitonUserController googleMapLocaitonUserController = Get.put(GoogleMapLocaitonUserController());
+    GoogleMapLocaitonUserController googleMapLocaitonUserController =
+        Get.put(GoogleMapLocaitonUserController());
 
     return Scaffold(
       body: SafeArea(
           child: Stack(
-            children: [
-              (latlong != null) ? GoogleMap(
-                initialCameraPosition: _cameraPosition,
-                onMapCreated: (GoogleMapController controller) {
-                  _controller = (controller);
-                  _controller!.animateCamera(
-                      CameraUpdate.newCameraPosition(_cameraPosition));
-                },
-
-                markers: _markers,
-
-              ) : GoogleMap(
-                mapType: MapType.hybrid,
-                initialCameraPosition: CameraPosition(
-                    target: LatLng(31.132112313, 30.212312321), zoom: 10.0),
-                onMapCreated: (GoogleMapController controller) {
-                  _controller = (controller);
-                  _controller!.animateCamera(
-                      CameraUpdate.newCameraPosition(CameraPosition(
-                          target: LatLng(31.132112313, 30.212312321),
-                          zoom: 10.0)));
-                },
-
-                markers: _markers,
-
-              ),
-              Container(
-                child: Padding(
-                  padding:
-                  const EdgeInsets.symmetric(
-                      horizontal: 65, vertical: 10),
-                  child: CustomButtonImage(
-                    hight: 50,
-                    title: 'save_location'.tr,
-                    onTap: () async {
-                      List<Placemark> newPlace = await placemarkFromCoordinates(
-                          latlong!.latitude, latlong!.longitude);
-                      // this is all you need
-                      Placemark placeMark = newPlace[0];
-                      String? name = placeMark.name;
-                      String? locality = placeMark.locality;
-                      String? administrativeArea = placeMark.administrativeArea;
-                      String? administrativeSub = placeMark.subAdministrativeArea;
-                      String? postalCode = placeMark.postalCode;
-                      String? country = placeMark.country;
-                      String? thoroughfare = placeMark.thoroughfare;
-                      String? Street = placeMark.street;
-                      print(name);
-                      print(locality);
-                      print('${administrativeSub} - ${Street}');
-                      print(postalCode);
-                      print(country);
-                      print(thoroughfare);
-                      print(Street);
-                      String Location = '${country} - ${Street}';
-
-                      CustomFlutterToast('$Location');
-                      CustomFlutterToast('${latlong!.latitude} ${latlong!.longitude}');
-                      CustomFlutterToast(Get.find<MyLocalController>().language!.languageCode);
-
-                      googleMapLocaitonUserController.updateMyLocationFromMap(latlong?.latitude, latlong?.longitude, Location);
-                    },),
+        children: [
+          (latlong != null)
+              ? GoogleMap(
+                  initialCameraPosition: _cameraPosition,
+                  onMapCreated: (GoogleMapController controller) {
+                    _controller = (controller);
+                    _controller!.animateCamera(
+                        CameraUpdate.newCameraPosition(_cameraPosition));
+                  },
+                  markers: _markers,
+                )
+              : GoogleMap(
+                  mapType: MapType.hybrid,
+                  initialCameraPosition: CameraPosition(
+                      target: LatLng(31.132112313, 30.212312321), zoom: 10.0),
+                  onMapCreated: (GoogleMapController controller) {
+                    _controller = (controller);
+                    _controller!.animateCamera(CameraUpdate.newCameraPosition(
+                        CameraPosition(
+                            target: LatLng(31.132112313, 30.212312321),
+                            zoom: 10.0)));
+                  },
+                  markers: _markers,
                 ),
-                alignment: Alignment.bottomCenter,
-              ),
-              Align(
-                alignment: Alignment.topRight,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 15, horizontal: 15),
-                  child: FloatingActionButton(
-                    child: Icon(Icons.gps_fixed_outlined),
-                    onPressed: () {
-                      getCurrentLocation();
-                    },),
-                ),
-              ),
-            ],
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              width: Get.width,
+              height: 200,
+              // color: Themes.whiteColor,
+              child: Column(
+                children: [
+                  const Spacer(),
+                  Container(
+                    width: 75,
+                    height: 75,
+                    decoration: BoxDecoration(
+                      color: Themes.whiteColor,
+                      borderRadius: BorderRadius.circular(25)
+                    ),
+                      child: CirclerProgressIndicatorWidget(
+                          isLoading: googleMapLocaitonUserController.isLoading
+                              ? true
+                              : false)),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 65, vertical: 0),
+                    child: CustomButtonImage(
+                      hight: 50,
+                      title: 'save_location'.tr,
+                      onTap: () async {
+                        List<Placemark> newPlace =
+                            await placemarkFromCoordinates(
+                                latlong!.latitude, latlong!.longitude);
+                        // this is all you need
+                        Placemark placeMark = newPlace[0];
+                        String? name = placeMark.name;
+                        String? locality = placeMark.locality;
+                        String? administrativeArea =
+                            placeMark.administrativeArea;
+                        String? administrativeSub =
+                            placeMark.subAdministrativeArea;
+                        String? postalCode = placeMark.postalCode;
+                        String? country = placeMark.country;
+                        String? thoroughfare = placeMark.thoroughfare;
+                        String? Street = placeMark.street;
+                        print(name);
+                        print(locality);
+                        print('${administrativeSub} - ${Street}');
+                        print(postalCode);
+                        print(country);
+                        print(thoroughfare);
+                        print(Street);
+                        String Location = '${country} - ${Street}';
 
-          )),
+                        CustomFlutterToast('$Location');
+                        CustomFlutterToast(
+                            '${latlong!.latitude} ${latlong!.longitude}');
+                        CustomFlutterToast(Get.find<MyLocalController>()
+                            .language!
+                            .languageCode);
+
+                        googleMapLocaitonUserController.updateMyLocationFromMap(
+                            latlong?.latitude, latlong?.longitude, Location);
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              alignment: Alignment.bottomCenter,
+            ),
+          ),
+          Align(
+            alignment: Alignment.topRight,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+              child: FloatingActionButton(
+                child: Icon(Icons.gps_fixed_outlined),
+                onPressed: () {
+                  getCurrentLocation();
+                },
+              ),
+            ),
+          ),
+        ],
+      )),
     );
   }
 
@@ -139,16 +166,14 @@ class _GoogleMapLocationUserScreenState extends State<GoogleMapLocationUserScree
     LocationPermission permission = await Geolocator.checkPermission();
     if (permission != PermissionStatus.granted) {
       LocationPermission permission = await Geolocator.requestPermission();
-      if (permission != PermissionStatus.granted)
-        getLocation();
+      if (permission != PermissionStatus.granted) getLocation();
       return;
     }
     getLocation();
   }
 
   // List<Address> results = [];
-  getLocation() async
-  {
+  getLocation() async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
     print(position.latitude);
@@ -157,16 +182,14 @@ class _GoogleMapLocationUserScreenState extends State<GoogleMapLocationUserScree
       latlong = new LatLng(position.latitude, position.longitude);
       _cameraPosition = CameraPosition(target: latlong!, zoom: 15.0);
       if (_controller != null)
-        _controller!.animateCamera(
+        _controller!
+            .animateCamera(CameraUpdate.newCameraPosition(_cameraPosition));
 
-            CameraUpdate.newCameraPosition(_cameraPosition));
-
-      _markers.add(Marker(markerId: MarkerId("a"),
+      _markers.add(Marker(
+          markerId: MarkerId("a"),
           draggable: true,
           position: latlong!,
-          icon: BitmapDescriptor.defaultMarkerWithHue(
-
-              BitmapDescriptor.hueBlue),
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
           onDragEnd: (_currentlatLng) {
             latlong = _currentlatLng;
           }));
