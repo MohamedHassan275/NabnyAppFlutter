@@ -6,7 +6,7 @@ import 'package:nabny/core/servies/storage_service.dart';
 import 'package:nabny/repositries/servies_api/MyServiceApi.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 
-class controller extends GetxController {
+class GetMyLocationController extends GetxController {
   bool isLoading = false;
 
   get is_loading => isLoading;
@@ -27,7 +27,7 @@ class controller extends GetxController {
       if(value?.success == true){
         setSeving(false);
         CustomFlutterToast('${value?.message}');
-        Get.offAll(HomeMainScreen(valueBack: ''));
+        Get.to(HomeMainScreen(valueBack: ''));
       }else if (value?.success == false){
         setSeving(false);
         CustomFlutterToast('${value?.message}');

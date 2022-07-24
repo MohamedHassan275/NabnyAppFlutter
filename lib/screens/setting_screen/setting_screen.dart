@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_launch/flutter_launch.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/core/localization/local_controller.dart';
@@ -7,8 +10,10 @@ import 'package:nabny/screens/about_app_screen/about_app_screen.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:nabny/screens/privacy_screen/privacy_screen.dart';
 import 'package:nabny/screens/setting_profile_screen/setting_profile_screen.dart';
+import 'package:nabny/screens/setting_screen/setting_controller.dart';
 import 'package:nabny/screens/splash_screen/splash_screen.dart';
 import 'package:nabny/screens/terms_condition_screen/terms_condition_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../utils/Themes.dart';
 
@@ -31,6 +36,28 @@ class _SettingScreenState extends State<SettingScreen> {
       print(_genderRadioBtnVal);
     });
   }
+
+  // void openWhatsApp(String phoneNumber) async {
+  //   bool whatsapp = await FlutterLaunch.hasApp(name: "whatsapp");
+  //
+  //   if (whatsapp) {
+  //     await FlutterLaunch.launchWhatsapp(
+  //         phone: "$phoneNumber",message: '');
+  //   } else {
+  //     // setState(() {
+  //     //   err = false;
+  //     //   msgErr = '';
+  //     // });
+  //   }
+  // }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Get.lazyPut(() => SettingController());
+  }
+
 
     @override
     Widget build(BuildContext context) {
@@ -195,9 +222,19 @@ class ContactWithUs extends StatelessWidget {
 
   double? heightValue, widthValue;
 
+  _launchURL(url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return GetBuilder<SettingController>(
+      init: SettingController(),
+        builder: (controller) => Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -218,34 +255,43 @@ class ContactWithUs extends StatelessWidget {
             children: [
               ContactWithUsItem(
                 imageTitle: Assets.iconsWhatsUpImage,
-                onTap: () {},
+                onTap: () async{
+                  bool whatsapp = await FlutterLaunch.hasApp(name: "whatsapp");
+
+                  if (whatsapp) {
+                    await FlutterLaunch.launchWhatsapp(
+                        phone: controller.settingResponseModel!.socialmedia![0].whatsapp!,message: '');
+                  } else {
+                    print("Whatsapp não instalado");
+                  }
+                },
               ),
               SizedBox(
                 width: widthValue! * 1.5,
               ),
               ContactWithUsItem(
                 imageTitle: Assets.iconsInstagramImage,
-                onTap: () {},
+                onTap: () => _launchURL(controller.settingResponseModel!.socialmedia![0].instagram),
               ),
               SizedBox(
                 width: widthValue! * 1.5,
               ),
               ContactWithUsItem(
                 imageTitle: Assets.iconsTwitterImage,
-                onTap: () {},
+                onTap: () => _launchURL(controller.settingResponseModel!.socialmedia![0].twitter),
               ),
               SizedBox(
                 width: widthValue! * 1.5,
               ),
               ContactWithUsItem(
                 imageTitle: Assets.iconsSnapshatImage,
-                onTap: () {},
+                onTap: () => _launchURL(controller.settingResponseModel!.socialmedia![0].snapchat),
               ),
             ],
           )
         ],
       ),
-    );
+    ));
   }
 }
 
@@ -318,8 +364,14 @@ class ChangeLanguageBottomSheetItem extends StatelessWidget {
         ),
       ),
     );
+
   }
+
+
 }
+
+
+
 
 class ContactWithUsItem extends StatelessWidget {
   ContactWithUsItem({required this.onTap, required this.imageTitle});

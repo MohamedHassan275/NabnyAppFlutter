@@ -38,6 +38,7 @@ class _GoogleMapLocationUserScreenState
   void initState() {
     // TODO: implement initState
     super.initState();
+
     _cameraPosition = CameraPosition(target: LatLng(0, 0), zoom: 10.0);
     getCurrentLocation();
     setState(() {
@@ -50,8 +51,8 @@ class _GoogleMapLocationUserScreenState
     var heightValue = Get.height * 0.024;
     return Scaffold(
       body: SafeArea(
-          child: GetBuilder<controller>(
-            init: controller(),
+          child: GetBuilder<GetMyLocationController>(
+            init: GetMyLocationController(),
             builder: (googleMapLocaitonUserController) =>  Stack(
             children: [
               (latlong != null)
@@ -151,8 +152,9 @@ class _GoogleMapLocationUserScreenState
                             //     .language!
                             //     .languageCode);
 
-                            googleMapLocaitonUserController.updateMyLocationFromMap(
-                                latlong?.latitude, latlong?.longitude, Location);
+                            Get.find<GetMyLocationController>().updateMyLocationFromMap(latlong?.latitude, latlong?.longitude, Location);
+                            // googleMapLocaitonUserController.updateMyLocationFromMap(
+                            //     latlong?.latitude, latlong?.longitude, Location);
                           },
                         ),
                       ),
@@ -206,7 +208,7 @@ class _GoogleMapLocationUserScreenState
           markerId: MarkerId("a"),
           draggable: true,
           position: latlong!,
-          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
           onDragEnd: (_currentlatLng) {
             latlong = _currentlatLng;
           }));

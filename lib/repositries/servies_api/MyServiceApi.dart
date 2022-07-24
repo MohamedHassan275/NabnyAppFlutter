@@ -6,6 +6,7 @@ import 'package:nabny/model/home_user_model.dart';
 import 'package:nabny/model/login_user_model.dart';
 import 'package:nabny/model/logout_user_model.dart';
 import 'package:nabny/model/response_user_model.dart';
+import 'package:nabny/model/setting_model.dart';
 import 'package:nabny/repositries/repositries_status.dart';
 
 import '../../model/check_mobile_user_model.dart';
@@ -181,6 +182,40 @@ class MyServiceApi {
       }
     }
     return logoutUserModel;
+  }
+
+  static Future<SettingModel?> GetSettingUser(String Authorization) async {
+    SettingModel? settingModel;
+    try {
+      Response response =
+      await Dio().get(URL + 'setting', options: Options(
+          headers: {
+            'Authorization': 'Bearer $Authorization'
+          }
+      ));
+
+      if (response.statusCode == 200) {
+        print(response.statusCode);
+        print(response.data);
+        return SettingModel.fromJson(response.data);
+      } else {
+        // print('${response.statusMessage} : ${response.statusCode}');
+        return throw Exception(response.statusMessage!);
+      }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print('Dio error!');
+        print('STATUS: ${e.response?.statusCode}');
+        print('DATA: ${e.response?.data}');
+        print('DATA: ${e.response?.statusMessage}');
+        print('HEADERS: ${e.response?.headers}');
+      } else {
+        // Error due to setting up or sending the request
+        print('Error sending request!');
+        print(e.message);
+      }
+    }
+    return settingModel;
   }
 
   static Future<ProfileUserModel?> checkProfileDetails(String Authorization) async {

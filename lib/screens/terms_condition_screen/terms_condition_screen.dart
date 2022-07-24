@@ -6,11 +6,24 @@ import 'package:nabny/screens/setting_screen/setting_screen.dart';
 
 import '../../utils/Themes.dart';
 import '../home_main_screen/home_main_screen.dart';
+import '../setting_screen/setting_controller.dart';
 
-class TermsConditionScreen extends StatelessWidget {
+class TermsConditionScreen extends StatefulWidget {
   TermsConditionScreen({Key? key}) : super(key: key);
 
-  MyLocalController myLocalController = Get.put(MyLocalController());
+  @override
+  State<TermsConditionScreen> createState() => _TermsConditionScreenState();
+}
+
+class _TermsConditionScreenState extends State<TermsConditionScreen> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Get.lazyPut(() => SettingController());
+    Get.put(MyLocalController());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +66,7 @@ class TermsConditionScreen extends StatelessWidget {
                       child: CircleAvatar(
                         backgroundColor: Themes.ColorApp5,
                         child: Icon(
-                          myLocalController.language!.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
+                          Get.find<MyLocalController>().language!.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
                           color: Colors.white,),
                       ),
                     ),
@@ -63,60 +76,40 @@ class TermsConditionScreen extends StatelessWidget {
               SizedBox(
                 height: heightValue * 1,
               ),
-              Padding(
-                padding: EdgeInsets.all(7.0),
-                child: Container(
-                  width: Get.width,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight:  Radius.circular(15))
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text('terms_and_conditions'.tr,
-                        style: TextStyle(
-                          color: Themes.ColorApp1,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(height: heightValue * 1.5,),
-                      Text(TermsValue,
-                        style: TextStyle(
-                          color: Themes.ColorApp2,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(height: heightValue * 1,),
-                      Text(TermsValue,
-                        style: TextStyle(
-                          color: Themes.ColorApp2,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(height: heightValue * 1,),
-                      Text(TermsValue,
-                        style: TextStyle(
-                          color: Themes.ColorApp2,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(height: heightValue * 1,),
-                      Text(TermsValue,
-                        style: TextStyle(
-                          color: Themes.ColorApp2,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              )
+             GetBuilder<SettingController>(
+               init: SettingController(),
+                 builder: (controller)=> Container(
+               child: Padding(
+                 padding: EdgeInsets.all(7.0),
+                 child: Container(
+                   width: Get.width,
+                   decoration: BoxDecoration(
+                       borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight:  Radius.circular(15))
+                   ),
+                   child: Column(
+                     mainAxisAlignment: MainAxisAlignment.center,
+                     crossAxisAlignment: CrossAxisAlignment.center,
+                     children: [
+                       Text('terms_and_conditions'.tr,
+                         style: TextStyle(
+                           color: Themes.ColorApp1,
+                           fontSize: 17,
+                           fontWeight: FontWeight.w500,
+                         ),
+                       ),
+                       SizedBox(height: heightValue * 1.5,),
+                       Text("${controller.settingResponseModel!.policy![0].policy}",
+                         style: TextStyle(
+                           color: Themes.ColorApp2,
+                           fontSize: 14,
+                           fontWeight: FontWeight.w500,
+                         ),
+                       ),
+                     ],
+                   ),
+                 ),
+               ),
+             ))
             ],
           ),
         ),

@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as prefix;
 import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/utils/Themes.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../home_main_screen/home_main_screen.dart';
 
 class GetMyLocationUserPage extends StatefulWidget {
 
@@ -131,6 +134,7 @@ class GetMyLocationUserPageState extends State<GetMyLocationUserPage> {
                         sharedPreferences.setString("Location", '${Location}');
                         sharedPreferences.setDouble("latitude", latlong!.latitude);
                         sharedPreferences.setDouble("longitude", latlong!.longitude);
+                        Get.offAll(HomeMainScreen(valueBack: '',));
                       //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeMainUserPage()));
                        // Get.to(HomeMainUserPage(),duration: Duration(milliseconds: 3), transition: Transition.leftToRight);
 
