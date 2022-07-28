@@ -10,6 +10,7 @@ import 'package:nabny/screens/category_concrete_screen/category_concrete_screen.
 import 'package:nabny/screens/factory_details_screen/factory_details_screen.dart';
 import 'package:nabny/screens/home_main_screen/home_main_controller.dart';
 import 'package:nabny/screens/home_screen/home_controller.dart';
+import 'package:nabny/screens/location_map_user_screen/google_map_locaiton_user_screen.dart';
 import 'package:nabny/screens/request_offer_price_screen/request_offer_price_screen.dart';
 import 'package:nabny/utils/Themes.dart';
 
@@ -25,128 +26,158 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreen_State extends State<HomeScreen> {
+  HomeUserResponseModel? homeUserResponse;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Get.lazyPut(() => HomeController());
+    Get.put(HomeController());
   }
+
   @override
   Widget build(BuildContext context) {
     var widthValue = Get.width * 0.024;
     var heightValue = Get.height * 0.024;
-  //  HomeController homeController = Get.put(HomeController());
-        return Scaffold(
-          body: SingleChildScrollView(
-            child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: heightValue * .5,
-                    ),
-                    SearchForSomeFactories(widthValue: widthValue,heightValue: heightValue,),
-                    SizedBox(
-                      height: heightValue * 1.5,
-                    ),
-                    Container(
-                      width: Get.width,
-                      height: 50,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          border: Border.all(
-                              color: Themes.ColorApp2, width: 1.2)),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              Assets.iconsSearchIcon,
-                              fit: BoxFit.contain,
-                            ),
-                            SizedBox(
-                              width: widthValue * 2,
-                            ),
-                            Text(
-                              'Looking_factory'.tr,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 15,
-                                color: Themes.ColorApp8,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: heightValue * 1.5,
-                    ),
+    //  HomeController homeController = Get.put(HomeController());
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: heightValue * .5,
+                ),
+                GetBuilder<HomeController>(
+                    init: HomeController(),
+                    builder: (controller) {
+                      print(
+                          '${controller.homeUserModel?.currentLocation?.address}');
+                      return SearchForSomeFactories(
+                          homeUserResponseModel: controller.homeUserModel,
+                          widthValue: widthValue,
+                          heightValue: heightValue,
+                          onTap: () =>
+                              Get.to(const GoogleMapLocationUserScreen()));
+                    }),
+                SizedBox(
+                  height: heightValue * 1.5,
+                ),
+                LookingForFactory(widthValue: widthValue),
+                SizedBox(
+                  height: heightValue * 1.5,
+                ),
+                SizedBox(
+                  height: heightValue * 1.5,
+                ),
+                OrderPriceRequest(
+                  heightValue: heightValue,
+                ),
+                SizedBox(
+                  height: heightValue * 2,
+                ),
+                // GetBuilder<HomeController>(
+                //   init: HomeController(),
+                //   builder: (controller) {
+                //     print(controller.homeUserModel?.categories?.length);
+                //     return   CategoryListBuild(heightValue: heightValue, homeUserResponseModel: controller.homeUserModel,);
+                //   },
+                // ),
+                // GetBuilder<HomeController>(
+                //   init: HomeController(),
+                //   builder: (controller) {
+                //     return Column(
+                //       mainAxisAlignment: MainAxisAlignment.start,
+                //       crossAxisAlignment: CrossAxisAlignment.start,
+                //       children: [
+                //         Text(
+                //           'some_factories'.tr,
+                //           style: const TextStyle(
+                //             fontWeight: FontWeight.w500,
+                //             fontSize: 16,
+                //             color: Themes.ColorApp1,
+                //           ),
+                //         ),
+                //         SizedBox(
+                //           height: heightValue * .7,
+                //         ),
+                //         ListView.builder(
+                //           shrinkWrap: true,
+                //           scrollDirection: Axis.vertical,
+                //           physics: const ScrollPhysics(),
+                //           itemCount: controller.homeUserModel?.homeUserResponseModel?.companies?.length,
+                //           itemBuilder: (context, index) {
+                //             return Padding(
+                //               padding: const EdgeInsets.symmetric(vertical: 5),
+                //               child: FactoryItemList(companiesModel: controller.homeUserModel?.homeUserResponseModel?.companies?[index]),
+                //             );
+                //           },),
+                //       ],
+                //     );
+                //   },
+                // ),
+              ],
+            )),
+      ),
+    );
+  }
+}
 
-                    SizedBox(height: heightValue * 1.5,),
-                    OrderPriceRequest(
-                      heightValue: heightValue,
-                    ),
-                    SizedBox(
-                      height: heightValue * 2,
-                    ),
-                    // GetBuilder<HomeController>(
-                    //   init: HomeController(),
-                    //   builder: (controller) {
-                    //     print(controller.homeUserModel?.homeUserResponseModel?.categories?.length);
-                    //     return   CategoryListBuild(heightValue: heightValue, homeController: controller,);
-                    //   },
-                    // ),
-                    GetBuilder<HomeController>(
-                      init: HomeController(),
-                      builder: (controller) {
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'some_factories'.tr,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16,
-                                color: Themes.ColorApp1,
-                              ),
-                            ),
-                            SizedBox(
-                              height: heightValue * .7,
-                            ),
-                            ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              physics: const ScrollPhysics(),
-                              itemCount: controller.homeUserModel?.homeUserResponseModel?.companies?.length,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 5),
-                                  child: FactoryItemList(companiesModel: controller.homeUserModel?.homeUserResponseModel?.companies?[index]),
-                                );
-                              },),
-                          ],
-                        );
-                      },
-                    ),
+class LookingForFactory extends StatelessWidget {
+  LookingForFactory({required this.widthValue});
 
-                  ],
-                )
+  double? heightValue, widthValue;
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Container(
+      width: Get.width,
+      height: 50,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(color: Themes.ColorApp2, width: 1.2)),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Image.asset(
+              Assets.iconsSearchIcon,
+              fit: BoxFit.contain,
             ),
-          ),
-        );
-      }
-    }
-
+            SizedBox(
+              width: widthValue! * 2,
+            ),
+            Text(
+              'Looking_factory'.tr,
+              style: const TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 15,
+                color: Themes.ColorApp8,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 class SearchForSomeFactories extends StatelessWidget {
-  SearchForSomeFactories({Key? key, required this.heightValue,required this.widthValue}) : super(key: key);
+  SearchForSomeFactories(
+      {Key? key,
+      required this.homeUserResponseModel,
+      required this.onTap,
+      required this.heightValue,
+      required this.widthValue})
+      : super(key: key);
+
+  HomeUserResponseModel? homeUserResponseModel;
   double heightValue, widthValue;
+  void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -164,33 +195,41 @@ class SearchForSomeFactories extends StatelessWidget {
         SizedBox(
           height: heightValue * .7,
         ),
-        Container(
-          width: Get.width,
-          height: 50,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              border: Border.all(color: Themes.ColorApp2, width: 1.2)),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Image.asset(
-                  Assets.iconsLocationIcon,
-                  fit: BoxFit.contain,
-                ),
-                SizedBox(
-                  width: widthValue * 2,
-                ),
-                const Text(
-                  'جده 22347 السعوديه ',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 15,
-                    color: Themes.ColorApp8,
+        InkWell(
+          onTap: onTap,
+          child: Container(
+            width: Get.width,
+            height: 50,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                border: Border.all(color: Themes.ColorApp2, width: 1.2)),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Image.asset(
+                    Assets.iconsLocationIcon,
+                    fit: BoxFit.contain,
                   ),
-                ),
-              ],
+                  SizedBox(
+                    width: widthValue * 2,
+                  ),
+                  Expanded(
+                    child: Text(
+                      homeUserResponseModel?.currentLocation?.address != null
+                          ? '${homeUserResponseModel?.currentLocation?.address}'
+                          : ' اضف عنوان',
+                      maxLines: 2,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 15,
+                        color: Themes.ColorApp8,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -210,9 +249,7 @@ class FactoryItemList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 2,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15)
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: GestureDetector(
         onTap: () => Get.to(const FactoryDetailsScreen()),
         child: Container(
@@ -224,7 +261,6 @@ class FactoryItemList extends StatelessWidget {
           child: Column(
             children: [
               Stack(
-
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(15),
@@ -251,11 +287,14 @@ class FactoryItemList extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(5.0),
-                child: DetailsCompany(CompaniesModel: companiesModel,
+                child: DetailsCompany(
+                    CompaniesModel: companiesModel,
                     heightValue: heightValue,
                     widthValue: widthValue),
               ),
-              SizedBox(height: heightValue * 1,)
+              SizedBox(
+                height: heightValue * 1,
+              )
             ],
           ),
         ),
@@ -266,7 +305,9 @@ class FactoryItemList extends StatelessWidget {
 
 class DetailsCompany extends StatelessWidget {
   DetailsCompany(
-      {required this.CompaniesModel, required this.heightValue, required this.widthValue});
+      {required this.CompaniesModel,
+      required this.heightValue,
+      required this.widthValue});
 
   Companies? CompaniesModel;
   double heightValue, widthValue;
@@ -310,7 +351,9 @@ class DetailsCompany extends StatelessWidget {
                         color: Themes.ColorApp1,
                       ),
                     ),
-                    SizedBox(height: heightValue * .3,),
+                    SizedBox(
+                      height: heightValue * .3,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -322,14 +365,15 @@ class DetailsCompany extends StatelessWidget {
                             color: Themes.ColorApp8,
                           ),
                         ),
-                        SizedBox(width: widthValue * 1,),
+                        SizedBox(
+                          width: widthValue * 1,
+                        ),
                         Container(
                           width: 70,
                           height: 30,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(35),
-                              color: Themes.ColorApp12
-                          ),
+                              color: Themes.ColorApp12),
                           child: Center(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -342,8 +386,13 @@ class DetailsCompany extends StatelessWidget {
                                     color: Themes.ColorApp13,
                                   ),
                                 ),
-                                SizedBox(width: widthValue * .2,),
-                                const Icon(Icons.star, color: Themes.ColorApp13,)
+                                SizedBox(
+                                  width: widthValue * .2,
+                                ),
+                                const Icon(
+                                  Icons.star,
+                                  color: Themes.ColorApp13,
+                                )
                               ],
                             ),
                           ),
@@ -366,10 +415,15 @@ class DetailsCompany extends StatelessWidget {
                   color: Themes.ColorApp8,
                 ),
               ),
-              SizedBox(width: widthValue * 1,),
-              Image.asset(Assets.iconsDistanceIcon, fit: BoxFit.contain,
+              SizedBox(
+                width: widthValue * 1,
+              ),
+              Image.asset(
+                Assets.iconsDistanceIcon,
+                fit: BoxFit.contain,
                 width: 35,
-                height: 35,)
+                height: 35,
+              )
             ],
           )
         ],
@@ -435,9 +489,9 @@ class UserProfileWithNotification extends StatelessWidget {
               border: Border.all(color: Themes.ColorApp10, width: 1.5)),
           child: const Center(
               child: const Icon(
-                Icons.notifications_none,
-                color: Themes.ColorApp10,
-              )),
+            Icons.notifications_none,
+            color: Themes.ColorApp10,
+          )),
         )
       ],
     );
@@ -445,9 +499,10 @@ class UserProfileWithNotification extends StatelessWidget {
 }
 
 class CategoryListBuild extends StatelessWidget {
-  CategoryListBuild({required this.heightValue,required this.homeController});
+  CategoryListBuild(
+      {required this.heightValue, required this.homeUserResponseModel});
 
-  HomeController? homeController;
+  HomeUserResponseModel? homeUserResponseModel;
   double heightValue;
 
   @override
@@ -467,19 +522,22 @@ class CategoryListBuild extends StatelessWidget {
         SizedBox(
           height: heightValue * 1,
         ),
-        // ListView.builder(
-        //   shrinkWrap: true,
-        //   scrollDirection: Axis.horizontal,
-        //   physics: const NeverScrollableScrollPhysics(),
-        //   itemCount: homeController?.homeUserModel?.homeUserResponseModel?.categories?.length,
-        //   itemBuilder: (context, index) {
-        //     return Padding(
-        //       padding: const EdgeInsets.symmetric(vertical: 5),
-        //       child:  WidgetCategoryItem( onTap: ()=> Get.to(const CategoryConcreteScreen()),
-        //         categoriesModel: homeController?.homeUserModel?.homeUserResponseModel?.categories?[index], heightValue: heightValue, ),
-        //     );
-        //   },),
-
+        ListView.builder(
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: homeUserResponseModel?.categories?.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 5),
+              child: WidgetCategoryItem(
+                onTap: () => Get.to(const CategoryConcreteScreen()),
+                categoriesModel: homeUserResponseModel?.categories?[index],
+                heightValue: heightValue,
+              ),
+            );
+          },
+        ),
       ],
     );
   }
@@ -487,7 +545,10 @@ class CategoryListBuild extends StatelessWidget {
 
 class WidgetCategoryItem extends StatelessWidget {
   WidgetCategoryItem(
-      {Key? key, required this.categoriesModel,required this.heightValue,required this.onTap})
+      {Key? key,
+      required this.categoriesModel,
+      required this.heightValue,
+      required this.onTap})
       : super(key: key);
 
   Categories? categoriesModel;
@@ -506,8 +567,7 @@ class WidgetCategoryItem extends StatelessWidget {
             color: Themes.ColorApp14,
           ),
           child: Padding(
-            padding:
-            const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -556,8 +616,7 @@ class WidgetCategoryItem extends StatelessWidget {
 }
 
 class OrderPriceRequest extends StatelessWidget {
-  OrderPriceRequest(
-      {required this.heightValue});
+  OrderPriceRequest({required this.heightValue});
 
   double heightValue;
 
@@ -608,8 +667,8 @@ class OrderPriceRequest extends StatelessWidget {
               child: Card(
                 color: Themes.whiteColor,
                 elevation: 2.0,
-                shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
                 child: Padding(
                   padding: const EdgeInsets.all(7.0),
                   child: Container(
@@ -617,9 +676,10 @@ class OrderPriceRequest extends StatelessWidget {
                     height: 25,
                     child: Center(
                       child: Icon(
-                        Get.find<MyLocalController>().language?.languageCode == "en" ?
-                        Icons.keyboard_arrow_right :
-                        Icons.keyboard_arrow_left,
+                        Get.find<MyLocalController>().language?.languageCode ==
+                                "en"
+                            ? Icons.keyboard_arrow_right
+                            : Icons.keyboard_arrow_left,
                         size: 25,
                         color: Themes.ColorApp1,
                       ),

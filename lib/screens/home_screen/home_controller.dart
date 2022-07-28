@@ -13,23 +13,24 @@ import '../../model/factory_model.dart';
 class HomeController extends GetxController{
 
   bool isLoading = false;
-  HomeUserModel? _homeUserModel;
+  HomeUserResponseModel? _homeUserModel;
 
   get isloading => isLoading;
-  HomeUserModel? get homeUserModel => _homeUserModel;
+  HomeUserResponseModel? get homeUserModel => _homeUserModel;
 
   setLoading(bool isloading){
     isLoading = isloading;
     update();
   }
 
-  setHomeUser(HomeUserModel? homeUserModel){
+  setHomeUser(HomeUserResponseModel? homeUserModel){
     _homeUserModel = homeUserModel;
   }
 
   HomeController(){
     getHomeDetailsUser();
   }
+
   RxList<SliderItemsModel> SlidersList = List<SliderItemsModel>.from([
     SliderItemsModel(Assets.imagesSliderImage),
     SliderItemsModel(Assets.imagesSliderImage),
@@ -53,7 +54,7 @@ class HomeController extends GetxController{
       if(value?.success == true){
         setLoading(false);
         CustomFlutterToast('${value?.homeUserResponseModel?.currentLocation?.address}');
-        setHomeUser(value);
+        setHomeUser(value?.homeUserResponseModel);
       }else if(value?.success == false){
         setLoading(false);
         CustomFlutterToast('${value?.message}');

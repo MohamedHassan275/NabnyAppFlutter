@@ -50,8 +50,9 @@ class LoginController extends GetxController{
           Get.find<StorageService>().SetToken('${value.data!.accesstoken}');
           CustomFlutterToast('${value.message}');
           CustomFlutterToast(value.data!.accesstoken);
+          print(value.data!.accesstoken);
           CustomFlutterToast(token);
-          Get.to(const GoogleMapLocationUserScreen());
+          Get.offAll(GoogleMapLocationUserScreen());
         }else if(value.success == false){
           setLoading(false);
           CustomFlutterToast('${value.message}');

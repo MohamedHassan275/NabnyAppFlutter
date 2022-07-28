@@ -27,7 +27,7 @@ class GetMyLocationController extends GetxController {
       if(value?.success == true){
         setSeving(false);
         CustomFlutterToast('${value?.message}');
-        Get.to(HomeMainScreen(valueBack: ''));
+        Get.offAll(HomeMainScreen(valueBack: ''));
       }else if (value?.success == false){
         setSeving(false);
         CustomFlutterToast('${value?.message}');

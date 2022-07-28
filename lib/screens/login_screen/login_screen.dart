@@ -8,7 +8,6 @@ import 'package:nabny/core/widget/custom_phone_and_password_widget.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/forget_password_screen/check_mobile_screen/forget_password_byMobile_screen.dart';
 import 'package:nabny/screens/forget_password_screen/check_mobile_screen/widget/custom_text_field_widget.dart';
-import 'package:nabny/screens/get_my_location_screen/GetMyLocationUserPage.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:nabny/screens/login_screen/login_controller.dart';
 import 'package:nabny/screens/register_screen/register_screen.dart';

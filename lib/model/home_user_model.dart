@@ -147,7 +147,7 @@ class Companies {
   String? lat;
   String? lng;
   int? distance;
-  double? rate;
+  int? rate;
   List<String>? services;
 
   Companies(

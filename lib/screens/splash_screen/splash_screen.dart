@@ -7,7 +7,6 @@ import 'package:nabny/screens/location_map_user_screen/google_map_locaiton_user_
 import 'package:nabny/screens/on_boarding_screen/on_boarding_screen.dart';
 
 import '../../core/servies/storage_service.dart';
-import '../get_my_location_screen/GetMyLocationUserPage.dart';
 import '../home_main_screen/home_main_screen.dart';
 
 class SplashScreen extends StatefulWidget {
