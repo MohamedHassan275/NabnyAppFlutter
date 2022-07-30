@@ -27,6 +27,7 @@ class LoginController extends GetxController{
   LoginController(){
     getFirebaseToken();
   }
+
   getFirebaseToken(){
     Firebase.initializeApp().whenComplete(() {
       print("completed");

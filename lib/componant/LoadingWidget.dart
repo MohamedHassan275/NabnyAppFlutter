@@ -7,18 +7,23 @@ import 'package:nabny/utils/Themes.dart';
 import '../core/constant/style.dart';
 
 class LoadingWidget extends StatelessWidget {
-  const LoadingWidget({Key? key}) : super(key: key);
-
+   LoadingWidget({Key? key, required this.data}) : super(key: key);
+   String? data;
   @override
   Widget build(BuildContext context) {
     return Container(
       width: Get.width,
       height: Get.height,
       decoration: const BoxDecoration(color: Colors.white),
-      child: const Center(
-          child: SpinKitCircle(
+      child:  Center(
+          child: Column(
+            children: [
+              Text(data!),
+              SpinKitCircle(
         color: Themes.ColorApp1,
-      )),
+      ),
+            ],
+          )),
     );
   }
 }

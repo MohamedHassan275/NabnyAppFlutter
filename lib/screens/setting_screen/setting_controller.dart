@@ -27,6 +27,7 @@ class SettingController extends GetxController {
 
   getProfileDetailsUser() {
     setLoading(true);
+    print(Get.find<StorageService>().GetToken);
     MyServiceApi.GetSettingUser(Get.find<StorageService>().GetToken).then((value) {
       if(value?.success == true){
         setLoading(false);

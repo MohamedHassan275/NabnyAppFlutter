@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nabny/componant/LoadingWidget.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/model/factory_model.dart';
+import 'package:nabny/model/favouriteModel.dart';
+import 'package:nabny/repositries/servies_api/MyServiceApi.dart';
 import 'package:nabny/screens/factory_details_screen/factory_details_screen.dart';
 import 'package:nabny/screens/my_favorite_screen/my_favorite_controller.dart';
 
+import '../../core/localization/local_controller.dart';
+import '../../core/servies/storage_service.dart';
 import '../../utils/Themes.dart';
 
 class MyFavoriteScreen extends StatefulWidget {
@@ -16,26 +21,76 @@ class MyFavoriteScreen extends StatefulWidget {
 
 class _MyFavoriteScreenState extends State<MyFavoriteScreen> {
 
-  MyFavoriteController myFavoriteController = Get.put(MyFavoriteController());
 
+  List<FavouriteResponseModel>? favouriteResponseModel = [];
+  late FavouriteModel favouriteModel;
+  Future<FavouriteModel?>? _future;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Get.put(MyFavoriteController());
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
-        child: Obx(()=>
-            ListView.builder(
+        child: Container(
+          child: GetBuilder<MyFavoriteController>(
+            builder: (controller) {
+             favouriteModel = controller.favoriteModel;
+             return controller.loading ? ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.vertical,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: myFavoriteController.factoryModel.length,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: favouriteModel.favoriteResponseModel!.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.all(5),
-                  child: FactoryItemList(factoryModel: myFavoriteController.factoryModel[index]),
+                  child: FactoryItemList(factoryModel: favouriteModel.favoriteResponseModel![index]),
                 );
-              },)),
+              },) : LoadingWidget(data: 'error data');},
+        )
       )),
+    ));
+  }
+}
+
+class NoItemOFList extends StatelessWidget {
+  NoItemOFList({Key? key}) : super(key: key);
+
+  var widthValue = Get.width * 0.024;
+  var heightValue = Get.height * 0.024;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: Get.width,
+      height: 100,
+      child: Column(
+        children: [
+          Image.asset(
+            Assets.imagesOfferPrice,
+            fit: BoxFit.contain,
+          ),
+          SizedBox(
+            height: heightValue * 1,
+          ),
+          Text(
+            'no_requests_offers_have_added_before'.tr,
+            style: TextStyle(
+              color: Themes.ColorApp8,
+              fontSize: 25,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          SizedBox(
+            height: heightValue * .7,
+          )
+        ],
+      ),
     );
   }
 }
@@ -43,7 +98,7 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen> {
 class FactoryItemList extends StatelessWidget {
   FactoryItemList({required this.factoryModel});
 
-  FactoryModel factoryModel;
+  FavouriteResponseModel? factoryModel;
   var heightValue = Get.height * 0.024;
   var widthValue = Get.width * 0.024;
 
@@ -71,7 +126,7 @@ class FactoryItemList extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(15),
                     child: FadeInImage(
-                      image: AssetImage(factoryModel.ImageCompany!),
+                      image: AssetImage("${factoryModel?.image}"),
                       fit: BoxFit.fill,
                       height: 175,
                       width: Get.width,
@@ -107,7 +162,7 @@ class FactoryItemList extends StatelessWidget {
 class DetailsCompany extends StatelessWidget {
    DetailsCompany({required this.factoryModel,required this.heightValue,required this.widthValue});
 
-   FactoryModel factoryModel;
+   FavouriteResponseModel? factoryModel;
    double heightValue,widthValue;
   @override
   Widget build(BuildContext context) {
@@ -141,7 +196,7 @@ class DetailsCompany extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${factoryModel.NameCompany}',
+                      '${factoryModel?.name}',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 16,
@@ -153,7 +208,7 @@ class DetailsCompany extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '${factoryModel.RateText}',
+                          '${factoryModel?.category}',
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 15,
@@ -173,7 +228,7 @@ class DetailsCompany extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  '${factoryModel.RateNumber}',
+                                  '${factoryModel?.rate}',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 12,
@@ -197,7 +252,7 @@ class DetailsCompany extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '${factoryModel.DistanceCompany}',
+                '${factoryModel?.distance}''km'.tr,
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 12,

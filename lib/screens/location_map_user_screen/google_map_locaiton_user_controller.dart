@@ -27,6 +27,7 @@ class GetMyLocationController extends GetxController {
       if(value?.success == true){
         setSeving(false);
         CustomFlutterToast('${value?.message}');
+        print(Get.find<StorageService>().GetToken);
         Get.offAll(HomeMainScreen(valueBack: ''));
       }else if (value?.success == false){
         setSeving(false);

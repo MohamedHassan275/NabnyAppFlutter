@@ -1,7 +1,6 @@
 class FavouriteModel {
   bool? success;
   List<FavouriteResponseModel>? favoriteResponseModel;
-
   String? message;
 
   FavouriteModel({this.success, this.favoriteResponseModel, this.message});

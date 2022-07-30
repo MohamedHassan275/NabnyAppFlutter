@@ -22,8 +22,9 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    print(Get.find<MyLocalController>().language?.languageCode);
     Get.put(MyLocalController());
-    Get.put(SettingController());
+    Get.lazyPut(()=> SettingController());
   }
   @override
   Widget build(BuildContext context) {
@@ -66,7 +67,7 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
                       child: CircleAvatar(
                         backgroundColor: Themes.ColorApp5,
                         child: Icon(
-                          Get.find<MyLocalController>().language?.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
+                          Get.find<MyLocalController>().language?.languageCode == "en" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
                           color: Colors.white,),
                       ),
                     ),
@@ -78,7 +79,9 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
               ),
               GetBuilder<SettingController>(
                 init: SettingController(),
-                  builder: (controller) => SizedBox(
+                  builder: (controller) {
+                  print("listView is ${controller.settingResponseModel?.about?.length}");
+                  return SizedBox(
                     child: Padding(
                       padding: EdgeInsets.all(7.0),
                       child: Container(
@@ -109,7 +112,8 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
                         ),
                       ),
                     ),
-                  ))
+                  );
+                  })
             ],
           ),
         ),

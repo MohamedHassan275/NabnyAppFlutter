@@ -56,9 +56,8 @@ class _SettingScreenState extends State<SettingScreen> {
     // TODO: implement initState
     super.initState();
     Get.lazyPut(() => SettingController());
+
   }
-
-
     @override
     Widget build(BuildContext context) {
       var widthValue = Get.width * 0.024;
