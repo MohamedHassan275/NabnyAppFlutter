@@ -38,7 +38,8 @@ class MyWaitingOrderScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                          child: MyWaitingOrderItem(MyNewOder: controller.myOrderResponseModel!.newOrder![index], heightValue: heightValue,widthValue: widthValue,),
+                          child: MyWaitingOrderItem(MyNewOder: controller.myOrderResponseModel!.newOrder![index],
+                            heightValue: heightValue,widthValue: widthValue,),
                         );
                       },): NoItemOFList();
                   },),
@@ -149,7 +150,7 @@ class MyWaitingOrderItem extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: GestureDetector(
                   onTap: (){
-                    Get.to(DetailsWaitingOrderScreen());
+                    Get.to(DetailsWaitingOrderScreen(newOrder: MyNewOder,));
                   },
                   child: Container(
                     width: Get.width,

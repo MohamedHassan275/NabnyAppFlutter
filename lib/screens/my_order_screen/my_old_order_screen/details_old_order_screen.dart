@@ -3,20 +3,14 @@ import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/generated/assets.dart';
+import 'package:nabny/model/my_order_model.dart';
 
 import '../../../utils/Themes.dart';
 import '../../home_main_screen/home_main_screen.dart';
 
-class DetailsOldOrderScreen extends StatefulWidget {
-  const DetailsOldOrderScreen({Key? key}) : super(key: key);
-
-  @override
-  _DetailsOldOrderScreenState createState() => _DetailsOldOrderScreenState();
-}
-
-class _DetailsOldOrderScreenState extends State<DetailsOldOrderScreen> {
-  MyLocalController myLocalController = Get.put(MyLocalController());
-
+class DetailsOldOrderScreen extends StatelessWidget {
+   DetailsOldOrderScreen({Key? key,required this.previousOrder}) : super(key: key);
+   PreviousOrder previousOrder;
   @override
   Widget build(BuildContext context) {
     var heightValue = Get.height * 0.024;
@@ -35,7 +29,7 @@ class _DetailsOldOrderScreenState extends State<DetailsOldOrderScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AppbarDetailsOrder(widthValue, heightValue,myLocalController),
+                      AppbarDetailsOrder(widthValue, heightValue),
                       SizedBox(
                         height: heightValue * 1.2,
                       ),
@@ -50,7 +44,7 @@ class _DetailsOldOrderScreenState extends State<DetailsOldOrderScreen> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                AddressDetailsOrder(),
+                                AddressDetailsOrder(previousOrder: previousOrder,),
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
@@ -61,43 +55,43 @@ class _DetailsOldOrderScreenState extends State<DetailsOldOrderScreen> {
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
-                                DetailsOrder(widthValue, 'type_of_casting'.tr, 'سقف'),
+                                DetailsOrder(widthValue, 'type_of_casting'.tr, '${previousOrder.castingType}'),
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
-                                DetailsOrder(widthValue, 'execution_date'.tr, '22/06/2022'),
+                                DetailsOrder(widthValue, 'execution_date'.tr, '${previousOrder.executionDate}'),
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
-                                DetailsOrder(widthValue, 'quantity'.tr, '1000'),
+                                DetailsOrder(widthValue, 'quantity'.tr, '${previousOrder.qtyM}'),
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
-                                DetailsOrder(widthValue, 'mix_type'.tr, 'نوع الخلطه'),
+                                DetailsOrder(widthValue, 'mix_type'.tr, '${previousOrder.mixType}'),
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
-                                DetailsOrder(widthValue, 'cement_type'.tr, 'نوع الاسمنتنوع الاسمنت'),
+                                DetailsOrder(widthValue, 'cement_type'.tr, '${previousOrder.cementType}'),
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
-                                DetailsOrder(widthValue, 'stone_size'.tr, 'مقاس الحجر'),
+                                DetailsOrder(widthValue, 'stone_size'.tr, '${previousOrder.stoneSize}'),
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
-                                DetailsOrder(widthValue, 'Special_specifications'.tr, 'مواصفات خاصه'),
+                                DetailsOrder(widthValue, 'Special_specifications'.tr, '${previousOrder.specialDescription}'),
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
-                                DetailsOrder(widthValue, 'pump_order'.tr, 'طلب مضخه'),
+                                DetailsOrder(widthValue, 'pump_order'.tr, previousOrder.withPump!.contains('1') ? 'طلب مضخه' : 'بدون طلب مضخه'),
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
                                 Container(
                                   height: 50,
                                   decoration: BoxDecoration(
-                                    color: Themes.ColorApp14,
-                                    borderRadius: BorderRadius.circular(25)
+                                      color: Themes.ColorApp14,
+                                      borderRadius: BorderRadius.circular(25)
                                   ),
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -113,13 +107,26 @@ class _DetailsOldOrderScreenState extends State<DetailsOldOrderScreen> {
                                             color: Themes.ColorApp17,
                                           ),
                                         ),
-                                        Text(
-                                          '7688 ريال ',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 16,
-                                            color: Themes.ColorApp1,
-                                          ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              '${previousOrder.qtyM}',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 16,
+                                                color: Themes.ColorApp1,
+                                              ),
+                                            ),
+                                            SizedBox(width: widthValue* .3,),
+                                            Text(
+                                              'sar'.tr,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 16,
+                                                color: Themes.ColorApp1,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
@@ -163,7 +170,7 @@ class _DetailsOldOrderScreenState extends State<DetailsOldOrderScreen> {
                           ),
                           SizedBox(width: widthValue * .5,),
                           Text(
-                            '13/6/2022',
+                            '${previousOrder.executionDate}',
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 15,
@@ -190,12 +197,9 @@ class _DetailsOldOrderScreenState extends State<DetailsOldOrderScreen> {
     );
   }
 }
-
-
 class AppbarDetailsOrder extends StatelessWidget {
-   AppbarDetailsOrder(this.widthValue,this.heightValue,this.myLocalController);
+   AppbarDetailsOrder(this.widthValue,this.heightValue);
 
-   MyLocalController myLocalController;
    double heightValue,widthValue;
   @override
   Widget build(BuildContext context) {
@@ -228,7 +232,7 @@ class AppbarDetailsOrder extends StatelessWidget {
             child: CircleAvatar(
               backgroundColor: Themes.ColorApp5,
               child: Icon(
-                myLocalController.language!.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
+                Get.find<MyLocalController>().language!.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
                 color: Colors.white,
               ),
             ),
@@ -240,8 +244,9 @@ class AppbarDetailsOrder extends StatelessWidget {
 }
 
 class AddressDetailsOrder extends StatelessWidget {
-   AddressDetailsOrder();
+   AddressDetailsOrder({required this.previousOrder});
 
+   PreviousOrder previousOrder;
    var heightValue = Get.height * 0.024;
    var widthValue = Get.width * 0.024;
    @override
@@ -274,21 +279,10 @@ class AddressDetailsOrder extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'جده حي الوزيريه قاعه امنيتي',
+                    '${previousOrder.address}',
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
-                      color: Themes.ColorApp1,
-                    ),
-                  ),
-                  SizedBox(height: heightValue * .3,),
-                  Text(
-                    '2483 حي ، 7251 مدائن الفهد ، جده 22347 السعوديه',
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 12,
                       color: Themes.ColorApp1,
                     ),
                   ),

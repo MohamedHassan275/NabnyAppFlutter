@@ -4,20 +4,14 @@ import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/generated/assets.dart';
+import 'package:nabny/model/my_order_model.dart';
 
 import '../../../utils/Themes.dart';
 import '../../home_main_screen/home_main_screen.dart';
 
-class DetailsWaitingOrderScreen extends StatefulWidget {
-  const DetailsWaitingOrderScreen({Key? key}) : super(key: key);
-
-  @override
-  _DetailsWaitingOrderScreenState createState() => _DetailsWaitingOrderScreenState();
-}
-
-class _DetailsWaitingOrderScreenState extends State<DetailsWaitingOrderScreen> {
-  MyLocalController myLocalController = Get.put(MyLocalController());
-
+class DetailsWaitingOrderScreen extends StatelessWidget {
+   DetailsWaitingOrderScreen({Key? key,required this.newOrder}) : super(key: key);
+   NewOrder newOrder;
   @override
   Widget build(BuildContext context) {
     var heightValue = Get.height * 0.024;
@@ -34,7 +28,7 @@ class _DetailsWaitingOrderScreenState extends State<DetailsWaitingOrderScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AppbarDetailsOrder(widthValue, heightValue,myLocalController),
+                    AppbarDetailsOrder(widthValue, heightValue),
                     SizedBox(
                       height: heightValue * 1.2,
                     ),
@@ -49,7 +43,7 @@ class _DetailsWaitingOrderScreenState extends State<DetailsWaitingOrderScreen> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              AddressDetailsOrder(),
+                              AddressDetailsOrder(newOrder: newOrder,),
                               SizedBox(
                                 height: heightValue * .7,
                               ),
@@ -60,43 +54,43 @@ class _DetailsWaitingOrderScreenState extends State<DetailsWaitingOrderScreen> {
                               SizedBox(
                                 height: heightValue * .7,
                               ),
-                              DetailsOrder(widthValue, 'type_of_casting'.tr, 'سقف'),
+                              DetailsOrder(widthValue, 'type_of_casting'.tr, '${newOrder.castingType}'),
                               SizedBox(
                                 height: heightValue * .7,
                               ),
-                              DetailsOrder(widthValue, 'execution_date'.tr, '22/06/2022'),
+                              DetailsOrder(widthValue, 'execution_date'.tr, '${newOrder.executionDate}'),
                               SizedBox(
                                 height: heightValue * .7,
                               ),
-                              DetailsOrder(widthValue, 'quantity'.tr, '1000'),
+                              DetailsOrder(widthValue, 'quantity'.tr, '${newOrder.qtyM}'),
                               SizedBox(
                                 height: heightValue * .7,
                               ),
-                              DetailsOrder(widthValue, 'mix_type'.tr, 'نوع الخلطه'),
+                              DetailsOrder(widthValue, 'mix_type'.tr, '${newOrder.mixType}'),
                               SizedBox(
                                 height: heightValue * .7,
                               ),
-                              DetailsOrder(widthValue, 'cement_type'.tr, 'نوع الاسمنتنوع الاسمنت'),
+                              DetailsOrder(widthValue, 'cement_type'.tr, '${newOrder.cementType}'),
                               SizedBox(
                                 height: heightValue * .7,
                               ),
-                              DetailsOrder(widthValue, 'stone_size'.tr, 'مقاس الحجر'),
+                              DetailsOrder(widthValue, 'stone_size'.tr, '${newOrder.stoneSize}'),
                               SizedBox(
                                 height: heightValue * .7,
                               ),
-                              DetailsOrder(widthValue, 'Special_specifications'.tr, 'مواصفات خاصه'),
+                              DetailsOrder(widthValue, 'Special_specifications'.tr, '${newOrder.specialDescription}'),
                               SizedBox(
                                 height: heightValue * .7,
                               ),
-                              DetailsOrder(widthValue, 'pump_order'.tr, 'طلب مضخه'),
+                              DetailsOrder(widthValue, 'pump_order'.tr, newOrder.castingType!.contains('1')? 'طلب مضخه' : 'بدون طلب مضخه',),
                               SizedBox(
                                 height: heightValue * .7,
                               ),
                               Container(
                                 height: 50,
                                 decoration: BoxDecoration(
-                                  color: Themes.ColorApp14,
-                                  borderRadius: BorderRadius.circular(25)
+                                    color: Themes.ColorApp14,
+                                    borderRadius: BorderRadius.circular(25)
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -132,10 +126,8 @@ class _DetailsWaitingOrderScreenState extends State<DetailsWaitingOrderScreen> {
   }
 }
 
-
 class AppbarDetailsOrder extends StatelessWidget {
-   AppbarDetailsOrder(this.widthValue,this.heightValue,this.myLocalController);
-   MyLocalController myLocalController;
+   AppbarDetailsOrder(this.widthValue,this.heightValue);
    double heightValue,widthValue;
   @override
   Widget build(BuildContext context) {
@@ -168,7 +160,7 @@ class AppbarDetailsOrder extends StatelessWidget {
             child: CircleAvatar(
               backgroundColor: Themes.ColorApp5,
               child: Icon(
-                myLocalController.language!.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
+                Get.find<MyLocalController>().language!.languageCode == "en" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
                 color: Colors.white,
               ),
             ),
@@ -180,8 +172,9 @@ class AppbarDetailsOrder extends StatelessWidget {
 }
 
 class AddressDetailsOrder extends StatelessWidget {
-  AddressDetailsOrder();
+  AddressDetailsOrder({required this.newOrder});
 
+  NewOrder newOrder;
   var heightValue = Get.height * 0.024;
   var widthValue = Get.width * 0.024;
   @override
@@ -214,21 +207,10 @@ class AddressDetailsOrder extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'جده حي الوزيريه قاعه امنيتي',
+                    '${newOrder.address}',
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
-                      color: Themes.ColorApp1,
-                    ),
-                  ),
-                  SizedBox(height: heightValue * .3,),
-                  Text(
-                    '2483 حي ، 7251 مدائن الفهد ، جده 22347 السعوديه',
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 12,
                       color: Themes.ColorApp1,
                     ),
                   ),
@@ -254,7 +236,7 @@ class DetailsOrder extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
-          title,
+          '$title : ',
           style: TextStyle(
             fontWeight: FontWeight.w400,
             fontSize: 14,

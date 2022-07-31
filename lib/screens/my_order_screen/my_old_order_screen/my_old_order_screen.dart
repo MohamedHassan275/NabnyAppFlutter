@@ -57,7 +57,7 @@ class MyPreviousOrderItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        Get.to(DetailsOldOrderScreen());
+        Get.to(DetailsOldOrderScreen(previousOrder: previousOrder,));
       },
       child: Card(
         elevation: 2,
