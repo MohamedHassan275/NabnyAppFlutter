@@ -26,7 +26,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreen_State extends State<HomeScreen> {
-  HomeUserResponseModel? homeUserResponse;
 
   @override
   void initState() {
@@ -553,6 +552,7 @@ class CategoryListBuild extends StatelessWidget {
             itemCount: homeUserResponseModel!.categories?.length,
             itemBuilder: (context, index) {
               print("category is ${homeUserResponseModel!.categories!.length}");
+              print("access token is ${Get.find<StorageService>().GetToken}");
               return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: GestureDetector(

@@ -7,6 +7,7 @@ import 'package:nabny/model/LocationModel.dart';
 import 'package:nabny/model/home_user_model.dart';
 import 'package:nabny/model/login_user_model.dart';
 import 'package:nabny/model/logout_user_model.dart';
+import 'package:nabny/model/my_order_model.dart';
 import 'package:nabny/model/response_user_model.dart';
 import 'package:nabny/model/setting_model.dart';
 import 'package:nabny/repositries/repositries_status.dart';
@@ -332,6 +333,40 @@ class MyServiceApi {
       }
     }
     return favouriteModel;
+  }
+
+  static Future<MyOrderModel?> GetMyOrderUser(String Authorization, String Language) async {
+    MyOrderModel? myOrderModel;
+    try {
+      Response response = await Dio().get(URL + 'orders', options: Options(
+          headers: {
+            'Authorization': 'Bearer $Authorization',
+            'Accept-Language' : '$Language'
+          }
+      ));
+
+      if (response.statusCode == 200) {
+        print(response.statusCode);
+        print(response.data);
+        return MyOrderModel.fromJson(response.data);
+      } else {
+        // print('${response.statusMessage} : ${response.statusCode}');
+        return throw Exception(response.statusMessage!);
+      }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print('Dio error!');
+        print('STATUS: ${e.response?.statusCode}');
+        print('DATA: ${e.response?.data}');
+        print('DATA: ${e.response?.statusMessage}');
+        print('HEADERS: ${e.response?.headers}');
+      } else {
+        // Error due to setting up or sending the request
+        print('Error sending request!');
+        print(e.message);
+      }
+    }
+    return myOrderModel;
   }
 
   static Future<ResponseUserModel?> AddFavoriteUser(String Authorization, String Language, String companyId) async {

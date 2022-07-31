@@ -7,13 +7,9 @@ class FavouriteModel {
 
   FavouriteModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
-    if (json['favoriteResponseModel'
-            ''] !=
-        null) {
+    if (json['data'] != null) {
       favoriteResponseModel = <FavouriteResponseModel>[];
-      json['favoriteResponseModel'
-              '']
-          .forEach((v) {
+      json['data'].forEach((v) {
         favoriteResponseModel!.add(new FavouriteResponseModel.fromJson(v));
       });
     }
@@ -25,8 +21,7 @@ class FavouriteModel {
         new Map<String, dynamic>();
     favoriteResponseModel['success'] = this.success;
     if (this.favoriteResponseModel != null) {
-      favoriteResponseModel['favoriteResponseModel'
-          ''] = this.favoriteResponseModel!.map((v) => v.toJson()).toList();
+      favoriteResponseModel['data'] = this.favoriteResponseModel!.map((v) => v.toJson()).toList();
     }
     favoriteResponseModel['message'] = this.message;
     return favoriteResponseModel;

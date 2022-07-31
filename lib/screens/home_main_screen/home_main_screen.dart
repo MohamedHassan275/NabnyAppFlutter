@@ -32,6 +32,7 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
     super.initState();
     Get.lazyPut(() => HomeMainController());
   }
+
   @override
   Widget build(BuildContext context) {
     var widthValue = Get.width * 0.024;

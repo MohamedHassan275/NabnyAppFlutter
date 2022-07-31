@@ -31,23 +31,6 @@ class HomeController extends GetxController{
     getHomeDetailsUser();
   }
 
-  RxList<SliderItemsModel> SlidersList = List<SliderItemsModel>.from([
-    SliderItemsModel(Assets.imagesSliderImage),
-    SliderItemsModel(Assets.imagesSliderImage),
-    SliderItemsModel(Assets.imagesSliderImage),
-    SliderItemsModel(Assets.imagesSliderImage),
-    SliderItemsModel(Assets.imagesSliderImage),
-  ]).obs;
-
-
-  RxList<FactoryModel> factoryModel = List<FactoryModel>.from([
-    FactoryModel(Assets.imagesFactoryImage, 'شركه بن لادن', 'جيد جدا', '4.7', '250 km'),
-    FactoryModel(Assets.imagesFactoryImage, 'شركه بن لادن', 'جيد جدا', '4.7', '250 km'),
-    FactoryModel(Assets.imagesFactoryImage, 'شركه بن لادن', 'جيد جدا', '4.7', '250 km'),
-    FactoryModel(Assets.imagesFactoryImage, 'شركه بن لادن', 'جيد جدا', '4.7', '250 km'),
-    FactoryModel(Assets.imagesFactoryImage, 'شركه بن لادن', 'جيد جدا', '4.7', '250 km'),
-  ]).obs;
-
   getHomeDetailsUser(){
     setLoading(true);
     MyServiceApi.checkHomeDetailsUser(Get.find<StorageService>().GetToken, '${Get.find<MyLocalController>().language?.languageCode}').then((value){

@@ -20,40 +20,39 @@ class MyFavoriteScreen extends StatefulWidget {
 }
 
 class _MyFavoriteScreenState extends State<MyFavoriteScreen> {
-
-
-  List<FavouriteResponseModel>? favouriteResponseModel = [];
+  List<FavouriteResponseModel>? favouriteResponseModel =
+      <FavouriteResponseModel>[];
   late FavouriteModel favouriteModel;
   Future<FavouriteModel?>? _future;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    Get.put(MyFavoriteController());
 
-  }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   Get.put(MyFavoriteController());
+  //   print(Get.find<StorageService>().GetToken);
+  //   print(Get.find<MyLocalController>().language!.languageCode);
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-          child: SingleChildScrollView(
-        child: Container(
-          child: GetBuilder<MyFavoriteController>(
-            builder: (controller) {
-             favouriteModel = controller.favoriteModel;
-             return controller.loading ? ListView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: favouriteModel.favoriteResponseModel!.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: FactoryItemList(factoryModel: favouriteModel.favoriteResponseModel![index]),
-                );
-              },) : LoadingWidget(data: 'error data');},
-        )
-      )),
+        body: SafeArea(
+      child: SingleChildScrollView(
+          child: Container(
+              child: GetBuilder<MyFavoriteController>(
+                  init: MyFavoriteController(),
+                  builder: (controller) => ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: controller.favouriteResponseModel!.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: FactoryItemList(factoryModel: controller.favouriteResponseModel![index]),
+                      );
+                    },)))),
     ));
   }
 }
@@ -105,14 +104,12 @@ class FactoryItemList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         Get.to(FactoryDetailsScreen());
       },
       child: Card(
         elevation: 2,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15)
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         child: Container(
           width: Get.width,
           decoration: BoxDecoration(
@@ -126,7 +123,7 @@ class FactoryItemList extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(15),
                     child: FadeInImage(
-                      image: AssetImage("${factoryModel?.image}"),
+                      image: NetworkImage("${factoryModel?.image}"),
                       fit: BoxFit.fill,
                       height: 175,
                       width: Get.width,
@@ -148,9 +145,14 @@ class FactoryItemList extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(5.0),
-                child: DetailsCompany(factoryModel: factoryModel, heightValue: heightValue, widthValue: widthValue),
+                child: DetailsCompany(
+                    factoryModel: factoryModel,
+                    heightValue: heightValue,
+                    widthValue: widthValue),
               ),
-              SizedBox(height: heightValue * 1,)
+              SizedBox(
+                height: heightValue * 1,
+              )
             ],
           ),
         ),
@@ -160,10 +162,14 @@ class FactoryItemList extends StatelessWidget {
 }
 
 class DetailsCompany extends StatelessWidget {
-   DetailsCompany({required this.factoryModel,required this.heightValue,required this.widthValue});
+  DetailsCompany(
+      {required this.factoryModel,
+      required this.heightValue,
+      required this.widthValue});
 
-   FavouriteResponseModel? factoryModel;
-   double heightValue,widthValue;
+  FavouriteResponseModel? factoryModel;
+  double heightValue, widthValue;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -203,7 +209,9 @@ class DetailsCompany extends StatelessWidget {
                         color: Themes.ColorApp1,
                       ),
                     ),
-                    SizedBox(height: heightValue * .3,),
+                    SizedBox(
+                      height: heightValue * .3,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -215,14 +223,15 @@ class DetailsCompany extends StatelessWidget {
                             color: Themes.ColorApp8,
                           ),
                         ),
-                        SizedBox(width: widthValue * 1,),
+                        SizedBox(
+                          width: widthValue * 1,
+                        ),
                         Container(
                           width: 70,
                           height: 30,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(35),
-                              color: Themes.ColorApp12
-                          ),
+                              color: Themes.ColorApp12),
                           child: Center(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -235,8 +244,13 @@ class DetailsCompany extends StatelessWidget {
                                     color: Themes.ColorApp13,
                                   ),
                                 ),
-                                SizedBox(width: widthValue * .2,),
-                                Icon(Icons.star,color: Themes.ColorApp13,)
+                                SizedBox(
+                                  width: widthValue * .2,
+                                ),
+                                Icon(
+                                  Icons.star,
+                                  color: Themes.ColorApp13,
+                                )
                               ],
                             ),
                           ),
@@ -252,15 +266,22 @@ class DetailsCompany extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '${factoryModel?.distance}''km'.tr,
+                '${factoryModel?.distance}' 'km'.tr,
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 12,
                   color: Themes.ColorApp8,
                 ),
               ),
-              SizedBox(width: widthValue * 1,),
-              Image.asset(Assets.iconsDistanceIcon,fit: BoxFit.contain,width: 35,height: 35,)
+              SizedBox(
+                width: widthValue * 1,
+              ),
+              Image.asset(
+                Assets.iconsDistanceIcon,
+                fit: BoxFit.contain,
+                width: 35,
+                height: 35,
+              )
             ],
           )
         ],

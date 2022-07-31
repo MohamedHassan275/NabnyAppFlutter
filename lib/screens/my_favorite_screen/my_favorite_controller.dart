@@ -11,21 +11,23 @@ import '../../core/constant/constant.dart';
 
 class MyFavoriteController extends GetxController {
 
+
+
   bool Loading = false;
-  late List<FavouriteResponseModel> _favouriteResponseModel;
-  late FavouriteModel _favouriteModel;
+  List<FavouriteResponseModel>? _favouriteResponseModel;
+  FavouriteModel? _favouriteModel;
 
   get loading => Loading;
-  List<FavouriteResponseModel> get favouriteResponseModel => _favouriteResponseModel;
-  FavouriteModel get favoriteModel => _favouriteModel;
+  List<FavouriteResponseModel>? get favouriteResponseModel => _favouriteResponseModel;
+  FavouriteModel? get favoriteModel => _favouriteModel;
 
   setLoading(bool loading){
     Loading = loading;
     update();
   }
 
-  setFavoriteUserList(FavouriteModel favouriteModels){
-    _favouriteModel = favouriteModels;
+  setFavoriteUserList(List<FavouriteResponseModel>? favouriteResponseModel){
+    _favouriteResponseModel = favouriteResponseModel;
   }
 
 
@@ -42,7 +44,7 @@ class MyFavoriteController extends GetxController {
         setLoading(false);
         print(value?.success);
         print(value!);
-        setFavoriteUserList(value);
+        setFavoriteUserList(value.favoriteResponseModel);
       }else if (value?.success == false){
         setLoading(false);
         CustomFlutterToast('${value?.message}');

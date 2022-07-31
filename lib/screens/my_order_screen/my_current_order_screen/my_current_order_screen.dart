@@ -1,16 +1,21 @@
 
+
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nabny/componant/LoadingWidget.dart';
-import 'package:nabny/model/my_order_model.dart';
+import 'package:nabny/screens/home_main_screen/home_main_controller.dart';
+import 'package:nabny/screens/home_screen/home_controller.dart';
+import 'package:nabny/screens/my_favorite_screen/my_favorite_controller.dart';
+import 'package:nabny/screens/my_order_screen/my_current_order_screen/details_my_current_order_screen.dart';
 import 'package:nabny/screens/my_order_screen/my_order_controller.dart';
-import 'package:nabny/screens/my_order_screen/my_sender_order_screen/details_sender_order_screen.dart';
 
+import '../../../componant/LoadingWidget.dart';
+import '../../../core/constant/Themes.dart';
 import '../../../generated/assets.dart';
-import '../../../utils/Themes.dart';
+import '../../../model/my_order_model.dart';
 
-class MySenderOrderScreen extends StatelessWidget {
-  const MySenderOrderScreen({Key? key}) : super(key: key);
+class MyCurrentOrderScreen extends StatelessWidget {
+  const MyCurrentOrderScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +33,13 @@ class MySenderOrderScreen extends StatelessWidget {
                 }
                 return controller.myOrderResponseModel!.sentOrder!.isNotEmpty ?
                 ListView.builder(
-                  itemCount: controller.myOrderResponseModel!.sentOrder!.length,
+                  itemCount: controller.myOrderResponseModel!.currentOrder!.length,
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                      child: MySendOrderListItem(sendOrder: controller.myOrderResponseModel!.sentOrder![index], heightValue: heightValue,widthValue: widthValue,),
+                      child: MySendOrderListItem(currentOrder: controller.myOrderResponseModel!.currentOrder![index], heightValue: heightValue,widthValue: widthValue,),
                     );
                   },) : NoItemOFList();
               },),)
@@ -44,9 +49,9 @@ class MySenderOrderScreen extends StatelessWidget {
 }
 
 class MySendOrderListItem extends StatelessWidget {
-   MySendOrderListItem({Key? key,required this.sendOrder,required this.widthValue,required this.heightValue}) : super(key: key);
-   double heightValue,widthValue;
-   SendOrder sendOrder;
+  MySendOrderListItem({Key? key,required this.currentOrder,required this.widthValue,required this.heightValue}) : super(key: key);
+  double heightValue,widthValue;
+  CurrentOrder currentOrder;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -63,7 +68,7 @@ class MySendOrderListItem extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              CompanyDetails(sendOrder),
+              CompanyDetails(currentOrder),
               SizedBox(height: heightValue * 1,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -92,7 +97,7 @@ class MySendOrderListItem extends StatelessWidget {
                     ),
                     SizedBox(width: widthValue * 1,),
                     Text(
-                      '${sendOrder.qtyM}''sar'.tr,
+                      '${currentOrder.qtyM}''sar'.tr,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 14,
@@ -107,7 +112,7 @@ class MySendOrderListItem extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: GestureDetector(
                   onTap: (){
-                    Get.to(DetailsSenderOrderScreen());
+                    Get.to(DetailsMyCurrentOrder());
                   },
                   child: Container(
                     width: Get.width,
@@ -186,7 +191,7 @@ class NoItemOFList extends StatelessWidget {
 class CompanyDetails extends StatelessWidget {
   CompanyDetails(this.myCurrentOrderModel);
 
-  SendOrder? myCurrentOrderModel;
+  CurrentOrder? myCurrentOrderModel;
   var heightValue = Get.height * 0.024;
   var widthValue = Get.width * 0.024;
   @override
@@ -296,3 +301,4 @@ class CompanyDetails extends StatelessWidget {
     );
   }
 }
+
