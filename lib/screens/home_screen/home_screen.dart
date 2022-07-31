@@ -45,102 +45,107 @@ class HomeScreen_State extends State<HomeScreen> {
           child: Padding(padding: EdgeInsets.symmetric(horizontal: 10),
           child: GetBuilder<HomeController>(
             init: HomeController(),
-            builder: (controller) => Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: heightValue * .5,
-                ),
-                Card(
-                  color: Themes.whiteColor,
-                  child: Container(
-                    height: 200,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: CarouselSlider(
-                        items: controller.homeUserModel!.sliders!.map((e) => Image(
-                          image: NetworkImage('${e.image}'),
-                          height: 200,
-                          fit: BoxFit.fill,
-                        )).toList(),
-                        options: CarouselOptions(
-                          height: 200,
-                          aspectRatio: 2.0,
-                          viewportFraction: 1.0,
-                          initialPage: 0,
-                          enableInfiniteScroll: true,
-                          reverse: false,
-                          autoPlay: true,
-                          autoPlayInterval: Duration(seconds: 3),
-                          autoPlayAnimationDuration: Duration(seconds: 1),
-                          autoPlayCurve: Curves.fastOutSlowIn,
-                          scrollDirection: Axis.horizontal,
-                        )),
+            builder: (controller){
+              if (controller.isLoading){
+                return LoadingWidget(data: '');
+              }
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: heightValue * .5,
                   ),
-                ),
-                SizedBox(
-                  height: heightValue * .5,
-                ),
-                SearchForSomeFactories(
-                    homeUserResponseModel: controller.homeUserModel,
-                    widthValue: widthValue,
+                  Card(
+                    color: Themes.whiteColor,
+                    child: Container(
+                      height: 200,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: CarouselSlider(
+                          items: controller.homeUserModel!.sliders!.map((e) => Image(
+                            image: NetworkImage('${e.image}'),
+                            height: 200,
+                            fit: BoxFit.fill,
+                          )).toList(),
+                          options: CarouselOptions(
+                            height: 200,
+                            aspectRatio: 2.0,
+                            viewportFraction: 1.0,
+                            initialPage: 0,
+                            enableInfiniteScroll: true,
+                            reverse: false,
+                            autoPlay: true,
+                            autoPlayInterval: Duration(seconds: 3),
+                            autoPlayAnimationDuration: Duration(seconds: 1),
+                            autoPlayCurve: Curves.fastOutSlowIn,
+                            scrollDirection: Axis.horizontal,
+                          )),
+                    ),
+                  ),
+                  SizedBox(
+                    height: heightValue * .5,
+                  ),
+                  SearchForSomeFactories(
+                      homeUserResponseModel: controller.homeUserModel,
+                      widthValue: widthValue,
+                      heightValue: heightValue,
+                      onTap: () =>
+                          Get.to(const GoogleMapLocationUserScreen())),
+                  SizedBox(
+                    height: heightValue * 1.5,
+                  ),
+                  LookingForFactory(widthValue: widthValue),
+                  SizedBox(
+                    height: heightValue * 1.5,
+                  ),
+                  OrderPriceRequest(
                     heightValue: heightValue,
-                    onTap: () =>
-                        Get.to(const GoogleMapLocationUserScreen())),
-                SizedBox(
-                  height: heightValue * 1.5,
-                ),
-                LookingForFactory(widthValue: widthValue),
-                SizedBox(
-                  height: heightValue * 1.5,
-                ),
-                OrderPriceRequest(
-                  heightValue: heightValue,
-                ),
-                SizedBox(
-                  height: heightValue * 1,
-                ),
-                CategoryListBuild(heightValue: heightValue, homeUserResponseModel: controller.homeUserModel,),
-                SizedBox(
-                  height: heightValue * 1,
-                ),
-                GetBuilder<HomeController>(
-                  init: HomeController(),
-                  builder: (controller) {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'some_factories'.tr,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
-                            color: Themes.ColorApp1,
+                  ),
+                  SizedBox(
+                    height: heightValue * 1,
+                  ),
+                  CategoryListBuild(heightValue: heightValue, homeUserResponseModel: controller.homeUserModel,),
+                  SizedBox(
+                    height: heightValue * 1,
+                  ),
+                  GetBuilder<HomeController>(
+                    init: HomeController(),
+                    builder: (controller) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'some_factories'.tr,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                              color: Themes.ColorApp1,
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: heightValue * .7,
-                        ),
-                        ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          physics: const ScrollPhysics(),
-                          itemCount: controller.homeUserModel?.companies!.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5),
-                              child: FactoryItemList(companiesModel: controller.homeUserModel?.companies?[index]),
-                            );
-                          },),
-                      ],
-                    );
-                  },
-                ),
-              ],
-            )),),
+                          SizedBox(
+                            height: heightValue * .7,
+                          ),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            physics: const ScrollPhysics(),
+                            itemCount: controller.homeUserModel?.companies!.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 5),
+                                child: FactoryItemList(companiesModel: controller.homeUserModel?.companies?[index]),
+                              );
+                            },),
+                        ],
+                      );
+                    },
+                  ),
+                ],
+              );
+            }),),
         ),
       ))
     );
