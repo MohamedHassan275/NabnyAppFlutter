@@ -272,7 +272,7 @@ class FactoryItemList extends StatelessWidget {
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: GestureDetector(
-        onTap: () => Get.to(const FactoryDetailsScreen()),
+        onTap: () => Get.to(FactoryDetailsScreen(companies: companiesModel!,)),
         child: Container(
           width: Get.width,
           decoration: BoxDecoration(

@@ -116,7 +116,7 @@ class FactoryItemList extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        Get.to(FactoryDetailsScreen());
+     //   Get.to(FactoryDetailsScreen());
       },
       child: Card(
         elevation: 2,

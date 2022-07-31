@@ -107,7 +107,7 @@ class MySendOrderListItem extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: GestureDetector(
                   onTap: (){
-                    Get.to(DetailsSenderOrderScreen());
+                    Get.to(DetailsSenderOrderScreen(sendOrder: sendOrder,));
                   },
                   child: Container(
                     width: Get.width,

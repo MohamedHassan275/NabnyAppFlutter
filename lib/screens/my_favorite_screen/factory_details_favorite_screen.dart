@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/core/localization/local_controller.dart';
+import 'package:nabny/model/favouriteModel.dart';
 import 'package:nabny/model/home_user_model.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:nabny/screens/requirements_request_offer_price_screen/requirements_request_offer_price_screen.dart';
@@ -9,9 +10,9 @@ import 'package:nabny/screens/requirements_request_offer_price_screen/requiremen
 import '../../generated/assets.dart';
 import '../../utils/Themes.dart';
 
-class FactoryDetailsScreen extends StatelessWidget {
-   FactoryDetailsScreen({Key? key,required this.companies}) : super(key: key);
-   Companies companies;
+class FactoryDetailsFavoriteScreen extends StatelessWidget {
+   FactoryDetailsFavoriteScreen({Key? key,required this.favouriteResponseModel}) : super(key: key);
+   FavouriteResponseModel favouriteResponseModel;
   @override
   Widget build(BuildContext context) {
     var heightValue = Get.height * 0.024;
@@ -31,21 +32,21 @@ class FactoryDetailsScreen extends StatelessWidget {
                     topRight: Radius.circular(35), topLeft: Radius.circular(35))),
             child: Stack(
               children: [
-                ImageAndFavoriteFactory(heightValue: heightValue),
+                ImageAndFavoriteFactory(heightValue: heightValue, favouriteResponseModel: favouriteResponseModel,),
                 Positioned(
                     top: heightValue * 13,
                     right: widthValue * 2,
                     left: widthValue * 2,
                     child: FactoryDetails(
                       heightValue: heightValue,
-                      widthValue: widthValue, companies: companies,
+                      widthValue: widthValue, favouriteResponseModel: favouriteResponseModel,
                     )),
                 SizedBox(height: heightValue * 1.5,),
                 Positioned(
                     top: heightValue * 22,
                     child: FactoryDetails2(
                       heightValue: heightValue,
-                      widthValue: widthValue, companies: companies,
+                      widthValue: widthValue, favouriteResponseModel: favouriteResponseModel,
                     )),
                 Positioned(
                     bottom: heightValue * 3,
@@ -62,13 +63,13 @@ class FactoryDetailsScreen extends StatelessWidget {
 }
 
 class ImageAndFavoriteFactory extends StatelessWidget {
-  ImageAndFavoriteFactory({required this.heightValue});
-
+  ImageAndFavoriteFactory({required this.heightValue,required this.favouriteResponseModel});
+  FavouriteResponseModel favouriteResponseModel;
   double heightValue;
   double height = Get.height * 0.024 * 2;
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return  Padding(
       padding: EdgeInsets.symmetric(horizontal: 25, vertical: height),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -97,8 +98,8 @@ class ImageAndFavoriteFactory extends StatelessWidget {
 }
 
 class FactoryDetails extends StatelessWidget {
-  FactoryDetails({required this.companies, required this.heightValue, required this.widthValue});
-  Companies companies;
+  FactoryDetails({required this.favouriteResponseModel, required this.heightValue, required this.widthValue});
+  FavouriteResponseModel favouriteResponseModel;
   double heightValue, widthValue;
 
   @override
@@ -137,7 +138,7 @@ class FactoryDetails extends StatelessWidget {
                         width: widthValue * .7,
                       ),
                       Text(
-                        '${companies.name}',
+                        '${favouriteResponseModel.name}',
                         style: TextStyle(
                           fontSize: 12,
                           color: Themes.ColorApp1,
@@ -149,7 +150,7 @@ class FactoryDetails extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        '${companies.about}',
+                        '${favouriteResponseModel.about}',
                         style: TextStyle(
                           fontSize: 12,
                           color: Themes.ColorApp1,
@@ -170,7 +171,7 @@ class FactoryDetails extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                '${companies.rate}',
+                                '${favouriteResponseModel.rate}',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 12,
@@ -199,9 +200,9 @@ class FactoryDetails extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: companies.services!.length,
+                itemCount: favouriteResponseModel.services!.length,
                 itemBuilder: (context, index) => StyleOrderWidget(
-                  title: '${companies.services}',
+                  title: '${favouriteResponseModel.services}',
                 ),),
               SizedBox(
                 height: heightValue * 1.5,
@@ -215,8 +216,8 @@ class FactoryDetails extends StatelessWidget {
 }
 
 class FactoryDetails2 extends StatelessWidget {
-   FactoryDetails2({required this.companies, required this.heightValue, required this.widthValue});
-   Companies companies;
+   FactoryDetails2({required this.favouriteResponseModel, required this.heightValue, required this.widthValue});
+   FavouriteResponseModel favouriteResponseModel;
   double heightValue, widthValue;
 
   @override
@@ -238,7 +239,7 @@ class FactoryDetails2 extends StatelessWidget {
             ),
             SizedBox(height: heightValue * .5,),
             Text(
-              '${companies.about}',
+              '${favouriteResponseModel.about}',
               style: TextStyle(
                 fontSize: 16,
                 color: Themes.ColorApp8,

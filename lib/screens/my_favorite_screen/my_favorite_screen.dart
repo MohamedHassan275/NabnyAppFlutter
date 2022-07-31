@@ -6,6 +6,7 @@ import 'package:nabny/model/factory_model.dart';
 import 'package:nabny/model/favouriteModel.dart';
 import 'package:nabny/repositries/servies_api/MyServiceApi.dart';
 import 'package:nabny/screens/factory_details_screen/factory_details_screen.dart';
+import 'package:nabny/screens/my_favorite_screen/factory_details_favorite_screen.dart';
 import 'package:nabny/screens/my_favorite_screen/my_favorite_controller.dart';
 
 import '../../core/localization/local_controller.dart';
@@ -105,7 +106,7 @@ class FactoryItemList extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(FactoryDetailsScreen());
+        Get.to(FactoryDetailsFavoriteScreen(favouriteResponseModel: factoryModel!,));
       },
       child: Card(
         elevation: 2,
