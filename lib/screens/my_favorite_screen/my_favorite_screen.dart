@@ -43,18 +43,25 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen> {
           child: Container(
               child: GetBuilder<MyFavoriteController>(
                   init: MyFavoriteController(),
-                  builder: (controller) => ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: controller.favouriteResponseModel!.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: FactoryItemList(factoryModel: controller.favouriteResponseModel![index]),
-                      );
-                    },)))),
-    ));
+                  builder: (controller){
+                    if(controller.Loading){
+                      return LoadingWidget(data: '');
+                    }
+                    return controller.favouriteResponseModel!.isNotEmpty ?
+                    ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: controller.favouriteResponseModel!.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: FactoryItemList(factoryModel: controller.favouriteResponseModel![index]),
+                        );
+                      },) : NoItemOFList();
+                  }
+                  )),
+    )));
   }
 }
 
@@ -206,12 +213,12 @@ class DetailsCompany extends StatelessWidget {
                       '${factoryModel?.name}',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: 16,
+                        fontSize: 15,
                         color: Themes.ColorApp1,
                       ),
                     ),
                     SizedBox(
-                      height: heightValue * .3,
+                      height: heightValue * .5,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -267,7 +274,18 @@ class DetailsCompany extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '${factoryModel?.distance}' 'km'.tr,
+                '${factoryModel?.distance}',
+                style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 12,
+                  color: Themes.ColorApp8,
+                ),
+              ),
+              SizedBox(
+                width: widthValue * .3,
+              ),
+              Text(
+                'km'.tr,
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 12,

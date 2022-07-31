@@ -103,6 +103,8 @@ class FactoryDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var List = companies.services;
+    var stringList = List!.join(" , ");
     return Card(
       elevation: 0,
       shape: RoundedRectangleBorder(
@@ -138,6 +140,7 @@ class FactoryDetails extends StatelessWidget {
                       ),
                       Text(
                         '${companies.name}',
+                         maxLines: 2,
                         style: TextStyle(
                           fontSize: 12,
                           color: Themes.ColorApp1,
@@ -149,7 +152,8 @@ class FactoryDetails extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        '${companies.about}',
+                        '${companies.category}',
+                        maxLines: 2,
                         style: TextStyle(
                           fontSize: 12,
                           color: Themes.ColorApp1,
@@ -195,14 +199,9 @@ class FactoryDetails extends StatelessWidget {
               SizedBox(
                 height: heightValue * .7,
               ),
-              ListView.builder(
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: companies.services!.length,
-                itemBuilder: (context, index) => StyleOrderWidget(
-                  title: '${companies.services}',
-                ),),
+              StyleOrderWidget(
+                title: '${stringList}',
+              ),
               SizedBox(
                 height: heightValue * 1.5,
               )
@@ -229,7 +228,7 @@ class FactoryDetails2 extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'عن الشركه',
+              'about_company'.tr,
               style: TextStyle(
                 fontSize: 16,
                 color: Themes.ColorApp8,
@@ -260,18 +259,27 @@ class StyleOrderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 70,
-      height: 35,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(25),color: Themes.ColorApp14,),
-      child: Center(
-        child: Text(
-          title,
-          style: TextStyle(
-            fontSize: 14,
-            color: Themes.ColorApp1,
-            fontWeight: FontWeight.w400,
-          ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 25),
+      child: Container(
+        width: Get.width,
+        height: 30,
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(25),color: Themes.ColorApp14,),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(height: 5,),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 14,
+                color: Themes.ColorApp1,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            SizedBox(height: 5,)
+          ],
         ),
       ),
     );
