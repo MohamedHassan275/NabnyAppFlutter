@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:nabny/core/constant/constant.dart';
 import 'package:nabny/model/LocationModel.dart';
+import 'package:nabny/model/OfferOrderRequestModel.dart';
 import 'package:nabny/model/home_user_model.dart';
 import 'package:nabny/model/login_user_model.dart';
 import 'package:nabny/model/logout_user_model.dart';
@@ -295,6 +296,45 @@ class MyServiceApi {
       }
     }
     return homeUserModel;
+  }
+
+  static Future<OfferOrderRequestModel?> GetRequestOfferPrice(String Authorization, String Language) async {
+    OfferOrderRequestModel? offerOrderRequestModel;
+    // var formData = FormData.fromMap({
+    //   'lat' : lat,
+    //   'lng' : lng,
+    // });
+    try {
+      Response response =
+      await Dio().post(URL + 'price_offers', options: Options(
+          headers: {
+            'Authorization': 'Bearer $Authorization',
+            'Accept-Language' : '$Language'
+          }
+      ));
+
+      if (response.statusCode == 200) {
+        print(response.statusCode);
+        print(response.data);
+        return OfferOrderRequestModel.fromJson(response.data);
+      } else {
+        // print('${response.statusMessage} : ${response.statusCode}');
+        return throw Exception(response.statusMessage!);
+      }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print('Dio error!');
+        print('STATUS: ${e.response?.statusCode}');
+        print('DATA: ${e.response?.data}');
+        print('DATA: ${e.response?.statusMessage}');
+        print('HEADERS: ${e.response?.headers}');
+      } else {
+        // Error due to setting up or sending the request
+        print('Error sending request!');
+        print(e.message);
+      }
+    }
+    return offerOrderRequestModel;
   }
 
   static Future<FavouriteModel?> GetFavoriteUser(String Authorization, String Language) async {

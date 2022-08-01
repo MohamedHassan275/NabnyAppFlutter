@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
+import 'package:nabny/componant/LoadingWidget.dart';
+import 'package:nabny/core/constant/constant.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/model/request_offer_order_model.dart';
 import 'package:nabny/screens/factory_offer_price_screen/factory_offer_price_screen.dart';
@@ -9,19 +11,11 @@ import 'package:nabny/screens/requirements_request_offer_price_screen/requiremen
 import 'package:nabny/screens/requirements_request_offer_price_screen/requirements_request_offer_price_screen.dart';
 import 'package:nabny/utils/Themes.dart';
 
+import '../../model/OfferOrderRequestModel.dart';
 import '../home_main_screen/home_main_screen.dart';
 
-class RequestOfferPriceScreen extends StatefulWidget {
+class RequestOfferPriceScreen extends StatelessWidget {
   const RequestOfferPriceScreen({Key? key}) : super(key: key);
-
-  @override
-  _RequestOfferPriceScreenState createState() =>
-      _RequestOfferPriceScreenState();
-}
-
-class _RequestOfferPriceScreenState extends State<RequestOfferPriceScreen> {
-  RequestOfferPriceController requestOfferPriceController =
-      Get.put(RequestOfferPriceController());
 
   @override
   Widget build(BuildContext context) {
@@ -30,53 +24,63 @@ class _RequestOfferPriceScreenState extends State<RequestOfferPriceScreen> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
+          child: Stack(
             children: [
-              AppbarDetailsOrder(widthValue, heightValue),
-              SizedBox(height: heightValue * 1,),
-              Obx(() => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 0),
-                child: ListView.builder(
-                  itemCount: requestOfferPriceController.requestOfferOrderModel.length,
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return RequestOfferOrderItems(requestOfferOrderModel: requestOfferPriceController.requestOfferOrderModel[index]);
-                      },
-                    ),
-              )),
-              SizedBox(height: heightValue * 1.5,),
-              CustomButtonImage(title: 'add_order'.tr, hight: 50, onTap: (){
-                Get.to(const RequirementsRequestOfferPriceScreen());
-              }),
+              Column(
+                children: [
+                  AppbarDetailsOrder(widthValue, heightValue),
+                  SizedBox(height: heightValue * 1,),
+                  GetBuilder<RequestOfferPriceController>(
+                    init: RequestOfferPriceController(),
+                    builder: (controller) {
+                      if(controller.Loading){
+                        return LoadingWidget(data: '');
+                      }
+                      return controller.offerOrderRequestResponseModel!.isNotEmpty ?
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 0),
+                        child: ListView.builder(
+                          itemCount: controller.offerOrderRequestResponseModel!.length,
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return RequestOfferOrderItems(requestOfferOrderModel: controller.offerOrderRequestResponseModel![index]);
+                          },
+                        ),
+                      ) : NoItemOFList();
+                    },),
+                  SizedBox(height: heightValue * 1,),
+                ],
+              ),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: CustomButtonImage(title: 'add_order'.tr, hight: 50, onTap: (){
+                    Get.to(const RequirementsRequestOfferPriceScreen());
+                  }),
+                ),
+              ),
               SizedBox(height: heightValue * 1,),
             ],
           ),
         ),
       ),
     );
+
   }
 }
 
 
-class RequestOfferOrderItems extends StatefulWidget {
-   RequestOfferOrderItems({required this.requestOfferOrderModel});
+class RequestOfferOrderItems extends StatelessWidget {
+  RequestOfferOrderItems({required this.requestOfferOrderModel});
 
-   RequestOfferOrderModel requestOfferOrderModel;
-
-  @override
-  State<RequestOfferOrderItems> createState() => _RequestOfferOrderItemsState();
-}
-
-class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
-   var widthValue = Get.width * 0.024;
-
-   var heightValue = Get.height * 0.024;
-
-   bool isVisible = false;
+  OfferOrderRequestResponseModel requestOfferOrderModel;
 
   @override
   Widget build(BuildContext context) {
+    var widthValue = Get.width * 0.024;
+    var heightValue = Get.height * 0.024;
+    bool isVisible = false;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
       child: Card(
@@ -88,7 +92,7 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              AddressDetailsOrder(requestOfferOrderModel: widget.requestOfferOrderModel,),
+              AddressDetailsOrder(requestOfferOrderModel: requestOfferOrderModel,),
               SizedBox(
                 height: heightValue * .7,
               ),
@@ -99,58 +103,59 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
               SizedBox(
                 height: heightValue * .7,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  DetailsOrder(widthValue, 'type_of_casting'.tr, '${widget.requestOfferOrderModel.typeCastingOrderRequest}'),
-                  GestureDetector(
-                    onTap: (){
-                      setState(() {
-                        isVisible  = !isVisible;
-                      });
-                    },
-                      child: Icon(!isVisible ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_up_rounded,size: 25,color: Themes.ColorApp1,))
-                ],
-              ),
+              DetailsOrder(widthValue, 'type_of_casting'.tr, '${requestOfferOrderModel.castingType}'),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //
+              //     GestureDetector(
+              //         onTap: (){
+              //           setState(() {
+              //             isVisible  = !isVisible;
+              //           });
+              //         },
+              //         child: Icon(!isVisible ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_up_rounded,size: 25,color: Themes.ColorApp1,))
+              //   ],
+              // ),
               SizedBox(
                 height: heightValue * .7,
               ),
-              DetailsOrder(widthValue, 'execution_date'.tr, '${widget.requestOfferOrderModel.dateOrderRequest}'),
+              DetailsOrder(widthValue, 'execution_date'.tr, '${requestOfferOrderModel.executionDate}'),
               SizedBox(
                 height: heightValue * .7,
               ),
-              Visibility(
-                visible: isVisible ? true : false,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    DetailsOrder(widthValue, 'quantity'.tr, '${widget.requestOfferOrderModel.weightOrderRequest}'),
-                    SizedBox(
-                      height: heightValue * .7,
-                    ),
-                    DetailsOrder(widthValue, 'mix_type'.tr, '${widget.requestOfferOrderModel.mixTypeOrderRequest}'),
-                    SizedBox(
-                      height: heightValue * .7,
-                    ),
-                    DetailsOrder(widthValue, 'cement_type'.tr, '${widget.requestOfferOrderModel.cementTypeOrderRequest}'),
-                    SizedBox(
-                      height: heightValue * .7,
-                    ),
-                    DetailsOrder(widthValue, 'stone_size'.tr, '${widget.requestOfferOrderModel.stoneTypeOrderRequest}'),
-                    SizedBox(
-                      height: heightValue * .7,
-                    ),
-                    DetailsOrder(widthValue, 'Special_specifications'.tr, '${widget.requestOfferOrderModel.specialOrderRequest}'),
-                    SizedBox(
-                      height: heightValue * .7,
-                    ),
-                    DetailsOrder(widthValue, 'pump_order'.tr, '${widget.requestOfferOrderModel.pumpLengthOrderRequest}'),
-                    SizedBox(
-                      height: heightValue * .7,
-                    ),
-                  ],
-                ),
-              ),
+              // Visibility(
+              //   visible: isVisible ? true : false,
+              //   child: Column(
+              //     mainAxisAlignment: MainAxisAlignment.start,
+              //     children: [
+              //       DetailsOrder(widthValue, 'quantity'.tr, '${widget.requestOfferOrderModel.weightOrderRequest}'),
+              //       SizedBox(
+              //         height: heightValue * .7,
+              //       ),
+              //       DetailsOrder(widthValue, 'mix_type'.tr, '${widget.requestOfferOrderModel.mixTypeOrderRequest}'),
+              //       SizedBox(
+              //         height: heightValue * .7,
+              //       ),
+              //       DetailsOrder(widthValue, 'cement_type'.tr, '${widget.requestOfferOrderModel.cementTypeOrderRequest}'),
+              //       SizedBox(
+              //         height: heightValue * .7,
+              //       ),
+              //       DetailsOrder(widthValue, 'stone_size'.tr, '${widget.requestOfferOrderModel.stoneTypeOrderRequest}'),
+              //       SizedBox(
+              //         height: heightValue * .7,
+              //       ),
+              //       DetailsOrder(widthValue, 'Special_specifications'.tr, '${widget.requestOfferOrderModel.specialOrderRequest}'),
+              //       SizedBox(
+              //         height: heightValue * .7,
+              //       ),
+              //       DetailsOrder(widthValue, 'pump_order'.tr, '${widget.requestOfferOrderModel.pumpLengthOrderRequest}'),
+              //       SizedBox(
+              //         height: heightValue * .7,
+              //       ),
+              //     ],
+              //   ),
+              // ),
               SizedBox(
                 height: heightValue * 1.2,
               ),
@@ -188,7 +193,7 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
                             ),
                             child: Center(
                               child:  Text(
-                                '6',
+                                '${requestOfferOrderModel.request!.length}',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 16,
@@ -211,7 +216,12 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
                       SizedBox(width: widthValue *.5,),
                       Expanded(
                         child: CustomButtonImage2(title: 'watch'.tr, hight: 38, width: 85, onTap: (){
-                          Get.to(const FactoryOfferPriceScreen());
+                         if (requestOfferOrderModel.request!.isEmpty){
+                           CustomFlutterToast('no_companies_here');
+                         }else if (requestOfferOrderModel.request!.isNotEmpty){
+                           CustomFlutterToast('no_companies_here2');
+                           Get.to(const FactoryOfferPriceScreen());
+                         }
                         }),
                       ),
                     ],
@@ -225,6 +235,7 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
     );
   }
 }
+
 
 class AppbarDetailsOrder extends StatelessWidget {
   AppbarDetailsOrder(this.widthValue, this.heightValue);
@@ -312,7 +323,7 @@ class NoItemOFList extends StatelessWidget {
 class AddressDetailsOrder extends StatelessWidget {
   AddressDetailsOrder({required this.requestOfferOrderModel});
 
-  RequestOfferOrderModel requestOfferOrderModel;
+  OfferOrderRequestResponseModel requestOfferOrderModel;
   var heightValue = Get.height * 0.024;
   var widthValue = Get.width * 0.024;
 
@@ -342,31 +353,14 @@ class AddressDetailsOrder extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${requestOfferOrderModel.TitleAddress}',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                      color: Themes.ColorApp1,
-                    ),
-                  ),
-                  SizedBox(
-                    height: heightValue * .3,
-                  ),
-                  Text(
-                    '${requestOfferOrderModel.DetailsAddress}',
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 12,
-                      color: Themes.ColorApp1,
-                    ),
-                  ),
-                ],
+              child: Text(
+                '${requestOfferOrderModel.address}',
+                 textAlign: TextAlign.start,
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                  color: Themes.ColorApp1,
+                ),
               ),
             )
           ],

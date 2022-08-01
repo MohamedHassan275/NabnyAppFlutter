@@ -15,11 +15,11 @@ class MyFavoriteController extends GetxController {
 
   bool Loading = false;
   List<FavouriteResponseModel>? _favouriteResponseModel;
-  FavouriteModel? _favouriteModel;
+//  FavouriteModel? _favouriteModel;
 
   get loading => Loading;
   List<FavouriteResponseModel>? get favouriteResponseModel => _favouriteResponseModel;
-  FavouriteModel? get favoriteModel => _favouriteModel;
+ // FavouriteModel? get favoriteModel => _favouriteModel;
 
   setLoading(bool loading){
     Loading = loading;
