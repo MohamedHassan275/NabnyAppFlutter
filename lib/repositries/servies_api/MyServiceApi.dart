@@ -297,6 +297,58 @@ class MyServiceApi {
     }
     return homeUserModel;
   }
+  static Future<ResponseUserModel?> AddOfferOrderRequest(String Authorization, String Language,
+      String companyId,String casting_type,String execution_date,String qty_m,String mix_type,
+      String cement_type, String stone_size,String special_description,String address,String with_pump,
+      String pump_length,String with_snow, String with_lab) async {
+    ResponseUserModel? responseUserModel;
+    var formData = FormData.fromMap({
+      'company' : companyId,
+      'casting_type' : casting_type,
+      'execution_date' : execution_date,
+      'qty_m' : qty_m,
+      'mix_type' : mix_type,
+      'cement_type' : cement_type,
+      'stone_size' : stone_size,
+      'special_description' : special_description,
+      'address' : address,
+      'with_pump' : with_pump,
+      'pump_length' : pump_length,
+      'with_snow' : with_snow,
+      'with_lab' : with_lab,
+    });
+    try {
+      Response response =
+      await Dio().post(URL + 'order/add', data :formData ,options: Options(
+          headers: {
+            'Authorization': 'Bearer $Authorization',
+            'Accept-Language' : '$Language'
+          }
+      ));
+
+      if (response.statusCode == 200) {
+        print(response.statusCode);
+        print(response.data);
+        return ResponseUserModel.fromJson(response.data);
+      } else {
+        // print('${response.statusMessage} : ${response.statusCode}');
+        return throw Exception(response.statusMessage!);
+      }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print('Dio error!');
+        print('STATUS: ${e.response?.statusCode}');
+        print('DATA: ${e.response?.data}');
+        print('DATA: ${e.response?.statusMessage}');
+        print('HEADERS: ${e.response?.headers}');
+      } else {
+        // Error due to setting up or sending the request
+        print('Error sending request!');
+        print(e.message);
+      }
+    }
+    return responseUserModel;
+  }
 
   static Future<OfferOrderRequestModel?> GetRequestOfferPrice(String Authorization, String Language) async {
     OfferOrderRequestModel? offerOrderRequestModel;

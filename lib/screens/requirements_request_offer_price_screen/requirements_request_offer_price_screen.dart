@@ -5,10 +5,13 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/core/localization/local_controller.dart';
+import 'package:nabny/core/servies/storage_service.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/my_address_request_offer_screen/my_address_request_offer_screen.dart';
+import 'package:nabny/screens/requirements_request_offer_price_screen/requirements_request_offer_price_controller.dart';
 import 'package:nabny/utils/Themes.dart';
 import '../../componant/CustomTextFieldWidget.dart';
+import '../../core/constant/constant.dart';
 import '../home_main_screen/home_main_screen.dart';
 
 class RequirementsRequestOfferPriceScreen extends StatefulWidget {
@@ -60,7 +63,6 @@ class _RequirementsRequestOfferPriceScreenState
     print(formattedDateCurrent); // 2016-01-25
   }
 
-  MyLocalController myLocalController = Get.put(MyLocalController());
 
   @override
   Widget build(BuildContext context) {
@@ -71,14 +73,16 @@ class _RequirementsRequestOfferPriceScreenState
         child: SingleChildScrollView(
           child: Container(
             width: Get.width,
-            child: Column(
+            child: GetBuilder<RequirementsRequestOfferPriceController>(
+              init: RequirementsRequestOfferPriceController(),
+              builder: (controller) => Column(
               children: [
-                AppbarDetailsOrder(widthValue, heightValue, myLocalController),
+                AppbarDetailsOrder(widthValue, heightValue),
                 SizedBox(
                   height: heightValue * 1.2,
                 ),
                 Form(
-                  key: formKey,
+                  key: controller.formKey,
                   child: Column(
                     children: [
                       Padding(
@@ -137,7 +141,7 @@ class _RequirementsRequestOfferPriceScreenState
 
                             setState(() {
                               DateOrderRequest.text =
-                                  formattedDate!; //set output date to TextField value.
+                              formattedDate!; //set output date to TextField value.
                             });
                           }
                         },
@@ -153,7 +157,7 @@ class _RequirementsRequestOfferPriceScreenState
                                     color: Themes.ColorApp2, width: 1)),
                             child: Padding(
                               padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
+                              const EdgeInsets.symmetric(horizontal: 10),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -175,9 +179,9 @@ class _RequirementsRequestOfferPriceScreenState
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                     style: TextStyle(
-                                        fontFamily: 'FF Shamel Family',
-                                        fontSize: 15,
-                                        color: Themes.ColorApp8,),
+                                      fontFamily: 'FF Shamel Family',
+                                      fontSize: 15,
+                                      color: Themes.ColorApp8,),
                                   ),
                                 ],
                               ),
@@ -475,10 +479,10 @@ class _RequirementsRequestOfferPriceScreenState
                                   widthValue: widthValue,
                                   name: 'with_lab'.tr,
                                   onTap: () {
-                                   setState(() {
-                                     isVisibleLab = true;
-                                     isVisibleNotLab = false;
-                                   });
+                                    setState(() {
+                                      isVisibleLab = true;
+                                      isVisibleNotLab = false;
+                                    });
                                   }),
                               SizedBox(
                                 width: widthValue * 1.5,
@@ -514,31 +518,26 @@ class _RequirementsRequestOfferPriceScreenState
                           title: 'send'.tr,
                           hight: 50,
                           onTap: () {
-                            if (formKey.currentState!.validate()) {
-                              if (formattedDate == null) {
-                                Fluttertoast.showToast(
-                                  msg: 'date_must_request'.tr,
-                                  fontSize: 15,
-                                  backgroundColor: Themes.whiteColor,
-                                  gravity: ToastGravity.BOTTOM,
-                                  textColor: Themes.ColorApp1,
-                                  timeInSecForIosWeb: 1,
-                                  toastLength: Toast.LENGTH_SHORT,
-                                );
-                              } else if (!(formattedDateCurrent!
-                                      .compareTo(formattedDate!) <=
-                                  0)) {
-                                Fluttertoast.showToast(
-                                    msg: "Invalid_order_date".tr,
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.BOTTOM,
-                                    timeInSecForIosWeb: 1,
-                                    backgroundColor: Colors.grey.shade300,
-                                    textColor: Colors.black,
-                                    fontSize: 15.0);
-                              } else {
-                                Get.to(const MyAddressRequestOfferScreen());
-                              }
+                            if (formattedDate == null) {
+                              CustomFlutterToast( "date_must_request".tr);
+                            } else if (!(formattedDateCurrent!.compareTo(formattedDate!) <= 0)) {
+                              CustomFlutterToast( "Invalid_order_date".tr);
+                            } else {
+                              String WithPump = isVisiblePump == true ? '0' : '1';
+                              String WithSnow = isVisibleIce == true ? '0' : '1';
+                              String WithLab = isVisibleLab == true ? '0' : '1';
+                              print(WithPump);
+                              print(WithSnow);
+                              print(WithLab);
+                              print(DateOrderRequest.text);
+                              print(formattedDate);
+
+                              CustomFlutterToast(formattedDate);
+                              CustomFlutterToast(DateOrderRequest.text);
+                              // Get.find<RequirementsRequestOfferPriceController>().AddOfferOrderRequest(Get.find<StorageService>().GetToken,
+                              //     Get.find<MyLocalController>().language!.languageCode, '', TypeCastingOrderRequest.text, DateOrderRequest.text,
+                              //     WeightOrderRequest.text, MixTypeOrderRequest.text, CementTypeOrderRequest.text, StoneTypeOrderRequest.text,
+                              //     SpecialOrderRequest.text, MyLocationInMap.text, WithPump, PumpLengthOrderRequest.text, WithSnow, WithLab);
                             }
                           }),
                       SizedBox(
@@ -548,7 +547,7 @@ class _RequirementsRequestOfferPriceScreenState
                   ),
                 )
               ],
-            ),
+            ),),
           ),
         ),
       ),
@@ -649,9 +648,8 @@ class NotActiveWidgetChoseItem extends StatelessWidget {
 }
 
 class AppbarDetailsOrder extends StatelessWidget {
-  AppbarDetailsOrder(this.widthValue, this.heightValue, this.myLocalController);
+  AppbarDetailsOrder(this.widthValue, this.heightValue);
 
-  MyLocalController myLocalController;
   double heightValue, widthValue;
 
   @override
@@ -684,9 +682,7 @@ class AppbarDetailsOrder extends StatelessWidget {
             child: CircleAvatar(
               backgroundColor: Themes.ColorApp5,
               child: Icon(
-                myLocalController.language!.languageCode == "ar"
-                    ? Icons.subdirectory_arrow_right
-                    : Icons.subdirectory_arrow_left,
+                Get.find<MyLocalController>().language!.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
                 color: Colors.white,
               ),
             ),
