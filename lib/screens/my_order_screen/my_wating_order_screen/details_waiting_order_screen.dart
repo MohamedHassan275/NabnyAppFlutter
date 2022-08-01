@@ -160,7 +160,7 @@ class AppbarDetailsOrder extends StatelessWidget {
             child: CircleAvatar(
               backgroundColor: Themes.ColorApp5,
               child: Icon(
-                Get.find<MyLocalController>().language!.languageCode == "en" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
+                Get.find<MyLocalController>().language!.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
                 color: Colors.white,
               ),
             ),
