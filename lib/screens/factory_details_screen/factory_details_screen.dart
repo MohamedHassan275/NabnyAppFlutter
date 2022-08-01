@@ -104,7 +104,7 @@ class FactoryDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var List = companies.services;
-    var stringList = List!.join(" , ");
+    var stringList = List!.join(",");
     return Card(
       elevation: 0,
       shape: RoundedRectangleBorder(

@@ -80,6 +80,8 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
               GetBuilder<SettingController>(
                 init: SettingController(),
                   builder: (controller) {
+                    var List = controller.settingResponseModel?.about;
+                    var stringList = List!.join(",");
                   print("listView is ${controller.settingResponseModel?.about?.length}");
                   return SizedBox(
                     child: Padding(
@@ -101,7 +103,7 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
                               ),
                             ),
                             SizedBox(height: heightValue * 1.5,),
-                            Text("${controller.settingResponseModel?.about?[0].about}",
+                            Text("${stringList}",
                               style: TextStyle(
                                 color: Themes.ColorApp2,
                                 fontSize: 14,
