@@ -34,6 +34,7 @@ class RequestOfferPriceScreen extends StatelessWidget {
                   if(controller.Loading){
                     return LoadingWidget(data: '');
                   }
+                  print("is length ${controller.offerOrderRequestResponseModel!.length}");
                   return controller.offerOrderRequestResponseModel!.isNotEmpty ?
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 0),
@@ -48,14 +49,9 @@ class RequestOfferPriceScreen extends StatelessWidget {
                   ) : NoItemOFList();
                 },),
               SizedBox(height: heightValue * 1,),
-              Expanded(
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: CustomButtonImage(title: 'add_order'.tr, hight: 50, onTap: (){
-                    Get.to(const RequirementsRequestOfferPriceScreen());
-                  }),
-                ),
-              ),
+              CustomButtonImage(title: 'add_order'.tr, hight: 50, onTap: (){
+                Get.to(const RequirementsRequestOfferPriceScreen());
+              }),
               SizedBox(height: heightValue * 1,),
             ],
           ),

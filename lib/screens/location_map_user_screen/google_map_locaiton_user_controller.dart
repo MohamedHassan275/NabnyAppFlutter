@@ -18,10 +18,10 @@ class GetMyLocationController extends GetxController {
   // Get.find<StorageService>().GetToken
   updateMyLocationFromMap(lat,lng,myLocation){
     setSeving(true);
-    print(Get.find<MyLocalController>().language!.languageCode);
-    print(lat);
-    print(lng);
-    print(myLocation);
+    // print(Get.find<MyLocalController>().language!.languageCode);
+    // print(lat);
+    // print(lng);
+    // print(myLocation);
     MyServiceApi.updateMyLocationInMap('Bearer '+Get.find<StorageService>().GetToken, Get.find<MyLocalController>().language!.languageCode,
         lat, lng, myLocation).then((value){
       if(value?.success == true){
