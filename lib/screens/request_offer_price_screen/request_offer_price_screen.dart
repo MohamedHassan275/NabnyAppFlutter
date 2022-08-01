@@ -24,34 +24,30 @@ class RequestOfferPriceScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Stack(
+          child: Column(
             children: [
-              Column(
-                children: [
-                  AppbarDetailsOrder(widthValue, heightValue),
-                  SizedBox(height: heightValue * 1,),
-                  GetBuilder<RequestOfferPriceController>(
-                    init: RequestOfferPriceController(),
-                    builder: (controller) {
-                      if(controller.Loading){
-                        return LoadingWidget(data: '');
-                      }
-                      return controller.offerOrderRequestResponseModel!.isNotEmpty ?
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 0),
-                        child: ListView.builder(
-                          itemCount: controller.offerOrderRequestResponseModel!.length,
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return RequestOfferOrderItems(requestOfferOrderModel: controller.offerOrderRequestResponseModel![index]);
-                          },
-                        ),
-                      ) : NoItemOFList();
-                    },),
-                  SizedBox(height: heightValue * 1,),
-                ],
-              ),
+              AppbarDetailsOrder(widthValue, heightValue),
+              SizedBox(height: heightValue * 1,),
+              GetBuilder<RequestOfferPriceController>(
+                init: RequestOfferPriceController(),
+                builder: (controller) {
+                  if(controller.Loading){
+                    return LoadingWidget(data: '');
+                  }
+                  return controller.offerOrderRequestResponseModel!.isNotEmpty ?
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 0),
+                    child: ListView.builder(
+                      itemCount: controller.offerOrderRequestResponseModel!.length,
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return RequestOfferOrderItems(requestOfferOrderModel: controller.offerOrderRequestResponseModel![index]);
+                      },
+                    ),
+                  ) : NoItemOFList();
+                },),
+              SizedBox(height: heightValue * 1,),
               Expanded(
                 child: Align(
                   alignment: Alignment.bottomCenter,
