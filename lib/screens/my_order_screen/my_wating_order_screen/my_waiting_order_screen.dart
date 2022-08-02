@@ -11,7 +11,7 @@ import '../../../generated/assets.dart';
 import '../../../utils/Themes.dart';
 
 class MyWaitingOrderScreen extends StatelessWidget {
-  const MyWaitingOrderScreen({Key? key}) : super(key: key);
+   MyWaitingOrderScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

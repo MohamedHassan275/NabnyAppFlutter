@@ -13,57 +13,42 @@ import '../../core/localization/local_controller.dart';
 import '../../core/servies/storage_service.dart';
 import '../../utils/Themes.dart';
 
-class MyFavoriteScreen extends StatefulWidget {
+class MyFavoriteScreen extends StatelessWidget {
   const MyFavoriteScreen({Key? key}) : super(key: key);
 
   @override
-  _MyFavoriteScreenState createState() => _MyFavoriteScreenState();
-}
-
-class _MyFavoriteScreenState extends State<MyFavoriteScreen> {
-  List<FavouriteResponseModel>? favouriteResponseModel =
-      <FavouriteResponseModel>[];
-  late FavouriteModel favouriteModel;
-  Future<FavouriteModel?>? _future;
-
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   Get.put(MyFavoriteController());
-  //   print(Get.find<StorageService>().GetToken);
-  //   print(Get.find<MyLocalController>().language!.languageCode);
-  // }
-
-  @override
   Widget build(BuildContext context) {
+    MyFavoriteController myFavoriteController = Get.put(MyFavoriteController());
     return Scaffold(
-        body: SafeArea(
-      child: SingleChildScrollView(
-          child: Container(
+        body: RefreshIndicator(
+          onRefresh: () async{
+            myFavoriteController.getFavoriteUserList();
+          },
+          child: SafeArea(
               child: GetBuilder<MyFavoriteController>(
-                  init: MyFavoriteController(),
-                  builder: (controller){
-                    if(controller.Loading){
-                      return LoadingWidget(data: '');
+                    init: MyFavoriteController(),
+                    builder: (controller){
+                      if(controller.Loading){
+                        return LoadingWidget(data: '');
+                      }
+                      return controller.favouriteResponseModel!.isNotEmpty ?
+                      ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: controller.favouriteResponseModel!.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(5),
+                            child: FactoryItemList(factoryModel: controller.favouriteResponseModel![index], myFavoriteController: myFavoriteController,),
+                          );
+                        },) : NoItemOFList();
                     }
-                    return controller.favouriteResponseModel!.isNotEmpty ?
-                    ListView.builder(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: controller.favouriteResponseModel!.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: FactoryItemList(factoryModel: controller.favouriteResponseModel![index]),
-                        );
-                      },) : NoItemOFList();
-                  }
-                  )),
-    )));
+                )),
+        ));
   }
 }
+
 
 class NoItemOFList extends StatelessWidget {
   NoItemOFList({Key? key}) : super(key: key);
@@ -75,7 +60,6 @@ class NoItemOFList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: Get.width,
-      height: 100,
       child: Column(
         children: [
           Image.asset(
@@ -86,10 +70,11 @@ class NoItemOFList extends StatelessWidget {
             height: heightValue * 1,
           ),
           Text(
-            'no_requests_offers_have_added_before'.tr,
+            'no_company_have_favorite'.tr,
+            textAlign: TextAlign.center,
             style: TextStyle(
               color: Themes.ColorApp8,
-              fontSize: 25,
+              fontSize: 19,
               fontWeight: FontWeight.w400,
             ),
           ),
@@ -103,9 +88,10 @@ class NoItemOFList extends StatelessWidget {
 }
 
 class FactoryItemList extends StatelessWidget {
-  FactoryItemList({required this.factoryModel});
+  FactoryItemList({required this.factoryModel,required this.myFavoriteController});
 
   FavouriteResponseModel? factoryModel;
+  MyFavoriteController myFavoriteController;
   var heightValue = Get.height * 0.024;
   var widthValue = Get.width * 0.024;
 
@@ -141,9 +127,15 @@ class FactoryItemList extends StatelessWidget {
                   Positioned(
                     top: heightValue * 1,
                     right: widthValue * 2,
-                    child: CircleAvatar(
-                      backgroundColor: Themes.whiteColor,
-                      child: Image.asset(Assets.imagesActiveFavorite),
+                    child: GestureDetector(
+                      onTap: (){
+                        myFavoriteController.RemoveFavoriteCompany('${factoryModel?.id}');
+                        myFavoriteController.getFavoriteUserList();
+                      },
+                      child: CircleAvatar(
+                        backgroundColor: Themes.whiteColor,
+                        child: Image.asset(Assets.imagesActiveFavorite),
+                      ),
                     ),
                   )
                 ],

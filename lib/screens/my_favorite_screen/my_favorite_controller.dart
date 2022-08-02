@@ -11,8 +11,6 @@ import '../../core/constant/constant.dart';
 
 class MyFavoriteController extends GetxController {
 
-
-
   bool Loading = false;
   List<FavouriteResponseModel>? _favouriteResponseModel;
 //  FavouriteModel? _favouriteModel;
@@ -48,6 +46,20 @@ class MyFavoriteController extends GetxController {
       }else if (value?.success == false){
         setLoading(false);
         CustomFlutterToast('${value?.message}');
+      }
+    });
+  }
+
+  RemoveFavoriteCompany(favouriteId){
+    setLoading(true);
+    MyServiceApi.RemoveFavoriteUser(Get.find<StorageService>().GetToken, '${Get.find<MyLocalController>().language?.languageCode}',favouriteId).then((value){
+      if(value?.success == true){
+        setLoading(false);
+        CustomFlutterToast(value?.message);
+
+      }else {
+        setLoading(false);
+        CustomFlutterToast(value?.message);
       }
     });
   }

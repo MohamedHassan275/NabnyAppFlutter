@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:nabny/core/constant/constant.dart';
 import 'package:nabny/model/home_user_model.dart';
 import 'package:nabny/repositries/servies_api/MyServiceApi.dart';
+import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 
 import '../../core/localization/local_controller.dart';
 import '../../core/servies/storage_service.dart';
@@ -41,6 +42,19 @@ class HomeController extends GetxController{
       }else if(value?.success == false){
         setLoading(false);
         CustomFlutterToast('${value?.message}');
+      }
+    });
+  }
+
+  AddFavoriteCompany(companyId){
+    setLoading(true);
+    MyServiceApi.AddFavoriteUser(Get.find<StorageService>().GetToken, '${Get.find<MyLocalController>().language?.languageCode}',companyId).then((value){
+      if(value?.success == true){
+        setLoading(false);
+        CustomFlutterToast(value?.message);
+      }else {
+        setLoading(false);
+        CustomFlutterToast(value?.message);
       }
     });
   }

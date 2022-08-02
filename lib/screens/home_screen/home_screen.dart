@@ -18,136 +18,129 @@ import '../../model/SliderItemsModel.dart';
 import '../../model/factory_model.dart';
 import '../../model/home_user_model.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  HomeScreen_State createState() => HomeScreen_State();
-}
-
-class HomeScreen_State extends State<HomeScreen> {
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    Get.put(HomeController());
-  }
-
-  @override
   Widget build(BuildContext context) {
+    HomeController homeController =  Get.put(HomeController());
     var widthValue = Get.width * 0.024;
     var heightValue = Get.height * 0.024;
-    //  HomeController homeController = Get.put(HomeController());
     return Scaffold(
-      body: SafeArea(child: SingleChildScrollView(
-        child: Container(
-          child: Padding(padding: EdgeInsets.symmetric(horizontal: 10),
-          child: GetBuilder<HomeController>(
-            init: HomeController(),
-            builder: (controller){
-              if (controller.isLoading){
-                return LoadingWidget(data: '');
-              }
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: heightValue * .5,
-                  ),
-                  Card(
-                    color: Themes.whiteColor,
-                    child: Container(
-                      height: 200,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: CarouselSlider(
-                          items: controller.homeUserModel!.sliders!.map((e) => Image(
-                            image: NetworkImage('${e.image}'),
-                            height: 200,
-                            fit: BoxFit.fill,
-                          )).toList(),
-                          options: CarouselOptions(
-                            height: 200,
-                            aspectRatio: 2.0,
-                            viewportFraction: 1.0,
-                            initialPage: 0,
-                            enableInfiniteScroll: true,
-                            reverse: false,
-                            autoPlay: true,
-                            autoPlayInterval: Duration(seconds: 3),
-                            autoPlayAnimationDuration: Duration(seconds: 1),
-                            autoPlayCurve: Curves.fastOutSlowIn,
-                            scrollDirection: Axis.horizontal,
-                          )),
-                    ),
-                  ),
-                  SizedBox(
-                    height: heightValue * .5,
-                  ),
-                  SearchForSomeFactories(
-                      homeUserResponseModel: controller.homeUserModel,
-                      widthValue: widthValue,
-                      heightValue: heightValue,
-                      onTap: () =>
-                          Get.to(const GoogleMapLocationUserScreen())),
-                  SizedBox(
-                    height: heightValue * 1.5,
-                  ),
-                  LookingForFactory(widthValue: widthValue),
-                  SizedBox(
-                    height: heightValue * 1.5,
-                  ),
-                  OrderPriceRequest(
-                    heightValue: heightValue,
-                  ),
-                  SizedBox(
-                    height: heightValue * 1,
-                  ),
-                  CategoryListBuild(heightValue: heightValue, homeUserResponseModel: controller.homeUserModel,),
-                  SizedBox(
-                    height: heightValue * 1,
-                  ),
-                  GetBuilder<HomeController>(
-                    init: HomeController(),
-                    builder: (controller) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'some_factories'.tr,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                              color: Themes.ColorApp1,
-                            ),
-                          ),
-                          SizedBox(
-                            height: heightValue * .7,
-                          ),
-                          ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            physics: const ScrollPhysics(),
-                            itemCount: controller.homeUserModel?.companies!.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 5),
-                                child: FactoryItemList(companiesModel: controller.homeUserModel?.companies?[index]),
-                              );
-                            },),
-                        ],
-                      );
-                    },
-                  ),
-                ],
-              );
-            }),),
-        ),
-      ))
+        body: RefreshIndicator(
+          onRefresh: () async{
+            homeController.getHomeDetailsUser();
+          },
+          child: SafeArea(
+              child: SingleChildScrollView(
+                child: Container(
+                  child: Padding(padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: GetBuilder<HomeController>(
+                        init: HomeController(),
+                        builder: (controller){
+                          if (controller.isLoading){
+                            return LoadingWidget(data: '');
+                          }
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: heightValue * .5,
+                              ),
+                              Card(
+                                color: Themes.whiteColor,
+                                child: Container(
+                                  height: 200,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: CarouselSlider(
+                                      items: controller.homeUserModel!.sliders!.map((e) => Image(
+                                        image: NetworkImage('${e.image}'),
+                                        height: 200,
+                                        fit: BoxFit.fill,
+                                      )).toList(),
+                                      options: CarouselOptions(
+                                        height: 200,
+                                        aspectRatio: 2.0,
+                                        viewportFraction: 1.0,
+                                        initialPage: 0,
+                                        enableInfiniteScroll: true,
+                                        reverse: false,
+                                        autoPlay: true,
+                                        autoPlayInterval: Duration(seconds: 3),
+                                        autoPlayAnimationDuration: Duration(seconds: 1),
+                                        autoPlayCurve: Curves.fastOutSlowIn,
+                                        scrollDirection: Axis.horizontal,
+                                      )),
+                                ),
+                              ),
+                              SizedBox(
+                                height: heightValue * .5,
+                              ),
+                              SearchForSomeFactories(
+                                  homeUserResponseModel: controller.homeUserModel,
+                                  widthValue: widthValue,
+                                  heightValue: heightValue,
+                                  onTap: () =>
+                                      Get.to(const GoogleMapLocationUserScreen())),
+                              SizedBox(
+                                height: heightValue * 1.5,
+                              ),
+                              LookingForFactory(widthValue: widthValue),
+                              SizedBox(
+                                height: heightValue * 1.5,
+                              ),
+                              OrderPriceRequest(
+                                heightValue: heightValue,
+                              ),
+                              SizedBox(
+                                height: heightValue * 1,
+                              ),
+                              CategoryListBuild(heightValue: heightValue, homeUserResponseModel: controller.homeUserModel,),
+                              SizedBox(
+                                height: heightValue * 1,
+                              ),
+                              GetBuilder<HomeController>(
+                                init: HomeController(),
+                                builder: (controller) {
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'some_factories'.tr,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 16,
+                                          color: Themes.ColorApp1,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: heightValue * .7,
+                                      ),
+                                      ListView.builder(
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        physics: const ScrollPhysics(),
+                                        itemCount: controller.homeUserModel?.companies!.length,
+                                        itemBuilder: (context, index) {
+                                          return Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 5),
+                                            child: FactoryItemList(companiesModel: controller.homeUserModel?.companies?[index], homeController: homeController,),
+                                          );
+                                        },),
+                                    ],
+                                  );
+                                },
+                              ),
+                            ],
+                          );
+                        }),),
+                ),
+              )),
+        )
     );
   }
 }
@@ -265,12 +258,12 @@ class SearchForSomeFactories extends StatelessWidget {
 }
 
 class FactoryItemList extends StatelessWidget {
-  FactoryItemList({required this.companiesModel});
+  FactoryItemList({required this.companiesModel,required this.homeController});
 
   Companies? companiesModel;
   var heightValue = Get.height * 0.024;
   var widthValue = Get.width * 0.024;
-
+  HomeController homeController;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -301,9 +294,14 @@ class FactoryItemList extends StatelessWidget {
                   Positioned(
                     top: heightValue * 1,
                     right: widthValue * 2,
-                    child: CircleAvatar(
-                      backgroundColor: Themes.whiteColor,
-                      child: Image.asset(Assets.iconsFavoriteIcon),
+                    child: GestureDetector(
+                      onTap: (){
+                        homeController.AddFavoriteCompany('${companiesModel!.id}');
+                      },
+                      child: CircleAvatar(
+                        backgroundColor: Themes.whiteColor,
+                        child: Image.asset(Assets.iconsFavoriteIcon),
+                      ),
                     ),
                   )
                 ],
@@ -703,7 +701,7 @@ class OrderPriceRequest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.to(const RequestOfferPriceScreen()),
+      onTap: () => Get.to(RequestOfferPriceScreen()),
       child: Container(
         width: Get.width,
         height: 100,

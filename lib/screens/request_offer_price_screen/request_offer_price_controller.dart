@@ -22,10 +22,12 @@ class RequestOfferPriceController extends GetxController{
 
   setOfferOrder(List<OfferOrderRequestResponseModel>? offerOrderRequestModel){
     _offerOrderRequestResponseModel =   offerOrderRequestModel;
+    update();
   }
 
   RequestOfferPriceController(){
     getRequestOfferPrice();
+    update();
   }
 
   getRequestOfferPrice(){

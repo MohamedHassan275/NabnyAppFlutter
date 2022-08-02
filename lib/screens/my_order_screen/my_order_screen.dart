@@ -8,24 +8,12 @@ import 'my_current_order_screen/my_current_order_screen.dart';
 import 'my_old_order_screen/my_old_order_screen.dart';
 import 'my_wating_order_screen/my_waiting_order_screen.dart';
 
-class MyOrderScreen extends StatefulWidget {
+class MyOrderScreen extends StatelessWidget {
   const MyOrderScreen({Key? key}) : super(key: key);
 
   @override
-  _MyOrderScreenState createState() => _MyOrderScreenState();
-}
-
-class _MyOrderScreenState extends State<MyOrderScreen> {
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    Get.put(MyOrderController());
-  }
-
-  @override
   Widget build(BuildContext context) {
+    MyOrderController myOrderController = Get.put(MyOrderController());
     return DefaultTabController(
       length: 4,
       child: Scaffold(
@@ -36,32 +24,40 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
             child: Column(
               children: <Widget>[
                 Expanded(child: new Container()),
-               Padding(padding: const EdgeInsets.all(3),
-               child:  TabBar(
-                 isScrollable: true,
-                 unselectedLabelColor: Themes.whiteColor,
-                 labelColor: Themes.ColorApp1,
-                 indicator: BoxDecoration(
-                     borderRadius: BorderRadius.circular(25), // Creates border
-                     color: Themes.whiteColor),
-                 tabs: [
-                   Tab(text: 'request_offer_price2'.tr),
-                   Tab( text: 'my_active_requests'.tr),
-                   Tab( text: 'my_active_current'.tr),
-                   Tab( text: 'my_previous_requests'.tr),
-                 ],
-               ),)
+                Padding(padding: const EdgeInsets.all(3),
+                  child:  TabBar(
+                    isScrollable: true,
+                    unselectedLabelColor: Themes.whiteColor,
+                    labelColor: Themes.ColorApp1,
+                    indicator: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25), // Creates border
+                        color: Themes.whiteColor),
+                    tabs: [
+                      Tab(text: 'request_offer_price2'.tr),
+                      Tab( text: 'my_active_requests'.tr),
+                      Tab( text: 'my_active_current'.tr),
+                      Tab( text: 'my_previous_requests'.tr),
+                    ],
+                  ),)
 
               ],
             ),
           ),),
-        body: TabBarView(children: <Widget>[
-          MyWaitingOrderScreen(),
-          MySenderOrderScreen(),
-          MyCurrentOrderScreen(),
-          MyOldOrderScreen(),
-        ]),
+        body: RefreshIndicator(
+          onRefresh: () async{
+            myOrderController.getMyOrderUser();
+          },
+          child: TabBarView(
+              children: <Widget>[
+            MyWaitingOrderScreen(),
+            MySenderOrderScreen(),
+            MyCurrentOrderScreen(),
+            MyOldOrderScreen(),
+          ]),
+        ),
       ),
     );
   }
 }
+
+
