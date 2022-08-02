@@ -7,13 +7,8 @@ class LocationModel {
 
   LocationModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
-    if (json[''
-            'locationResponseModel'] !=
-        null) {
-      locationResponseModel = <LocationResponseModel>[];
-      json[''
-              'locationResponseModel']
-          .forEach((v) {
+    if (json['data'] != null) {
+      locationResponseModel = <LocationResponseModel>[];json['data'].forEach((v) {
         locationResponseModel!.add(new LocationResponseModel.fromJson(v));
       });
     }

@@ -576,19 +576,21 @@ class MyServiceApi {
     return locationModel;
   }
 
-  static Future<ResponseUserModel?> AddLocationUser(String Authorization, String Language,double lat, double lng, String myLocation) async {
+  static Future<ResponseUserModel?> AddLocationUser(String Authorization,double lat, double lng, String myLocationAr,
+      String myLocationEn) async {
     ResponseUserModel? responseUserModel;
     var formData = FormData.fromMap({
       'lat' : lat,
       'lng' : lng,
-      'address_ar' : myLocation,
+      'address_ar' : myLocationAr,
+      'address_en' : myLocationEn,
     });
     try {
       Response response =
       await Dio().post(URL + 'location/add', data: formData,options: Options(
           headers: {
             'Authorization': 'Bearer $Authorization',
-            'Accept-Language' : '$Language'
+           // 'Accept-Language' : '$Language'
           }
       ));
 

@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 import '../../core/servies/storage_service.dart';
 import '../change_password_profile/change_password_profile.dart';
 
+
 class HomeMainScreen extends StatefulWidget {
   HomeMainScreen({required this.valueBack});
 
@@ -120,6 +121,7 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                           onTap: () {
                             print(Get.find<StorageService>().GetToken);
                             CustomFlutterToast(Get.find<StorageService>().GetToken);
+                            Get.to(const MyAddressScreen());
                           }),
                       SizedBox(
                         height: heightValue * 2.5,

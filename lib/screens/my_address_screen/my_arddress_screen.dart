@@ -1,51 +1,72 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
+import 'package:nabny/componant/LoadingWidget.dart';
+import 'package:nabny/core/localization/local_controller.dart';
+import 'package:nabny/model/LocationModel.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
+import 'package:nabny/screens/my_address_screen/MyAddressController.dart';
 
 import '../../generated/assets.dart';
 import '../../utils/Themes.dart';
+import '../save_location_map_user_screen/save_my_locaiton_user_screen.dart';
 
-class MyAddressScreen extends StatefulWidget {
+class MyAddressScreen extends StatelessWidget {
   const MyAddressScreen({Key? key}) : super(key: key);
 
   @override
-  _MyAddressScreenState createState() => _MyAddressScreenState();
-}
-
-class _MyAddressScreenState extends State<MyAddressScreen> {
-  @override
   Widget build(BuildContext context) {
+    MyAddressController myAddressController = Get.put(MyAddressController());
     var heightValue = Get.height * 0.024;
     var widthValue = Get.width * 0.024;
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            width: Get.width,
-            height: Get.height,
-            child: Stack(
-              children: [
-                AppbarDetailsOrder(widthValue, heightValue),
-                SizedBox(
-                  height: heightValue * 1.2,
-                ),
-                Positioned(
-                  top: heightValue * 8,
-                  right: widthValue * 1,
-                  left: widthValue * 1,
-                  child: AddressDetailsOrder(),
-                ),
-                SizedBox(
-                  height: heightValue * 5,
-                ),
-                Positioned(
-                  bottom: heightValue * 3,
-                    child: CustomButtonImage(
-                        title: 'add_new_address'.tr,
-                        hight: 50,
-                        onTap: () => Get.to(HomeMainScreen(valueBack: ''))))
-              ],
+      body: RefreshIndicator(
+        onRefresh: () async{
+          myAddressController.getMyLocationUser();
+        },
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Container(
+              width: Get.width,
+              height: Get.height,
+              child: Stack(
+                children: [
+                  AppbarDetailsOrder(widthValue, heightValue),
+                  SizedBox(
+                    height: heightValue * 1.2,
+                  ),
+                  Positioned(
+                    top: heightValue * 8,
+                    right: widthValue * 1,
+                    left: widthValue * 1,
+                    child: GetBuilder<MyAddressController>(
+                      init: MyAddressController(),
+                        builder: (controller){
+                        if (controller.Loading){
+                          return LoadingWidget(data: '');
+                        }
+                        if (controller.locationResponseModel!.isNotEmpty){
+                          return ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: controller.locationResponseModel!.length,
+                            itemBuilder: (context, index) => AddressDetailsOrder(locationResponseModel: controller.locationResponseModel![index],));
+                        }else {
+                          return NoItemOFList();
+                        }
+                    }),
+                  ),
+                  SizedBox(
+                    height: heightValue * 5,
+                  ),
+                  Positioned(
+                      bottom: heightValue * 3,
+                      child: CustomButtonImage(
+                          title: 'add_new_address'.tr,
+                          hight: 50,
+                          onTap: () => Get.to(const SaveMyLocationUserScreen())))
+                ],
+              ),
             ),
           ),
         ),
@@ -53,10 +74,46 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
     );
   }
 }
+class NoItemOFList extends StatelessWidget {
+  NoItemOFList({Key? key}) : super(key: key);
+
+  var widthValue = Get.width * 0.024;
+  var heightValue = Get.height * 0.024;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: Get.width,
+      child: Column(
+        children: [
+          Image.asset(
+            Assets.imagesOfferPrice,
+            fit: BoxFit.contain,
+          ),
+          SizedBox(
+            height: heightValue * 1,
+          ),
+          Text(
+            'no_location_have'.tr,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Themes.ColorApp8,
+              fontSize: 19,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          SizedBox(
+            height: heightValue * .7,
+          )
+        ],
+      ),
+    );
+  }
+}
 
 class AddressDetailsOrder extends StatelessWidget {
-  AddressDetailsOrder();
-
+  AddressDetailsOrder({required this.locationResponseModel});
+  LocationResponseModel locationResponseModel;
   var heightValue = Get.height * 0.024;
   var widthValue = Get.width * 0.024;
 
@@ -67,7 +124,7 @@ class AddressDetailsOrder extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: Padding(
         padding: const EdgeInsets.all(5.0),
-        child: Container(
+        child: SizedBox(
           width: Get.width,
           height: 110,
           child: Column(
@@ -100,7 +157,7 @@ class AddressDetailsOrder extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          'جده حي الوزيريه قاعه امنيتي',
+                          '${locationResponseModel.address}',
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 14,
@@ -109,19 +166,6 @@ class AddressDetailsOrder extends StatelessWidget {
                         ),
                         SizedBox(
                           height: heightValue * .3,
-                        ),
-                        SizedBox(
-                          width: 150,
-                          child: Text(
-                            '2483 حي ، 7251 مدائن الفهد ، جده 22347 السعوديه',
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12,
-                              color: Themes.ColorApp1,
-                            ),
-                          ),
                         ),
                       ],
                     ),
@@ -171,7 +215,7 @@ class AppbarDetailsOrder extends StatelessWidget {
             child: CircleAvatar(
               backgroundColor: Themes.ColorApp5,
               child: Icon(
-                Icons.arrow_right_alt_rounded,
+               Get.find<MyLocalController>().language!.languageCode == 'ar' ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
                 color: Colors.white,
               ),
             ),
