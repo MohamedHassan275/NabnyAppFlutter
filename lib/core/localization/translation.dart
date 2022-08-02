@@ -271,7 +271,7 @@ class MyTranslation extends Translations {
       "not_valid" : "not valid",
       "short_password" : "short password",
       "Password_does_not_match" : "Password does not match",
-      "change_password" : "Password does not match",
+      "change_password" : "Change password",
       "save_location" : "Save Location",
       "km" : "Km",
     },

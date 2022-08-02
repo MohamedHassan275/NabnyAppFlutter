@@ -244,58 +244,54 @@ class UserDetailsInMenu extends StatelessWidget {
     return  Container(
       child: new DrawerHeader(
           child: new Container(
-            child: Wrap(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: Themes.ColorApp16,
-                      radius: 45,
-                      child: ClipOval(
-                        child: Image.asset(
-                          Assets.imagesFactoryImage,
-                          fit: BoxFit.cover,
-                          width: 82,
-                          height: 82,
-                        ),
-                      ),
+                CircleAvatar(
+                  backgroundColor: Themes.ColorApp16,
+                  radius: 45,
+                  child: ClipOval(
+                    child: Image.asset(
+                      Assets.imagesFactoryImage,
+                      fit: BoxFit.cover,
+                      width: 82,
+                      height: 82,
                     ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      profileUserResponseModel?.firstname != null ?'${profileUserResponseModel?.firstname} ${profileUserResponseModel?.lastname}' : '',
-                      style:
-                      TextStyle(fontSize: 13, color: Themes.ColorApp8),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'account_number'.tr,
-                          style: TextStyle(
-                              fontSize: 13, color: Themes.ColorApp8),
-                        ),
-                        SizedBox(
-                          width: widthValue! * .5,
-                        ),
-                        Text(
-                          '#34567898',
-                          style: TextStyle(
-                              fontSize: 13, color: Themes.ColorApp8),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                  ],
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  profileUserResponseModel?.firstname != null ?'${profileUserResponseModel?.firstname} ${profileUserResponseModel?.lastname}' : '',
+                  style:
+                  TextStyle(fontSize: 13, color: Themes.ColorApp8),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   crossAxisAlignment: CrossAxisAlignment.center,
+                //   children: [
+                //     Text(
+                //       'account_number'.tr,
+                //       style: TextStyle(
+                //           fontSize: 13, color: Themes.ColorApp8),
+                //     ),
+                //     SizedBox(
+                //       width: widthValue! * .5,
+                //     ),
+                //     Text(
+                //       '#34567898',
+                //       style: TextStyle(
+                //           fontSize: 13, color: Themes.ColorApp8),
+                //     ),
+                //   ],
+                // ),
+                SizedBox(
+                  height: 5,
                 ),
               ],
             ),
