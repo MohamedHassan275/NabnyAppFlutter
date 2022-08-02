@@ -24,6 +24,10 @@ class MyAddressController extends GetxController {
     _locationResponseModel = Mylocation;
   }
 
+  MyAddressController(){
+    getMyLocationUser();
+  }
+
   getMyLocationUser(){
     setLoading(true);
     MyServiceApi.GetLocationUser(Get.find<StorageService>().GetToken,Get.find<MyLocalController>().language!.languageCode).then((value){

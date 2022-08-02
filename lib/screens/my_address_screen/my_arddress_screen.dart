@@ -35,31 +35,27 @@ class MyAddressScreen extends StatelessWidget {
                   SizedBox(
                     height: heightValue * 1.2,
                   ),
-                  GetBuilder<MyAddressController>(
-                    init: MyAddressController(),
-                      builder: (controller){
-                      if (controller.Loading){
-                        return LoadingWidget(data: '',);
-                      }
-                      if (controller.locationResponseModel!.isNotEmpty){
-                        return Positioned(
-                          top: heightValue * 8,
-                          right: widthValue * 1,
-                          left: widthValue * 1,
-                          child: ListView.builder(
+                  Positioned(
+                    top: heightValue * 8,
+                    right: widthValue * 1,
+                    left: widthValue * 1,
+                    child: GetBuilder<MyAddressController>(
+                      init: MyAddressController(),
+                        builder: (controller){
+                        if (controller.loading){
+                          return LoadingWidget(data: '');
+                        }
+                        if (controller.locationResponseModel!.isNotEmpty){
+                          return ListView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: controller.locationResponseModel!.length,
-                            itemBuilder: (context, index) => AddressDetailsOrder(locationResponseModel: controller.locationResponseModel![index],)),
-                        );
-                      }else {
-                        return Positioned(
-                            top: heightValue * 8,
-                            right: widthValue * 1,
-                            left: widthValue * 1,
-                            child: NoItemOFList());
-                      }
-                  }),
+                            itemBuilder: (context, index) => AddressDetailsOrder(locationResponseModel: controller.locationResponseModel![index],));
+                        }else {
+                          return NoItemOFList();
+                        }
+                    }),
+                  ),
                   SizedBox(
                     height: heightValue * 5,
                   ),
@@ -164,7 +160,6 @@ class AddressDetailsOrder extends StatelessWidget {
                         children: [
                           Text(
                             '${locationResponseModel.address}',
-                            maxLines: 2,
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 14,
