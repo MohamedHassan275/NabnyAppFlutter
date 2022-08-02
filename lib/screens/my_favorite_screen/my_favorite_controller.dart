@@ -11,6 +11,7 @@ import '../../core/constant/constant.dart';
 
 class MyFavoriteController extends GetxController {
 
+
   bool Loading = false;
   List<FavouriteResponseModel>? _favouriteResponseModel;
 //  FavouriteModel? _favouriteModel;

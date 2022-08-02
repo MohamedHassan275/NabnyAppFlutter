@@ -38,7 +38,7 @@ class HomeMainController extends GetxController {
     update();
   }
 
-  List<Widget> PageList = [const HomeScreen(),const MyOrderScreen(),const MyFavoriteScreen(),const SettingScreen()];
+  List<Widget> PageList = [const HomeScreen(),const MyOrderScreen(), MyFavoriteScreen(),const SettingScreen()];
 
   List<BottomNavigationBarItem> navigationItem = [
     BottomNavigationBarItem(icon: Image.asset(Assets.iconsIconHome2,width: 30,height: 30,),label: 'home'.tr,

@@ -31,18 +31,21 @@ class MyFavoriteScreen extends StatelessWidget {
                       if(controller.Loading){
                         return LoadingWidget(data: '');
                       }
-                      return controller.favouriteResponseModel!.isNotEmpty ?
-                      ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: controller.favouriteResponseModel!.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(5),
-                            child: FactoryItemList(factoryModel: controller.favouriteResponseModel![index], myFavoriteController: myFavoriteController,),
-                          );
-                        },) : NoItemOFList();
+                      if(controller.favouriteResponseModel!.isNotEmpty){
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: controller.favouriteResponseModel!.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: FactoryItemList(factoryModel: controller.favouriteResponseModel![index], myFavoriteController: myFavoriteController,),
+                            );
+                          },);
+                      }else {
+                        return NoItemOFList();
+                      }
                     }
                 )),
         ));
