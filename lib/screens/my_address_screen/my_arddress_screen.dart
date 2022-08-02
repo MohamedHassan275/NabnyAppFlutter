@@ -35,27 +35,31 @@ class MyAddressScreen extends StatelessWidget {
                   SizedBox(
                     height: heightValue * 1.2,
                   ),
-                  Positioned(
-                    top: heightValue * 8,
-                    right: widthValue * 1,
-                    left: widthValue * 1,
-                    child: GetBuilder<MyAddressController>(
-                      init: MyAddressController(),
-                        builder: (controller){
-                        if (controller.Loading){
-                          return LoadingWidget(data: '');
-                        }
-                        if (controller.locationResponseModel!.isNotEmpty){
-                          return ListView.builder(
+                  GetBuilder<MyAddressController>(
+                    init: MyAddressController(),
+                      builder: (controller){
+                      if (controller.Loading){
+                        return LoadingWidget(data: '',);
+                      }
+                      if (controller.locationResponseModel!.isNotEmpty){
+                        return Positioned(
+                          top: heightValue * 8,
+                          right: widthValue * 1,
+                          left: widthValue * 1,
+                          child: ListView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: controller.locationResponseModel!.length,
-                            itemBuilder: (context, index) => AddressDetailsOrder(locationResponseModel: controller.locationResponseModel![index],));
-                        }else {
-                          return NoItemOFList();
-                        }
-                    }),
-                  ),
+                            itemBuilder: (context, index) => AddressDetailsOrder(locationResponseModel: controller.locationResponseModel![index],)),
+                        );
+                      }else {
+                        return Positioned(
+                            top: heightValue * 8,
+                            right: widthValue * 1,
+                            left: widthValue * 1,
+                            child: NoItemOFList());
+                      }
+                  }),
                   SizedBox(
                     height: heightValue * 5,
                   ),
@@ -96,6 +100,7 @@ class NoItemOFList extends StatelessWidget {
           Text(
             'no_location_have'.tr,
             textAlign: TextAlign.center,
+            maxLines: 2,
             style: TextStyle(
               color: Themes.ColorApp8,
               fontSize: 19,
@@ -150,24 +155,27 @@ class AddressDetailsOrder extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${locationResponseModel.address}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14,
-                            color: Themes.ColorApp1,
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${locationResponseModel.address}',
+                            maxLines: 2,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              color: Themes.ColorApp1,
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: heightValue * .3,
-                        ),
-                      ],
+                          SizedBox(
+                            height: heightValue * .3,
+                          ),
+                        ],
+                      ),
                     ),
                   )
                 ],
