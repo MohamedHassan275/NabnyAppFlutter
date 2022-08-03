@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_launch/flutter_launch.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
+import 'package:nabny/core/constant/constant.dart';
 import 'package:nabny/core/localization/local_controller.dart';
+import 'package:nabny/core/servies/storage_service.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/about_app_screen/about_app_screen.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
@@ -56,13 +58,11 @@ class _SettingScreenState extends State<SettingScreen> {
     // TODO: implement initState
     super.initState();
     Get.lazyPut(() => SettingController());
-    Get.lazyPut(() => MyLocalController());
   }
     @override
     Widget build(BuildContext context) {
       var widthValue = Get.width * 0.024;
       var heightValue = Get.height * 0.024;
-      MyLocalController myLocalController = Get.put(MyLocalController());
       return Scaffold(
         body: SafeArea(
             child: SingleChildScrollView(
@@ -115,7 +115,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               SettingCategory(
                                   onTap: () {
                                     Get.bottomSheet(
-                                      ChangeLanguageBottomSheetItem(myLocalController: myLocalController, heightValue: heightValue),
+                                      ChangeLanguageBottomSheetItem(heightValue: heightValue),
                                       backgroundColor: Themes.whiteColor,
                                       shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.only(
@@ -294,10 +294,21 @@ class ContactWithUs extends StatelessWidget {
   }
 }
 
-class ChangeLanguageBottomSheetItem extends StatelessWidget {
+class ChangeLanguageBottomSheetItem extends StatefulWidget {
   double? heightValue;
-  MyLocalController myLocalController;
-  ChangeLanguageBottomSheetItem({required this.myLocalController, required this.heightValue});
+  ChangeLanguageBottomSheetItem({required this.heightValue});
+
+  @override
+  State<ChangeLanguageBottomSheetItem> createState() => _ChangeLanguageBottomSheetItemState();
+}
+
+class _ChangeLanguageBottomSheetItemState extends State<ChangeLanguageBottomSheetItem> {
+
+  changelanguage(String codeCountry){
+    Locale myLocal = Locale(codeCountry);
+    Get.find<StorageService>().SetLanguage(codeCountry);
+    Get.updateLocale(myLocal);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -324,7 +335,7 @@ class ChangeLanguageBottomSheetItem extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: heightValue! * 2,
+              height: widget.heightValue! * 2,
             ),
             Text(
               'chose_language'.tr,
@@ -335,7 +346,7 @@ class ChangeLanguageBottomSheetItem extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: heightValue! * 1,
+              height: widget.heightValue! * 1,
             ),
             Column(
               children: <Widget>[
@@ -343,21 +354,27 @@ class ChangeLanguageBottomSheetItem extends StatelessWidget {
                     title: 'arabic'.tr,
                     hight: 50,
                     onTap: (){
-                      myLocalController.changelanguage("ar");
+                    setState(() {
+                      changelanguage("ar");
+                     // CustomFlutterToast(Get.find<StorageService>().GetLanguage);
                       Get.offAll(const SplashScreen());
+                    });
                     }),
-                SizedBox(height: heightValue! * 1,),
+                SizedBox(height: widget.heightValue! * 1,),
                 CustomButtonImage(
                     title: 'english'.tr,
                     hight: 50,
                     onTap: (){
-                      myLocalController.changelanguage("en");
-                      Get.offAll(const SplashScreen());
+                     setState(() {
+                       changelanguage("en");
+                     //  CustomFlutterToast(Get.find<StorageService>().GetLanguage);
+                       Get.offAll(const SplashScreen());
+                     });
                     })
               ],
             ),
             SizedBox(
-              height: heightValue! * 1.5,
+              height: widget.heightValue! * 1.5,
             ),
           ],
         ),
@@ -365,8 +382,6 @@ class ChangeLanguageBottomSheetItem extends StatelessWidget {
     );
 
   }
-
-
 }
 
 
