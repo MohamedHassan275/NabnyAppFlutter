@@ -12,6 +12,7 @@ import 'package:nabny/screens/requirements_request_offer_price_screen/requiremen
 import 'package:nabny/utils/Themes.dart';
 
 import '../../core/localization/local_controller.dart';
+import '../../core/servies/storage_service.dart';
 import '../../model/OfferOrderRequestModel.dart';
 import '../home_main_screen/home_main_screen.dart';
 
@@ -273,7 +274,9 @@ class AppbarDetailsOrder extends StatelessWidget {
             child: CircleAvatar(
               backgroundColor: Themes.ColorApp5,
               child: Icon(
-                Get.find<MyLocalController>().language!.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
+                Get.find<StorageService>().GetLanguage == "en"
+                    ? Icons.keyboard_arrow_right
+                    : Icons.keyboard_arrow_left,
                 color: Colors.white,
               ),
             ),

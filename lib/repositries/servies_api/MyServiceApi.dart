@@ -697,11 +697,9 @@ class MyServiceApi {
     return responseUserModel;
   }
 
-  static Future<CompaniesModel?> GetCompaniesDetails(String Authorization, String Language,double lat, double lng, String category) async {
+  static Future<CompaniesModel?> GetCompaniesDetails(String Authorization, String Language,String category) async {
     CompaniesModel? companiesModel;
     var formData = FormData.fromMap({
-      'lat' : lat,
-      'lng' : lng,
       'category' : category,
     });
     try {

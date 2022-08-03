@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/core/servies/services.dart';
+import 'package:nabny/core/servies/storage_service.dart';
 
 class MyLocalController extends GetxController {
 
@@ -10,7 +11,7 @@ class MyLocalController extends GetxController {
 
   changelanguage(String codeCountry){
     Locale myLocal = Locale(codeCountry);
-    myServices.sharedPreferences.setString("lang", codeCountry);
+    Get.find<StorageService>().SetLanguage(codeCountry);
     Get.updateLocale(myLocal);
   }
 
@@ -18,7 +19,7 @@ class MyLocalController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    String? myLanguage = myServices.sharedPreferences.getString("lang");
+    String? myLanguage = Get.find<StorageService>().GetLanguage();
     if(myLanguage == 'ar'){
       language = const Locale("ar");
     }else if(myLanguage == 'en'){

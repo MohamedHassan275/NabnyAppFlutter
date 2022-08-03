@@ -41,7 +41,7 @@ class MyCurrentOrderScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                       child: MySendOrderListItem(currentOrder: controller.myOrderResponseModel!.currentOrder![index], heightValue: heightValue,widthValue: widthValue,),
                     );
-                  },) : NoItemOFList();
+                  },) : NoItemOFList(myOrderController: controller,);
               },),)
       ),
     );
@@ -144,8 +144,8 @@ class MySendOrderListItem extends StatelessWidget {
 }
 
 class NoItemOFList extends StatelessWidget {
-  NoItemOFList({Key? key}) : super(key: key);
-
+  NoItemOFList({Key? key,required this.myOrderController}) : super(key: key);
+  MyOrderController myOrderController;
   var widthValue = Get.width * 0.024;
   var heightValue = Get.height * 0.024;
 
@@ -162,9 +162,12 @@ class NoItemOFList extends StatelessWidget {
             SizedBox(
               height: heightValue * 2,
             ),
-            Image.asset(
-              Assets.imagesOfferPrice,
-              fit: BoxFit.contain,
+            GestureDetector(
+              onTap: ()=> myOrderController.getMyOrderUser(),
+              child: Image.asset(
+                Assets.imagesOfferPrice,
+                fit: BoxFit.contain,
+              ),
             ),
             SizedBox(
               height: heightValue * 1,

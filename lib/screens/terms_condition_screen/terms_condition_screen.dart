@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/screens/setting_screen/setting_screen.dart';
 
+import '../../core/servies/storage_service.dart';
 import '../../utils/Themes.dart';
 import '../home_main_screen/home_main_screen.dart';
 import '../setting_screen/setting_controller.dart';
@@ -66,7 +67,9 @@ class _TermsConditionScreenState extends State<TermsConditionScreen> {
                       child: CircleAvatar(
                         backgroundColor: Themes.ColorApp5,
                         child: Icon(
-                          Get.find<MyLocalController>().language!.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
+                          Get.find<StorageService>().GetLanguage == "en"
+                              ? Icons.keyboard_arrow_right
+                              : Icons.keyboard_arrow_left,
                           color: Colors.white,),
                       ),
                     ),

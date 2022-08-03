@@ -31,6 +31,14 @@ class StorageService extends GetxService {
     _prefs.setString(StorageKeys.token, token);
   }
 
+  get GetLanguage {
+    return _prefs.getString(StorageKeys.activeLocale) ?? "";
+  }
+
+  SetLanguage(String token) {
+    _prefs.setString(StorageKeys.activeLocale, token);
+  }
+
   clear() => _prefs.clear();
 }
 

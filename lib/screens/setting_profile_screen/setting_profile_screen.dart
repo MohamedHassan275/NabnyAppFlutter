@@ -8,10 +8,11 @@ import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:nabny/screens/profile_information_screen/profile_information_screen.dart';
 import 'package:nabny/utils/Themes.dart';
 
+import '../../core/servies/storage_service.dart';
+
 class SettingProfileScreen extends StatelessWidget {
    SettingProfileScreen({Key? key}) : super(key: key);
 
-   MyLocalController myLocalController = Get.put(MyLocalController());
   @override
   Widget build(BuildContext context) {
     var widthValue = Get.width * 0.024;
@@ -52,7 +53,9 @@ class SettingProfileScreen extends StatelessWidget {
                         child: CircleAvatar(
                           backgroundColor: Themes.ColorApp5,
                           child: Icon(
-                           myLocalController.language!.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
+                            Get.find<StorageService>().GetLanguage == "en"
+                                ? Icons.keyboard_arrow_right
+                                : Icons.keyboard_arrow_left,
                             color: Colors.white,),
                         ),
                       ),

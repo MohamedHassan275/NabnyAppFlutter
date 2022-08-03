@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/screens/category_concrete_screen/category_concrete_contoller.dart';
 
+import '../../core/servies/storage_service.dart';
 import '../../generated/assets.dart';
 import '../../model/factory_model.dart';
 import '../../utils/Themes.dart';
@@ -21,7 +22,6 @@ class _CategoryConcreteScreenState extends State<CategoryConcreteScreen> {
 
   CategoryConcreteContoller categoryConcreteContoller = Get.put(CategoryConcreteContoller());
 
-  MyLocalController myLocalController = Get.put(MyLocalController());
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class _CategoryConcreteScreenState extends State<CategoryConcreteScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              AppbarDetailsOrder(widthValue, heightValue,myLocalController),
+              AppbarDetailsOrder(widthValue, heightValue),
               SizedBox(
                 height: heightValue * 1,
               ),
@@ -59,9 +59,8 @@ class _CategoryConcreteScreenState extends State<CategoryConcreteScreen> {
 }
 
 class AppbarDetailsOrder extends StatelessWidget {
-  AppbarDetailsOrder(this.widthValue,this.heightValue,this.myLocalController);
+  AppbarDetailsOrder(this.widthValue,this.heightValue);
 
-  MyLocalController myLocalController;
   double heightValue,widthValue;
   @override
   Widget build(BuildContext context) {
@@ -94,7 +93,7 @@ class AppbarDetailsOrder extends StatelessWidget {
             child: CircleAvatar(
               backgroundColor: Themes.ColorApp5,
               child: Icon(
-                myLocalController.language!.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
+                Get.find<StorageService>().GetLanguage == "en" ? Icons.keyboard_arrow_right : Icons.keyboard_arrow_left,
                 color: Colors.white,
               ),
             ),

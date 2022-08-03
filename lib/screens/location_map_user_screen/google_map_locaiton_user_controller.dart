@@ -22,7 +22,7 @@ class GetMyLocationController extends GetxController {
     // print(lat);
     // print(lng);
     // print(myLocation);
-    MyServiceApi.updateMyLocationInMap('Bearer '+Get.find<StorageService>().GetToken, Get.find<MyLocalController>().language!.languageCode,
+    MyServiceApi.updateMyLocationInMap('Bearer '+Get.find<StorageService>().GetToken, Get.find<StorageService>().GetLanguage,
         lat, lng, myLocation).then((value){
       if(value?.success == true){
         setSeving(false);

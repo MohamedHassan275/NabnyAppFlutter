@@ -76,7 +76,7 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
                           child: CircleAvatar(
                             backgroundColor: Themes.ColorApp5,
                             child: Icon(
-                              Get.find<MyLocalController>().language?.languageCode == "en"
+                              Get.find<StorageService>().GetLanguage == "en"
                                   ? Icons.keyboard_arrow_right
                                   : Icons.keyboard_arrow_left,
                               color: Colors.white,

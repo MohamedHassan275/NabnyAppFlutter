@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/core/localization/local_controller.dart';
+import 'package:nabny/core/servies/storage_service.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:nabny/screens/requirements_request_offer_price_screen/requirements_request_offer_price_screen.dart';
 
@@ -19,7 +20,6 @@ class MyAddressRequestOfferScreen extends StatefulWidget {
 class _MyAddressRequestOfferScreenState
     extends State<MyAddressRequestOfferScreen> {
 
-  MyLocalController myLocalController = Get.put(MyLocalController());
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class _MyAddressRequestOfferScreenState
             height: Get.height,
             child: Stack(
               children: [
-                AppbarDetailsOrder(widthValue, heightValue,myLocalController),
+                AppbarDetailsOrder(widthValue, heightValue),
                 SizedBox(
                   height: heightValue * 1.2,
                 ),
@@ -140,10 +140,9 @@ class AddressDetailsOrder extends StatelessWidget {
 }
 
 class AppbarDetailsOrder extends StatelessWidget {
-  AppbarDetailsOrder(this.widthValue, this.heightValue,this.myLocalController);
+  AppbarDetailsOrder(this.widthValue, this.heightValue);
 
   double heightValue, widthValue;
-  MyLocalController myLocalController;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -174,7 +173,9 @@ class AppbarDetailsOrder extends StatelessWidget {
             child: CircleAvatar(
               backgroundColor: Themes.ColorApp5,
               child: Icon(
-                myLocalController.language!.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
+                Get.find<StorageService>().GetLanguage == "en"
+                    ? Icons.keyboard_arrow_right
+                    : Icons.keyboard_arrow_left,
                 color: Colors.white,
               ),
             ),

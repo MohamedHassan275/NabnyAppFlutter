@@ -6,6 +6,7 @@ import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 
 import '../../../core/constant/Themes.dart';
 import '../../../core/localization/local_controller.dart';
+import '../../../core/servies/storage_service.dart';
 import '../../../generated/assets.dart';
 
 class DetailsMyCurrentOrder extends StatelessWidget {
@@ -186,7 +187,9 @@ class AppbarDetailsOrder extends StatelessWidget {
             child: CircleAvatar(
               backgroundColor: Themes.ColorApp5,
               child: Icon(
-                Get.find<MyLocalController>().language!.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
+                Get.find<StorageService>().GetLanguage == "en"
+                    ? Icons.keyboard_arrow_right
+                    : Icons.keyboard_arrow_left,
                 color: Colors.white,
               ),
             ),

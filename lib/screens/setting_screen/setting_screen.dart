@@ -56,7 +56,7 @@ class _SettingScreenState extends State<SettingScreen> {
     // TODO: implement initState
     super.initState();
     Get.lazyPut(() => SettingController());
-
+    Get.lazyPut(() => MyLocalController());
   }
     @override
     Widget build(BuildContext context) {
@@ -343,7 +343,7 @@ class ChangeLanguageBottomSheetItem extends StatelessWidget {
                     title: 'arabic'.tr,
                     hight: 50,
                     onTap: (){
-                   //   myLocalController.changelanguage("ar");
+                      myLocalController.changelanguage("ar");
                       Get.offAll(const SplashScreen());
                     }),
                 SizedBox(height: heightValue! * 1,),

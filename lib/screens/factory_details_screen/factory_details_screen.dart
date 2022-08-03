@@ -6,6 +6,7 @@ import 'package:nabny/model/home_user_model.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:nabny/screens/requirements_request_offer_price_screen/requirements_request_offer_price_screen.dart';
 
+import '../../core/servies/storage_service.dart';
 import '../../generated/assets.dart';
 import '../../utils/Themes.dart';
 
@@ -79,7 +80,7 @@ class ImageAndFavoriteFactory extends StatelessWidget {
                 width: 35,
                 height: 35,
                 widget: Icon(
-                  Get.find<MyLocalController>().language!.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,),
+                  Get.find<StorageService>().GetLanguage == "en" ? Icons.keyboard_arrow_right : Icons.keyboard_arrow_left,),
                 color: Themes.whiteColor),
           ),
           GestureDetector(

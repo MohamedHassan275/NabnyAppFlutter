@@ -7,6 +7,7 @@ import 'package:nabny/model/LocationModel.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:nabny/screens/my_address_screen/MyAddressController.dart';
 
+import '../../core/servies/storage_service.dart';
 import '../../generated/assets.dart';
 import '../../utils/Themes.dart';
 import '../save_location_map_user_screen/save_my_locaiton_user_screen.dart';
@@ -218,7 +219,9 @@ class AppbarDetailsOrder extends StatelessWidget {
             child: CircleAvatar(
               backgroundColor: Themes.ColorApp5,
               child: Icon(
-               Get.find<MyLocalController>().language!.languageCode == 'ar' ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
+                Get.find<StorageService>().GetLanguage == "en"
+                    ? Icons.keyboard_arrow_right
+                    : Icons.keyboard_arrow_left,
                 color: Colors.white,
               ),
             ),

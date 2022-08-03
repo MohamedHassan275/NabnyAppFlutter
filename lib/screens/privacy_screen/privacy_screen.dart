@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 
+import '../../core/servies/storage_service.dart';
 import '../../utils/Themes.dart';
 import '../setting_screen/setting_controller.dart';
 import '../setting_screen/setting_screen.dart';
@@ -16,14 +17,12 @@ class PrivacyScreen extends StatefulWidget {
 }
 
 class _PrivacyScreenState extends State<PrivacyScreen> {
-  MyLocalController myLocalController = Get.put(MyLocalController());
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     Get.put(SettingController());
-    Get.put(MyLocalController());
   }
 
   @override
@@ -67,7 +66,9 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                       child: CircleAvatar(
                         backgroundColor: Themes.ColorApp5,
                         child: Icon(
-                          Get.find<MyLocalController>().language?.languageCode == "ar" ? Icons.subdirectory_arrow_right : Icons.subdirectory_arrow_left,
+                          Get.find<StorageService>().GetLanguage == "en"
+                              ? Icons.keyboard_arrow_right
+                              : Icons.keyboard_arrow_left,
                           color: Colors.white,),
                       ),
                     ),

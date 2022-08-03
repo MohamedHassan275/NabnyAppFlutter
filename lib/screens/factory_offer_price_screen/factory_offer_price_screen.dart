@@ -8,6 +8,7 @@ import 'package:nabny/utils/Themes.dart';
 
 import '../../componant/CustomButtonWidget.dart';
 import '../../core/localization/local_controller.dart';
+import '../../core/servies/storage_service.dart';
 import '../../core/widget/custom_circler_progress_indicator_widget.dart';
 import '../../generated/assets.dart';
 import '../../model/OfferOrderRequestModel.dart';
@@ -169,9 +170,7 @@ class AppbarDetailsOrder extends StatelessWidget {
             child: CircleAvatar(
               backgroundColor: Themes.ColorApp5,
               child: Icon(
-                Get.find<MyLocalController>().language!.languageCode == 'ar'
-                    ? Icons.subdirectory_arrow_right
-                    : Icons.subdirectory_arrow_left,
+                Get.find<StorageService>().GetLanguage == "en" ? Icons.keyboard_arrow_right : Icons.keyboard_arrow_left,
                 color: Colors.white,
               ),
             ),

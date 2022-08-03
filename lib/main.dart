@@ -27,11 +27,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    MyLocalController controller =  Get.put(MyLocalController()) ;
+  //  MyLocalController controller =  Get.put(MyLocalController()) ;
+    StorageService controller =  Get.put(StorageService());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       translations: MyTranslation(),
-      locale: controller.language,
+      locale: Locale(controller.GetLanguage),
       home: const SplashScreen(),
     );
   }

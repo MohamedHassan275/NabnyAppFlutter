@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/LoadingWidget.dart';
+import 'package:nabny/core/constant/constant.dart';
 import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/core/servies/storage_service.dart';
 import 'package:nabny/core/widget/custom_circler_progress_indicator_widget.dart';
@@ -81,7 +82,8 @@ class HomeScreen extends StatelessWidget {
                                   widthValue: widthValue,
                                   heightValue: heightValue,
                                   onTap: () {
-                                    Get.to(const GoogleMapLocationUserScreen());
+                                 //   Get.to(const GoogleMapLocationUserScreen());
+                                    CustomFlutterToast(Get.find<StorageService>().GetLanguage);
                                   }),
                               SizedBox(
                                 height: heightValue * 1.5,
@@ -545,7 +547,7 @@ class CategoryListBuild extends StatelessWidget {
           height: heightValue * 1,
         ),
         SizedBox(
-          height: 125,
+          height: 135,
           child: ListView.builder(
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
@@ -557,9 +559,11 @@ class CategoryListBuild extends StatelessWidget {
               return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: GestureDetector(
-                    onTap: (){},
+                    onTap: (){
+                      CustomFlutterToast('${homeUserResponseModel!.categories!.length}');
+                    },
                     child: Container(
-                      height: 110,
+                      height: 125,
                       width: 150,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
@@ -589,9 +593,11 @@ class CategoryListBuild extends StatelessWidget {
                               children: [
                                 Text(
                                   '${homeUserResponseModel!.categories![index].name}',
+                                   maxLines: 1,
                                   style: const TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 15,
+                                    overflow: TextOverflow.fade,
                                     color: Themes.ColorApp8,
                                   ),
                                 ),
@@ -752,8 +758,7 @@ class OrderPriceRequest extends StatelessWidget {
                     height: 25,
                     child: Center(
                       child: Icon(
-                        Get.find<MyLocalController>().language?.languageCode ==
-                                "en"
+                        Get.find<StorageService>().GetLanguage == "en"
                             ? Icons.keyboard_arrow_right
                             : Icons.keyboard_arrow_left,
                         size: 25,
