@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/LoadingWidget.dart';
 import 'package:nabny/core/constant/constant.dart';
-import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/core/servies/storage_service.dart';
-import 'package:nabny/core/widget/custom_circler_progress_indicator_widget.dart';
 import 'package:nabny/generated/assets.dart';
+import 'package:nabny/screens/category_details_screen/category_details_screen.dart';
 import 'package:nabny/screens/factory_details_screen/factory_details_screen.dart';
 import 'package:nabny/screens/home_screen/home_controller.dart';
 import 'package:nabny/screens/request_offer_price_screen/request_offer_price_screen.dart';
@@ -381,17 +380,17 @@ class DetailsCompany extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          '${CompaniesModel?.rate}',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 15,
-                            color: Themes.ColorApp8,
-                          ),
-                        ),
-                        SizedBox(
-                          width: widthValue * 1,
-                        ),
+                        // Text(
+                        //   '${CompaniesModel?.rate}',
+                        //   style: const TextStyle(
+                        //     fontWeight: FontWeight.w400,
+                        //     fontSize: 15,
+                        //     color: Themes.ColorApp8,
+                        //   ),
+                        // ),
+                        // SizedBox(
+                        //   width: widthValue * 1,
+                        // ),
                         Container(
                           width: 70,
                           height: 30,
@@ -561,6 +560,7 @@ class CategoryListBuild extends StatelessWidget {
                   child: GestureDetector(
                     onTap: (){
                       CustomFlutterToast('${homeUserResponseModel!.categories!.length}');
+                      Get.to(CategoryDetailsScreen(categories: homeUserResponseModel!.categories![index],));
                     },
                     child: Container(
                       height: 125,

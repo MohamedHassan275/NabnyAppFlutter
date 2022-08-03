@@ -80,7 +80,9 @@ class ImageAndFavoriteFactory extends StatelessWidget {
                 width: 35,
                 height: 35,
                 widget: Icon(
-                  Get.find<StorageService>().GetLanguage == "en" ? Icons.keyboard_arrow_right : Icons.keyboard_arrow_left,),
+                  Get.find<StorageService>().GetLanguage == "en"
+                      ? Icons.keyboard_arrow_right
+                      : Icons.keyboard_arrow_left,),
                 color: Themes.whiteColor),
           ),
           GestureDetector(
@@ -152,18 +154,18 @@ class FactoryDetails extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Text(
-                        '${companies.category}',
-                        maxLines: 2,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Themes.ColorApp1,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(
-                        width: widthValue * .3,
-                      ),
+                      // Text(
+                      //   '${companies.category}',
+                      //   maxLines: 2,
+                      //   style: TextStyle(
+                      //     fontSize: 12,
+                      //     color: Themes.ColorApp1,
+                      //     fontWeight: FontWeight.w400,
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   width: widthValue * .3,
+                      // ),
                       Container(
                         width: 70,
                         height: 30,

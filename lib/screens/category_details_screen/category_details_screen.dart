@@ -1,56 +1,60 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nabny/core/localization/local_controller.dart';
-import 'package:nabny/screens/category_concrete_screen/category_concrete_contoller.dart';
+import 'package:nabny/componant/LoadingWidget.dart';
+import 'package:nabny/generated/assets.dart';
+import 'package:nabny/screens/category_details_screen/category_details_controller.dart';
 
+import '../../core/constant/Themes.dart';
 import '../../core/servies/storage_service.dart';
-import '../../generated/assets.dart';
-import '../../model/factory_model.dart';
-import '../../utils/Themes.dart';
-import '../factory_details_screen/factory_details_screen.dart';
+import '../../model/companiesModel.dart';
+import '../../model/home_user_model.dart';
 import '../home_main_screen/home_main_screen.dart';
 
-class CategoryConcreteScreen extends StatefulWidget {
-  const CategoryConcreteScreen({Key? key}) : super(key: key);
-
-  @override
-  _CategoryConcreteScreenState createState() => _CategoryConcreteScreenState();
-}
-
-class _CategoryConcreteScreenState extends State<CategoryConcreteScreen> {
-
-  CategoryConcreteContoller categoryConcreteContoller = Get.put(CategoryConcreteContoller());
-
-
+class CategoryDetailsScreen extends StatelessWidget {
+   CategoryDetailsScreen({Key? key,required this.categories}) : super(key: key);
+   Categories? categories;
   @override
   Widget build(BuildContext context) {
+    CategoryDetailsController categoryDetailsController = Get.put(CategoryDetailsController(categories!.id.toString()));
+
     var widthValue = Get.width * 0.024;
     var heightValue = Get.height * 0.024;
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              AppbarDetailsOrder(widthValue, heightValue),
-              SizedBox(
-                height: heightValue * 1,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: categoryConcreteContoller.factoryModel.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: FactoryItemList(factoryModel: categoryConcreteContoller.factoryModel[index]),
-                    );
-                  },),
-              ),
-            ],
+      body: RefreshIndicator(
+        onRefresh: () async{
+          categoryDetailsController.getCategoryDetails(categories!.id.toString());
+        },
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: GetBuilder<CategoryDetailsController>(
+              init: CategoryDetailsController(categories!.id.toString()),
+              builder: (controller) {
+              if (controller.Loading){
+                return LoadingWidget(data: '');
+              }
+              return Column(
+                children: [
+                  AppbarDetailsOrder(categories!,widthValue, heightValue),
+                  SizedBox(
+                    height: heightValue * 1,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: controller.companiesResponseModel!.isNotEmpty ? ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: controller.companiesResponseModel!.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5),
+                          child: FactoryItemList(companiesResponseModel: controller.companiesResponseModel![index]),
+                        );
+                      },) : NoItemOFList()
+                  ),
+                ],
+              );
+            },),
           ),
         ),
       ),
@@ -58,9 +62,47 @@ class _CategoryConcreteScreenState extends State<CategoryConcreteScreen> {
   }
 }
 
-class AppbarDetailsOrder extends StatelessWidget {
-  AppbarDetailsOrder(this.widthValue,this.heightValue);
+class NoItemOFList extends StatelessWidget {
+  NoItemOFList({Key? key}) : super(key: key);
 
+  var widthValue = Get.width * 0.024;
+  var heightValue = Get.height * 0.024;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: Get.width,
+      child: Column(
+        children: [
+          Image.asset(
+            Assets.imagesOfferPrice,
+            fit: BoxFit.contain,
+          ),
+          SizedBox(
+            height: heightValue * 1,
+          ),
+          Text(
+            'no_companies_here'.tr,
+            textAlign: TextAlign.center,
+            maxLines: 2,
+            style: TextStyle(
+              color: Themes.ColorApp8,
+              fontSize: 19,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          SizedBox(
+            height: heightValue * .7,
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class AppbarDetailsOrder extends StatelessWidget {
+  AppbarDetailsOrder(this.categories,this.widthValue,this.heightValue);
+  Categories categories;
   double heightValue,widthValue;
   @override
   Widget build(BuildContext context) {
@@ -76,7 +118,7 @@ class AppbarDetailsOrder extends StatelessWidget {
                   topRight: Radius.circular(35))),
           child: Center(
             child: Text(
-              'concrete'.tr,
+              '${categories.name}'.tr,
               style: TextStyle(
                 color: Themes.ColorApp15,
                 fontSize: 20,
@@ -105,9 +147,9 @@ class AppbarDetailsOrder extends StatelessWidget {
 }
 
 class FactoryItemList extends StatelessWidget {
-  FactoryItemList({required this.factoryModel});
+  FactoryItemList({required this.companiesResponseModel});
 
-  FactoryModel factoryModel;
+  CompaniesResponseModel companiesResponseModel;
   var heightValue = Get.height * 0.024;
   var widthValue = Get.width * 0.024;
 
@@ -115,7 +157,7 @@ class FactoryItemList extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-     //   Get.to(FactoryDetailsScreen());
+        //   Get.to(FactoryDetailsScreen());
       },
       child: Card(
         elevation: 2,
@@ -135,7 +177,7 @@ class FactoryItemList extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(15),
                     child: FadeInImage(
-                      image: AssetImage(factoryModel.ImageCompany!),
+                      image: NetworkImage(companiesResponseModel.image!),
                       fit: BoxFit.fill,
                       height: 175,
                       width: Get.width,
@@ -157,7 +199,7 @@ class FactoryItemList extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(5.0),
-                child: DetailsCompany(factoryModel: factoryModel, heightValue: heightValue, widthValue: widthValue),
+                child: DetailsCompany(companiesResponseModel: companiesResponseModel, heightValue: heightValue, widthValue: widthValue),
               ),
               SizedBox(height: heightValue * 1,)
             ],
@@ -169,9 +211,9 @@ class FactoryItemList extends StatelessWidget {
 }
 
 class DetailsCompany extends StatelessWidget {
-  DetailsCompany({required this.factoryModel,required this.heightValue,required this.widthValue});
+  DetailsCompany({required this.companiesResponseModel,required this.heightValue,required this.widthValue});
 
-  FactoryModel factoryModel;
+  CompaniesResponseModel companiesResponseModel;
   double heightValue,widthValue;
   @override
   Widget build(BuildContext context) {
@@ -205,7 +247,7 @@ class DetailsCompany extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${factoryModel.NameCompany}',
+                      '${companiesResponseModel.name}',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 16,
@@ -216,15 +258,15 @@ class DetailsCompany extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          '${factoryModel.RateText}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 15,
-                            color: Themes.ColorApp8,
-                          ),
-                        ),
-                        SizedBox(width: widthValue * 1,),
+                        // Text(
+                        //   '${CompaniesResponseModel.RateText}',
+                        //   style: TextStyle(
+                        //     fontWeight: FontWeight.w400,
+                        //     fontSize: 15,
+                        //     color: Themes.ColorApp8,
+                        //   ),
+                        // ),
+                        // SizedBox(width: widthValue * 1,),
                         Container(
                           width: 70,
                           height: 30,
@@ -237,7 +279,7 @@ class DetailsCompany extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  '${factoryModel.RateNumber}',
+                                  '${companiesResponseModel.rate}',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 12,
@@ -261,7 +303,7 @@ class DetailsCompany extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '${factoryModel.DistanceCompany}',
+                '${companiesResponseModel.distance}',
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 12,
@@ -277,4 +319,5 @@ class DetailsCompany extends StatelessWidget {
     );
   }
 }
+
 
