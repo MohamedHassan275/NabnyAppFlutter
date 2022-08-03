@@ -44,6 +44,7 @@ class LoginController extends GetxController{
       print(mobilePhone);
       print(password);
       print(token);
+      print(Firebase_token);
       setLoading(true);
       MyServiceApi.checkLoginUser(mobilePhone, password, token).then((value){
         if(value!.success == true){

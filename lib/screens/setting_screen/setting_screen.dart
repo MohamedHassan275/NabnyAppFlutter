@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/core/constant/constant.dart';
 import 'package:nabny/core/localization/local_controller.dart';
+import 'package:nabny/core/localization/localization_service.dart';
 import 'package:nabny/core/servies/storage_service.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/about_app_screen/about_app_screen.dart';
@@ -304,11 +305,11 @@ class ChangeLanguageBottomSheetItem extends StatefulWidget {
 
 class _ChangeLanguageBottomSheetItemState extends State<ChangeLanguageBottomSheetItem> {
 
-  changelanguage(String codeCountry){
-    Locale myLocal = Locale(codeCountry);
-    Get.find<StorageService>().SetLanguage(codeCountry);
-    Get.updateLocale(myLocal);
-  }
+  // changelanguage(String codeCountry){
+  //   Locale myLocal = Locale(codeCountry);
+  //   Get.find<StorageService>().activeLocale;
+  //   Get.updateLocale(myLocal);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -355,8 +356,9 @@ class _ChangeLanguageBottomSheetItemState extends State<ChangeLanguageBottomShee
                     hight: 50,
                     onTap: (){
                     setState(() {
-                      changelanguage("ar");
+                     // changelanguage("ar");
                      // CustomFlutterToast(Get.find<StorageService>().GetLanguage);
+                      Get.find<LocalizationService>().toggleLocale();
                       Get.offAll(const SplashScreen());
                     });
                     }),
@@ -366,7 +368,7 @@ class _ChangeLanguageBottomSheetItemState extends State<ChangeLanguageBottomShee
                     hight: 50,
                     onTap: (){
                      setState(() {
-                       changelanguage("en");
+                       Get.find<LocalizationService>().toggleLocale();
                      //  CustomFlutterToast(Get.find<StorageService>().GetLanguage);
                        Get.offAll(const SplashScreen());
                      });

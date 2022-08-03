@@ -78,7 +78,7 @@ class _ChangePasswordProfileState extends State<ChangePasswordProfile> {
                           child:  CircleAvatar(
                             backgroundColor: Themes.whiteColor,
                             child: Icon(
-                              Get.find<StorageService>().GetLanguage == "en" ? Icons.keyboard_arrow_right : Icons.keyboard_arrow_left,
+                              Get.find<StorageService>().activeLocale.languageCode == "en" ? Icons.keyboard_arrow_right : Icons.keyboard_arrow_left,
                               color: Colors.black87,),
                           ),
                         ),

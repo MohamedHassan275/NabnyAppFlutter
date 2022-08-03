@@ -36,7 +36,7 @@ class MyFavoriteController extends GetxController {
 
   getFavoriteUserList(){
     setLoading(true);
-    MyServiceApi.GetFavoriteUser(Get.find<StorageService>().GetToken, Get.find<StorageService>().GetLanguage).then((value){
+    MyServiceApi.GetFavoriteUser(Get.find<StorageService>().GetToken, Get.find<StorageService>().activeLocale.languageCode).then((value){
       print(value);
       print(value?.success);
       if(value?.success == true){
@@ -53,7 +53,7 @@ class MyFavoriteController extends GetxController {
 
   RemoveFavoriteCompany(favouriteId){
     setLoading(true);
-    MyServiceApi.RemoveFavoriteUser(Get.find<StorageService>().GetToken, '${Get.find<StorageService>().GetLanguage}',favouriteId).then((value){
+    MyServiceApi.RemoveFavoriteUser(Get.find<StorageService>().GetToken, '${Get.find<StorageService>().activeLocale.languageCode}',favouriteId).then((value){
       if(value?.success == true){
         setLoading(false);
         CustomFlutterToast(value?.message);

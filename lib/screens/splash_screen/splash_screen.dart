@@ -17,6 +17,9 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  Locale? language;
+  String? myLanguage;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -26,6 +29,8 @@ class _SplashScreenState extends State<SplashScreen> {
         () => Get.offAll(Get.find<StorageService>().GetToken != ""
             ? GoogleMapLocationUserScreen()
             : OnBoardingScreen()));
+
+
   }
 
   @override

@@ -4,6 +4,8 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:nabny/core/servies/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../localization/localization_service.dart';
+
 
 abstract class StorageKeys {
   StorageKeys();
@@ -15,7 +17,6 @@ abstract class StorageKeys {
 }
 
 class StorageService extends GetxService {
-
   late final SharedPreferences _prefs;
 
   Future<StorageService> init() async {
@@ -32,12 +33,13 @@ class StorageService extends GetxService {
     _prefs.setString(StorageKeys.token, token);
   }
 
-  get GetLanguage {
-    return _prefs.getString(StorageKeys.activeLocale) ?? "";
+  Locale get activeLocale {
+    return Locale(_prefs.getString(StorageKeys.activeLocale) ??
+        SupportedLocales.arabic.toString());
   }
 
-  SetLanguage(String token) {
-    _prefs.setString(StorageKeys.activeLocale, token);
+  set activeLocale(Locale activeLocal) {
+    _prefs.setString(StorageKeys.activeLocale, activeLocal.toString());
   }
 
   clear() => _prefs.clear();
@@ -46,3 +48,4 @@ class StorageService extends GetxService {
 initialServicesUser () async{
   await Get.putAsync(() => StorageService().init());
 }
+

@@ -22,7 +22,7 @@ class FactoryOfferPriceController extends GetxController {
 
   AcceptOfferRequest(String orderId,String requestId){
     setIsLoading(true);
-    MyServiceApi.AcceptOfferOrderRequest(Get.find<StorageService>().GetToken, Get.find<StorageService>().GetLanguage,
+    MyServiceApi.AcceptOfferOrderRequest(Get.find<StorageService>().GetToken, Get.find<StorageService>().activeLocale.languageCode,
         orderId, requestId).then((value){
           if (value?.success == true){
             setIsLoading(false);
@@ -37,7 +37,7 @@ class FactoryOfferPriceController extends GetxController {
 
   CancelOfferRequest(String orderId){
     setIsLoading(true);
-    MyServiceApi.CancelOfferOrderRequest(Get.find<StorageService>().GetToken, Get.find<StorageService>().GetLanguage,
+    MyServiceApi.CancelOfferOrderRequest(Get.find<StorageService>().GetToken, Get.find<StorageService>().activeLocale.languageCode,
         orderId).then((value){
       if (value?.success == true){
         setIsLoading(false);

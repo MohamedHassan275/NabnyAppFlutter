@@ -34,7 +34,7 @@ class MyOrderController extends GetxController {
 
   getMyOrderUser(){
     setLoading(true);
-    MyServiceApi.GetMyOrderUser(Get.find<StorageService>().GetToken, Get.find<StorageService>().GetLanguage).then((value){
+    MyServiceApi.GetMyOrderUser(Get.find<StorageService>().GetToken, Get.find<StorageService>().activeLocale.languageCode).then((value){
       print("my order status is ${value?.success}");
       if(value?.success == true){
         setLoading(false);

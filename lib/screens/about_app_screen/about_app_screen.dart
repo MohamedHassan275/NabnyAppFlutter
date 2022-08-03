@@ -22,7 +22,7 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print(Get.find<StorageService>().GetLanguage);
+    print(Get.find<StorageService>().activeLocale.languageCode);
     Get.lazyPut(()=> SettingController());
   }
   @override
@@ -66,7 +66,7 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
                       child: CircleAvatar(
                         backgroundColor: Themes.ColorApp5,
                         child: Icon(
-                          Get.find<StorageService>().GetLanguage == "en" ? Icons.keyboard_arrow_right : Icons.keyboard_arrow_left,
+                          Get.find<StorageService>().activeLocale.languageCode == "en" ? Icons.keyboard_arrow_right : Icons.keyboard_arrow_left,
                           color: Colors.white,),
                       ),
                     ),

@@ -11,9 +11,12 @@ import 'package:nabny/screens/forget_password_screen/check_mobile_screen/widget/
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:nabny/screens/login_screen/login_controller.dart';
 import 'package:nabny/screens/register_screen/register_screen.dart';
+import 'package:nabny/screens/splash_screen/splash_screen.dart';
 import 'package:nabny/utils/Themes.dart';
 
 import '../../componant/CustomTextFieldWidget.dart';
+import '../../core/constant/constant.dart';
+import '../../core/servies/storage_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -33,7 +36,8 @@ class _LoginScreenState extends State<LoginScreen> {
   var formKey = GlobalKey<FormState>();
 
   var Scaffoldkey = GlobalKey<ScaffoldState>();
-
+  Locale? language;
+  String? myLanguage;
   @override
   void initState() {
     super.initState();
@@ -137,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: CustomButtonImage(
                                       hight: 50,
                                       title: 'login'.tr,
-                                      onTap: () => Get.find<LoginController>().checkLoginUser(MobilePhone.text, Password.text,controller.firebase_token)
+                                      onTap: () => Get.find<LoginController>().checkLoginUser(MobilePhone.text, Password.text, 'token')
                                     ),
                                   ),
                                   const CreateAccountFromLoginWidget(),

@@ -559,7 +559,7 @@ class _RequirementsRequestOfferPriceScreenState
 
                                 Get.find<RequirementsRequestOfferPriceController>().AddOfferOrderRequest(
                                         Get.find<StorageService>().GetToken,
-                                        Get.find<StorageService>().GetLanguage, companyId, TypeCastingOrderRequest.text,
+                                        Get.find<StorageService>().activeLocale.languageCode, companyId, TypeCastingOrderRequest.text,
                                         DateOrderRequest.text, WeightOrderRequest.text, MixTypeOrderRequest.text, CementTypeOrderRequest.text,
                                         StoneTypeOrderRequest.text, SpecialOrderRequest.text, MyLocationInMap.text,
                                         WithPump, PumpLengthOrderRequest.text, WithSnow, WithLab);
@@ -708,7 +708,7 @@ class AppbarDetailsOrder extends StatelessWidget {
             child: CircleAvatar(
               backgroundColor: Themes.ColorApp5,
               child: Icon(
-                Get.find<StorageService>().GetLanguage == "en"
+                Get.find<StorageService>().activeLocale.languageCode == "en"
                     ? Icons.keyboard_arrow_right
                     : Icons.keyboard_arrow_left,
                 color: Colors.white,

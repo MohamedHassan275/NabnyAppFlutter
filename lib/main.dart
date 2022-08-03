@@ -8,6 +8,7 @@ import 'package:nabny/screens/profile_information_screen/profile_information_con
 import 'package:nabny/screens/splash_screen/splash_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'core/localization/localization_service.dart';
 import 'core/servies/storage_service.dart';
 import 'screens/location_map_user_screen/google_map_locaiton_user_screen.dart';
 
@@ -17,23 +18,23 @@ void main() async {
   await initialServicesUser();
   await SharedPreferences.getInstance();
   await Firebase.initializeApp();
-  Get.lazyPut(()=>ProfileInformationController());
+  Get.put(LocalizationService.init(), permanent: true);
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-  //  MyLocalController controller =  Get.put(MyLocalController()) ;
-    StorageService controller =  Get.put(StorageService());
+     MyLocalController controller =  Get.put(MyLocalController()) ;
+    StorageService storageService = Get.put(StorageService());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       translations: MyTranslation(),
-      locale: Locale(controller.GetLanguage),
+      locale: Get.find<StorageService>().activeLocale,
       home: const SplashScreen(),
     );
   }
 }
+

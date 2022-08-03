@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nabny/core/constant/constant.dart';
+import 'package:nabny/core/servies/storage_service.dart';
 import 'package:nabny/screens/on_boarding_screen/Widget/custom_button.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -44,11 +46,14 @@ class OnBoardingScreenState extends State<OnBoardingScreen>{
               top: valueHight * 7,
               right: 25,
               left: 25,
-              child: Image.asset(
-                Assets.imagesLogoApp,
-                fit: BoxFit.contain,
-                width: 150,
-                height: 150,
+              child: GestureDetector(
+                onTap: ()=> CustomFlutterToast(Get.find<StorageService>().activeLocale.languageCode),
+                child: Image.asset(
+                  Assets.imagesLogoApp,
+                  fit: BoxFit.contain,
+                  width: 150,
+                  height: 150,
+                ),
               ),
             ),
             CustomSkipBoarding(),

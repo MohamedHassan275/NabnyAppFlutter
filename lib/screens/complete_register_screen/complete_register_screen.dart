@@ -101,7 +101,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                         backgroundColor: Themes.ColorApp5,
                                         radius: 25,
                                         child: Icon(
-                                          Get.find<StorageService>().GetLanguage == "en" ? Icons.keyboard_arrow_right : Icons.keyboard_arrow_left,
+                                          Get.find<StorageService>().activeLocale.languageCode == "en" ? Icons.keyboard_arrow_right : Icons.keyboard_arrow_left,
                                           color: Colors.white,
                                         ),
                                       ),

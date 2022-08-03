@@ -27,7 +27,7 @@ class CategoryDetailsController extends GetxController {
   }
   getCategoryDetails(categoryId){
     setLoading(true);
-    MyServiceApi.GetCompaniesDetails(Get.find<StorageService>().GetToken, Get.find<StorageService>().GetLanguage, categoryId).then((value){
+    MyServiceApi.GetCompaniesDetails(Get.find<StorageService>().GetToken, Get.find<StorageService>().activeLocale.languageCode, categoryId).then((value){
       if (value?.success == true){
         setLoading(false);
         setCategoryDetails(value?.companiesResponseModel);

@@ -219,7 +219,7 @@ class AppbarDetailsOrder extends StatelessWidget {
             child: CircleAvatar(
               backgroundColor: Themes.ColorApp5,
               child: Icon(
-                Get.find<StorageService>().GetLanguage == "en"
+                Get.find<StorageService>().activeLocale.languageCode == "en"
                     ? Icons.keyboard_arrow_right
                     : Icons.keyboard_arrow_left,
                 color: Colors.white,

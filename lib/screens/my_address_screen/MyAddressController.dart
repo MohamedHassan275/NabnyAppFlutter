@@ -30,7 +30,7 @@ class MyAddressController extends GetxController {
 
   getMyLocationUser(){
     setLoading(true);
-    MyServiceApi.GetLocationUser(Get.find<StorageService>().GetToken,Get.find<StorageService>().GetLanguage).then((value){
+    MyServiceApi.GetLocationUser(Get.find<StorageService>().GetToken,Get.find<StorageService>().activeLocale.languageCode).then((value){
       if(value?.success == true){
         setLoading(false);
         setMyLocationUser(value?.locationResponseModel);

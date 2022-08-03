@@ -83,7 +83,7 @@ class ImageAndFavoriteFactory extends StatelessWidget {
                 width: 35,
                 height: 35,
                 widget: Icon(
-                  Get.find<StorageService>().GetLanguage == "en"
+                  Get.find<StorageService>().activeLocale.languageCode == "en"
                       ? Icons.keyboard_arrow_right
                       : Icons.keyboard_arrow_left,),
                 color: Themes.whiteColor),

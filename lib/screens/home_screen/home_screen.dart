@@ -82,7 +82,7 @@ class HomeScreen extends StatelessWidget {
                                   heightValue: heightValue,
                                   onTap: () {
                                  //   Get.to(const GoogleMapLocationUserScreen());
-                                    CustomFlutterToast(Get.find<StorageService>().GetLanguage);
+                                    CustomFlutterToast(Get.find<StorageService>().activeLocale.languageCode);
                                   }),
                               SizedBox(
                                 height: heightValue * 1.5,
@@ -758,7 +758,7 @@ class OrderPriceRequest extends StatelessWidget {
                     height: 25,
                     child: Center(
                       child: Icon(
-                        Get.find<StorageService>().GetLanguage == "en"
+                        Get.find<StorageService>().activeLocale.languageCode == "en"
                             ? Icons.keyboard_arrow_right
                             : Icons.keyboard_arrow_left,
                         size: 25,

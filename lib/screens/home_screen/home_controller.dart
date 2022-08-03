@@ -34,7 +34,7 @@ class HomeController extends GetxController{
 
   getHomeDetailsUser(){
     setLoading(true);
-    MyServiceApi.checkHomeDetailsUser(Get.find<StorageService>().GetToken, '${Get.find<StorageService>().GetLanguage}').then((value){
+    MyServiceApi.checkHomeDetailsUser(Get.find<StorageService>().GetToken, '${Get.find<StorageService>().activeLocale.languageCode}').then((value){
       if(value?.success == true){
         setLoading(false);
         CustomFlutterToast('${value?.homeUserResponseModel?.currentLocation?.address}');
@@ -48,7 +48,7 @@ class HomeController extends GetxController{
 
   AddFavoriteCompany(companyId){
     setLoading(true);
-    MyServiceApi.AddFavoriteUser(Get.find<StorageService>().GetToken, '${Get.find<StorageService>().GetLanguage}',companyId).then((value){
+    MyServiceApi.AddFavoriteUser(Get.find<StorageService>().GetToken, '${Get.find<StorageService>().activeLocale.languageCode}',companyId).then((value){
       if(value?.success == true){
         setLoading(false);
         CustomFlutterToast(value?.message);
