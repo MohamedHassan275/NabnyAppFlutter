@@ -410,10 +410,21 @@ class OfferPriceAndAcceptedOffer extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: widthValue * 1,
+                width: widthValue * .5,
               ),
               Text(
                 '${factoryOfferPriceModel.price}',
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                  color: Themes.ColorApp1,
+                ),
+              ),
+              SizedBox(
+                width: widthValue * .5,
+              ),
+              Text(
+                'sar'.tr,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 14,
