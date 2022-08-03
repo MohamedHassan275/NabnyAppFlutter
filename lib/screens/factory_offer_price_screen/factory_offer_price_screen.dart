@@ -8,14 +8,15 @@ import 'package:nabny/utils/Themes.dart';
 
 import '../../componant/CustomButtonWidget.dart';
 import '../../core/localization/local_controller.dart';
+import '../../core/widget/custom_circler_progress_indicator_widget.dart';
 import '../../generated/assets.dart';
 import '../../model/OfferOrderRequestModel.dart';
 import '../home_main_screen/home_main_screen.dart';
 
 class FactoryOfferPriceScreen extends StatelessWidget {
-  FactoryOfferPriceScreen({Key? key, required this.request}) : super(key: key);
+  FactoryOfferPriceScreen({Key? key, required this.offerOrderRequestResponseModel}) : super(key: key);
 
-  List<Companies>? request;
+  OfferOrderRequestResponseModel offerOrderRequestResponseModel;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class FactoryOfferPriceScreen extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: NumberOfOfferPrice(companies: request!.length,),
+                child: NumberOfOfferPrice(companies: offerOrderRequestResponseModel.request!.length,),
               ),
               SizedBox(
                 height: heightValue * .7,
@@ -44,12 +45,12 @@ class FactoryOfferPriceScreen extends StatelessWidget {
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   physics: NeverScrollableScrollPhysics(),
-                  itemCount: request!.length,
+                  itemCount: offerOrderRequestResponseModel.request!.length,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5),
                       child: FactoryItemList(
-                          factoryOfferPriceModel: request![index]),
+                          factoryOfferPriceModel: offerOrderRequestResponseModel.request![index],offerOrderRequestResponseModel: offerOrderRequestResponseModel),
                     );
                   },
                 ),
@@ -182,8 +183,9 @@ class AppbarDetailsOrder extends StatelessWidget {
 }
 
 class FactoryItemList extends StatelessWidget {
-  FactoryItemList({required this.factoryOfferPriceModel});
+  FactoryItemList({required this.factoryOfferPriceModel,required this.offerOrderRequestResponseModel});
 
+  OfferOrderRequestResponseModel offerOrderRequestResponseModel;
   Companies factoryOfferPriceModel;
   var heightValue = Get.height * 0.024;
   var widthValue = Get.width * 0.024;
@@ -226,7 +228,7 @@ class FactoryItemList extends StatelessWidget {
                 height: heightValue * 1,
               ),
               OfferPriceAndAcceptedOffer(
-                  factoryOfferPriceModel: factoryOfferPriceModel),
+                  factoryOfferPriceModel: factoryOfferPriceModel, offerOrderRequestResponseModel: offerOrderRequestResponseModel,),
               SizedBox(
                 height: heightValue * 1,
               )
@@ -377,8 +379,9 @@ class DetailsCompany extends StatelessWidget {
 }
 
 class OfferPriceAndAcceptedOffer extends StatelessWidget {
-  OfferPriceAndAcceptedOffer({required this.factoryOfferPriceModel});
+  OfferPriceAndAcceptedOffer({required this.factoryOfferPriceModel,required this.offerOrderRequestResponseModel});
 
+  OfferOrderRequestResponseModel offerOrderRequestResponseModel;
   Companies factoryOfferPriceModel;
 
   @override
@@ -439,7 +442,7 @@ class OfferPriceAndAcceptedOffer extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Get.bottomSheet(
-                const BottomSheetItem(),
+                BottomSheetItem(companies: factoryOfferPriceModel, offerOrderRequestResponseModel: offerOrderRequestResponseModel,),
                 backgroundColor: Themes.whiteColor,
                 shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
@@ -473,15 +476,17 @@ class OfferPriceAndAcceptedOffer extends StatelessWidget {
 }
 
 class BottomSheetItem extends StatelessWidget {
-  const BottomSheetItem({Key? key}) : super(key: key);
+  BottomSheetItem({Key? key,required this.companies,required this.offerOrderRequestResponseModel}) : super(key: key);
+  OfferOrderRequestResponseModel offerOrderRequestResponseModel;
+  Companies companies;
 
   @override
   Widget build(BuildContext context) {
     var heightValue = Get.height * 0.024;
     var widthValue = Get.width * 0.024;
-    return Container(
+    return SizedBox(
       width: Get.width,
-      height: 475,
+      height: 485,
       child: Padding(
         padding: const EdgeInsets.all(7.0),
         child: Column(
@@ -499,7 +504,7 @@ class BottomSheetItem extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: heightValue * 2,
+              height: heightValue * 1.5,
             ),
             Image.asset(
               Assets.imagesAcceptedOfferPrice,
@@ -523,43 +528,58 @@ class BottomSheetItem extends StatelessWidget {
             SizedBox(
               height: heightValue * 1,
             ),
-            CustomButtonImage(
-                title: 'confirm'.tr,
-                hight: 50,
-                onTap: () {
-                  CustomFlutterToast('');
-                  // setState(() {
-                  //
-                  //   // Get.off(HomeMainScreen(valueBack: ''));
-                  // });
-                }),
-            SizedBox(
-              height: heightValue * 1.2,
-            ),
-            GestureDetector(
-              onTap: () {
-                CustomFlutterToast('');
-                // setState(() {
-                // //  Get.off(HomeMainScreen(valueBack: ''));
-                // });
-              },
-              child: Container(
-                width: Get.width,
-                child: Center(
-                  child: Text(
-                    'cancel'.tr,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
-                      color: Themes.ColorApp1,
+            GetBuilder<FactoryOfferPriceController>(
+              init: FactoryOfferPriceController(),
+              builder: (controller) {
+                return Column(
+                  children: [
+                    CirclerProgressIndicatorWidget(isLoading: controller.loading ? true : false),
+                    SizedBox(
+                      height: heightValue * .5,
                     ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: heightValue * .7,
-            )
+                    CustomButtonImage(
+                        title: 'confirm'.tr,
+                        hight: 50,
+                        onTap: () {
+                          CustomFlutterToast(offerOrderRequestResponseModel.id.toString());
+                          CustomFlutterToast(companies.id.toString());
+                          controller.AcceptOfferRequest(offerOrderRequestResponseModel.id.toString(), companies.id.toString());
+                          // setState(() {
+                          //
+                          //   // Get.off(HomeMainScreen(valueBack: ''));
+                          // });
+                        }),
+                    SizedBox(
+                      height: heightValue * 1.2,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        CustomFlutterToast('${companies.id}');
+                        controller.CancelOfferRequest(companies.id.toString());
+                        // setState(() {
+                        // //  Get.off(HomeMainScreen(valueBack: ''));
+                        // });
+                      },
+                      child: Container(
+                        width: Get.width,
+                        child: Center(
+                          child: Text(
+                            'cancel'.tr,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
+                              color: Themes.ColorApp1,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: heightValue * .7,
+                    )
+                  ],
+                );
+            },)
           ],
         ),
       ),

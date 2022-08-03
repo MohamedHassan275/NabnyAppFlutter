@@ -350,6 +350,85 @@ class MyServiceApi {
     return responseUserModel;
   }
 
+  static Future<ResponseUserModel?> AcceptOfferOrderRequest(String Authorization, String Language,
+      String order_id,String request_id) async {
+    ResponseUserModel? responseUserModel;
+    var formData = FormData.fromMap({
+      'order_id' : order_id,
+      'request_id' : request_id,
+    });
+    try {
+      Response response =
+      await Dio().post(URL + 'order/accept', data :formData ,options: Options(
+          headers: {
+            'Authorization': 'Bearer $Authorization',
+            'Accept-Language' : '$Language'
+          }
+      ));
+
+      if (response.statusCode == 200) {
+        print(response.statusCode);
+        print(response.data);
+        return ResponseUserModel.fromJson(response.data);
+      } else {
+        // print('${response.statusMessage} : ${response.statusCode}');
+        return throw Exception(response.statusMessage!);
+      }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print('Dio error!');
+        print('STATUS: ${e.response?.statusCode}');
+        print('DATA: ${e.response?.data}');
+        print('DATA: ${e.response?.statusMessage}');
+        print('HEADERS: ${e.response?.headers}');
+      } else {
+        // Error due to setting up or sending the request
+        print('Error sending request!');
+        print(e.message);
+      }
+    }
+    return responseUserModel;
+  }
+
+  static Future<ResponseUserModel?> CancelOfferOrderRequest(String Authorization, String Language,
+      String order_id) async {
+    ResponseUserModel? responseUserModel;
+    var formData = FormData.fromMap({
+      'order_id' : order_id,
+    });
+    try {
+      Response response =
+      await Dio().post(URL + 'order/cancel', data :formData ,options: Options(
+          headers: {
+            'Authorization': 'Bearer $Authorization',
+            'Accept-Language' : '$Language'
+          }
+      ));
+
+      if (response.statusCode == 200) {
+        print(response.statusCode);
+        print(response.data);
+        return ResponseUserModel.fromJson(response.data);
+      } else {
+        // print('${response.statusMessage} : ${response.statusCode}');
+        return throw Exception(response.statusMessage!);
+      }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print('Dio error!');
+        print('STATUS: ${e.response?.statusCode}');
+        print('DATA: ${e.response?.data}');
+        print('DATA: ${e.response?.statusMessage}');
+        print('HEADERS: ${e.response?.headers}');
+      } else {
+        // Error due to setting up or sending the request
+        print('Error sending request!');
+        print(e.message);
+      }
+    }
+    return responseUserModel;
+  }
+
   static Future<OfferOrderRequestModel?> GetRequestOfferPrice(String Authorization, String Language) async {
     OfferOrderRequestModel? offerOrderRequestModel;
     // var formData = FormData.fromMap({

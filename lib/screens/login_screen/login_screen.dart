@@ -130,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   const ForgetPasswordWidget(),
                                   SizedBox(height: valueHight * .2,),
                                   CirclerProgressIndicatorWidget(isLoading: controller.isLoading ? true : false),
-                                  const SizedBox(height: 15),
+                                  SizedBox(height: 15),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 25, vertical: 15),

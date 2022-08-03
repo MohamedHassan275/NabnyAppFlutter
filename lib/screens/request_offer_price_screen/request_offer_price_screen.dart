@@ -220,7 +220,7 @@ class RequestOfferOrderItems extends StatelessWidget {
                          if (requestOfferOrderModel.request!.isEmpty){
                            CustomFlutterToast('no_companies_here'.tr);
                          }else if (requestOfferOrderModel.request!.isNotEmpty){
-                           Get.to(FactoryOfferPriceScreen(request: requestOfferOrderModel.request,));
+                           Get.to(FactoryOfferPriceScreen(offerOrderRequestResponseModel: requestOfferOrderModel,));
                          }
                         }),
                       ),
