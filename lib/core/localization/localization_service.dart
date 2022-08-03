@@ -23,15 +23,41 @@ class LocalizationService extends GetxService {
     return LocalizationService(activeLocale);
   }
 
-  void toggleLocale() {
-    final Locale newLocale = _activeLocale == SupportedLocales.arabic
-        ? SupportedLocales.english
-        : SupportedLocales.arabic;
-    //in storage
-    Get.find<StorageService>().activeLocale = newLocale;
+  void toggleLocale(String codeCountry) {
+    Locale newLocale;
 
-    //in Getx
-    Get.updateLocale(newLocale);
+    if(codeCountry == 'ar'){
+      newLocale = const Locale("ar");
+      Get.find<StorageService>().activeLocale = newLocale;
+      Get.updateLocale(newLocale);
+    }else if(codeCountry == 'en'){
+      newLocale = const Locale("en");
+      Get.find<StorageService>().activeLocale = newLocale;
+      Get.updateLocale(newLocale);
+    }else {
+      newLocale = Locale(Get.deviceLocale!.languageCode);
+      Get.find<StorageService>().activeLocale = newLocale;
+      Get.updateLocale(newLocale);
+    }
+
+
+
+    // newLocale = _activeLocale == SupportedLocales.arabic
+    //     ? SupportedLocales.english
+    //     : SupportedLocales.arabic;
+    //
+    // //in storage
+    // Get.find<StorageService>().activeLocale = newLocale;
+    //
+    //  newLocale = _activeLocale == SupportedLocales.english
+    //     ? SupportedLocales.arabic
+    //     : SupportedLocales.english;
+    //
+    // //in storage
+    // Get.find<StorageService>().activeLocale = newLocale;
+    //
+    // //in Getx
+    // Get.updateLocale(newLocale);
 
   }
 }

@@ -358,7 +358,7 @@ class _ChangeLanguageBottomSheetItemState extends State<ChangeLanguageBottomShee
                     setState(() {
                      // changelanguage("ar");
                      // CustomFlutterToast(Get.find<StorageService>().GetLanguage);
-                      Get.find<LocalizationService>().toggleLocale();
+                      Get.find<LocalizationService>().toggleLocale('ar');
                       Get.offAll(const SplashScreen());
                     });
                     }),
@@ -368,7 +368,7 @@ class _ChangeLanguageBottomSheetItemState extends State<ChangeLanguageBottomShee
                     hight: 50,
                     onTap: (){
                      setState(() {
-                       Get.find<LocalizationService>().toggleLocale();
+                       Get.find<LocalizationService>().toggleLocale('en');
                      //  CustomFlutterToast(Get.find<StorageService>().GetLanguage);
                        Get.offAll(const SplashScreen());
                      });
