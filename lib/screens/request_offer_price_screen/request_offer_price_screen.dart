@@ -57,7 +57,7 @@ class RequestOfferPriceScreen extends StatelessWidget {
                   },),
                 SizedBox(height: heightValue * 1,),
                 CustomButtonImage(title: 'add_order'.tr, hight: 50, onTap: (){
-                  Get.to(const RequirementsRequestOfferPriceScreen());
+                  Get.to(RequirementsRequestOfferPriceScreen(companyId: '',));
                 }),
                 SizedBox(height: heightValue * 1,),
               ],
@@ -167,89 +167,65 @@ class RequestOfferOrderItems extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: 15,
-                          height: 15,
-                          child: CircleAvatar(
-                            backgroundColor: Themes.ColorApp9,
+                  child:
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            'you_have_offers'.tr,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                              color: Themes.ColorApp8,
+                            ),
                           ),
-                        ),
-                        SizedBox(width: widthValue * 1,),
-                        Text(
-                          'waiting_send_offer_price'.tr,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 13,
-                            color: Themes.ColorApp9,
+                          SizedBox(width: widthValue * .5,),
+                          Container(
+                            width: 40,
+                            height: 20,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 1,
+                                    color: Themes.ColorApp1
+                                ),
+                                borderRadius: BorderRadius.circular(35)
+                            ),
+                            child: Center(
+                              child:  Text(
+                                '${requestOfferOrderModel.request!.length}',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16,
+                                  color: Themes.ColorApp1,
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
+                          SizedBox(width: widthValue * .5,),
+                          Text(
+                            'offers'.tr,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                              color: Themes.ColorApp1,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(width: widthValue *.5,),
+                      Expanded(
+                        child: CustomButtonImage2(title: 'watch'.tr, hight: 38, width: 85, onTap: (){
+                         if (requestOfferOrderModel.request!.isEmpty){
+                           CustomFlutterToast('no_companies_here'.tr);
+                         }else if (requestOfferOrderModel.request!.isNotEmpty){
+                           Get.to(FactoryOfferPriceScreen(request: requestOfferOrderModel.request,));
+                         }
+                        }),
+                      ),
+                    ],
                   ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: [
-                  //     Row(
-                  //       children: [
-                  //         Text(
-                  //           'you_have_offers'.tr,
-                  //           style: TextStyle(
-                  //             fontWeight: FontWeight.w500,
-                  //             fontSize: 16,
-                  //             color: Themes.ColorApp8,
-                  //           ),
-                  //         ),
-                  //         SizedBox(width: widthValue * .5,),
-                  //         Container(
-                  //           width: 40,
-                  //           height: 20,
-                  //           decoration: BoxDecoration(
-                  //               border: Border.all(
-                  //                   width: 1,
-                  //                   color: Themes.ColorApp1
-                  //               ),
-                  //               borderRadius: BorderRadius.circular(35)
-                  //           ),
-                  //           child: Center(
-                  //             child:  Text(
-                  //               '${requestOfferOrderModel.request!.length}',
-                  //               style: TextStyle(
-                  //                 fontWeight: FontWeight.w400,
-                  //                 fontSize: 16,
-                  //                 color: Themes.ColorApp1,
-                  //               ),
-                  //             ),
-                  //           ),
-                  //         ),
-                  //         SizedBox(width: widthValue * .5,),
-                  //         Text(
-                  //           'offers'.tr,
-                  //           style: TextStyle(
-                  //             fontWeight: FontWeight.w500,
-                  //             fontSize: 16,
-                  //             color: Themes.ColorApp1,
-                  //           ),
-                  //         ),
-                  //       ],
-                  //     ),
-                  //     SizedBox(width: widthValue *.5,),
-                  //     Expanded(
-                  //       child: CustomButtonImage2(title: 'watch'.tr, hight: 38, width: 85, onTap: (){
-                  //        if (requestOfferOrderModel.request!.isEmpty){
-                  //          CustomFlutterToast('no_companies_here');
-                  //        }else if (requestOfferOrderModel.request!.isNotEmpty){
-                  //          CustomFlutterToast('no_companies_here2');
-                  //          Get.to(const FactoryOfferPriceScreen());
-                  //        }
-                  //       }),
-                  //     ),
-                  //   ],
-                  // ),
                 ),
               ),
             ],
@@ -259,6 +235,7 @@ class RequestOfferOrderItems extends StatelessWidget {
     );
   }
 }
+
 
 
 class AppbarDetailsOrder extends StatelessWidget {
@@ -428,3 +405,30 @@ class DetailsOrder extends StatelessWidget {
     );
   }
 }
+
+
+
+// Padding(
+// padding: const EdgeInsets.symmetric(horizontal: 5),
+// child: Row(
+// mainAxisAlignment: MainAxisAlignment.center,
+// children: [
+// SizedBox(
+// width: 15,
+// height: 15,
+// child: CircleAvatar(
+// backgroundColor: Themes.ColorApp9,
+// ),
+// ),
+// SizedBox(width: widthValue * 1,),
+// Text(
+// 'waiting_send_offer_price'.tr,
+// style: TextStyle(
+// fontWeight: FontWeight.w500,
+// fontSize: 13,
+// color: Themes.ColorApp9,
+// ),
+// ),
+// ],
+// ),
+// ),

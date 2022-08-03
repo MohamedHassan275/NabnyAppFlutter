@@ -1,55 +1,58 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nabny/core/constant/constant.dart';
 import 'package:nabny/model/factory_offer_price_model.dart';
 import 'package:nabny/screens/factory_offer_price_screen/factory_offer_price_controller.dart';
 import 'package:nabny/screens/my_address_request_offer_screen/my_address_request_offer_screen.dart';
 import 'package:nabny/utils/Themes.dart';
 
 import '../../componant/CustomButtonWidget.dart';
+import '../../core/localization/local_controller.dart';
 import '../../generated/assets.dart';
+import '../../model/OfferOrderRequestModel.dart';
 import '../home_main_screen/home_main_screen.dart';
 
-class FactoryOfferPriceScreen extends StatefulWidget {
-  const FactoryOfferPriceScreen({Key? key}) : super(key: key);
+class FactoryOfferPriceScreen extends StatelessWidget {
+  FactoryOfferPriceScreen({Key? key, required this.request}) : super(key: key);
 
-  @override
-  _FactoryOfferPriceScreenState createState() => _FactoryOfferPriceScreenState();
-}
-
-class _FactoryOfferPriceScreenState extends State<FactoryOfferPriceScreen> {
-
-  FactoryOfferPriceController factoryOfferPriceController = Get.put(FactoryOfferPriceController());
+  List<Companies>? request;
 
   @override
   Widget build(BuildContext context) {
     var widthValue = Get.width * 0.024;
     var heightValue = Get.height * 0.024;
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
               AppbarDetailsOrder(widthValue, heightValue),
-              SizedBox(height: heightValue * 1.2,),
+              SizedBox(
+                height: heightValue * 1.2,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: NumberOfOfferPrice(),
+                child: NumberOfOfferPrice(companies: request!.length,),
               ),
-              SizedBox(height: heightValue * .7,),
+              SizedBox(
+                height: heightValue * .7,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   physics: NeverScrollableScrollPhysics(),
-                  itemCount: factoryOfferPriceController.factoryOfferPriceModel.length,
+                  itemCount: request!.length,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: FactoryItemList(factoryOfferPriceModel: factoryOfferPriceController.factoryOfferPriceModel[index]),
+                      child: FactoryItemList(
+                          factoryOfferPriceModel: request![index]),
                     );
-                  },),
+                  },
+                ),
               ),
             ],
           ),
@@ -59,11 +62,13 @@ class _FactoryOfferPriceScreenState extends State<FactoryOfferPriceScreen> {
   }
 }
 
-
 class NumberOfOfferPrice extends StatelessWidget {
-   NumberOfOfferPrice({Key? key}) : super(key: key);
+  NumberOfOfferPrice({Key? key, required this.companies}) : super(key: key);
+
+  int? companies;
   var widthValue = Get.width * 0.024;
   var heightValue = Get.height * 0.024;
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -77,7 +82,9 @@ class NumberOfOfferPrice extends StatelessWidget {
               width: 1.5,
               color: Themes.ColorApp1,
             ),
-            SizedBox(width: widthValue * 1,),
+            SizedBox(
+              width: widthValue * 1,
+            ),
             Text(
               'you_have_offers'.tr,
               style: TextStyle(
@@ -96,11 +103,10 @@ class NumberOfOfferPrice extends StatelessWidget {
               height: 20,
               decoration: BoxDecoration(
                   color: Themes.ColorApp1,
-                  borderRadius: BorderRadius.circular(25)
-              ),
+                  borderRadius: BorderRadius.circular(25)),
               child: Center(
                 child: Text(
-                  '20',
+                  '${companies}',
                   style: TextStyle(
                     color: Themes.whiteColor,
                     fontSize: 16,
@@ -109,7 +115,9 @@ class NumberOfOfferPrice extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(width: widthValue * .5,),
+            SizedBox(
+              width: widthValue * .5,
+            ),
             Text(
               'view'.tr,
               style: TextStyle(
@@ -126,9 +134,10 @@ class NumberOfOfferPrice extends StatelessWidget {
 }
 
 class AppbarDetailsOrder extends StatelessWidget {
-  AppbarDetailsOrder(this.widthValue,this.heightValue);
+  AppbarDetailsOrder(this.widthValue, this.heightValue);
 
-  double heightValue,widthValue;
+  double heightValue, widthValue;
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -139,8 +148,7 @@ class AppbarDetailsOrder extends StatelessWidget {
           decoration: BoxDecoration(
               color: Themes.ColorApp14,
               borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(35),
-                  topRight: Radius.circular(35))),
+                  topLeft: Radius.circular(35), topRight: Radius.circular(35))),
           child: Center(
             child: Text(
               'request_offer_price2'.tr,
@@ -160,7 +168,9 @@ class AppbarDetailsOrder extends StatelessWidget {
             child: CircleAvatar(
               backgroundColor: Themes.ColorApp5,
               child: Icon(
-                Icons.arrow_right_alt_rounded,
+                Get.find<MyLocalController>().language!.languageCode == 'ar'
+                    ? Icons.subdirectory_arrow_right
+                    : Icons.subdirectory_arrow_left,
                 color: Colors.white,
               ),
             ),
@@ -174,21 +184,19 @@ class AppbarDetailsOrder extends StatelessWidget {
 class FactoryItemList extends StatelessWidget {
   FactoryItemList({required this.factoryOfferPriceModel});
 
-  FactoryOfferPriceModel factoryOfferPriceModel;
+  Companies factoryOfferPriceModel;
   var heightValue = Get.height * 0.024;
   var widthValue = Get.width * 0.024;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-       // Get.to(FactoryDetailsScreen());
+      onTap: () {
+        // Get.to(FactoryDetailsScreen());
       },
       child: Card(
         elevation: 2,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15)
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         child: Container(
           width: Get.width,
           decoration: BoxDecoration(
@@ -200,7 +208,7 @@ class FactoryItemList extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(15),
                 child: FadeInImage(
-                  image: AssetImage(factoryOfferPriceModel.ImageCompany!),
+                  image: NetworkImage(factoryOfferPriceModel.image!),
                   fit: BoxFit.fill,
                   height: 175,
                   width: Get.width,
@@ -210,10 +218,18 @@ class FactoryItemList extends StatelessWidget {
               SizedBox(
                 height: heightValue * .5,
               ),
-              DetailsCompany(factoryOfferPriceModel: factoryOfferPriceModel, heightValue: heightValue, widthValue: widthValue),
-              SizedBox(height: heightValue * 1,),
-              OfferPriceAndAcceptedOffer(factoryOfferPriceModel: factoryOfferPriceModel),
-              SizedBox(height: heightValue * 1,)
+              DetailsCompany(
+                  factoryOfferPriceModel: factoryOfferPriceModel,
+                  heightValue: heightValue,
+                  widthValue: widthValue),
+              SizedBox(
+                height: heightValue * 1,
+              ),
+              OfferPriceAndAcceptedOffer(
+                  factoryOfferPriceModel: factoryOfferPriceModel),
+              SizedBox(
+                height: heightValue * 1,
+              )
             ],
           ),
         ),
@@ -222,12 +238,15 @@ class FactoryItemList extends StatelessWidget {
   }
 }
 
-
 class DetailsCompany extends StatelessWidget {
-  DetailsCompany({required this.factoryOfferPriceModel,required this.heightValue,required this.widthValue});
+  DetailsCompany(
+      {required this.factoryOfferPriceModel,
+      required this.heightValue,
+      required this.widthValue});
 
-  FactoryOfferPriceModel factoryOfferPriceModel;
-  double heightValue,widthValue;
+  Companies factoryOfferPriceModel;
+  double heightValue, widthValue;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -260,47 +279,53 @@ class DetailsCompany extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${factoryOfferPriceModel.NameCompany}',
+                      '${factoryOfferPriceModel.company}',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 16,
                         color: Themes.ColorApp1,
                       ),
                     ),
-                    SizedBox(height: heightValue * .3,),
+                    SizedBox(
+                      height: heightValue * .3,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          '${factoryOfferPriceModel.RateText}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 15,
-                            color: Themes.ColorApp8,
-                          ),
-                        ),
-                        SizedBox(width: widthValue * 1,),
+                        // Text(
+                        //   '${factoryOfferPriceModel.RateText}',
+                        //   style: TextStyle(
+                        //     fontWeight: FontWeight.w400,
+                        //     fontSize: 15,
+                        //     color: Themes.ColorApp8,
+                        //   ),
+                        // ),
+                        // SizedBox(width: widthValue * 1,),
                         Container(
                           width: 70,
                           height: 30,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(35),
-                              color: Themes.ColorApp12
-                          ),
+                              color: Themes.ColorApp12),
                           child: Center(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  '${factoryOfferPriceModel.RateNumber}',
+                                  '${factoryOfferPriceModel.rate}',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 12,
                                     color: Themes.ColorApp13,
                                   ),
                                 ),
-                                SizedBox(width: widthValue * .2,),
-                                Icon(Icons.star,color: Themes.ColorApp13,)
+                                SizedBox(
+                                  width: widthValue * .2,
+                                ),
+                                Icon(
+                                  Icons.star,
+                                  color: Themes.ColorApp13,
+                                )
                               ],
                             ),
                           ),
@@ -316,15 +341,33 @@ class DetailsCompany extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '${factoryOfferPriceModel.DistanceCompany}',
+                '${factoryOfferPriceModel.distance}',
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 12,
                   color: Themes.ColorApp8,
                 ),
               ),
-              SizedBox(width: widthValue * 1,),
-              Image.asset(Assets.iconsDistanceIcon,fit: BoxFit.contain,width: 35,height: 35,)
+              SizedBox(
+                width: widthValue * .5,
+              ),
+              Text(
+                'km'.tr,
+                style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 12,
+                  color: Themes.ColorApp8,
+                ),
+              ),
+              SizedBox(
+                width: widthValue * 1,
+              ),
+              Image.asset(
+                Assets.iconsDistanceIcon,
+                fit: BoxFit.contain,
+                width: 35,
+                height: 35,
+              )
             ],
           )
         ],
@@ -333,15 +376,10 @@ class DetailsCompany extends StatelessWidget {
   }
 }
 
-class OfferPriceAndAcceptedOffer extends StatefulWidget {
-   OfferPriceAndAcceptedOffer({required this.factoryOfferPriceModel});
-   FactoryOfferPriceModel factoryOfferPriceModel;
+class OfferPriceAndAcceptedOffer extends StatelessWidget {
+  OfferPriceAndAcceptedOffer({required this.factoryOfferPriceModel});
 
-  @override
-  State<OfferPriceAndAcceptedOffer> createState() => _OfferPriceAndAcceptedOfferState();
-}
-
-class _OfferPriceAndAcceptedOfferState extends State<OfferPriceAndAcceptedOffer> {
+  Companies factoryOfferPriceModel;
 
   @override
   Widget build(BuildContext context) {
@@ -360,7 +398,9 @@ class _OfferPriceAndAcceptedOfferState extends State<OfferPriceAndAcceptedOffer>
                   backgroundColor: Themes.ColorApp1,
                 ),
               ),
-              SizedBox(width: widthValue * 1,),
+              SizedBox(
+                width: widthValue * 1,
+              ),
               Text(
                 'cost_of_bid'.tr,
                 style: TextStyle(
@@ -369,9 +409,11 @@ class _OfferPriceAndAcceptedOfferState extends State<OfferPriceAndAcceptedOffer>
                   color: Themes.ColorApp8,
                 ),
               ),
-              SizedBox(width: widthValue * 1,),
+              SizedBox(
+                width: widthValue * 1,
+              ),
               Text(
-                '${widget.factoryOfferPriceModel.PriceOffer}',
+                '${factoryOfferPriceModel.price}',
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 14,
@@ -380,16 +422,18 @@ class _OfferPriceAndAcceptedOfferState extends State<OfferPriceAndAcceptedOffer>
               ),
             ],
           ),
-          SizedBox(height: heightValue * .7,),
+          SizedBox(
+            height: heightValue * .7,
+          ),
           GestureDetector(
-            onTap: (){
+            onTap: () {
               Get.bottomSheet(
-               const BottomSheetItem(),
+                const BottomSheetItem(),
                 backgroundColor: Themes.whiteColor,
                 shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(25),
-                        topRight:  Radius.circular(25))),
+                        topRight: Radius.circular(25))),
                 elevation: 2.0,
               );
             },
@@ -397,11 +441,10 @@ class _OfferPriceAndAcceptedOfferState extends State<OfferPriceAndAcceptedOffer>
               width: Get.width,
               height: 50,
               decoration: BoxDecoration(
-                color: Themes.ColorApp14,
-                borderRadius: BorderRadius.circular(15)
-              ),
+                  color: Themes.ColorApp14,
+                  borderRadius: BorderRadius.circular(15)),
               child: Center(
-                child:  Text(
+                child: Text(
                   'accept_offer'.tr,
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
@@ -418,14 +461,9 @@ class _OfferPriceAndAcceptedOfferState extends State<OfferPriceAndAcceptedOffer>
   }
 }
 
-class BottomSheetItem extends StatefulWidget {
+class BottomSheetItem extends StatelessWidget {
   const BottomSheetItem({Key? key}) : super(key: key);
 
-  @override
-  _BottomSheetItemState createState() => _BottomSheetItemState();
-}
-
-class _BottomSheetItemState extends State<BottomSheetItem> {
   @override
   Widget build(BuildContext context) {
     var heightValue = Get.height * 0.024;
@@ -436,10 +474,8 @@ class _BottomSheetItemState extends State<BottomSheetItem> {
       child: Padding(
         padding: const EdgeInsets.all(7.0),
         child: Column(
-          mainAxisAlignment:
-          MainAxisAlignment.center,
-          crossAxisAlignment:
-          CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 100),
@@ -448,14 +484,16 @@ class _BottomSheetItemState extends State<BottomSheetItem> {
                 height: 5,
                 decoration: BoxDecoration(
                     color: Themes.ColorApp11,
-                    borderRadius:
-                    BorderRadius.circular(10)),
+                    borderRadius: BorderRadius.circular(10)),
               ),
             ),
             SizedBox(
               height: heightValue * 2,
             ),
-            Image.asset(Assets.imagesAcceptedOfferPrice,fit: BoxFit.contain,),
+            Image.asset(
+              Assets.imagesAcceptedOfferPrice,
+              fit: BoxFit.contain,
+            ),
             SizedBox(
               height: heightValue * 1,
             ),
@@ -477,24 +515,27 @@ class _BottomSheetItemState extends State<BottomSheetItem> {
             CustomButtonImage(
                 title: 'confirm'.tr,
                 hight: 50,
-                onTap: (){
-                  setState(() {
-                      Get.off(HomeMainScreen(valueBack: ''));
-                  });
+                onTap: () {
+                  CustomFlutterToast('');
+                  // setState(() {
+                  //
+                  //   // Get.off(HomeMainScreen(valueBack: ''));
+                  // });
                 }),
             SizedBox(
               height: heightValue * 1.2,
             ),
             GestureDetector(
-              onTap: (){
-                setState(() {
-                  Get.off(HomeMainScreen(valueBack: ''));
-                });
+              onTap: () {
+                CustomFlutterToast('');
+                // setState(() {
+                // //  Get.off(HomeMainScreen(valueBack: ''));
+                // });
               },
               child: Container(
                 width: Get.width,
                 child: Center(
-                  child:  Text(
+                  child: Text(
                     'cancel'.tr,
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
@@ -505,7 +546,9 @@ class _BottomSheetItemState extends State<BottomSheetItem> {
                 ),
               ),
             ),
-            SizedBox(height: heightValue * .7,)
+            SizedBox(
+              height: heightValue * .7,
+            )
           ],
         ),
       ),

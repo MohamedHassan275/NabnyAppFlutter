@@ -16,7 +16,8 @@ import '../../core/widget/custom_circler_progress_indicator_widget.dart';
 import '../home_main_screen/home_main_screen.dart';
 
 class RequirementsRequestOfferPriceScreen extends StatefulWidget {
-  const RequirementsRequestOfferPriceScreen({Key? key}) : super(key: key);
+  String companyId;
+   RequirementsRequestOfferPriceScreen({Key? key,required this.companyId}) : super(key: key);
 
   @override
   _RequirementsRequestOfferPriceScreenState createState() =>
@@ -62,6 +63,8 @@ class _RequirementsRequestOfferPriceScreenState
     var formatter = new DateFormat('yyyy-MM-dd');
     formattedDateCurrent = formatter.format(now);
     print(formattedDateCurrent); // 2016-01-25
+    print(widget.companyId);// 2016-01-25
+    CustomFlutterToast('${widget.companyId}');
   }
 
   @override
@@ -539,22 +542,24 @@ class _RequirementsRequestOfferPriceScreenState
                                     isVisibleIce == true ? '0' : '1';
                                 String WithLab =
                                     isVisibleLab == true ? '0' : '1';
+                                String companyId = widget.companyId == '' ? '' : widget.companyId;
                                 print(WithPump);
                                 print(WithSnow);
                                 print(WithLab);
                                 print(DateOrderRequest.text);
                                 print(formattedDate);
+                                print(companyId);
 
                                 // CustomFlutterToast(DateOrderRequest.text);
-                                // // CustomFlutterToast(WithPump);
-                                // // CustomFlutterToast(WithSnow);
-                                // // CustomFlutterToast(WithLab);
+                                 CustomFlutterToast(companyId);
+                                // CustomFlutterToast(WithSnow);
+                                // CustomFlutterToast(WithLab);
                                 // CustomFlutterToast(Get.find<StorageService>().GetToken);
                                 // CustomFlutterToast(Get.find<MyLocalController>().language!.languageCode);
 
                                 Get.find<RequirementsRequestOfferPriceController>().AddOfferOrderRequest(
                                         Get.find<StorageService>().GetToken,
-                                        Get.find<MyLocalController>().language!.languageCode, '', TypeCastingOrderRequest.text,
+                                        Get.find<MyLocalController>().language!.languageCode, companyId, TypeCastingOrderRequest.text,
                                         DateOrderRequest.text, WeightOrderRequest.text, MixTypeOrderRequest.text, CementTypeOrderRequest.text,
                                         StoneTypeOrderRequest.text, SpecialOrderRequest.text, MyLocationInMap.text,
                                         WithPump, PumpLengthOrderRequest.text, WithSnow, WithLab);

@@ -78,53 +78,42 @@ class OfferOrderRequestResponseModel {
 
 class Companies {
   int? id;
-  String? category;
-  String? name;
+  String? company;
   String? image;
-  String? about;
-  String? lat;
-  String? lng;
   int? distance;
   int? rate;
-  List<String>? services;
+  String? price;
+  String? status;
+
 
   Companies(
       {this.id,
-        this.category,
-        this.name,
+        this.company,
         this.image,
-        this.about,
-        this.lat,
-        this.lng,
         this.distance,
         this.rate,
-        this.services});
+        this.price,
+        this.status});
 
   Companies.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    category = json['category'];
-    name = json['name'];
+    company = json['company'];
     image = json['image'];
-    about = json['about'];
-    lat = json['lat'];
-    lng = json['lng'];
     distance = json['distance'];
     rate = json['rate'];
-    services = json['services'].cast<String>();
+    price = json['price'];
+    status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['category'] = this.category;
-    data['name'] = this.name;
+    data['company'] = this.company;
     data['image'] = this.image;
-    data['about'] = this.about;
-    data['lat'] = this.lat;
-    data['lng'] = this.lng;
     data['distance'] = this.distance;
     data['rate'] = this.rate;
-    data['services'] = this.services;
+    data['price'] = this.price;
+    data['status'] = this.status;
     return data;
   }
 }

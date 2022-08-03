@@ -170,7 +170,7 @@ class AppbarDetailsOrder extends StatelessWidget {
           top: heightValue * 2.3,
           right: widthValue * 1.5,
           child: GestureDetector(
-            onTap: () => Get.off( const RequirementsRequestOfferPriceScreen()),
+            onTap: () => Get.off(RequirementsRequestOfferPriceScreen(companyId: '',)),
             child: CircleAvatar(
               backgroundColor: Themes.ColorApp5,
               child: Icon(
