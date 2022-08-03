@@ -8,13 +8,9 @@ class CompaniesModel {
 
   CompaniesModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
-    if (json['companiesResponseModel'
-            ''] !=
-        null) {
+    if (json['data'] != null) {
       companiesResponseModel = <CompaniesResponseModel>[];
-      json['companiesResponseModel'
-              '']
-          .forEach((v) {
+      json['data'].forEach((v) {
         companiesResponseModel!.add(new CompaniesResponseModel.fromJson(v));
       });
     }
@@ -48,15 +44,15 @@ class CompaniesResponseModel {
 
   CompaniesResponseModel(
       {this.id,
-      this.category,
-      this.name,
-      this.image,
-      this.about,
-      this.lat,
-      this.lng,
-      this.distance,
-      this.rate,
-      this.services});
+        this.category,
+        this.name,
+        this.image,
+        this.about,
+        this.lat,
+        this.lng,
+        this.distance,
+        this.rate,
+        this.services});
 
   CompaniesResponseModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -72,18 +68,17 @@ class CompaniesResponseModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> companiesResponseModel =
-        new Map<String, dynamic>();
-    companiesResponseModel['id'] = this.id;
-    companiesResponseModel['category'] = this.category;
-    companiesResponseModel['name'] = this.name;
-    companiesResponseModel['image'] = this.image;
-    companiesResponseModel['about'] = this.about;
-    companiesResponseModel['lat'] = this.lat;
-    companiesResponseModel['lng'] = this.lng;
-    companiesResponseModel['distance'] = this.distance;
-    companiesResponseModel['rate'] = this.rate;
-    companiesResponseModel['services'] = this.services;
-    return companiesResponseModel;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['category'] = this.category;
+    data['name'] = this.name;
+    data['image'] = this.image;
+    data['about'] = this.about;
+    data['lat'] = this.lat;
+    data['lng'] = this.lng;
+    data['distance'] = this.distance;
+    data['rate'] = this.rate;
+    data['services'] = this.services;
+    return data;
   }
 }

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/model/home_user_model.dart';
+import 'package:nabny/screens/category_details_screen/category_details_screen.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:nabny/screens/requirements_request_offer_price_screen/requirements_request_offer_price_screen.dart';
 
@@ -11,9 +12,10 @@ import '../../generated/assets.dart';
 import '../../model/companiesModel.dart';
 import '../../utils/Themes.dart';
 
-class FactoryDetailsScreen extends StatelessWidget {
-   FactoryDetailsScreen({Key? key,required this.companiesResponseModel}) : super(key: key);
-   Companies companiesResponseModel;
+class CategoryCompanyDetailsScreen extends StatelessWidget {
+   CategoryCompanyDetailsScreen({Key? key,required this.companiesResponseModel,required this.categories}) : super(key: key);
+   Categories? categories;
+   CompaniesResponseModel companiesResponseModel;
   @override
   Widget build(BuildContext context) {
     var heightValue = Get.height * 0.024;
@@ -33,7 +35,7 @@ class FactoryDetailsScreen extends StatelessWidget {
                     topRight: Radius.circular(35), topLeft: Radius.circular(35))),
             child: Stack(
               children: [
-                ImageAndFavoriteFactory(heightValue: heightValue),
+                ImageAndFavoriteFactory(heightValue: heightValue, categories: categories!,),
                 Positioned(
                     top: heightValue * 13,
                     right: widthValue * 2,
@@ -64,8 +66,8 @@ class FactoryDetailsScreen extends StatelessWidget {
 }
 
 class ImageAndFavoriteFactory extends StatelessWidget {
-  ImageAndFavoriteFactory({required this.heightValue});
-
+  ImageAndFavoriteFactory({required this.categories, required this.heightValue});
+  Categories categories;
   double heightValue;
   double height = Get.height * 0.024 * 2;
   @override
@@ -76,7 +78,7 @@ class ImageAndFavoriteFactory extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
-            onTap: ()=> Get.to(HomeMainScreen(valueBack: '')),
+            onTap: ()=> Get.to(()=>CategoryDetailsScreen(categories: categories)),
             child: CirclerIcons(
                 width: 35,
                 height: 35,
@@ -102,7 +104,7 @@ class ImageAndFavoriteFactory extends StatelessWidget {
 
 class FactoryDetails extends StatelessWidget {
   FactoryDetails({required this.companies, required this.heightValue, required this.widthValue});
-  Companies companies;
+  CompaniesResponseModel companies;
   double heightValue, widthValue;
 
   @override
@@ -219,8 +221,8 @@ class FactoryDetails extends StatelessWidget {
 
 class FactoryDetails2 extends StatelessWidget {
    FactoryDetails2({required this.companies, required this.heightValue, required this.widthValue});
-   Companies companies;
-  double heightValue, widthValue;
+   CompaniesResponseModel companies;
+   double heightValue, widthValue;
 
   @override
   Widget build(BuildContext context) {

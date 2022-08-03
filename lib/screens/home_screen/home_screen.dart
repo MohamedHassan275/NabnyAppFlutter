@@ -5,13 +5,13 @@ import 'package:nabny/componant/LoadingWidget.dart';
 import 'package:nabny/core/constant/constant.dart';
 import 'package:nabny/core/servies/storage_service.dart';
 import 'package:nabny/generated/assets.dart';
-import 'package:nabny/screens/category_details_screen/category_details_screen.dart';
 import 'package:nabny/screens/factory_details_screen/factory_details_screen.dart';
 import 'package:nabny/screens/home_screen/home_controller.dart';
 import 'package:nabny/screens/request_offer_price_screen/request_offer_price_screen.dart';
 import 'package:nabny/utils/Themes.dart';
 import '../../componant/CustomButtonWidget.dart';
 import '../../model/home_user_model.dart';
+import '../category_details_screen/category_details_screen.dart';
 import '../factory_offer_price_screen/factory_offer_price_controller.dart';
 import '../location_map_user_screen/google_map_locaiton_user_screen.dart';
 
@@ -269,7 +269,7 @@ class FactoryItemList extends StatelessWidget {
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: GestureDetector(
-        onTap: () => Get.to(FactoryDetailsScreen(companies: companiesModel!,)),
+        onTap: () => Get.to(FactoryDetailsScreen(companiesResponseModel: companiesModel!,)),
         child: Container(
           width: Get.width,
           decoration: BoxDecoration(

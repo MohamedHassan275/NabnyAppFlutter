@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/core/constant/constant.dart';
-import 'package:nabny/model/factory_offer_price_model.dart';
 import 'package:nabny/screens/factory_offer_price_screen/factory_offer_price_controller.dart';
 import 'package:nabny/screens/my_address_request_offer_screen/my_address_request_offer_screen.dart';
 import 'package:nabny/utils/Themes.dart';

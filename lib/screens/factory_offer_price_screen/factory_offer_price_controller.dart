@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:nabny/core/constant/constant.dart';
 import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/core/servies/storage_service.dart';
-import 'package:nabny/model/factory_offer_price_model.dart';
 import 'package:nabny/repositries/servies_api/MyServiceApi.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 

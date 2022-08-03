@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/LoadingWidget.dart';
 import 'package:nabny/generated/assets.dart';
+import 'package:nabny/screens/category_company_details_screen/category_company_details_screen.dart';
 import 'package:nabny/screens/category_details_screen/category_details_controller.dart';
 
 import '../../core/constant/Themes.dart';
@@ -11,8 +12,8 @@ import '../../model/home_user_model.dart';
 import '../home_main_screen/home_main_screen.dart';
 
 class CategoryDetailsScreen extends StatelessWidget {
-   CategoryDetailsScreen({Key? key,required this.categories}) : super(key: key);
-   Categories? categories;
+  CategoryDetailsScreen({Key? key,required this.categories}) : super(key: key);
+  Categories? categories;
   @override
   Widget build(BuildContext context) {
     CategoryDetailsController categoryDetailsController = Get.put(CategoryDetailsController(categories!.id.toString()));
@@ -29,32 +30,32 @@ class CategoryDetailsScreen extends StatelessWidget {
             child: GetBuilder<CategoryDetailsController>(
               init: CategoryDetailsController(categories!.id.toString()),
               builder: (controller) {
-              if (controller.Loading){
-                return LoadingWidget(data: '');
-              }
-              return Column(
-                children: [
-                  AppbarDetailsOrder(categories!,widthValue, heightValue),
-                  SizedBox(
-                    height: heightValue * 1,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: controller.companiesResponseModel!.isNotEmpty ? ListView.builder(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: controller.companiesResponseModel!.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5),
-                          child: FactoryItemList(companiesResponseModel: controller.companiesResponseModel![index]),
-                        );
-                      },) : NoItemOFList()
-                  ),
-                ],
-              );
-            },),
+                if (controller.Loading){
+                  return LoadingWidget(data: '');
+                }
+                return Column(
+                  children: [
+                    AppbarDetailsOrder(categories!,widthValue, heightValue),
+                    SizedBox(
+                      height: heightValue * 1,
+                    ),
+                    Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: controller.companiesResponseModel!.isNotEmpty ? ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: controller.companiesResponseModel!.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: FactoryItemList(companiesResponseModel: controller.companiesResponseModel![index], categories: categories,),
+                            );
+                          },) : NoItemOFList()
+                    ),
+                  ],
+                );
+              },),
           ),
         ),
       ),
@@ -147,8 +148,8 @@ class AppbarDetailsOrder extends StatelessWidget {
 }
 
 class FactoryItemList extends StatelessWidget {
-  FactoryItemList({required this.companiesResponseModel});
-
+  FactoryItemList({required this.companiesResponseModel,required this.categories});
+  Categories? categories;
   CompaniesResponseModel companiesResponseModel;
   var heightValue = Get.height * 0.024;
   var widthValue = Get.width * 0.024;
@@ -157,7 +158,7 @@ class FactoryItemList extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        //   Get.to(FactoryDetailsScreen());
+          Get.to(CategoryCompanyDetailsScreen(companiesResponseModel: companiesResponseModel,categories: categories,));
       },
       child: Card(
         elevation: 2,
@@ -319,5 +320,3 @@ class DetailsCompany extends StatelessWidget {
     );
   }
 }
-
-
