@@ -8,7 +8,9 @@ import 'package:nabny/model/OfferOrderRequestModel.dart';
 import 'package:nabny/model/home_user_model.dart';
 import 'package:nabny/model/login_user_model.dart';
 import 'package:nabny/model/logout_user_model.dart';
-import 'package:nabny/model/my_order_model.dart';
+import 'package:nabny/model/my_current_order_model.dart';
+import 'package:nabny/model/my_new_order_model.dart';
+import 'package:nabny/model/my_previous_order_model.dart';
 import 'package:nabny/model/response_user_model.dart';
 import 'package:nabny/model/setting_model.dart';
 import 'package:nabny/repositries/repositries_status.dart';
@@ -16,6 +18,7 @@ import 'package:nabny/repositries/repositries_status.dart';
 import '../../model/check_mobile_user_model.dart';
 import '../../model/companiesModel.dart';
 import '../../model/favouriteModel.dart';
+import '../../model/my_send_order_model.dart';
 import '../../model/profile_user_model.dart';
 
 class MyServiceApi {
@@ -145,6 +148,7 @@ class MyServiceApi {
         print('Dio error!');
         print('STATUS: ${e.response?.statusCode}');
         print('DATA: ${e.response?.data}');
+        print('statusMessage: ${e.response?.statusMessage}');
         print('HEADERS: ${e.response?.headers}');
       } else {
         // Error due to setting up or sending the request
@@ -506,8 +510,8 @@ class MyServiceApi {
     return favouriteModel;
   }
 
-  static Future<MyOrderModel?> GetMyOrderUser(String Authorization, String Language) async {
-    MyOrderModel? myOrderModel;
+  static Future<MyNewOrderModel?> GetNewMyOrderUser(String Authorization, String Language) async {
+    MyNewOrderModel? myNewOrderModel;
     try {
       Response response = await Dio().get(URL + 'orders', options: Options(
           headers: {
@@ -519,7 +523,7 @@ class MyServiceApi {
       if (response.statusCode == 200) {
         print(response.statusCode);
         print(response.data);
-        return MyOrderModel.fromJson(response.data);
+        return MyNewOrderModel.fromJson(response.data);
       } else {
         // print('${response.statusMessage} : ${response.statusCode}');
         return throw Exception(response.statusMessage!);
@@ -537,8 +541,111 @@ class MyServiceApi {
         print(e.message);
       }
     }
-    return myOrderModel;
+    return myNewOrderModel;
   }
+
+  static Future<MySendOrderModel?> GetMySendOrderUser(String Authorization, String Language) async {
+    MySendOrderModel? mySendOrderModel;
+    try {
+      Response response = await Dio().get(URL + 'sentorders', options: Options(
+          headers: {
+            'Authorization': 'Bearer $Authorization',
+            'Accept-Language' : '$Language'
+          }
+      ));
+
+      if (response.statusCode == 200) {
+        print(response.statusCode);
+        print(response.data);
+        return MySendOrderModel.fromJson(response.data);
+      } else {
+        // print('${response.statusMessage} : ${response.statusCode}');
+        return throw Exception(response.statusMessage!);
+      }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print('Dio error!');
+        print('STATUS: ${e.response?.statusCode}');
+        print('DATA: ${e.response?.data}');
+        print('DATA: ${e.response?.statusMessage}');
+        print('HEADERS: ${e.response?.headers}');
+      } else {
+        // Error due to setting up or sending the request
+        print('Error sending request!');
+        print(e.message);
+      }
+    }
+    return mySendOrderModel;
+  }
+
+  static Future<MyCurrentOrderModel?> GetMyCurrentOrderUser(String Authorization, String Language) async {
+    MyCurrentOrderModel? myCurrentOrderModel;
+    try {
+      Response response = await Dio().get(URL + 'currentorders', options: Options(
+          headers: {
+            'Authorization': 'Bearer $Authorization',
+            'Accept-Language' : '$Language'
+          }
+      ));
+
+      if (response.statusCode == 200) {
+        print(response.statusCode);
+        print(response.data);
+        return MyCurrentOrderModel.fromJson(response.data);
+      } else {
+        // print('${response.statusMessage} : ${response.statusCode}');
+        return throw Exception(response.statusMessage!);
+      }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print('Dio error!');
+        print('STATUS: ${e.response?.statusCode}');
+        print('DATA: ${e.response?.data}');
+        print('DATA: ${e.response?.statusMessage}');
+        print('HEADERS: ${e.response?.headers}');
+      } else {
+        // Error due to setting up or sending the request
+        print('Error sending request!');
+        print(e.message);
+      }
+    }
+    return myCurrentOrderModel;
+  }
+
+  static Future<MyPreviousOrderModel?> GetMyPreviousOrderUser(String Authorization, String Language) async {
+    MyPreviousOrderModel? myPreviousOrderModel;
+    try {
+      Response response = await Dio().get(URL + 'previousorders', options: Options(
+          headers: {
+            'Authorization': 'Bearer $Authorization',
+            'Accept-Language' : '$Language'
+          }
+      ));
+
+      if (response.statusCode == 200) {
+        print(response.statusCode);
+        print(response.data);
+        return MyPreviousOrderModel.fromJson(response.data);
+      } else {
+        // print('${response.statusMessage} : ${response.statusCode}');
+        return throw Exception(response.statusMessage!);
+      }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print('Dio error!');
+        print('STATUS: ${e.response?.statusCode}');
+        print('DATA: ${e.response?.data}');
+        print('DATA: ${e.response?.statusMessage}');
+        print('HEADERS: ${e.response?.headers}');
+      } else {
+        // Error due to setting up or sending the request
+        print('Error sending request!');
+        print(e.message);
+      }
+    }
+    return myPreviousOrderModel;
+  }
+
 
   static Future<ResponseUserModel?> AddFavoriteUser(String Authorization, String Language, String companyId) async {
     ResponseUserModel? responseUserModel;
@@ -586,6 +693,8 @@ class MyServiceApi {
     try {
       Response response =
       await Dio().post(URL + 'favourites/remove',data: formData,options: Options(
+        receiveTimeout: 50000,
+          sendTimeout: 50000,
           headers: {
             'Authorization': 'Bearer $Authorization',
             'Accept-Language' : '$Language'

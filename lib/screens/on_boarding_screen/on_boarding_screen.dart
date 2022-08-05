@@ -47,7 +47,7 @@ class OnBoardingScreenState extends State<OnBoardingScreen>{
               right: 25,
               left: 25,
               child: GestureDetector(
-                onTap: ()=> CustomFlutterToast(Get.find<StorageService>().activeLocale.languageCode),
+               // onTap: ()=> CustomFlutterToast(Get.find<StorageService>().activeLocale.languageCode),
                 child: Image.asset(
                   Assets.imagesLogoApp,
                   fit: BoxFit.contain,

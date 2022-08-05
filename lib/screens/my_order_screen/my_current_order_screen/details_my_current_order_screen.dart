@@ -1,7 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nabny/model/my_order_model.dart';
+import 'package:nabny/model/my_current_order_model.dart';
+import 'package:nabny/model/my_new_order_model.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 
 import '../../../core/constant/Themes.dart';

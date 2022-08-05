@@ -2,16 +2,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/LoadingWidget.dart';
-import 'package:nabny/model/my_order_model.dart';
-import 'package:nabny/screens/my_order_screen/my_old_order_screen/details_old_order_screen.dart';
-import 'package:nabny/screens/my_order_screen/my_order_controller.dart';
+import 'package:nabny/model/my_new_order_model.dart';
+import 'package:nabny/screens/my_order_screen/my_previous_order_screen/details_previous_order_screen.dart';
+import 'package:nabny/screens/my_order_screen/my_previous_order_screen/my_previous_order_controller.dart';
 
 import '../../../generated/assets.dart';
+import '../../../model/my_previous_order_model.dart';
 import '../../../utils/Themes.dart';
 
 
-class MyOldOrderScreen extends StatelessWidget {
-  const MyOldOrderScreen({Key? key}) : super(key: key);
+class MyPreviousOrderScreen extends StatelessWidget {
+  const MyPreviousOrderScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,21 +23,21 @@ class MyOldOrderScreen extends StatelessWidget {
         child: Container(
           child: Padding(
             padding: const EdgeInsets.all(2.0),
-            child: GetBuilder<MyOrderController>(
-              init: MyOrderController(),
+            child: GetBuilder<MyPreviousOrderController>(
+              init: MyPreviousOrderController(),
               builder: (controller) {
                 if(controller.Loading){
                   return LoadingWidget(data: '');
                 }else {
-                  return controller.myOrderResponseModel!.previousOrder!.isNotEmpty ?
+                  return controller.previousOrder!.isNotEmpty ?
                   ListView.builder(
-                    itemCount: controller.myOrderResponseModel!.previousOrder!.length,
+                    itemCount: controller.previousOrder!.length,
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                        child: MyPreviousOrderItem(previousOrder: controller.myOrderResponseModel!.previousOrder![index],
+                        child: MyPreviousOrderItem(previousOrder: controller.previousOrder![index],
                             heightValue: heightValue, widthValue: widthValue),
                       );
                     },) : NoItemOFList();
@@ -57,7 +58,7 @@ class MyPreviousOrderItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        Get.to(DetailsOldOrderScreen(previousOrder: previousOrder,));
+        Get.to(DetailsPreviousOrderScreen(previousOrder: previousOrder,));
       },
       child: Card(
         elevation: 2,

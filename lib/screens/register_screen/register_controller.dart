@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:nabny/core/constant/constant.dart';
 import 'package:nabny/repositries/servies_api/MyServiceApi.dart';
+import 'package:nabny/screens/complete_register_screen/complete_register_screen.dart';
 
 import '../verification_code/verification_code_screen.dart';
 
@@ -26,7 +27,7 @@ class RegisterController extends GetxController{
           print(mobilePhone);
           print('${value?.data?.registercode}');
           CustomFlutterToast('${value?.data?.registercode}');
-          Get.off(VerificationCodeScreen(registercode: '${value?.data?.registercode}', mobilePhone: mobilePhone,));
+          Get.off(CompleteRegisterScreen(mobilePhone: mobilePhone,));
         }else if(value?.success == false){
           setLoading(false);
           CustomFlutterToast('${value?.data?.registercode}');

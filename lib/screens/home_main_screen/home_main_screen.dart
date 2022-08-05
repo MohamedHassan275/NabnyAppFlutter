@@ -120,7 +120,7 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                       WidgetMenuItem(title: 'my_addresses', widthValue: widthValue, image: Assets.iconsMyLocationMenuIcon,
                           onTap: () {
                             print(Get.find<StorageService>().GetToken);
-                            CustomFlutterToast(Get.find<StorageService>().GetToken);
+                         //   CustomFlutterToast(Get.find<StorageService>().GetToken);
                             Get.to(const MyAddressScreen());
                           }),
                       SizedBox(

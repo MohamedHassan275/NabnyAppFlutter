@@ -29,7 +29,6 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
   Widget build(BuildContext context) {
     var widthValue = Get.width * 0.024;
     var heightValue = Get.height * 0.024;
-    String? TermsValue = 'لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه … بروشور او فلاير على سبيل المثال … او نماذج مواقع انترنت';
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -100,7 +99,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                               ),
                             ),
                             SizedBox(height: heightValue * 1.5,),
-                            Text("${controller.settingResponseModel?.privacy?[0].privacy}",
+                            Text("${controller.settingResponseModel?.privacy?.privacy}",
                               style: TextStyle(
                                 color: Themes.ColorApp2,
                                 fontSize: 14,

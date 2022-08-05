@@ -57,10 +57,10 @@ class MyFavoriteController extends GetxController {
       if(value?.success == true){
         setLoading(false);
         CustomFlutterToast(value?.message);
-
+       // getFavoriteUserList();
       }else {
         setLoading(false);
-        CustomFlutterToast(value?.message);
+     //   CustomFlutterToast(value?.message);
       }
     });
   }

@@ -23,32 +23,19 @@ class SettingModel {
 }
 
 class SettingResponseModel {
-  List<Policy>? policy;
-  List<Privacy>? privacy;
-  List<About>? about;
+  Policy? policy;
+  Privacy? privacy;
+  About? about;
   List<Socialmedia>? socialmedia;
 
   SettingResponseModel({this.policy, this.privacy, this.about, this.socialmedia});
 
   SettingResponseModel.fromJson(Map<String, dynamic> json) {
-    if (json['policy'] != null) {
-      policy = <Policy>[];
-      json['policy'].forEach((v) {
-        policy!.add(new Policy.fromJson(v));
-      });
-    }
-    if (json['privacy'] != null) {
-      privacy = <Privacy>[];
-      json['privacy'].forEach((v) {
-        privacy!.add(new Privacy.fromJson(v));
-      });
-    }
-    if (json['about'] != null) {
-      about = <About>[];
-      json['about'].forEach((v) {
-        about!.add(new About.fromJson(v));
-      });
-    }
+    policy =
+    json['policy'] != null ? new Policy.fromJson(json['policy']) : null;
+    privacy =
+    json['privacy'] != null ? new Privacy.fromJson(json['privacy']) : null;
+    about = json['about'] != null ? new About.fromJson(json['about']) : null;
     if (json['socialmedia'] != null) {
       socialmedia = <Socialmedia>[];
       json['socialmedia'].forEach((v) {
@@ -60,13 +47,13 @@ class SettingResponseModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.policy != null) {
-      data['policy'] = this.policy!.map((v) => v.toJson()).toList();
+      data['policy'] = this.policy!.toJson();
     }
     if (this.privacy != null) {
-      data['privacy'] = this.privacy!.map((v) => v.toJson()).toList();
+      data['privacy'] = this.privacy!.toJson();
     }
     if (this.about != null) {
-      data['about'] = this.about!.map((v) => v.toJson()).toList();
+      data['about'] = this.about!.toJson();
     }
     if (this.socialmedia != null) {
       data['socialmedia'] = this.socialmedia!.map((v) => v.toJson()).toList();

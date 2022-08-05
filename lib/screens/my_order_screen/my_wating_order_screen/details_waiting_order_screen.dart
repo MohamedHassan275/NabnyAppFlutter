@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/generated/assets.dart';
-import 'package:nabny/model/my_order_model.dart';
+import 'package:nabny/model/my_new_order_model.dart';
 
 import '../../../core/servies/storage_service.dart';
 import '../../../utils/Themes.dart';

@@ -30,7 +30,6 @@ class _TermsConditionScreenState extends State<TermsConditionScreen> {
   Widget build(BuildContext context) {
     var widthValue = Get.width * 0.024;
     var heightValue = Get.height * 0.024;
-    String? TermsValue = 'لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه … بروشور او فلاير على سبيل المثال … او نماذج مواقع انترنت';
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -101,7 +100,7 @@ class _TermsConditionScreenState extends State<TermsConditionScreen> {
                          ),
                        ),
                        SizedBox(height: heightValue * 1.5,),
-                       Text("${controller.settingResponseModel!.policy![0].policy}",
+                       Text("${controller.settingResponseModel!.policy!.policy}",
                          style: TextStyle(
                            color: Themes.ColorApp2,
                            fontSize: 14,

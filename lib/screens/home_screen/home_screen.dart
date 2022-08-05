@@ -7,6 +7,7 @@ import 'package:nabny/core/servies/storage_service.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/factory_details_screen/factory_details_screen.dart';
 import 'package:nabny/screens/home_screen/home_controller.dart';
+import 'package:nabny/screens/my_order_screen/my_order_controller.dart';
 import 'package:nabny/screens/request_offer_price_screen/request_offer_price_screen.dart';
 import 'package:nabny/utils/Themes.dart';
 import '../../componant/CustomButtonWidget.dart';
@@ -14,6 +15,7 @@ import '../../model/home_user_model.dart';
 import '../category_details_screen/category_details_screen.dart';
 import '../factory_offer_price_screen/factory_offer_price_controller.dart';
 import '../location_map_user_screen/google_map_locaiton_user_screen.dart';
+import '../my_favorite_screen/my_favorite_controller.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -21,12 +23,17 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HomeController homeController =  Get.put(HomeController());
+    MyFavoriteController myFavoriteController = Get.put(MyFavoriteController());
+    MyOrderController myOrderController = Get.put(MyOrderController());
+
     var widthValue = Get.width * 0.024;
     var heightValue = Get.height * 0.024;
     return Scaffold(
         body: RefreshIndicator(
           onRefresh: () async{
             homeController.getHomeDetailsUser();
+            myFavoriteController.getFavoriteUserList();
+            myOrderController.getMyOrderUser();
           },
           child: SafeArea(
               child: SingleChildScrollView(
@@ -81,8 +88,8 @@ class HomeScreen extends StatelessWidget {
                                   widthValue: widthValue,
                                   heightValue: heightValue,
                                   onTap: () {
-                                 //   Get.to(const GoogleMapLocationUserScreen());
-                                    CustomFlutterToast(Get.find<StorageService>().activeLocale.languageCode);
+                                    Get.to(const GoogleMapLocationUserScreen());
+                                 //   CustomFlutterToast(Get.find<StorageService>().activeLocale.languageCode);
                                   }),
                               SizedBox(
                                 height: heightValue * 1.5,
@@ -550,16 +557,16 @@ class CategoryListBuild extends StatelessWidget {
           child: ListView.builder(
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
-            physics: const NeverScrollableScrollPhysics(),
+           // physics:  NeverScrollableScrollPhysics(),
             itemCount: homeUserResponseModel!.categories?.length,
             itemBuilder: (context, index) {
               print("category is ${homeUserResponseModel!.categories!.length}");
               print("access token is ${Get.find<StorageService>().GetToken}");
               return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 5),
                   child: GestureDetector(
                     onTap: (){
-                      CustomFlutterToast('${homeUserResponseModel!.categories!.length}');
+                    //  CustomFlutterToast('${homeUserResponseModel!.categories!.length}');
                       Get.to(CategoryDetailsScreen(categories: homeUserResponseModel!.categories![index],));
                     },
                     child: Container(

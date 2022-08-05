@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/LoadingWidget.dart';
-import 'package:nabny/model/my_order_model.dart';
-import 'package:nabny/screens/my_order_screen/my_order_controller.dart';
+import 'package:nabny/model/my_new_order_model.dart';
 import 'package:nabny/screens/my_order_screen/my_wating_order_screen/details_waiting_order_screen.dart';
+import 'package:nabny/screens/my_order_screen/my_wating_order_screen/my_waiting_order_controller.dart';
 import 'package:nabny/screens/setting_screen/setting_screen.dart';
 
 import '../../../generated/assets.dart';
@@ -24,21 +24,21 @@ class MyWaitingOrderScreen extends StatelessWidget {
             child: Container(
               child: Padding(
                 padding: const EdgeInsets.all(2.0),
-                child: GetBuilder<MyOrderController>(
-                  init: MyOrderController(),
+                child: GetBuilder<MyNewOrderController>(
+                  init: MyNewOrderController(),
                   builder: (controller) {
                     if(controller.Loading){
                       return LoadingWidget(data: '');
                     }
-                    return controller.myOrderResponseModel!.newOrder!.isNotEmpty ?
+                    return controller.newOrder!.isNotEmpty ?
                     ListView.builder(
-                      itemCount: controller.myOrderResponseModel!.newOrder!.length,
+                      itemCount: controller.newOrder!.length,
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                          child: MyWaitingOrderItem(MyNewOder: controller.myOrderResponseModel!.newOrder![index],
+                          child: MyWaitingOrderItem(MyNewOder: controller.newOrder![index],
                             heightValue: heightValue,widthValue: widthValue,),
                         );
                       },): NoItemOFList();

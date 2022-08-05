@@ -2,11 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/LoadingWidget.dart';
-import 'package:nabny/model/my_order_model.dart';
-import 'package:nabny/screens/my_order_screen/my_order_controller.dart';
+import 'package:nabny/model/my_new_order_model.dart';
 import 'package:nabny/screens/my_order_screen/my_sender_order_screen/details_sender_order_screen.dart';
+import 'package:nabny/screens/my_order_screen/my_sender_order_screen/my_send_order_controller.dart';
 
 import '../../../generated/assets.dart';
+import '../../../model/my_send_order_model.dart';
 import '../../../utils/Themes.dart';
 
 class MySenderOrderScreen extends StatelessWidget {
@@ -20,21 +21,21 @@ class MySenderOrderScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
-            child: GetBuilder<MyOrderController>(
-              init: MyOrderController(),
+            child: GetBuilder<MySendOrderController>(
+              init: MySendOrderController(),
               builder: (controller) {
                 if(controller.Loading){
                   return LoadingWidget(data: '');
                 }
-                return controller.myOrderResponseModel!.sentOrder!.isNotEmpty ?
+                return controller.sendOrder!.isNotEmpty ?
                 ListView.builder(
-                  itemCount: controller.myOrderResponseModel!.sentOrder!.length,
+                  itemCount: controller.sendOrder!.length,
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                      child: MySendOrderListItem(sendOrder: controller.myOrderResponseModel!.sentOrder![index], heightValue: heightValue,widthValue: widthValue,),
+                      child: MySendOrderListItem(sendOrder: controller.sendOrder![index], heightValue: heightValue,widthValue: widthValue,),
                     );
                   },) : NoItemOFList();
               },),)

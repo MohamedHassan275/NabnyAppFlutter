@@ -19,10 +19,15 @@ class CompleteRegisterController extends GetxController {
     update();
   }
 
-  createAccount(mobilePhone, firstname, lastname, email, password, fcmToken) {
+  createAccount(mobilePhone, firstname, lastname, email, password) {
     if (_formKey.currentState!.validate()) {
       setLoading(true);
-      MyServiceApi.createAccountByDetailUser(mobilePhone,firstname,lastname,email,password,fcmToken).then((value) {
+      CustomFlutterToast(mobilePhone);
+      CustomFlutterToast(firstname);
+      CustomFlutterToast(lastname);
+      CustomFlutterToast(email);
+      CustomFlutterToast(password);
+      MyServiceApi.createAccountByDetailUser(mobilePhone,firstname,lastname,email,password,'token').then((value) {
         if (value?.success == true) {
           setLoading(false);
           print(mobilePhone);

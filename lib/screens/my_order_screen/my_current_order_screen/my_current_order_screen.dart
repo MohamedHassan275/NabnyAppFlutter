@@ -7,12 +7,13 @@ import 'package:nabny/screens/home_main_screen/home_main_controller.dart';
 import 'package:nabny/screens/home_screen/home_controller.dart';
 import 'package:nabny/screens/my_favorite_screen/my_favorite_controller.dart';
 import 'package:nabny/screens/my_order_screen/my_current_order_screen/details_my_current_order_screen.dart';
-import 'package:nabny/screens/my_order_screen/my_order_controller.dart';
+import 'package:nabny/screens/my_order_screen/my_current_order_screen/my_current_order_controller.dart';
 
 import '../../../componant/LoadingWidget.dart';
 import '../../../core/constant/Themes.dart';
 import '../../../generated/assets.dart';
-import '../../../model/my_order_model.dart';
+import '../../../model/my_current_order_model.dart';
+import '../../../model/my_new_order_model.dart';
 
 class MyCurrentOrderScreen extends StatelessWidget {
   const MyCurrentOrderScreen({Key? key}) : super(key: key);
@@ -21,28 +22,33 @@ class MyCurrentOrderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var heightValue = Get.height * 0.024;
     var widthValue = Get.width * 0.024;
-
+    MyCurrentOrderController myCurrentOrderController = Get.put(MyCurrentOrderController());
     return Scaffold(
-      body: SafeArea(
-          child: SingleChildScrollView(
-            child: GetBuilder<MyOrderController>(
-              init: MyOrderController(),
-              builder: (controller) {
-                if(controller.Loading){
-                  return LoadingWidget(data: '');
-                }
-                return controller.myOrderResponseModel!.sentOrder!.isNotEmpty ?
-                ListView.builder(
-                  itemCount: controller.myOrderResponseModel!.currentOrder!.length,
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                      child: MySendOrderListItem(currentOrder: controller.myOrderResponseModel!.currentOrder![index], heightValue: heightValue,widthValue: widthValue,),
-                    );
-                  },) : NoItemOFList(myOrderController: controller,);
-              },),)
+      body: RefreshIndicator(
+        onRefresh: () async{
+          myCurrentOrderController.getMyOrderUser();
+        },
+        child: SafeArea(
+            child: SingleChildScrollView(
+              child: GetBuilder<MyCurrentOrderController>(
+                init: MyCurrentOrderController(),
+                builder: (controller) {
+                  if(controller.Loading){
+                    return LoadingWidget(data: '');
+                  }
+                  return controller.currentOrder!.isNotEmpty ?
+                  ListView.builder(
+                    itemCount: controller.currentOrder!.length,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                        child: MySendOrderListItem(currentOrder: controller.currentOrder![index], heightValue: heightValue,widthValue: widthValue,),
+                      );
+                    },) : NoItemOFList(myOrderController: controller,);
+                },),)
+        ),
       ),
     );
   }
@@ -145,7 +151,7 @@ class MySendOrderListItem extends StatelessWidget {
 
 class NoItemOFList extends StatelessWidget {
   NoItemOFList({Key? key,required this.myOrderController}) : super(key: key);
-  MyOrderController myOrderController;
+  MyCurrentOrderController myOrderController;
   var widthValue = Get.width * 0.024;
   var heightValue = Get.height * 0.024;
 

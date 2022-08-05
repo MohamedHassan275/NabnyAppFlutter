@@ -2,7 +2,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:nabny/model/my_order_model.dart';
+import 'package:nabny/model/my_new_order_model.dart';
 
 class SUCCESS {
   int? code;

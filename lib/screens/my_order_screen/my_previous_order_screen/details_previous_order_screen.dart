@@ -3,14 +3,15 @@ import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/generated/assets.dart';
-import 'package:nabny/model/my_order_model.dart';
+import 'package:nabny/model/my_new_order_model.dart';
 
 import '../../../core/servies/storage_service.dart';
+import '../../../model/my_previous_order_model.dart';
 import '../../../utils/Themes.dart';
 import '../../home_main_screen/home_main_screen.dart';
 
-class DetailsOldOrderScreen extends StatelessWidget {
-   DetailsOldOrderScreen({Key? key,required this.previousOrder}) : super(key: key);
+class DetailsPreviousOrderScreen extends StatelessWidget {
+  DetailsPreviousOrderScreen({Key? key,required this.previousOrder}) : super(key: key);
    PreviousOrder previousOrder;
   @override
   Widget build(BuildContext context) {

@@ -37,7 +37,7 @@ class HomeController extends GetxController{
     MyServiceApi.checkHomeDetailsUser(Get.find<StorageService>().GetToken, '${Get.find<StorageService>().activeLocale.languageCode}').then((value){
       if(value?.success == true){
         setLoading(false);
-        CustomFlutterToast('${value?.homeUserResponseModel?.currentLocation?.address}');
+      //  CustomFlutterToast('${value?.homeUserResponseModel?.currentLocation?.address}');
         setHomeUser(value?.homeUserResponseModel);
       }else if(value?.success == false){
         setLoading(false);
