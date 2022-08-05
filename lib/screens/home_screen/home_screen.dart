@@ -7,7 +7,6 @@ import 'package:nabny/core/servies/storage_service.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/factory_details_screen/factory_details_screen.dart';
 import 'package:nabny/screens/home_screen/home_controller.dart';
-import 'package:nabny/screens/my_order_screen/my_order_controller.dart';
 import 'package:nabny/screens/request_offer_price_screen/request_offer_price_screen.dart';
 import 'package:nabny/utils/Themes.dart';
 import '../../componant/CustomButtonWidget.dart';
@@ -24,7 +23,6 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     HomeController homeController =  Get.put(HomeController());
     MyFavoriteController myFavoriteController = Get.put(MyFavoriteController());
-    MyOrderController myOrderController = Get.put(MyOrderController());
 
     var widthValue = Get.width * 0.024;
     var heightValue = Get.height * 0.024;
@@ -33,7 +31,6 @@ class HomeScreen extends StatelessWidget {
           onRefresh: () async{
             homeController.getHomeDetailsUser();
             myFavoriteController.getFavoriteUserList();
-            myOrderController.getMyOrderUser();
           },
           child: SafeArea(
               child: SingleChildScrollView(
