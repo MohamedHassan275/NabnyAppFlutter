@@ -142,7 +142,7 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
               SizedBox(
                 height: heightValue * .7,
               ),
-              Column(
+              isVisible ? Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   DetailsOrder(widthValue, 'quantity'.tr, '${widget.requestOfferOrderModel.qtyM}'),
@@ -170,7 +170,7 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
                     height: heightValue * .7,
                   ),
                 ],
-              ),
+              ) : Container(),
               SizedBox(
                 height: heightValue * 1.2,
               ),
