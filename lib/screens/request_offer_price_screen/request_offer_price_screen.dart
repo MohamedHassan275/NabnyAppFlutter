@@ -82,12 +82,21 @@ class RequestOfferOrderItems extends StatefulWidget {
 }
 
 class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
+
+  bool isVisible = false;
+
+  void _changed(bool visibility, String field) {
+    setState(() {
+      if (field == "tag"){
+        isVisible = visibility;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    bool isVisible = false;
     var widthValue = Get.width * 0.024;
     var heightValue = Get.height * 0.024;
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
       child: Card(
@@ -117,10 +126,13 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
                   GestureDetector(
                       onTap: (){
                         setState(() {
-                          isVisible = !isVisible;
+                          isVisible ? _changed(false, "tag") : _changed(true, "tag");
+                          // isVisible = !isVisible;
+                          // CustomFlutterToast('msg');
                         });
+
                       },
-                      child: Icon(widget.controller.loading ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_up_rounded,size: 25,color: Themes.ColorApp1,))
+                      child: Icon(isVisible ? Icons.keyboard_arrow_up_rounded : Icons.keyboard_arrow_down_rounded,size: 25,color: Themes.ColorApp1,))
                 ],
               ),
               SizedBox(
@@ -130,38 +142,35 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
               SizedBox(
                 height: heightValue * .7,
               ),
-              Visibility(
-                visible: isVisible ? true : false ,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    DetailsOrder(widthValue, 'quantity'.tr, '${widget.requestOfferOrderModel.qtyM}'),
-                    SizedBox(
-                      height: heightValue * .7,
-                    ),
-                    DetailsOrder(widthValue, 'mix_type'.tr, '${widget.requestOfferOrderModel.mixType}'),
-                    SizedBox(
-                      height: heightValue * .7,
-                    ),
-                    DetailsOrder(widthValue, 'cement_type'.tr, '${widget.requestOfferOrderModel.cementType}'),
-                    SizedBox(
-                      height: heightValue * .7,
-                    ),
-                    DetailsOrder(widthValue, 'stone_size'.tr, '${widget.requestOfferOrderModel.stoneSize}'),
-                    SizedBox(
-                      height: heightValue * .7,
-                    ),
-                    DetailsOrder(widthValue, 'Special_specifications'.tr, '${widget.requestOfferOrderModel.specialDescription}'),
-                    SizedBox(
-                      height: heightValue * .7,
-                    ),
-                    DetailsOrder(widthValue, 'pump_order'.tr, widget.requestOfferOrderModel.withPump!.contains('1')? 'طلب مضخه' : 'بدون طلب مضخه',),
-                    SizedBox(
-                      height: heightValue * .7,
-                    ),
-                  ],
-                ),
-              ),
+              isVisible ? Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  DetailsOrder(widthValue, 'quantity'.tr, '${widget.requestOfferOrderModel.qtyM}'),
+                  SizedBox(
+                    height: heightValue * .7,
+                  ),
+                  DetailsOrder(widthValue, 'mix_type'.tr, '${widget.requestOfferOrderModel.mixType}'),
+                  SizedBox(
+                    height: heightValue * .7,
+                  ),
+                  DetailsOrder(widthValue, 'cement_type'.tr, '${widget.requestOfferOrderModel.cementType}'),
+                  SizedBox(
+                    height: heightValue * .7,
+                  ),
+                  DetailsOrder(widthValue, 'stone_size'.tr, '${widget.requestOfferOrderModel.stoneSize}'),
+                  SizedBox(
+                    height: heightValue * .7,
+                  ),
+                  DetailsOrder(widthValue, 'Special_specifications'.tr, '${widget.requestOfferOrderModel.specialDescription}'),
+                  SizedBox(
+                    height: heightValue * .7,
+                  ),
+                  DetailsOrder(widthValue, 'pump_order'.tr, widget.requestOfferOrderModel.withPump!.contains('1')? 'طلب مضخه' : 'بدون طلب مضخه',),
+                  SizedBox(
+                    height: heightValue * .7,
+                  ),
+                ],
+              ) : Container(),
               SizedBox(
                 height: heightValue * 1.2,
               ),
