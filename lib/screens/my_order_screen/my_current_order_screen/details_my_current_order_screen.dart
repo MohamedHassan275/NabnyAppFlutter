@@ -4,15 +4,20 @@ import 'package:get/get.dart';
 import 'package:nabny/model/my_current_order_model.dart';
 import 'package:nabny/model/my_new_order_model.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
+import 'package:nabny/screens/my_order_screen/my_current_order_screen/my_current_order_controller.dart';
 
+import '../../../componant/CustomButtonWidget.dart';
 import '../../../core/constant/Themes.dart';
+import '../../../core/constant/constant.dart';
 import '../../../core/localization/local_controller.dart';
 import '../../../core/servies/storage_service.dart';
+import '../../../core/widget/custom_circler_progress_indicator_widget.dart';
 import '../../../generated/assets.dart';
 
 class DetailsMyCurrentOrder extends StatelessWidget {
   DetailsMyCurrentOrder({Key? key,required this.currentOrder}) : super(key: key);
   CurrentOrder currentOrder;
+  MyCurrentOrderController myCurrentOrderController = Get.put(MyCurrentOrderController());
   @override
   Widget build(BuildContext context) {
     var heightValue = Get.height * 0.024;
@@ -85,7 +90,7 @@ class DetailsMyCurrentOrder extends StatelessWidget {
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
-                                DetailsOrder(widthValue, 'pump_order'.tr, currentOrder.withPump!.contains('1') ? 'طلب مضخه' : 'بدون طلب مضخه'),
+                                DetailsOrder(widthValue, 'pump_order'.tr, currentOrder.withPump!.contains('1') ? 'pump_order'.tr : 'with_out_pump'.tr),
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
@@ -135,8 +140,100 @@ class DetailsMyCurrentOrder extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: heightValue * 1.2,
+                                  height: heightValue * .7,
                                 ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Payment_completed_successfully'.tr,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16,
+                                        color: Themes.ColorApp17,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: heightValue * .5,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'order_will_be_received'.tr,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 15,
+                                            color: Themes.ColorApp8,
+                                          ),
+                                        ),
+                                        SizedBox(width: widthValue * .5,),
+                                        Text(
+                                          '${currentOrder.executionDate}',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 15,
+                                            color: Themes.ColorApp8,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: heightValue * .6,
+                                    ),
+                                    Text(
+                                      'order_been_successfully_received'.tr,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 19,
+                                        color: Themes.ColorApp17,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: heightValue * 1.5,
+                                ),
+                                CirclerProgressIndicatorWidget(isLoading: myCurrentOrderController.Loading ? true : false),
+                                SizedBox(height: heightValue * .5,),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    CustomButtonImage(title: 'received'.tr, hight: 50, onTap: (){
+                                      CustomFlutterToast(currentOrder.executionDate);
+                                      CustomFlutterToast(myCurrentOrderController.formattedDateCurrent);
+                                      if (!(myCurrentOrderController.formattedDateCurrent!.compareTo(currentOrder.executionDate!) <= 0)){
+                                        CustomFlutterToast('operation_cannot_be_completed'.tr);
+                                      }else {
+                                        myCurrentOrderController.ReceivedOrder(currentOrder.id.toString());
+                                      }
+
+                                    }),
+                                    SizedBox(height: heightValue * 1.2,),
+                                    GestureDetector(
+                                      onTap: (){
+                                        CustomFlutterToast(currentOrder.id.toString());
+                                      },
+                                      child: Container(
+                                        width: Get.width,
+                                        height: 50,
+                                        child: Center(
+                                          child:  Text(
+                                            'cancel_order'.tr,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 16,
+                                              color: Themes.ColorApp9,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: heightValue * 1.5,),
+                                  ],
+                                ),
+                                SizedBox(height: heightValue * 2,)
                               ],
                             ),
                           ),

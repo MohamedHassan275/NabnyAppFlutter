@@ -22,33 +22,32 @@ class MyCurrentOrderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var heightValue = Get.height * 0.024;
     var widthValue = Get.width * 0.024;
-    MyCurrentOrderController myCurrentOrderController = Get.put(MyCurrentOrderController());
     return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: () async{
-          myCurrentOrderController.getMyOrderUser();
-        },
-        child: SafeArea(
-            child: SingleChildScrollView(
-              child: GetBuilder<MyCurrentOrderController>(
-                init: MyCurrentOrderController(),
-                builder: (controller) {
-                  if(controller.Loading){
-                    return LoadingWidget(data: '');
-                  }
-                  return controller.currentOrder!.isNotEmpty ?
-                  ListView.builder(
-                    itemCount: controller.currentOrder!.length,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                        child: MySendOrderListItem(currentOrder: controller.currentOrder![index], heightValue: heightValue,widthValue: widthValue,),
-                      );
-                    },) : NoItemOFList(myOrderController: controller,);
-                },),)
-        ),
+      body: SafeArea(
+          child: SingleChildScrollView(
+            child: Container(
+              child: Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: GetBuilder<MyCurrentOrderController>(
+                  init: MyCurrentOrderController(),
+                  builder: (controller) {
+                    if(controller.Loading){
+                      return LoadingWidget(data: '');
+                    }
+                    return controller.currentOrder!.isNotEmpty ?
+                    ListView.builder(
+                      itemCount: controller.currentOrder!.length,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                          child: MySendOrderListItem(currentOrder: controller.currentOrder![index], heightValue: heightValue,widthValue: widthValue,),
+                        );
+                      },) : NoItemOFList(myOrderController: controller,);
+                  },),
+              ),
+            ),)
       ),
     );
   }

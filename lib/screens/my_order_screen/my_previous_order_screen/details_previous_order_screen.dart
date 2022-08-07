@@ -85,7 +85,7 @@ class DetailsPreviousOrderScreen extends StatelessWidget {
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
-                                DetailsOrder(widthValue, 'pump_order'.tr, previousOrder.withPump!.contains('1') ? 'طلب مضخه' : 'بدون طلب مضخه'),
+                                DetailsOrder(widthValue, 'pump_order'.tr, previousOrder.withPump!.contains('1') ? 'pump_order'.tr : 'with_out_pump'.tr),
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
@@ -149,42 +149,17 @@ class DetailsPreviousOrderScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'Payment_completed_successfully'.tr,
+                       previousOrder.status!.contains('4') ?  'Payment_completed_successfully'.tr :  'no_Payment_completed_successfully'.tr,
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 16,
-                          color: Themes.ColorApp17,
+                          color: previousOrder.status!.contains('4') ? Themes.ColorApp1 : Themes.ColorApp9,
                         ),
                       ),
                       SizedBox(
                         height: heightValue * .5,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'order_will_be_received'.tr,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                              color: Themes.ColorApp8,
-                            ),
-                          ),
-                          SizedBox(width: widthValue * .5,),
-                          Text(
-                            '${previousOrder.executionDate}',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                              color: Themes.ColorApp8,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: heightValue * .6,
-                      ),
-                      CustomButtonImage(title: 'order_been_successfully_received'.tr, hight: 50, onTap: (){
+                      CustomButtonImage(title:previousOrder.status!.contains('4') ?  'order_been_successfully_received'.tr :  'no_order_been_successfully_received'.tr, hight: 50, onTap: (){
                         Get.off(HomeMainScreen(valueBack: ''));
                       }),
                       SizedBox(height: heightValue * 3,)
@@ -334,3 +309,29 @@ class DetailsOrder extends StatelessWidget {
     );
   }
 }
+
+// Row(
+// mainAxisAlignment: MainAxisAlignment.center,
+// children: [
+// Text(
+// 'order_will_be_received'.tr,
+// style: TextStyle(
+// fontWeight: FontWeight.w500,
+// fontSize: 15,
+// color: Themes.ColorApp8,
+// ),
+// ),
+// SizedBox(width: widthValue * .5,),
+// Text(
+// '${previousOrder.executionDate}',
+// style: TextStyle(
+// fontWeight: FontWeight.w500,
+// fontSize: 15,
+// color: Themes.ColorApp8,
+// ),
+// ),
+// ],
+// ),
+// SizedBox(
+// height: heightValue * .6,
+// ),

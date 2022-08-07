@@ -15,6 +15,7 @@ import '../category_details_screen/category_details_screen.dart';
 import '../factory_offer_price_screen/factory_offer_price_controller.dart';
 import '../location_map_user_screen/google_map_locaiton_user_screen.dart';
 import '../my_favorite_screen/my_favorite_controller.dart';
+import '../requirements_request_offer_price_screen/requirements_request_offer_price_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -723,7 +724,7 @@ class OrderPriceRequest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.to(RequestOfferPriceScreen()),
+      onTap: () => Get.to(RequirementsRequestOfferPriceScreen(companyId: '',)),
       child: Container(
         width: Get.width,
         height: 100,

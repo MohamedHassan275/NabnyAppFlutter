@@ -531,9 +531,7 @@ class _RequirementsRequestOfferPriceScreenState
                             onTap: () {
                               if (formattedDate == null) {
                                 CustomFlutterToast("date_must_request".tr);
-                              } else if (!(formattedDateCurrent!
-                                      .compareTo(formattedDate!) <=
-                                  0)) {
+                              } else if (!(formattedDateCurrent!.compareTo(formattedDate!) <= 0)) {
                                 CustomFlutterToast("Invalid_order_date".tr);
                               } else {
                                 String WithPump =

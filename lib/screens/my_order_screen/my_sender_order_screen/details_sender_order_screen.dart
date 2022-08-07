@@ -90,7 +90,7 @@ class DetailsSenderOrderScreen extends StatelessWidget {
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
-                                DetailsOrder(widthValue, 'pump_order'.tr, sendOrder.withPump!.contains('1')? 'طلب مضخه' : 'بدون طلب مضخه'),
+                                DetailsOrder(widthValue, 'pump_order'.tr, sendOrder.withPump!.contains('1') ? 'pump_order'.tr : 'with_out_pump'.tr),
                                 SizedBox(
                                   height: heightValue * .7,
                                 ),
@@ -150,7 +150,7 @@ class DetailsSenderOrderScreen extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: heightValue * 2,),
-                  CirclerProgressIndicatorWidget(isLoading: mySendOrderController.loading ? true : false),
+                  CirclerProgressIndicatorWidget(isLoading: mySendOrderController.Loading ? true : false),
                   SizedBox(height: heightValue * 1.5,),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -171,7 +171,7 @@ class DetailsSenderOrderScreen extends StatelessWidget {
                       GestureDetector(
                         onTap: (){
                           CustomFlutterToast(sendOrder.id.toString());
-                          mySendOrderController.AcceptOrder(sendOrder.id.toString(), '');
+                          mySendOrderController.CancelOrder(sendOrder.id.toString());
                           // Get.off(HomeMainScreen(valueBack: ''));
                           // Fluttertoast.showToast(msg: 'canceled_order'.tr,
                           //   backgroundColor: Themes.ColorApp8,

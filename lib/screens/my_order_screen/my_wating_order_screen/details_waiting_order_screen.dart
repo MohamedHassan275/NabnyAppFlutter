@@ -83,7 +83,7 @@ class DetailsWaitingOrderScreen extends StatelessWidget {
                               SizedBox(
                                 height: heightValue * .7,
                               ),
-                              DetailsOrder(widthValue, 'pump_order'.tr, newOrder.castingType!.contains('1')? 'طلب مضخه' : 'بدون طلب مضخه',),
+                              DetailsOrder(widthValue, 'pump_order'.tr, newOrder.withPump!.contains('1') ? 'pump_order'.tr : 'with_out_pump'.tr),
                               SizedBox(
                                 height: heightValue * .7,
                               ),
