@@ -158,8 +158,7 @@ class DetailsSenderOrderScreen extends StatelessWidget {
                     children: [
                       CustomButtonImage(title: 'accept'.tr, hight: 50, onTap: (){
                         CustomFlutterToast(sendOrder.id.toString());
-                        mySendOrderController.setLoading(true);
-                      //  mySendOrderController.AcceptOrder(sendOrder.id.toString(), '');
+                        mySendOrderController.AcceptOrder(sendOrder.id.toString(), '');
                         // Get.off(HomeMainScreen(valueBack: ''));
                         // Fluttertoast.showToast(msg: 'accepted_order'.tr,
                         //   backgroundColor: Themes.ColorApp8,
@@ -172,7 +171,7 @@ class DetailsSenderOrderScreen extends StatelessWidget {
                       GestureDetector(
                         onTap: (){
                           CustomFlutterToast(sendOrder.id.toString());
-                        //  mySendOrderController.AcceptOrder(sendOrder.id.toString(), '');
+                          mySendOrderController.AcceptOrder(sendOrder.id.toString(), '');
                           // Get.off(HomeMainScreen(valueBack: ''));
                           // Fluttertoast.showToast(msg: 'canceled_order'.tr,
                           //   backgroundColor: Themes.ColorApp8,
