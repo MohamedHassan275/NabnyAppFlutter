@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get.dart';
@@ -16,9 +17,18 @@ class MyPreviousOrderController extends GetxController {
 
   bool Loading = false;
   List<PreviousOrder>? _previousOrder;
-
+  String? _formattedDateCurrent;
   get loading => Loading;
+  get formattedDateCurrent => _formattedDateCurrent;
   List<PreviousOrder>? get previousOrder => _previousOrder;
+
+  getCurrentTime(){
+    var now = new DateTime.now();
+    var formatter = new DateFormat('yyyy-MM-dd');
+    _formattedDateCurrent = formatter.format(now);
+    print(formattedDateCurrent);
+    CustomFlutterToast(formattedDateCurrent);
+  }
 
   setLoading(bool loading){
     Loading = loading;
@@ -31,6 +41,7 @@ class MyPreviousOrderController extends GetxController {
 
   MyPreviousOrderController(){
     getPreviousMyOrderUser();
+    getCurrentTime();
   }
 
   getPreviousMyOrderUser(){

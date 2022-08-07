@@ -204,9 +204,9 @@ class DetailsMyCurrentOrder extends StatelessWidget {
                                       CustomFlutterToast(currentOrder.executionDate);
                                       CustomFlutterToast(myCurrentOrderController.formattedDateCurrent);
                                       if ((myCurrentOrderController.formattedDateCurrent!.compareTo(currentOrder.executionDate!) <= 0)){
-                                        CustomFlutterToast('operation_cannot_be_completed'.tr);
-                                      }else {
                                         myCurrentOrderController.ReceivedOrder(currentOrder.id.toString());
+                                      }else {
+                                        CustomFlutterToast('operation_cannot_be_completed'.tr);
                                       }
 
                                     }),

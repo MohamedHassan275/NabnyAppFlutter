@@ -6,6 +6,7 @@ import 'package:nabny/generated/assets.dart';
 import 'package:nabny/model/my_new_order_model.dart';
 import 'package:nabny/screens/my_order_screen/my_previous_order_screen/my_previous_order_controller.dart';
 
+import '../../../core/constant/constant.dart';
 import '../../../core/servies/storage_service.dart';
 import '../../../model/my_previous_order_model.dart';
 import '../../../utils/Themes.dart';
@@ -165,8 +166,14 @@ class DetailsPreviousOrderScreen extends StatelessWidget {
                         SizedBox(
                           height: heightValue * .5,
                         ),
-                        CustomButtonImage(title:previousOrder.status!.contains('4') ?  'order_been_successfully_received'.tr :  'no_order_been_successfully_received'.tr, hight: 50, onTap: (){
-                          Get.off(HomeMainScreen(valueBack: ''));
+                        CustomButtonImage(title:previousOrder.status!.contains('4') ?  'order_been_successfully_received'.tr :  'no_order_been_successfully_received'.tr,
+                            hight: 50, onTap: (){
+                              // if ((myPreviousOrderController.formattedDateCurrent!.compareTo(previousOrder.executionDate!) <= 0)){
+                              //   CustomFlutterToast('operation_cannot_be_completed'.tr);
+                              // }else {
+                              //   CustomFlutterToast('operation cannot completed');
+                              // //  myPreviousOrderController.ReceivedOrder(previousOrder.id.toString());
+                              // }
                         }),
                         SizedBox(height: heightValue * 3,)
                       ],
