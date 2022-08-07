@@ -31,28 +31,58 @@ class OfferOrderRequestModel {
 class OfferOrderRequestResponseModel {
   int? id;
   String? castingType;
+  String? orderNumber;
   String? executionDate;
+  String? qtyM;
+  String? mixType;
+  String? cementType;
+  String? stoneSize;
+  String? specialDescription;
+  String? address;
+  String? withPump;
+  String? pumpLength;
+  String? withSnow;
+  String? withLab;
   String? status;
   int? requestsCount;
-  String? address;
   List<Companies>? request;
 
   OfferOrderRequestResponseModel(
       {this.id,
         this.castingType,
+        this.orderNumber,
         this.executionDate,
+        this.qtyM,
+        this.mixType,
+        this.cementType,
+        this.stoneSize,
+        this.specialDescription,
+        this.address,
+        this.withPump,
+        this.pumpLength,
+        this.withSnow,
+        this.withLab,
         this.status,
         this.requestsCount,
-        this.address,
         this.request});
 
   OfferOrderRequestResponseModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     castingType = json['casting_type'];
+    orderNumber = json['order_number'];
     executionDate = json['execution_date'];
+    qtyM = json['qty_m'];
+    mixType = json['mix_type'];
+    cementType = json['cement_type'];
+    stoneSize = json['stone_size'];
+    specialDescription = json['special_description'];
+    address = json['address'];
+    withPump = json['with_pump'];
+    pumpLength = json['pump_length'];
+    withSnow = json['with_snow'];
+    withLab = json['with_lab'];
     status = json['status'];
     requestsCount = json['requests_count'];
-    address = json['address'];
     if (json['request'] != null) {
       request = <Companies>[];
       json['request'].forEach((v) {
@@ -65,10 +95,20 @@ class OfferOrderRequestResponseModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['casting_type'] = this.castingType;
+    data['order_number'] = this.orderNumber;
     data['execution_date'] = this.executionDate;
+    data['qty_m'] = this.qtyM;
+    data['mix_type'] = this.mixType;
+    data['cement_type'] = this.cementType;
+    data['stone_size'] = this.stoneSize;
+    data['special_description'] = this.specialDescription;
+    data['address'] = this.address;
+    data['with_pump'] = this.withPump;
+    data['pump_length'] = this.pumpLength;
+    data['with_snow'] = this.withSnow;
+    data['with_lab'] = this.withLab;
     data['status'] = this.status;
     data['requests_count'] = this.requestsCount;
-    data['address'] = this.address;
     if (this.request != null) {
       data['request'] = this.request!.map((v) => v.toJson()).toList();
     }

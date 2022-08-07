@@ -235,7 +235,7 @@ class CreateAccountFromLoginWidget extends StatelessWidget {
                 width: 5,
               ),
               InkWell(
-                onTap: () => Get.to(const RegisterScreen()),
+                onTap: () => Get.to(RegisterScreen()),
                 child: Text(
                   'create_account'.tr,
                   style: const TextStyle(

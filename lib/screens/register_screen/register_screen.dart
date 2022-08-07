@@ -12,60 +12,20 @@ import '../../componant/CustomButtonWidget.dart';
 import '../../componant/CustomTextFieldWidget.dart';
 import '../../generated/assets.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
 
-  @override
-  _RegisterScreenState createState() => _RegisterScreenState();
-}
+class RegisterScreen extends StatelessWidget {
+  RegisterScreen({Key? key}) : super(key: key);
 
-class _RegisterScreenState extends State<RegisterScreen> {
-
+  final double valueHight = Get.height * .024;
+  final double valueWidth = Get.width * .024;
   FocusNode? _focusNodePassword;
   bool showProgressbar = true;
   bool isPassword = true;
   String? mobilePhone, password;
   TextEditingController MobilePhone = new TextEditingController();
   TextEditingController Password = new TextEditingController();
-
-  var formKey = GlobalKey<FormState>();
-
-  var Scaffoldkey = GlobalKey<ScaffoldState>();
-
-  @override
-  void initState() {
-    super.initState();
-    // IsUserAcesstoken();
-    _focusNodePassword = FocusNode();
-
-    setState(() {
-      //   Firebase.initializeApp().whenComplete(() {
-      //     print("completed");
-      //     setState(() {});
-      //   });
-      //   _firebaseMessaging.getToken().then((value){
-      //     print('The Token is $value');
-      //     firebase_token = value!;
-      //     print(firebase_token);
-      //   });
-    });
-
-    // IsUserAcesstoken();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    _focusNodePassword!.dispose();
-  }
-
-
   @override
   Widget build(BuildContext context) {
-    final double valueHight = Get.height * .024;
-    final double valueWidth = Get.width * .024;
-
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -121,44 +81,44 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 GetBuilder<RegisterController>(
                   init: RegisterController(),
                   builder: (controller) => Container(
-                  width: Get.width,
-                  color: Colors.white,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: valueHight * 1.5,
-                      ),
-                      Form(
-                          key: controller.formKey,
-                          child: Column(
-                            children: [
-                              TextFieldMobileWidget(textEditingController: MobilePhone, value: mobilePhone),
-                              SizedBox(
-                                height: valueHight * 1,
-                              ),
-                              CirclerProgressIndicatorWidget(isLoading: controller.isLoading ? true : false),
-                              SizedBox(
-                                height: valueHight * .5,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 15),
-                                child: CustomButtonImage(
-                                    hight: 50,
-                                    title: 'register'.tr,
-                                    onTap: () {
-                                      print(MobilePhone.text);
-                                      Get.find<RegisterController>().createAccount(MobilePhone.text);
-                                    }
+                    width: Get.width,
+                    color: Colors.white,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: valueHight * 1.5,
+                        ),
+                        Form(
+                            key: controller.formKey,
+                            child: Column(
+                              children: [
+                                TextFieldMobileWidget(textEditingController: MobilePhone, value: mobilePhone),
+                                SizedBox(
+                                  height: valueHight * 1,
                                 ),
-                              ),
-                            const LoginUserFromRegisterWidget()
-                            ],
-                          )),
-                      SizedBox(height: valueHight*2.0,),
-                    ],
-                  ),
-                ),)
+                                CirclerProgressIndicatorWidget(isLoading: controller.isLoading ? true : false),
+                                SizedBox(
+                                  height: valueHight * .5,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15, vertical: 15),
+                                  child: CustomButtonImage(
+                                      hight: 50,
+                                      title: 'register'.tr,
+                                      onTap: () {
+                                        print(MobilePhone.text);
+                                        Get.find<RegisterController>().createAccount(MobilePhone.text);
+                                      }
+                                  ),
+                                ),
+                                const LoginUserFromRegisterWidget()
+                              ],
+                            )),
+                        SizedBox(height: valueHight*2.0,),
+                      ],
+                    ),
+                  ),)
               ],
             ),
           ),
@@ -167,6 +127,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 }
+
 
 class LoginUserFromRegisterWidget extends StatelessWidget {
   const LoginUserFromRegisterWidget({Key? key}) : super(key: key);

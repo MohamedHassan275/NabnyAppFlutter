@@ -39,7 +39,7 @@ class MyServiceApi {
         return LoginUserModel.fromJson(response.data);
       } else {
         print('${response.statusMessage} : ${response.statusCode}');
-       return throw Exception(response.statusMessage!);
+        return throw Exception(response.statusMessage!);
       }
     } on DioError catch (e) {
       if (e.response != null) {
@@ -56,7 +56,8 @@ class MyServiceApi {
     return loginUserModel;
   }
 
-  static Future<CheckMobileUserModel?> CreateAccountUserByMobile(String phone) async {
+  static Future<CheckMobileUserModel?> CreateAccountUserByMobile(
+      String phone) async {
     CheckMobileUserModel? checkMobileUserModel;
     var fromData = FormData.fromMap({
       'phone': phone,
@@ -69,7 +70,7 @@ class MyServiceApi {
         return CheckMobileUserModel.fromJson(response.data);
       } else {
         print('${response.statusMessage} : ${response.statusCode}');
-      return throw Exception(response.statusMessage!);
+        return throw Exception(response.statusMessage!);
         // return Failure(errorResponse: 'can`t have data');
       }
     } on DioError catch (e) {
@@ -87,7 +88,8 @@ class MyServiceApi {
     return checkMobileUserModel;
   }
 
-  static Future<CheckMobileUserModel?> activeCodeByRegister(String phone, String code) async {
+  static Future<CheckMobileUserModel?> activeCodeByRegister(
+      String phone, String code) async {
     CheckMobileUserModel? checkMobileModel;
     var fromData = FormData.fromMap({
       'phone': phone,
@@ -95,7 +97,7 @@ class MyServiceApi {
     });
     try {
       Response response =
-      await Dio().post(URL + 'register/code', data: fromData);
+          await Dio().post(URL + 'register/code', data: fromData);
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -121,9 +123,12 @@ class MyServiceApi {
   }
 
   static Future<LoginUserModel?> createAccountByDetailUser(
-      String phone, String firstname,
-      String lastname, String email,
-      String password, String fcmToken) async {
+      String phone,
+      String firstname,
+      String lastname,
+      String email,
+      String password,
+      String fcmToken) async {
     LoginUserModel? loginUserModel;
     var fromData = FormData.fromMap({
       'phone': phone,
@@ -141,7 +146,7 @@ class MyServiceApi {
         return LoginUserModel.fromJson(response.data);
       } else {
         print('${response.statusMessage} : ${response.statusCode}');
-       return throw Exception(response.statusMessage!);
+        return throw Exception(response.statusMessage!);
       }
     } on DioError catch (e) {
       if (e.response != null) {
@@ -159,16 +164,12 @@ class MyServiceApi {
     return loginUserModel;
   }
 
-
   static Future<LogoutUserModel?> LogoutUser(String Authorization) async {
     LogoutUserModel? logoutUserModel;
     try {
-      Response response =
-      await Dio().get(URL + 'logout', options: Options(
-        headers: {
-          'Authorization': 'Bearer $Authorization'
-        }
-      ));
+      Response response = await Dio().get(URL + 'logout',
+          options:
+              Options(headers: {'Authorization': 'Bearer $Authorization'}));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -197,12 +198,9 @@ class MyServiceApi {
   static Future<SettingModel?> GetSettingUser(String Authorization) async {
     SettingModel? settingModel;
     try {
-      Response response =
-      await Dio().get(URL + 'setting', options: Options(
-          headers: {
-            'Authorization': 'Bearer $Authorization'
-          }
-      ));
+      Response response = await Dio().get(URL + 'setting',
+          options:
+              Options(headers: {'Authorization': 'Bearer $Authorization'}));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -228,15 +226,13 @@ class MyServiceApi {
     return settingModel;
   }
 
-  static Future<ProfileUserModel?> checkProfileDetails(String Authorization) async {
+  static Future<ProfileUserModel?> checkProfileDetails(
+      String Authorization) async {
     ProfileUserModel? profileUserModel;
     try {
-      Response response =
-      await Dio().get(URL + 'profile', options: Options(
-        headers: {
-          'Authorization': 'Bearer $Authorization'
-        }
-      ));
+      Response response = await Dio().get(URL + 'profile',
+          options:
+              Options(headers: {'Authorization': 'Bearer $Authorization'}));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -262,21 +258,19 @@ class MyServiceApi {
     return profileUserModel;
   }
 
-
-  static Future<HomeUserModel?> checkHomeDetailsUser(String Authorization, String Language) async {
+  static Future<HomeUserModel?> checkHomeDetailsUser(
+      String Authorization, String Language) async {
     HomeUserModel? homeUserModel;
     // var formData = FormData.fromMap({
     //   'lat' : lat,
     //   'lng' : lng,
     // });
     try {
-      Response response =
-      await Dio().post(URL + 'home', options: Options(
-          headers: {
+      Response response = await Dio().post(URL + 'home',
+          options: Options(sendTimeout: 5000, receiveTimeout: 5000, headers: {
             'Authorization': 'Bearer $Authorization',
-            'Accept-Language' : '$Language'
-          }
-      ));
+            'Accept-Language': '$Language'
+          }));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -301,34 +295,46 @@ class MyServiceApi {
     }
     return homeUserModel;
   }
-  static Future<ResponseUserModel?> AddOfferOrderRequest(String Authorization, String Language,
-      String companyId,String casting_type,String execution_date,String qty_m,String mix_type,
-      String cement_type, String stone_size,String special_description,String address,String with_pump,
-      String pump_length,String with_snow, String with_lab) async {
+
+  static Future<ResponseUserModel?> AddOfferOrderRequest(
+      String Authorization,
+      String Language,
+      String companyId,
+      String casting_type,
+      String execution_date,
+      String qty_m,
+      String mix_type,
+      String cement_type,
+      String stone_size,
+      String special_description,
+      String address,
+      String with_pump,
+      String pump_length,
+      String with_snow,
+      String with_lab) async {
     ResponseUserModel? responseUserModel;
     var formData = FormData.fromMap({
-      'company' : companyId,
-      'casting_type' : casting_type,
-      'execution_date' : execution_date,
-      'qty_m' : qty_m,
-      'mix_type' : mix_type,
-      'cement_type' : cement_type,
-      'stone_size' : stone_size,
-      'special_description' : special_description,
-      'address' : address,
-      'with_pump' : with_pump,
-      'pump_length' : pump_length,
-      'with_snow' : with_snow,
-      'with_lab' : with_lab,
+      'company': companyId,
+      'casting_type': casting_type,
+      'execution_date': execution_date,
+      'qty_m': qty_m,
+      'mix_type': mix_type,
+      'cement_type': cement_type,
+      'stone_size': stone_size,
+      'special_description': special_description,
+      'address': address,
+      'with_pump': with_pump,
+      'pump_length': pump_length,
+      'with_snow': with_snow,
+      'with_lab': with_lab,
     });
     try {
-      Response response =
-      await Dio().post(URL + 'order/add', data :formData ,options: Options(
-          headers: {
+      Response response = await Dio().post(URL + 'order/add',
+          data: formData,
+          options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
-            'Accept-Language' : '$Language'
-          }
-      ));
+            'Accept-Language': '$Language'
+          }));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -354,21 +360,23 @@ class MyServiceApi {
     return responseUserModel;
   }
 
-  static Future<ResponseUserModel?> AcceptOfferOrderRequest(String Authorization, String Language,
-      String order_id,String request_id) async {
+  static Future<ResponseUserModel?> AcceptOfferOrderRequest(
+      String Authorization,
+      String Language,
+      String order_id,
+      String request_id) async {
     ResponseUserModel? responseUserModel;
     var formData = FormData.fromMap({
-      'order_id' : order_id,
-      'request_id' : request_id,
+      'order_id': order_id,
+      'request_id': request_id,
     });
     try {
-      Response response =
-      await Dio().post(URL + 'order/accept', data :formData ,options: Options(
-          headers: {
+      Response response = await Dio().post(URL + 'order/accept',
+          data: formData,
+          options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
-            'Accept-Language' : '$Language'
-          }
-      ));
+            'Accept-Language': '$Language'
+          }));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -394,20 +402,19 @@ class MyServiceApi {
     return responseUserModel;
   }
 
-  static Future<ResponseUserModel?> CancelOfferOrderRequest(String Authorization, String Language,
-      String order_id) async {
+  static Future<ResponseUserModel?> CancelOfferOrderRequest(
+      String Authorization, String Language, String order_id) async {
     ResponseUserModel? responseUserModel;
     var formData = FormData.fromMap({
-      'order_id' : order_id,
+      'order_id': order_id,
     });
     try {
-      Response response =
-      await Dio().post(URL + 'order/cancel', data :formData ,options: Options(
-          headers: {
+      Response response = await Dio().post(URL + 'order/cancel',
+          data: formData,
+          options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
-            'Accept-Language' : '$Language'
-          }
-      ));
+            'Accept-Language': '$Language'
+          }));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -433,20 +440,19 @@ class MyServiceApi {
     return responseUserModel;
   }
 
-  static Future<OfferOrderRequestModel?> GetRequestOfferPrice(String Authorization, String Language) async {
+  static Future<OfferOrderRequestModel?> GetRequestOfferPrice(
+      String Authorization, String Language) async {
     OfferOrderRequestModel? offerOrderRequestModel;
     // var formData = FormData.fromMap({
     //   'lat' : lat,
     //   'lng' : lng,
     // });
     try {
-      Response response =
-      await Dio().post(URL + 'price_offers', options: Options(
-          headers: {
+      Response response = await Dio().post(URL + 'price_offers',
+          options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
-            'Accept-Language' : '$Language'
-          }
-      ));
+            'Accept-Language': '$Language'
+          }));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -472,19 +478,19 @@ class MyServiceApi {
     return offerOrderRequestModel;
   }
 
-  static Future<FavouriteModel?> GetFavoriteUser(String Authorization, String Language) async {
+  static Future<FavouriteModel?> GetFavoriteUser(
+      String Authorization, String Language) async {
     FavouriteModel? favouriteModel;
     // var formData = FormData.fromMap({
     //   'lat' : lat,
     //   'lng' : lng,
     // });
     try {
-      Response response = await Dio().get(URL + 'favourites', options: Options(
-          headers: {
+      Response response = await Dio().get(URL + 'favourites',
+          options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
-            'Accept-Language' : '$Language'
-          }
-      ));
+            'Accept-Language': '$Language'
+          }));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -510,15 +516,15 @@ class MyServiceApi {
     return favouriteModel;
   }
 
-  static Future<MyNewOrderModel?> GetNewMyOrderUser(String Authorization, String Language) async {
+  static Future<MyNewOrderModel?> GetNewMyOrderUser(
+      String Authorization, String Language) async {
     MyNewOrderModel? myNewOrderModel;
     try {
-      Response response = await Dio().get(URL + 'orders', options: Options(
-          headers: {
+      Response response = await Dio().get(URL + 'orders',
+          options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
-            'Accept-Language' : '$Language'
-          }
-      ));
+            'Accept-Language': '$Language'
+          }));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -544,15 +550,15 @@ class MyServiceApi {
     return myNewOrderModel;
   }
 
-  static Future<MySendOrderModel?> GetMySendOrderUser(String Authorization, String Language) async {
+  static Future<MySendOrderModel?> GetMySendOrderUser(
+      String Authorization, String Language) async {
     MySendOrderModel? mySendOrderModel;
     try {
-      Response response = await Dio().get(URL + 'sentorders', options: Options(
-          headers: {
+      Response response = await Dio().get(URL + 'sentorders',
+          options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
-            'Accept-Language' : '$Language'
-          }
-      ));
+            'Accept-Language': '$Language'
+          }));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -578,15 +584,15 @@ class MyServiceApi {
     return mySendOrderModel;
   }
 
-  static Future<MyCurrentOrderModel?> GetMyCurrentOrderUser(String Authorization, String Language) async {
+  static Future<MyCurrentOrderModel?> GetMyCurrentOrderUser(
+      String Authorization, String Language) async {
     MyCurrentOrderModel? myCurrentOrderModel;
     try {
-      Response response = await Dio().get(URL + 'currentorders', options: Options(
-          headers: {
+      Response response = await Dio().get(URL + 'currentorders',
+          options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
-            'Accept-Language' : '$Language'
-          }
-      ));
+            'Accept-Language': '$Language'
+          }));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -612,15 +618,15 @@ class MyServiceApi {
     return myCurrentOrderModel;
   }
 
-  static Future<MyPreviousOrderModel?> GetMyPreviousOrderUser(String Authorization, String Language) async {
+  static Future<MyPreviousOrderModel?> GetMyPreviousOrderUser(
+      String Authorization, String Language) async {
     MyPreviousOrderModel? myPreviousOrderModel;
     try {
-      Response response = await Dio().get(URL + 'previousorders', options: Options(
-          headers: {
+      Response response = await Dio().get(URL + 'previousorders',
+          options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
-            'Accept-Language' : '$Language'
-          }
-      ));
+            'Accept-Language': '$Language'
+          }));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -646,20 +652,19 @@ class MyServiceApi {
     return myPreviousOrderModel;
   }
 
-
-  static Future<ResponseUserModel?> AddFavoriteUser(String Authorization, String Language, String companyId) async {
+  static Future<ResponseUserModel?> AddFavoriteUser(
+      String Authorization, String Language, String companyId) async {
     ResponseUserModel? responseUserModel;
     var formData = FormData.fromMap({
-      'company_id' : companyId,
+      'company_id': companyId,
     });
     try {
-      Response response =
-      await Dio().post(URL + 'favourites/add',data: formData,options: Options(
-          headers: {
+      Response response = await Dio().post(URL + 'favourites/add',
+          data: formData,
+          options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
-            'Accept-Language' : '$Language'
-          }
-      ));
+            'Accept-Language': '$Language'
+          }));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -685,21 +690,19 @@ class MyServiceApi {
     return responseUserModel;
   }
 
-  static Future<ResponseUserModel?> RemoveFavoriteUser(String Authorization, String Language, String favouriteId) async {
+  static Future<ResponseUserModel?> RemoveFavoriteUser(
+      String Authorization, String Language, String favouriteId) async {
     ResponseUserModel? responseUserModel;
     var formData = FormData.fromMap({
-      'favourite_id' : favouriteId,
+      'favourite_id': favouriteId,
     });
     try {
-      Response response =
-      await Dio().post(URL + 'favourites/remove',data: formData,options: Options(
-        receiveTimeout: 50000,
-          sendTimeout: 50000,
-          headers: {
+      Response response = await Dio().post(URL + 'favourites/remove',
+          data: formData,
+          options: Options(receiveTimeout: 50000, sendTimeout: 50000, headers: {
             'Authorization': 'Bearer $Authorization',
-            'Accept-Language' : '$Language'
-          }
-      ));
+            'Accept-Language': '$Language'
+          }));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -725,20 +728,19 @@ class MyServiceApi {
     return responseUserModel;
   }
 
-  static Future<LocationModel?> GetLocationUser(String Authorization, String Language) async {
+  static Future<LocationModel?> GetLocationUser(
+      String Authorization, String Language) async {
     LocationModel? locationModel;
     // var formData = FormData.fromMap({
     //   'lat' : lat,
     //   'lng' : lng,
     // });
     try {
-      Response response =
-      await Dio().get(URL + 'location', options: Options(
-          headers: {
+      Response response = await Dio().get(URL + 'location',
+          options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
-            'Accept-Language' : '$Language'
-          }
-      ));
+            'Accept-Language': '$Language'
+          }));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -764,23 +766,22 @@ class MyServiceApi {
     return locationModel;
   }
 
-  static Future<ResponseUserModel?> AddLocationUser(String Authorization,double lat, double lng, String myLocationAr,
-      String myLocationEn) async {
+  static Future<ResponseUserModel?> AddLocationUser(String Authorization,
+      double lat, double lng, String myLocationAr, String myLocationEn) async {
     ResponseUserModel? responseUserModel;
     var formData = FormData.fromMap({
-      'lat' : lat,
-      'lng' : lng,
-      'address_ar' : myLocationAr,
-      'address_en' : myLocationEn,
+      'lat': lat,
+      'lng': lng,
+      'address_ar': myLocationAr,
+      'address_en': myLocationEn,
     });
     try {
-      Response response =
-      await Dio().post(URL + 'location/add', data: formData,options: Options(
-          headers: {
+      Response response = await Dio().post(URL + 'location/add',
+          data: formData,
+          options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
-           // 'Accept-Language' : '$Language'
-          }
-      ));
+            // 'Accept-Language' : '$Language'
+          }));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -806,19 +807,19 @@ class MyServiceApi {
     return responseUserModel;
   }
 
-  static Future<CompaniesModel?> GetCompaniesDetails(String Authorization, String Language,String category) async {
+  static Future<CompaniesModel?> GetCompaniesDetails(
+      String Authorization, String Language, String category) async {
     CompaniesModel? companiesModel;
     var formData = FormData.fromMap({
-      'category' : category,
+      'category': category,
     });
     try {
-      Response response =
-      await Dio().post(URL + 'companies', data: formData,options: Options(
-          headers: {
+      Response response = await Dio().post(URL + 'companies',
+          data: formData,
+          options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
-            'Accept-Language' : '$Language'
-          }
-      ));
+            'Accept-Language': '$Language'
+          }));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -844,21 +845,21 @@ class MyServiceApi {
     return companiesModel;
   }
 
-  static Future<ResponseUserModel?> updateMyLocationInMap(String Authorization, String Language, double lat, double lng, String myLocation) async {
+  static Future<ResponseUserModel?> updateMyLocationInMap(String Authorization,
+      String Language, double lat, double lng, String myLocation) async {
     ResponseUserModel? responseUserModel;
     var formData = FormData.fromMap({
-      'lat' : lat,
-      'lng' : lng,
-      'address' : myLocation,
+      'lat': lat,
+      'lng': lng,
+      'address': myLocation,
     });
     try {
-      Response response =
-      await Dio().post(URL + 'update_user_location',data: formData, options: Options(
-          headers: {
+      Response response = await Dio().post(URL + 'update_user_location',
+          data: formData,
+          options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
-            'Accept-Language' : '$Language'
-          }
-      ));
+            'Accept-Language': '$Language'
+          }));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -884,7 +885,8 @@ class MyServiceApi {
     return responseUserModel;
   }
 
-  static Future<CheckMobileUserModel?> checkMobileByForgetPassword(String phone) async {
+  static Future<CheckMobileUserModel?> checkMobileByForgetPassword(
+      String phone) async {
     CheckMobileUserModel? checkMobileModel;
     var fromData = FormData.fromMap({
       'phone': phone,
@@ -900,7 +902,7 @@ class MyServiceApi {
       } else {
         // print('${response.statusMessage} : ${response.statusCode}');
         // throw response.statusMessage!;
-        return  throw Exception('can`t have data');
+        return throw Exception('can`t have data');
       }
     } on DioError catch (e) {
       if (e.response != null) {
@@ -950,9 +952,8 @@ class MyServiceApi {
     return checkMobileModel;
   }
 
-  static Future<CheckMobileUserModel?> updateProfileUser(
-      String firstname, String lastname,String Authorization,
-      String email, String image) async {
+  static Future<CheckMobileUserModel?> updateProfileUser(String firstname,
+      String lastname, String Authorization, String email, String image) async {
     CheckMobileUserModel? checkMobileModel;
     var fromData = FormData.fromMap({
       'firstname': firstname,
@@ -961,11 +962,10 @@ class MyServiceApi {
       'image': image,
     });
     try {
-      Response response = await Dio().post(URL + 'updateprofile', data: fromData, options: Options(
-          headers: {
-            'Authorization': 'Bearer $Authorization'
-          }
-      ));
+      Response response = await Dio().post(URL + 'updateprofile',
+          data: fromData,
+          options:
+              Options(headers: {'Authorization': 'Bearer $Authorization'}));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -991,18 +991,17 @@ class MyServiceApi {
   }
 
   static Future<CheckMobileUserModel?> changPasswordUser(
-      String Authorization, String password,String old_password) async {
+      String Authorization, String password, String old_password) async {
     CheckMobileUserModel? checkMobileModel;
     var fromData = FormData.fromMap({
       'old_password': old_password,
       'password': password,
     });
     try {
-      Response response = await Dio().post(URL + 'changepassword', data: fromData, options: Options(
-          headers: {
-            'Authorization': 'Bearer $Authorization'
-          }
-      ));
+      Response response = await Dio().post(URL + 'changepassword',
+          data: fromData,
+          options:
+              Options(headers: {'Authorization': 'Bearer $Authorization'}));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -1027,7 +1026,6 @@ class MyServiceApi {
     return checkMobileModel;
   }
 
-
   static Future<CheckMobileUserModel?> ReChangePasswordUser(
       String phone, String password) async {
     CheckMobileUserModel? checkMobileModel;
@@ -1036,7 +1034,8 @@ class MyServiceApi {
       'password': password,
     });
     try {
-      Response response = await Dio().post(URL + 'rechangepass', data: fromData);
+      Response response =
+          await Dio().post(URL + 'rechangepass', data: fromData);
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -1044,7 +1043,7 @@ class MyServiceApi {
         return CheckMobileUserModel.fromJson(response.data);
       } else {
         // print('${response.statusMessage} : ${response.statusCode}');
-        return throw  Exception(response.statusMessage!);
+        return throw Exception(response.statusMessage!);
       }
     } on DioError catch (e) {
       if (e.response != null) {
@@ -1060,5 +1059,4 @@ class MyServiceApi {
     }
     return checkMobileModel;
   }
-
 }

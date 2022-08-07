@@ -540,7 +540,7 @@ class BottomSheetItem extends StatelessWidget {
                         hight: 50,
                         onTap: () {
                           // CustomFlutterToast(offerOrderRequestResponseModel.id.toString());
-                          // CustomFlutterToast(companies.id.toString());
+                          CustomFlutterToast(companies.id.toString());
                           controller.AcceptOfferRequest(offerOrderRequestResponseModel.id.toString(), companies.id.toString());
                           // setState(() {
                           //
@@ -552,7 +552,7 @@ class BottomSheetItem extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                      //  CustomFlutterToast('${companies.id}');
+                        CustomFlutterToast(companies.id.toString());
                         controller.CancelOfferRequest(companies.id.toString());
                         // setState(() {
                         // //  Get.off(HomeMainScreen(valueBack: ''));

@@ -10,6 +10,7 @@ import 'package:nabny/model/my_send_order_model.dart';
 import 'package:nabny/repositries/servies_api/MyServiceApi.dart';
 
 import '../../../generated/assets.dart';
+import '../../home_main_screen/home_main_screen.dart';
 
 
 class MySendOrderController extends GetxController {
@@ -33,6 +34,7 @@ class MySendOrderController extends GetxController {
     getMySendOrderUser();
   }
 
+
   getMySendOrderUser(){
     setLoading(true);
     MyServiceApi.GetMySendOrderUser(Get.find<StorageService>().GetToken, Get.find<StorageService>().activeLocale.languageCode).then((value){
@@ -47,4 +49,33 @@ class MySendOrderController extends GetxController {
     });
   }
 
+  AcceptOrder(String orderId,requestId){
+    setLoading(true);
+    MyServiceApi.AcceptOfferOrderRequest(Get.find<StorageService>().GetToken, Get.find<StorageService>().activeLocale.languageCode,
+        orderId, requestId).then((value){
+          if(value?.success == true){
+            setLoading(false);
+            CustomFlutterToast(value?.message);
+            Get.off(HomeMainScreen(valueBack: ''));
+          }else {
+            setLoading(false);
+            CustomFlutterToast(value?.message);
+          }
+    });
+  }
+
+  CancelOrder(String orderId){
+    setLoading(true);
+    MyServiceApi.CancelOfferOrderRequest(Get.find<StorageService>().GetToken, Get.find<StorageService>().activeLocale.languageCode,
+        orderId).then((value){
+      if(value?.success == true){
+        setLoading(false);
+        CustomFlutterToast(value?.message);
+        Get.off(HomeMainScreen(valueBack: ''));
+      }else {
+        setLoading(false);
+        CustomFlutterToast(value?.message);
+      }
+    });
+  }
 }

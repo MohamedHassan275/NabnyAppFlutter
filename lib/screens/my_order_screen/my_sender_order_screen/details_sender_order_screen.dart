@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
+import 'package:nabny/core/constant/constant.dart';
 import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/model/my_new_order_model.dart';
 import 'package:nabny/model/my_send_order_model.dart';
+import 'package:nabny/screens/my_order_screen/my_sender_order_screen/my_send_order_controller.dart';
 
 import '../../../core/servies/storage_service.dart';
+import '../../../core/widget/custom_circler_progress_indicator_widget.dart';
 import '../../../utils/Themes.dart';
 import '../../home_main_screen/home_main_screen.dart';
 
@@ -19,6 +22,7 @@ class DetailsSenderOrderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var heightValue = Get.height * 0.024;
     var widthValue = Get.width * 0.024;
+    MySendOrderController mySendOrderController = Get.put(MySendOrderController());
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -145,30 +149,37 @@ class DetailsSenderOrderScreen extends StatelessWidget {
                       )
                     ],
                   ),
-                  SizedBox(height: heightValue * 3.5,),
+                  SizedBox(height: heightValue * 2,),
+                  CirclerProgressIndicatorWidget(isLoading: mySendOrderController.loading ? true : false),
+                  SizedBox(height: heightValue * 1.5,),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       CustomButtonImage(title: 'accept'.tr, hight: 50, onTap: (){
-                        Get.off(HomeMainScreen(valueBack: ''));
-                        Fluttertoast.showToast(msg: 'accepted_order'.tr,
-                          backgroundColor: Themes.ColorApp8,
-                          toastLength: Toast.LENGTH_LONG,
-                          textColor: Themes.whiteColor,
-                          gravity: ToastGravity.BOTTOM,
-                          fontSize: 13,);
+                        CustomFlutterToast(sendOrder.id.toString());
+                        mySendOrderController.setLoading(true);
+                      //  mySendOrderController.AcceptOrder(sendOrder.id.toString(), '');
+                        // Get.off(HomeMainScreen(valueBack: ''));
+                        // Fluttertoast.showToast(msg: 'accepted_order'.tr,
+                        //   backgroundColor: Themes.ColorApp8,
+                        //   toastLength: Toast.LENGTH_LONG,
+                        //   textColor: Themes.whiteColor,
+                        //   gravity: ToastGravity.BOTTOM,
+                        //   fontSize: 13,);
                       }),
                       SizedBox(height: heightValue * 1.2,),
                       GestureDetector(
                         onTap: (){
-                          Get.off(HomeMainScreen(valueBack: ''));
-                          Fluttertoast.showToast(msg: 'canceled_order'.tr,
-                            backgroundColor: Themes.ColorApp8,
-                            toastLength: Toast.LENGTH_LONG,
-                            textColor: Themes.whiteColor,
-                            gravity: ToastGravity.BOTTOM,
-                            fontSize: 13,);
+                          CustomFlutterToast(sendOrder.id.toString());
+                        //  mySendOrderController.AcceptOrder(sendOrder.id.toString(), '');
+                          // Get.off(HomeMainScreen(valueBack: ''));
+                          // Fluttertoast.showToast(msg: 'canceled_order'.tr,
+                          //   backgroundColor: Themes.ColorApp8,
+                          //   toastLength: Toast.LENGTH_LONG,
+                          //   textColor: Themes.whiteColor,
+                          //   gravity: ToastGravity.BOTTOM,
+                          //   fontSize: 13,);
                         },
                         child: Container(
                           width: Get.width,

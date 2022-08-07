@@ -44,16 +44,27 @@ class _TextFieldMobileWidgetState extends State<TextFieldMobileWidget> {
   }
 }
 
-class TextFieldPasswordWidget extends StatelessWidget {
+class TextFieldPasswordWidget extends StatefulWidget {
   TextFieldPasswordWidget({required this.textEditingController,required this.isPassword});
   bool isPassword = false;
   TextEditingController textEditingController = TextEditingController();
+
+  @override
+  State<TextFieldPasswordWidget> createState() => _TextFieldPasswordWidgetState();
+}
+
+class _TextFieldPasswordWidgetState extends State<TextFieldPasswordWidget> {
   @override
   Widget build(BuildContext context) {
     return FromTextShared(
       //  textAlign: TextAlign.center,
       labelText: 'password'.tr,
-      isPassword: isPassword,
+      isPassword: widget.isPassword,
+      onTapsuffixIcon: () {
+        setState(() {
+          widget.isPassword = !widget.isPassword;
+        });
+      },
       onTapValidator: (value) {
         if (value!.isEmpty) {
           return 'must_not_empty'.tr;
@@ -63,12 +74,12 @@ class TextFieldPasswordWidget extends StatelessWidget {
         return null;
       },
       namePath: Assets.iconsPasswordIcon,
-      suffixIcon: isPassword
+      suffixIcon: widget.isPassword
           ? Icons.visibility_sharp
           : Icons.visibility_off,
       keyboardType: TextInputType.text,
       maxLines: 1,
-      Controller: textEditingController,
+      Controller: widget.textEditingController,
       hintText: 'password'.tr,
     );
   }

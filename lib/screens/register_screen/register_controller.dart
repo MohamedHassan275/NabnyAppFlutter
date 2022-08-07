@@ -26,11 +26,11 @@ class RegisterController extends GetxController{
           setLoading(false);
           print(mobilePhone);
           print('${value?.data?.registercode}');
-          CustomFlutterToast('${value?.data?.registercode}');
+       //   CustomFlutterToast('${value?.data?.registercode}');
           Get.off(CompleteRegisterScreen(mobilePhone: mobilePhone,));
         }else if(value?.success == false){
           setLoading(false);
-          CustomFlutterToast('${value?.data?.registercode}');
+          CustomFlutterToast('${value?.message}');
         }
       });
     }

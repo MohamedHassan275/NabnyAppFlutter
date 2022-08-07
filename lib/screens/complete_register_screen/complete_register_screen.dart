@@ -46,7 +46,6 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
     var widthValue = Get.width * 0.024;
     var heightValue = Get.height * 0.024;
     double paddingWidget = heightValue * 10;
-    CompleteRegisterController completeRegisterController = Get.put(CompleteRegisterController());
 
     return Scaffold(
       body: SafeArea(
@@ -93,7 +92,7 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 GestureDetector(
-                                  onTap: () => Get.to(const RegisterScreen()),
+                                  onTap: () => Get.to(RegisterScreen()),
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 25, vertical: 25),

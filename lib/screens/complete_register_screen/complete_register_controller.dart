@@ -22,11 +22,11 @@ class CompleteRegisterController extends GetxController {
   createAccount(mobilePhone, firstname, lastname, email, password) {
     if (_formKey.currentState!.validate()) {
       setLoading(true);
-      CustomFlutterToast(mobilePhone);
-      CustomFlutterToast(firstname);
-      CustomFlutterToast(lastname);
-      CustomFlutterToast(email);
-      CustomFlutterToast(password);
+      // CustomFlutterToast(mobilePhone);
+      // CustomFlutterToast(firstname);
+      // CustomFlutterToast(lastname);
+      // CustomFlutterToast(email);
+      // CustomFlutterToast(password);
       MyServiceApi.createAccountByDetailUser(mobilePhone,firstname,lastname,email,password,'token').then((value) {
         if (value?.success == true) {
           setLoading(false);

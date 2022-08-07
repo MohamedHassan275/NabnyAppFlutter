@@ -72,11 +72,16 @@ class RequestOfferPriceMenuScreen extends StatelessWidget {
 }
 
 
-class RequestOfferOrderItems extends StatelessWidget {
+class RequestOfferOrderItems extends StatefulWidget {
   RequestOfferOrderItems({required this.requestOfferOrderModel});
 
   OfferOrderRequestResponseModel requestOfferOrderModel;
 
+  @override
+  State<RequestOfferOrderItems> createState() => _RequestOfferOrderItemsState();
+}
+
+class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
   @override
   Widget build(BuildContext context) {
     var widthValue = Get.width * 0.024;
@@ -93,7 +98,7 @@ class RequestOfferOrderItems extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              AddressDetailsOrder(requestOfferOrderModel: requestOfferOrderModel,),
+              AddressDetailsOrder(requestOfferOrderModel: widget.requestOfferOrderModel,),
               SizedBox(
                 height: heightValue * .7,
               ),
@@ -104,59 +109,59 @@ class RequestOfferOrderItems extends StatelessWidget {
               SizedBox(
                 height: heightValue * .7,
               ),
-              DetailsOrder(widthValue, 'type_of_casting'.tr, '${requestOfferOrderModel.castingType}'),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //
-              //     GestureDetector(
-              //         onTap: (){
-              //           setState(() {
-              //             isVisible  = !isVisible;
-              //           });
-              //         },
-              //         child: Icon(!isVisible ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_up_rounded,size: 25,color: Themes.ColorApp1,))
-              //   ],
-              // ),
+              DetailsOrder(widthValue, 'type_of_casting'.tr, '${widget.requestOfferOrderModel.castingType}'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+
+                  GestureDetector(
+                      onTap: (){
+                        setState(() {
+                          isVisible  = !isVisible;
+                        });
+                      },
+                      child: Icon(!isVisible ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_up_rounded,size: 25,color: Themes.ColorApp1,))
+                ],
+              ),
               SizedBox(
                 height: heightValue * .7,
               ),
-              DetailsOrder(widthValue, 'execution_date'.tr, '${requestOfferOrderModel.executionDate}'),
+              DetailsOrder(widthValue, 'execution_date'.tr, '${widget.requestOfferOrderModel.executionDate}'),
               SizedBox(
                 height: heightValue * .7,
               ),
-              // Visibility(
-              //   visible: isVisible ? true : false,
-              //   child: Column(
-              //     mainAxisAlignment: MainAxisAlignment.start,
-              //     children: [
-              //       DetailsOrder(widthValue, 'quantity'.tr, '${widget.requestOfferOrderModel.weightOrderRequest}'),
-              //       SizedBox(
-              //         height: heightValue * .7,
-              //       ),
-              //       DetailsOrder(widthValue, 'mix_type'.tr, '${widget.requestOfferOrderModel.mixTypeOrderRequest}'),
-              //       SizedBox(
-              //         height: heightValue * .7,
-              //       ),
-              //       DetailsOrder(widthValue, 'cement_type'.tr, '${widget.requestOfferOrderModel.cementTypeOrderRequest}'),
-              //       SizedBox(
-              //         height: heightValue * .7,
-              //       ),
-              //       DetailsOrder(widthValue, 'stone_size'.tr, '${widget.requestOfferOrderModel.stoneTypeOrderRequest}'),
-              //       SizedBox(
-              //         height: heightValue * .7,
-              //       ),
-              //       DetailsOrder(widthValue, 'Special_specifications'.tr, '${widget.requestOfferOrderModel.specialOrderRequest}'),
-              //       SizedBox(
-              //         height: heightValue * .7,
-              //       ),
-              //       DetailsOrder(widthValue, 'pump_order'.tr, '${widget.requestOfferOrderModel.pumpLengthOrderRequest}'),
-              //       SizedBox(
-              //         height: heightValue * .7,
-              //       ),
-              //     ],
-              //   ),
-              // ),
+              Visibility(
+                visible: isVisible ? true : false,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    DetailsOrder(widthValue, 'quantity'.tr, '${widget.requestOfferOrderModel.qtyM}'),
+                    SizedBox(
+                      height: heightValue * .7,
+                    ),
+                    DetailsOrder(widthValue, 'mix_type'.tr, '${widget.requestOfferOrderModel.mixType}'),
+                    SizedBox(
+                      height: heightValue * .7,
+                    ),
+                    DetailsOrder(widthValue, 'cement_type'.tr, '${widget.requestOfferOrderModel.cementType}'),
+                    SizedBox(
+                      height: heightValue * .7,
+                    ),
+                    DetailsOrder(widthValue, 'stone_size'.tr, '${widget.requestOfferOrderModel.stoneSize}'),
+                    SizedBox(
+                      height: heightValue * .7,
+                    ),
+                    DetailsOrder(widthValue, 'Special_specifications'.tr, '${widget.requestOfferOrderModel.specialDescription}'),
+                    SizedBox(
+                      height: heightValue * .7,
+                    ),
+                    DetailsOrder(widthValue, 'pump_order'.tr, widget.requestOfferOrderModel.withPump!.contains('1')? 'طلب مضخه' : 'بدون طلب مضخه',),
+                    SizedBox(
+                      height: heightValue * .7,
+                    ),
+                  ],
+                ),
+              ),
               SizedBox(
                 height: heightValue * 1.2,
               ),
@@ -195,7 +200,7 @@ class RequestOfferOrderItems extends StatelessWidget {
                             ),
                             child: Center(
                               child:  Text(
-                                '${requestOfferOrderModel.request!.length}',
+                                '${widget.requestOfferOrderModel.request!.length}',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 16,
@@ -218,10 +223,10 @@ class RequestOfferOrderItems extends StatelessWidget {
                       SizedBox(width: widthValue *.5,),
                       Expanded(
                         child: CustomButtonImage2(title: 'watch'.tr, hight: 38, width: 85, onTap: (){
-                         if (requestOfferOrderModel.request!.isEmpty){
+                         if (widget.requestOfferOrderModel.request!.isEmpty){
                            CustomFlutterToast('no_companies_here'.tr);
-                         }else if (requestOfferOrderModel.request!.isNotEmpty){
-                           Get.to(FactoryOfferPriceScreen(offerOrderRequestResponseModel: requestOfferOrderModel,));
+                         }else if (widget.requestOfferOrderModel.request!.isNotEmpty){
+                           Get.to(FactoryOfferPriceScreen(offerOrderRequestResponseModel: widget.requestOfferOrderModel,));
                          }
                         }),
                       ),

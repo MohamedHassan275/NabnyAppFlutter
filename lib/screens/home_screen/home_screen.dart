@@ -30,7 +30,7 @@ class HomeScreen extends StatelessWidget {
         body: RefreshIndicator(
           onRefresh: () async{
             homeController.getHomeDetailsUser();
-            myFavoriteController.getFavoriteUserList();
+           // myFavoriteController.getFavoriteUserList();
           },
           child: SafeArea(
               child: SingleChildScrollView(
