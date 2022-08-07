@@ -108,11 +108,11 @@ class MyPreviousOrderItem extends StatelessWidget {
                           Image.asset(Assets.iconsWalletMenuIcon,width: 15,height: 15,fit: BoxFit.contain,),
                           SizedBox(width: widthValue * 1,),
                           Text(
-                            'received'.tr,
+                            previousOrder.status!.contains('4') ? 'received'.tr : 'no_received'.tr,
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 12,
-                              color: Themes.ColorApp1,
+                              color: previousOrder.status!.contains('4')? Themes.ColorApp1 : Themes.ColorApp9,
                             ),
                           ),
                         ],
@@ -245,7 +245,7 @@ class CompanyDetails extends StatelessWidget {
                       Image.asset(Assets.iconsWalletMenuIcon,width: 15,height: 15,fit: BoxFit.contain,),
                       SizedBox(width: widthValue * .5,),
                       Text(
-                        '${myCurrentOrderModel!.orderNumber}' ,
+                        '${myCurrentOrderModel!.offerCost}' ,
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 12,

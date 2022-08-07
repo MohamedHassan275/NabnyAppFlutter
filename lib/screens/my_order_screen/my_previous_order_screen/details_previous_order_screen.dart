@@ -4,6 +4,7 @@ import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/model/my_new_order_model.dart';
+import 'package:nabny/screens/my_order_screen/my_previous_order_screen/my_previous_order_controller.dart';
 
 import '../../../core/servies/storage_service.dart';
 import '../../../model/my_previous_order_model.dart';
@@ -17,155 +18,161 @@ class DetailsPreviousOrderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var heightValue = Get.height * 0.024;
     var widthValue = Get.width * 0.024;
+    MyPreviousOrderController myPreviousOrderController = Get.put(MyPreviousOrderController());
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: SizedBox(
-            width: Get.width,
-            height: Get.height,
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppbarDetailsOrder(widthValue, heightValue),
-                      SizedBox(
-                        height: heightValue * 1.2,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: Card(
-                          elevation: 2.0,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                AddressDetailsOrder(previousOrder: previousOrder,),
-                                SizedBox(
-                                  height: heightValue * .7,
-                                ),
-                                Divider(
-                                  height: 10,
-                                  color: Themes.ColorApp2,
-                                ),
-                                SizedBox(
-                                  height: heightValue * .7,
-                                ),
-                                DetailsOrder(widthValue, 'type_of_casting'.tr, '${previousOrder.castingType}'),
-                                SizedBox(
-                                  height: heightValue * .7,
-                                ),
-                                DetailsOrder(widthValue, 'execution_date'.tr, '${previousOrder.executionDate}'),
-                                SizedBox(
-                                  height: heightValue * .7,
-                                ),
-                                DetailsOrder(widthValue, 'quantity'.tr, '${previousOrder.qtyM}'),
-                                SizedBox(
-                                  height: heightValue * .7,
-                                ),
-                                DetailsOrder(widthValue, 'mix_type'.tr, '${previousOrder.mixType}'),
-                                SizedBox(
-                                  height: heightValue * .7,
-                                ),
-                                DetailsOrder(widthValue, 'cement_type'.tr, '${previousOrder.cementType}'),
-                                SizedBox(
-                                  height: heightValue * .7,
-                                ),
-                                DetailsOrder(widthValue, 'stone_size'.tr, '${previousOrder.stoneSize}'),
-                                SizedBox(
-                                  height: heightValue * .7,
-                                ),
-                                DetailsOrder(widthValue, 'Special_specifications'.tr, '${previousOrder.specialDescription}'),
-                                SizedBox(
-                                  height: heightValue * .7,
-                                ),
-                                DetailsOrder(widthValue, 'pump_order'.tr, previousOrder.withPump!.contains('1') ? 'pump_order'.tr : 'with_out_pump'.tr),
-                                SizedBox(
-                                  height: heightValue * .7,
-                                ),
-                                Container(
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                      color: Themes.ColorApp14,
-                                      borderRadius: BorderRadius.circular(25)
+      body: RefreshIndicator(
+        onRefresh: () async{
+          myPreviousOrderController.getPreviousMyOrderUser();
+        },
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: SizedBox(
+              width: Get.width,
+              height: Get.height,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppbarDetailsOrder(widthValue, heightValue),
+                        SizedBox(
+                          height: heightValue * 1.2,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          child: Card(
+                            elevation: 2.0,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  AddressDetailsOrder(previousOrder: previousOrder,),
+                                  SizedBox(
+                                    height: heightValue * .7,
                                   ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'request_price'.tr,
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 18,
-                                            color: Themes.ColorApp17,
+                                  Divider(
+                                    height: 10,
+                                    color: Themes.ColorApp2,
+                                  ),
+                                  SizedBox(
+                                    height: heightValue * .7,
+                                  ),
+                                  DetailsOrder(widthValue, 'type_of_casting'.tr, '${previousOrder.castingType}'),
+                                  SizedBox(
+                                    height: heightValue * .7,
+                                  ),
+                                  DetailsOrder(widthValue, 'execution_date'.tr, '${previousOrder.executionDate}'),
+                                  SizedBox(
+                                    height: heightValue * .7,
+                                  ),
+                                  DetailsOrder(widthValue, 'quantity'.tr, '${previousOrder.qtyM}'),
+                                  SizedBox(
+                                    height: heightValue * .7,
+                                  ),
+                                  DetailsOrder(widthValue, 'mix_type'.tr, '${previousOrder.mixType}'),
+                                  SizedBox(
+                                    height: heightValue * .7,
+                                  ),
+                                  DetailsOrder(widthValue, 'cement_type'.tr, '${previousOrder.cementType}'),
+                                  SizedBox(
+                                    height: heightValue * .7,
+                                  ),
+                                  DetailsOrder(widthValue, 'stone_size'.tr, '${previousOrder.stoneSize}'),
+                                  SizedBox(
+                                    height: heightValue * .7,
+                                  ),
+                                  DetailsOrder(widthValue, 'Special_specifications'.tr, '${previousOrder.specialDescription}'),
+                                  SizedBox(
+                                    height: heightValue * .7,
+                                  ),
+                                  DetailsOrder(widthValue, 'pump_order'.tr, previousOrder.withPump!.contains('1') ? 'pump_order'.tr : 'with_out_pump'.tr),
+                                  SizedBox(
+                                    height: heightValue * .7,
+                                  ),
+                                  Container(
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        color: Themes.ColorApp14,
+                                        borderRadius: BorderRadius.circular(25)
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'request_price'.tr,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 18,
+                                              color: Themes.ColorApp17,
+                                            ),
                                           ),
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              '${previousOrder.qtyM}',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 16,
-                                                color: Themes.ColorApp1,
+                                          Row(
+                                            children: [
+                                              Text(
+                                                '${previousOrder.offerCost}',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 16,
+                                                  color: Themes.ColorApp1,
+                                                ),
                                               ),
-                                            ),
-                                            SizedBox(width: widthValue* .3,),
-                                            Text(
-                                              'sar'.tr,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 16,
-                                                color: Themes.ColorApp1,
+                                              SizedBox(width: widthValue* .3,),
+                                              Text(
+                                                'sar'.tr,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 16,
+                                                  color: Themes.ColorApp1,
+                                                ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: heightValue * 1.2,
-                                ),
-                              ],
+                                  SizedBox(
+                                    height: heightValue * 1.2,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
+                        )
+                      ],
+                    ),
+                    SizedBox(height: heightValue * 2,),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                         previousOrder.status!.contains('4') ?  'Payment_completed_successfully'.tr :  'no_Payment_completed_successfully'.tr,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            color: previousOrder.status!.contains('4') ? Themes.ColorApp1 : Themes.ColorApp9,
+                          ),
                         ),
-                      )
-                    ],
-                  ),
-                  SizedBox(height: heightValue * 2,),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                       previousOrder.status!.contains('4') ?  'Payment_completed_successfully'.tr :  'no_Payment_completed_successfully'.tr,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16,
-                          color: previousOrder.status!.contains('4') ? Themes.ColorApp1 : Themes.ColorApp9,
+                        SizedBox(
+                          height: heightValue * .5,
                         ),
-                      ),
-                      SizedBox(
-                        height: heightValue * .5,
-                      ),
-                      CustomButtonImage(title:previousOrder.status!.contains('4') ?  'order_been_successfully_received'.tr :  'no_order_been_successfully_received'.tr, hight: 50, onTap: (){
-                        Get.off(HomeMainScreen(valueBack: ''));
-                      }),
-                      SizedBox(height: heightValue * 3,)
-                    ],
-                  )
-                ],
+                        CustomButtonImage(title:previousOrder.status!.contains('4') ?  'order_been_successfully_received'.tr :  'no_order_been_successfully_received'.tr, hight: 50, onTap: (){
+                          Get.off(HomeMainScreen(valueBack: ''));
+                        }),
+                        SizedBox(height: heightValue * 3,)
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
