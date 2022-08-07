@@ -25,7 +25,7 @@ class LoginController extends GetxController{
   }
 
   LoginController(){
-    getFirebaseToken();
+  //  getFirebaseToken();
   }
 
   getFirebaseToken(){

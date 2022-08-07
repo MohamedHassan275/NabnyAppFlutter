@@ -91,9 +91,18 @@ class MySendOrderListItem extends StatelessWidget {
                         color: Themes.ColorApp17,
                       ),
                     ),
-                    SizedBox(width: widthValue * 1,),
+                    SizedBox(width: widthValue * .5,),
                     Text(
-                      '${sendOrder.qtyM}''sar'.tr,
+                      '${sendOrder.qtyM}',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                        color: Themes.ColorApp1,
+                      ),
+                    ),
+                    SizedBox(width: widthValue * .3,),
+                    Text(
+                      'sar'.tr,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 14,

@@ -12,6 +12,9 @@ import 'package:nabny/screens/my_order_screen/my_order_screen.dart';
 import 'package:nabny/screens/setting_screen/setting_screen.dart';
 
 import '../../model/profile_user_model.dart';
+import '../../utils/Themes.dart';
+import '../request_offer_price_screen/request_offer_price_screen.dart';
+import '../request_offer_price_screen_menu/request_offer_price_menu_screen.dart';
 
 class HomeMainController extends GetxController {
 
@@ -38,17 +41,18 @@ class HomeMainController extends GetxController {
     update();
   }
 
-  List<Widget> PageList = [const HomeScreen(),const MyOrderScreen(), MyFavoriteScreen(),SettingScreen()];
+ // List<Widget> PageList = [const HomeScreen(),const MyOrderScreen(), SettingScreen()];
+  List<Widget> PageList = [const HomeScreen(),const MyOrderScreen(), RequestOfferPriceMenuScreen(),const SettingScreen()];
 
   List<BottomNavigationBarItem> navigationItem = [
-    BottomNavigationBarItem(icon: Image.asset(Assets.iconsIconHome2,width: 30,height: 30,),label: 'home'.tr,
-        activeIcon: Image.asset(Assets.iconsHomeIcon,width: 30,height: 30,)),
+    BottomNavigationBarItem(icon: Image.asset(Assets.iconsIconHome2,width: 30,height: 30,color: Themes.ColorApp11,),label: 'home'.tr,
+        activeIcon: Image.asset(Assets.iconsIconHome2,width: 30,height: 30,color: Themes.ColorApp10,)),
     BottomNavigationBarItem(icon: Image.asset(Assets.iconsMyOrderHome,width: 30,height: 30,),label: 'my_order'.tr,
         activeIcon: Image.asset(Assets.iconsMyOrderHome2,width: 30,height: 30,)),
-    BottomNavigationBarItem(icon: Image.asset(Assets.iconsFavoriteHomeIcon,width: 30,height: 30,),label: 'favorite'.tr,
-        activeIcon: Image.asset(Assets.iconsFavoriteIcon,width: 30,height: 30,)),
-    BottomNavigationBarItem(icon: Image.asset(Assets.iconsSettingHomeIcon,width: 30,height: 30,),label: 'setting'.tr,
-        activeIcon: Image.asset(Assets.iconsSettingHome2,width: 30,height: 30,)),
+    BottomNavigationBarItem(icon: Image.asset(Assets.imagesOrderPriceImage,width: 30,height: 30,color: Themes.ColorApp11,),label: 'request_order_company'.tr,
+        activeIcon: Image.asset(Assets.imagesOrderPriceImage,width: 30,height: 30,color: Themes.ColorApp10,)),
+    BottomNavigationBarItem(icon: Image.asset(Assets.iconsSettingHomeIcon,width: 30,height: 30,color: Themes.ColorApp11,),label: 'setting'.tr,
+        activeIcon: Image.asset(Assets.iconsSettingHomeIcon,width: 30,height: 30,color: Themes.ColorApp10,)),
   ];
 
   HomeMainController(){

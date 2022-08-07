@@ -147,6 +147,7 @@ class Companies {
   String? lat;
   String? lng;
   int? distance;
+  int? favourited;
   int? rate;
   List<String>? services;
 
@@ -159,6 +160,7 @@ class Companies {
         this.lat,
         this.lng,
         this.distance,
+        this.favourited,
         this.rate,
         this.services});
 
@@ -170,6 +172,7 @@ class Companies {
     about = json['about'];
     lat = json['lat'];
     lng = json['lng'];
+    favourited = json['favourited'];
     distance = json['distance'];
     rate = json['rate'];
     services = json['services'].cast<String>();
@@ -184,6 +187,7 @@ class Companies {
     data['about'] = this.about;
     data['lat'] = this.lat;
     data['lng'] = this.lng;
+    data['favourited'] = this.favourited;
     data['distance'] = this.distance;
     data['rate'] = this.rate;
     data['services'] = this.services;

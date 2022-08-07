@@ -18,7 +18,7 @@ class MySendOrderController extends GetxController {
   List<SendOrder>? _sendOrder;
 
   get loading => Loading;
-  List<SendOrder>? get sendOrder => sendOrder;
+  List<SendOrder>? get sendOrder => _sendOrder;
 
   setLoading(bool loading){
     Loading = loading;

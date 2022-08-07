@@ -33,15 +33,29 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController MobilePhone = new TextEditingController();
   TextEditingController Password = new TextEditingController();
   late FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-  var formKey = GlobalKey<FormState>();
 
-  var Scaffoldkey = GlobalKey<ScaffoldState>();
+  getFirebaseToken(){
+    setState(() {
+      Firebase.initializeApp().whenComplete(() {
+        print("completed");
+        setState(() {});
+      });
+      _firebaseMessaging.getToken().then((value){
+        print('The Token is $value');
+        firebase_token = value!;
+        CustomFlutterToast(firebase_token);
+        print(firebase_token);
+      });
+    });
+  }
+
   Locale? language;
   String? myLanguage;
   @override
   void initState() {
     super.initState();
     // IsUserAcesstoken();
+  //  getFirebaseToken();
     _focusNodePassword = FocusNode();
 
  //   Get.lazyPut(()=>LoginController());

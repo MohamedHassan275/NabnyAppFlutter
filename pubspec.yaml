@@ -47,7 +47,7 @@ dependencies:
   location:
   geocoding:
   carousel_slider: ^4.0.0
-  permission_handler:
+  permission_handler: ^9.2.0
   persistent_bottom_nav_bar: ^4.0.2
   auto_size_text: ^3.0.0
   cached_network_image: ^3.2.0
@@ -64,7 +64,7 @@ dependencies:
   flutter_svg: ^1.0.0
   flutter_swiper_null_safety: ^1.0.2
   provider: ^5.0.0
-    ## firebase_auth:
+  ## firebase_auth:
   firebase_analytics: ^8.3.0
   firebase_messaging: ^10.0.5
   firebase_auth: ^3.0.2

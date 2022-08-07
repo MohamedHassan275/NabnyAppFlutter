@@ -52,6 +52,7 @@ class HomeController extends GetxController{
       if(value?.success == true){
         setLoading(false);
         CustomFlutterToast(value?.message);
+        getHomeDetailsUser();
       }else {
         setLoading(false);
         CustomFlutterToast(value?.message);

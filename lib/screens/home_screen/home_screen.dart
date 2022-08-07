@@ -294,19 +294,21 @@ class FactoryItemList extends StatelessWidget {
                       placeholder: const AssetImage(Assets.imagesFactoryImage),
                     ),
                   ),
-                  Positioned(
-                    top: heightValue * 1,
-                    right: widthValue * 2,
-                    child: GestureDetector(
-                      onTap: (){
-                        homeController.AddFavoriteCompany('${companiesModel!.id}');
-                      },
-                      child: CircleAvatar(
-                        backgroundColor: Themes.whiteColor,
-                        child: Image.asset(Assets.iconsFavoriteIcon),
-                      ),
-                    ),
-                  )
+                  // Positioned(
+                  //   top: heightValue * 1,
+                  //   right: widthValue * 2,
+                  //   child: GestureDetector(
+                  //     onTap: (){
+                  //       homeController.AddFavoriteCompany('${companiesModel!.id}');
+                  //    //   homeController.getHomeDetailsUser();
+                  //       print(companiesModel!.favourited);
+                  //     },
+                  //     child: CircleAvatar(
+                  //       backgroundColor: Themes.whiteColor,
+                  //       child: companiesModel!.favourited == 0 ? Image.asset(Assets.iconsFavoriteIcon) : Image.asset(Assets.imagesActiveFavorite),
+                  //     ),
+                  //   ),
+                  // )
                 ],
               ),
               SizedBox(
@@ -435,7 +437,7 @@ class DetailsCompany extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '${CompaniesModel?.distance} km',
+                '${CompaniesModel?.distance}',
                 style: const TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 12,
@@ -443,7 +445,19 @@ class DetailsCompany extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: widthValue * 1,
+                width: widthValue * .5,
+              ),
+              Text(
+                'km'.tr,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 12,
+                  color: Themes.ColorApp8,
+                ),
+              ),
+
+              SizedBox(
+                width: widthValue * .5,
               ),
               Image.asset(
                 Assets.iconsDistanceIcon,

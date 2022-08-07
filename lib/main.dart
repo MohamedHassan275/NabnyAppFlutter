@@ -27,8 +27,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     MyLocalController controller =  Get.put(MyLocalController()) ;
-    StorageService storageService = Get.put(StorageService());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       translations: MyTranslation(),

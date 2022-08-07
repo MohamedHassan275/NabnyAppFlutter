@@ -87,6 +87,10 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
           selectedItemColor: Themes.ColorApp1,
           unselectedItemColor: Themes.ColorApp2,
           type: BottomNavigationBarType.fixed,
+          selectedFontSize: 11,
+          unselectedFontSize: 11,
+          selectedIconTheme: const IconThemeData(color: Themes.ColorApp1),
+          unselectedIconTheme: const IconThemeData(color: Themes.ColorApp11),
           onTap: (int? index) {
             setState(() {
               controller.indexPage = index;
