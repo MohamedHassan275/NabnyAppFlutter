@@ -54,8 +54,17 @@ class MyPreviousOrderItem extends StatelessWidget {
    MyPreviousOrderItem({Key? key,required this.previousOrder,required this.heightValue,required this.widthValue}) : super(key: key);
    double heightValue,widthValue;
    PreviousOrder previousOrder;
+   String? statusOrder;
+
   @override
   Widget build(BuildContext context) {
+    getStatusOrder(String order){
+      if(previousOrder.status!.contains('4')){
+        statusOrder = ''.tr;
+      }else {
+
+      }
+    }
     return GestureDetector(
       onTap: (){
         Get.to(DetailsPreviousOrderScreen(previousOrder: previousOrder,));
@@ -112,7 +121,7 @@ class MyPreviousOrderItem extends StatelessWidget {
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 12,
-                              color: previousOrder.status!.contains('4')? Themes.ColorApp1 : Themes.ColorApp9,
+                              color: previousOrder.status!.contains('4') ? Themes.ColorApp1 : Themes.ColorApp9,
                             ),
                           ),
                         ],

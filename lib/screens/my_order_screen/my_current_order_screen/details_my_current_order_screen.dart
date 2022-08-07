@@ -200,10 +200,10 @@ class DetailsMyCurrentOrder extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    CustomButtonImage(title: 'received'.tr, hight: 50, onTap: (){
+                                    CustomButtonImage(title: 'received_order'.tr, hight: 50, onTap: (){
                                       CustomFlutterToast(currentOrder.executionDate);
                                       CustomFlutterToast(myCurrentOrderController.formattedDateCurrent);
-                                      if (!(myCurrentOrderController.formattedDateCurrent!.compareTo(currentOrder.executionDate!) <= 0)){
+                                      if ((myCurrentOrderController.formattedDateCurrent!.compareTo(currentOrder.executionDate!) <= 0)){
                                         CustomFlutterToast('operation_cannot_be_completed'.tr);
                                       }else {
                                         myCurrentOrderController.ReceivedOrder(currentOrder.id.toString());

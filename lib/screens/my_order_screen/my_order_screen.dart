@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/LoadingWidget.dart';
+import 'package:nabny/core/constant/constant.dart';
 import 'package:nabny/screens/my_order_screen/my_sender_order_screen/my_sender_order_screen.dart';
 import 'package:nabny/screens/my_order_screen/my_wating_order_screen/my_waiting_order_controller.dart';
 
@@ -14,6 +15,7 @@ class MyOrderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MyNewOrderController myNewOrderController = Get.put(MyNewOrderController());
     return DefaultTabController(
       length: 4,
       child: Scaffold(
