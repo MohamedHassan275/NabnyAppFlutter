@@ -185,14 +185,14 @@ class FactoryItemList extends StatelessWidget {
                       placeholder: AssetImage(Assets.imagesFactoryImage),
                     ),
                   ),
-                  Positioned(
-                    top: heightValue * 1,
-                    right: widthValue * 2,
-                    child: CircleAvatar(
-                      backgroundColor: Themes.whiteColor,
-                      child: Image.asset(Assets.iconsFavoriteIcon),
-                    ),
-                  )
+                  // Positioned(
+                  //   top: heightValue * 1,
+                  //   right: widthValue * 2,
+                  //   child: CircleAvatar(
+                  //     backgroundColor: Themes.whiteColor,
+                  //     child: Image.asset(Assets.iconsFavoriteIcon),
+                  //   ),
+                  // )
                 ],
               ),
               SizedBox(

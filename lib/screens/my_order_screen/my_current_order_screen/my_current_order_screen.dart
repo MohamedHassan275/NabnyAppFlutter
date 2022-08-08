@@ -102,7 +102,16 @@ class MySendOrderListItem extends StatelessWidget {
                     ),
                     SizedBox(width: widthValue * 1,),
                     Text(
-                      '${currentOrder.offerCost}''sar'.tr,
+                      '${currentOrder.offerCost}',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                        color: Themes.ColorApp1,
+                      ),
+                    ),
+                    SizedBox(width: widthValue * .5,),
+                    Text(
+                      'sar'.tr,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 14,
@@ -168,7 +177,7 @@ class NoItemOFList extends StatelessWidget {
               height: heightValue * 2,
             ),
             GestureDetector(
-              onTap: ()=> myOrderController.getMyOrderUser(),
+             // onTap: ()=> myOrderController.getMyOrderUser(),
               child: Image.asset(
                 Assets.imagesOfferPrice,
                 fit: BoxFit.contain,
@@ -241,7 +250,7 @@ class CompanyDetails extends StatelessWidget {
                 ],
               ),
               Text(
-                '${myCurrentOrderModel!.orderNumber}',
+                '${myCurrentOrderModel!.orderNumber}#',
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 13,
@@ -265,7 +274,16 @@ class CompanyDetails extends StatelessWidget {
                       Image.asset(Assets.iconsWalletMenuIcon,width: 15,height: 15,fit: BoxFit.contain,),
                       SizedBox(width: widthValue * 1,),
                       Text(
-                        '${myCurrentOrderModel!.orderNumber}',
+                        '${myCurrentOrderModel!.offerCost}',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                          color: Themes.ColorApp1,
+                        ),
+                      ),
+                      SizedBox(width: widthValue * .5,),
+                      Text(
+                        'sar'.tr,
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 12,

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:nabny/core/constant/constant.dart';
 import 'package:nabny/screens/factory_offer_price_screen/factory_offer_price_controller.dart';
 import 'package:nabny/screens/my_address_request_offer_screen/my_address_request_offer_screen.dart';
+import 'package:nabny/screens/request_offer_price_screen_menu/request_offer_price_menu_controller.dart';
 import 'package:nabny/utils/Themes.dart';
 
 import '../../componant/CustomButtonWidget.dart';
@@ -17,6 +18,8 @@ class FactoryOfferPriceScreen extends StatelessWidget {
   FactoryOfferPriceScreen({Key? key, required this.offerOrderRequestResponseModel}) : super(key: key);
 
   OfferOrderRequestResponseModel offerOrderRequestResponseModel;
+  RequestOfferPriceMenuController requestOfferPriceMenuController = Get.put(RequestOfferPriceMenuController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -24,38 +27,43 @@ class FactoryOfferPriceScreen extends StatelessWidget {
     var heightValue = Get.height * 0.024;
 
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              AppbarDetailsOrder(widthValue, heightValue),
-              SizedBox(
-                height: heightValue * 1.2,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: NumberOfOfferPrice(companies: offerOrderRequestResponseModel.request!.length,),
-              ),
-              SizedBox(
-                height: heightValue * .7,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: offerOrderRequestResponseModel.request!.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: FactoryItemList(
-                          factoryOfferPriceModel: offerOrderRequestResponseModel.request![index],offerOrderRequestResponseModel: offerOrderRequestResponseModel),
-                    );
-                  },
+      body: RefreshIndicator(
+        onRefresh: () async{
+          requestOfferPriceMenuController.getRequestOfferPrice();
+        },
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                AppbarDetailsOrder(widthValue, heightValue),
+                SizedBox(
+                  height: heightValue * 1.2,
                 ),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: NumberOfOfferPrice(companies: offerOrderRequestResponseModel.request!.length,),
+                ),
+                SizedBox(
+                  height: heightValue * .7,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: offerOrderRequestResponseModel.request!.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: FactoryItemList(
+                            factoryOfferPriceModel: offerOrderRequestResponseModel.request![index],offerOrderRequestResponseModel: offerOrderRequestResponseModel),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -540,7 +548,7 @@ class BottomSheetItem extends StatelessWidget {
                         hight: 50,
                         onTap: () {
                           // CustomFlutterToast(offerOrderRequestResponseModel.id.toString());
-                          CustomFlutterToast(companies.id.toString());
+                         // CustomFlutterToast(companies.id.toString());
                           controller.AcceptOfferRequest(offerOrderRequestResponseModel.id.toString(), companies.id.toString());
                           // setState(() {
                           //
@@ -552,7 +560,7 @@ class BottomSheetItem extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        CustomFlutterToast(companies.id.toString());
+                      //  CustomFlutterToast(companies.id.toString());
                         controller.CancelOfferRequest(companies.id.toString());
                         // setState(() {
                         // //  Get.off(HomeMainScreen(valueBack: ''));

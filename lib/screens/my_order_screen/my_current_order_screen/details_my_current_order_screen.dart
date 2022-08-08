@@ -181,14 +181,14 @@ class DetailsMyCurrentOrder extends StatelessWidget {
                                     SizedBox(
                                       height: heightValue * .6,
                                     ),
-                                    Text(
-                                      'order_been_successfully_received'.tr,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 19,
-                                        color: Themes.ColorApp17,
-                                      ),
-                                    ),
+                                    // Text(
+                                    //   'order_been_successfully_received'.tr,
+                                    //   style: TextStyle(
+                                    //     fontWeight: FontWeight.w500,
+                                    //     fontSize: 19,
+                                    //     color: Themes.ColorApp17,
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                                 SizedBox(
@@ -201,9 +201,10 @@ class DetailsMyCurrentOrder extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     CustomButtonImage(title: 'received_order'.tr, hight: 50, onTap: (){
-                                      CustomFlutterToast(currentOrder.executionDate);
-                                      CustomFlutterToast(myCurrentOrderController.formattedDateCurrent);
-                                      if ((myCurrentOrderController.formattedDateCurrent!.compareTo(currentOrder.executionDate!) <= 0)){
+                                      // CustomFlutterToast(currentOrder.id.toString());
+                                      // CustomFlutterToast(currentOrder.executionDate);
+                                      // CustomFlutterToast(myCurrentOrderController.formattedDateCurrent);
+                                      if ((currentOrder.executionDate!.compareTo(myCurrentOrderController.formattedDateCurrent!) <= 0)){
                                         myCurrentOrderController.ReceivedOrder(currentOrder.id.toString());
                                       }else {
                                         CustomFlutterToast('operation_cannot_be_completed'.tr);
@@ -213,7 +214,14 @@ class DetailsMyCurrentOrder extends StatelessWidget {
                                     SizedBox(height: heightValue * 1.2,),
                                     GestureDetector(
                                       onTap: (){
-                                        CustomFlutterToast(currentOrder.id.toString());
+                                        // CustomFlutterToast(currentOrder.id.toString());
+                                        // CustomFlutterToast(currentOrder.executionDate);
+                                        // CustomFlutterToast(myCurrentOrderController.formattedDateCurrent);
+                                        if ((currentOrder.executionDate!.compareTo(myCurrentOrderController.formattedDateCurrent!) <= 0)){
+                                           myCurrentOrderController.CancelOrder(currentOrder.id.toString());
+                                        }else {
+                                          CustomFlutterToast('operation_cannot_be_completed'.tr);
+                                        }
                                       },
                                       child: Container(
                                         width: Get.width,

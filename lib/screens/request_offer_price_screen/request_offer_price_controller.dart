@@ -27,7 +27,6 @@ class RequestOfferPriceController extends GetxController{
 
   RequestOfferPriceController(){
     getRequestOfferPrice();
-    update();
   }
 
   getRequestOfferPrice(){
