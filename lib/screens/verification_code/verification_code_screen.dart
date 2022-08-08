@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nabny/core/constant/constant.dart';
+import 'package:nabny/core/servies/storage_service.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/verification_code/verification_code_controller.dart';
 import 'package:nabny/utils/Themes.dart';
@@ -28,7 +30,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
   TextEditingController _Code2 = TextEditingController();
   TextEditingController _Code3 = TextEditingController();
   TextEditingController _Code4 = TextEditingController();
-  String? VerificationCode;
+  String? VerificationCodeEn,VerificationCodeAr;
 
   // Timer? _timer;
   // int _start = 60;
@@ -117,7 +119,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                                 fontSize: 14, color: Themes.ColorApp5),
                           ),
                           SizedBox(
-                            width: widthValue * .2,
+                            width: widthValue * .7,
                           ),
                           Text(
                             widget.registercode!,
@@ -127,11 +129,8 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const SizedBox(
-                        height: 35,
+                       SizedBox(
+                        height: heightValue * 1.5,
                       ),
                       Form(
                         key: controller.formKey,
@@ -211,14 +210,25 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                             hight: 50,
                             title: 'confirm'.tr,
                             onTap: () {
-                              VerificationCode = _Code1.text.toString() +
+                              VerificationCodeEn = _Code1.text.toString() +
                                   _Code2.text.toString() +
                                   _Code3.text.toString() +
                                   _Code4.text.toString();
 
-                              Get.find<VerificationCodeController>()
-                                  .activeCodeByMobilePhone(
-                                      widget.mobilePhone, VerificationCode);
+                              VerificationCodeAr = _Code4.text.toString() +
+                                  _Code3.text.toString() +
+                                  _Code2.text.toString() +
+                                  _Code1.text.toString();
+
+                              if (Get.find<StorageService>().activeLocale.languageCode == 'en'){
+                                // CustomFlutterToast(VerificationCodeEn);
+                                // CustomFlutterToast(Get.find<StorageService>().activeLocale.languageCode);
+                                Get.find<VerificationCodeController>().activeCodeByMobilePhone(widget.mobilePhone, VerificationCodeEn);
+                              }else if (Get.find<StorageService>().activeLocale.languageCode == 'ar'){
+                                // CustomFlutterToast(VerificationCodeAr);
+                                // CustomFlutterToast(Get.find<StorageService>().activeLocale.languageCode);
+                                Get.find<VerificationCodeController>().activeCodeByMobilePhone(widget.mobilePhone, VerificationCodeAr);
+                              }
 
                             }),
                       ),

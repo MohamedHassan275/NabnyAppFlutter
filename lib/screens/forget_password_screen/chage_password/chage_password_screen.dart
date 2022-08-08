@@ -8,6 +8,7 @@ import 'package:nabny/screens/login_screen/login_screen.dart';
 
 import '../../../componant/CustomButtonWidget.dart';
 import '../../../componant/CustomTextFieldWidget.dart';
+import '../../../core/widget/custom_circler_progress_indicator_widget.dart';
 import '../../../utils/Themes.dart';
 
 class ChagePasswordScreen extends StatefulWidget {
@@ -168,20 +169,7 @@ class _ChagePasswordScreenState extends State<ChagePasswordScreen> {
                         SizedBox(
                           height: heightValue * 1,
                         ),
-                        Visibility(
-                          visible: controller.isLoading ? true : false,
-                          child: Container(
-                              decoration: const BoxDecoration(
-                                // image: DecorationImage(
-                                //     image: AssetImage(Assets
-                                //         .imagesBackgroundRequestReviewFatora),
-                                //     fit: BoxFit.contain),
-                                  color: Colors.transparent),
-                              child: const Center(
-                                  child: CircularProgressIndicator(
-                                    color: Themes.ColorApp1,
-                                  ))),
-                        ),
+                        CirclerProgressIndicatorWidget(isLoading: controller.isLoading ? true : false),
                         SizedBox(
                           height: heightValue * .5,
                         ),

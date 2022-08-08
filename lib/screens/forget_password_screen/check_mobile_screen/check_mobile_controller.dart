@@ -9,6 +9,7 @@ import 'package:nabny/screens/forget_password_screen/activation_password/activat
 import '../../../core/constant/Themes.dart';
 import '../../../core/constant/constant.dart';
 import '../../../model/check_mobile_user_model.dart';
+import '../chage_password/chage_password_screen.dart';
 
 class CheckMobileController extends GetxController {
   bool isLoading = false;
@@ -30,14 +31,19 @@ class CheckMobileController extends GetxController {
       MyServiceApi.checkMobileByForgetPassword(phone).then((value) {
         if (value?.success == true) {
           setLoading(false);
-          print(value?.message);
           CustomFlutterToast('${value?.data!.registercode}');
-          print('${value?.data!.registercode}');
-          print('${phone}');
-          Get.offAll(ActivationPasswordScreen(
-            registercode: '${value?.data!.registercode}',
-            mobilePhone: '$phone',
-          ));
+          MyServiceApi.activeCodeByForgetPassword(phone, '${value?.data!.registercode}').then((value) {
+            if (value?.success == true) {
+              setLoading(false);
+              CustomFlutterToast('${value?.message}');
+              // print('${value?.data!.registercode}');
+              print('${phone}');
+              Get.to(ChagePasswordScreen(mobilePhone: '$phone',));
+            } else if (value?.success == false) {
+              setLoading(false);
+              CustomFlutterToast('${value?.message}');
+            }
+          });
         } else if (value?.success == false) {
           setLoading(false);
           CustomFlutterToast('${value?.message}');

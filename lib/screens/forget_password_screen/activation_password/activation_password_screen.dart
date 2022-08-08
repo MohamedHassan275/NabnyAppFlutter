@@ -4,11 +4,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomTextFieldWidget.dart';
+import 'package:nabny/core/servies/storage_service.dart';
 import 'package:nabny/core/widget/text_field_activate_code.dart';
 import 'package:nabny/screens/forget_password_screen/activation_password/activation_password_controller.dart';
 import 'package:nabny/utils/Themes.dart';
 
 import '../../../componant/CustomButtonWidget.dart';
+import '../../../core/constant/constant.dart';
+import '../../../core/widget/custom_circler_progress_indicator_widget.dart';
 import '../../../generated/assets.dart';
 import '../chage_password/chage_password_screen.dart';
 
@@ -27,7 +30,7 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
   TextEditingController _Code3 = TextEditingController();
   TextEditingController _Code4 = TextEditingController();
 
-  String? VerificationCode;
+  String? VerificationCodeEn,VerificationCodeAr;
 
   @override
   Widget build(BuildContext context) {
@@ -179,16 +182,7 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
                       SizedBox(
                         height: valueHight * 1,
                       ),
-                      Visibility(
-                        visible: controller.isLoading ? true : false,
-                        child: Container(
-                            decoration: const BoxDecoration(
-                                color: Colors.transparent),
-                            child: const Center(
-                                child: CircularProgressIndicator(
-                                  color: Themes.ColorApp1,
-                                ))),
-                      ),
+                      CirclerProgressIndicatorWidget(isLoading: controller.isLoading ? true : false),
                       SizedBox(
                         height: valueHight * .5,
                       ),
@@ -199,8 +193,20 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
                           hight: 50,
                           title: 'confirm'.tr,
                           onTap: () {
-                            VerificationCode = _Code1.text.toString() + _Code2.text.toString()+ _Code3.text.toString() + _Code4.text.toString();
-                            Get.find<ActivationPasswordController>().activeCodeByMobilePhone(widget.mobilePhone, VerificationCode);
+                            VerificationCodeEn = _Code1.text.toString() + _Code2.text.toString()+ _Code3.text.toString() + _Code4.text.toString();
+                            VerificationCodeAr = _Code4.text.toString() + _Code3.text.toString()+ _Code2.text.toString() + _Code1.text.toString();
+
+                            if(Get.find<StorageService>().activeLocale.languageCode == 'en'){
+                              CustomFlutterToast(VerificationCodeEn);
+                              CustomFlutterToast(Get.find<StorageService>().activeLocale.languageCode);
+                              Get.find<ActivationPasswordController>().activeCodeByMobilePhone(widget.mobilePhone, VerificationCodeEn);
+                            }else if(Get.find<StorageService>().activeLocale.languageCode == 'ar'){
+                              CustomFlutterToast(VerificationCodeEn);
+                              CustomFlutterToast(Get.find<StorageService>().activeLocale.languageCode);
+                              Get.find<ActivationPasswordController>().activeCodeByMobilePhone(widget.mobilePhone, VerificationCodeAr);
+                            }
+
+
                           },
                         ),
                       ),

@@ -126,26 +126,6 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                     ],
                                   ),
                                 ),
-                                // SizedBox(
-                                //   height: heightValue * 1.5,
-                                // ),
-                                // Padding(
-                                //   padding: const EdgeInsets.symmetric(
-                                //       horizontal: 25),
-                                //   child: Row(
-                                //     mainAxisAlignment:
-                                //     MainAxisAlignment.start,
-                                //     children: [
-                                //       Text(
-                                //         widget.mobilePhone,
-                                //         style: const TextStyle(
-                                //             fontSize: 17,
-                                //             fontWeight: FontWeight.w700,
-                                //             color: Themes.ColorApp1),
-                                //       ),
-                                //     ],
-                                //   ),
-                                // ),
                               ],
                             ),
                           ),
@@ -337,12 +317,6 @@ class _CompleteRegisterScreenState extends State<CompleteRegisterScreen> {
                                     hight: 50,
                                     title: 'register'.tr,
                                     onTap: () {
-                                        // CustomFlutterToast(widget.mobilePhone);
-                                        // CustomFlutterToast(FirstName.text);
-                                        // CustomFlutterToast(LastName.text);
-                                        // CustomFlutterToast(Email.text);
-                                        // CustomFlutterToast(Password.text);
-                                        // CustomFlutterToast('token');
                                       isCheckAccepted == true ? controller.createAccount(widget.mobilePhone, FirstName.text,
                                           LastName.text, Email.text, Password.text) : CustomFlutterToast('agree_to_terms2'.tr);
                                     }
