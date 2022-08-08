@@ -33,7 +33,10 @@ class MyServiceApi {
       'fcm_token': fcmToken,
     });
     try {
-      Response response = await Dio().post(URL + 'login', data: fromData);
+      Response response = await Dio().post(URL + 'login', data: fromData,options: Options(
+        receiveTimeout: 5000,
+        sendTimeout: 5000
+      ));
 
       if (response.statusCode == 200) {
         return LoginUserModel.fromJson(response.data);
@@ -64,7 +67,10 @@ class MyServiceApi {
     });
     try {
       Response response =
-          await Dio().post(URL + 'step1/register', data: fromData);
+          await Dio().post(URL + 'step1/register', data: fromData,options: Options(
+              receiveTimeout: 5000,
+              sendTimeout: 5000
+          ));
 
       if (response.statusCode == 200) {
         return CheckMobileUserModel.fromJson(response.data);
@@ -140,7 +146,10 @@ class MyServiceApi {
     });
     try {
       Response response =
-          await Dio().post(URL + 'step2/register', data: fromData);
+          await Dio().post(URL + 'step2/register', data: fromData,options: Options(
+              receiveTimeout: 5000,
+              sendTimeout: 5000
+          ));
 
       if (response.statusCode == 200) {
         return LoginUserModel.fromJson(response.data);
@@ -169,7 +178,7 @@ class MyServiceApi {
     try {
       Response response = await Dio().get(URL + 'logout',
           options:
-              Options(headers: {'Authorization': 'Bearer $Authorization'}));
+              Options(headers: {'Authorization': 'Bearer $Authorization'},sendTimeout: 5000,receiveTimeout: 5000));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -200,7 +209,7 @@ class MyServiceApi {
     try {
       Response response = await Dio().get(URL + 'setting',
           options:
-              Options(headers: {'Authorization': 'Bearer $Authorization'}));
+              Options(headers: {'Authorization': 'Bearer $Authorization'},receiveTimeout: 5000,sendTimeout: 5000));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -232,7 +241,7 @@ class MyServiceApi {
     try {
       Response response = await Dio().get(URL + 'profile',
           options:
-              Options(headers: {'Authorization': 'Bearer $Authorization'}));
+              Options(headers: {'Authorization': 'Bearer $Authorization'},sendTimeout: 5000,receiveTimeout: 5000));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -334,7 +343,7 @@ class MyServiceApi {
           options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
             'Accept-Language': '$Language'
-          }));
+          },receiveTimeout: 5000,sendTimeout: 5000));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -376,7 +385,7 @@ class MyServiceApi {
           options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
             'Accept-Language': '$Language'
-          }));
+          },sendTimeout: 5000,receiveTimeout: 5000));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -414,7 +423,7 @@ class MyServiceApi {
           options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
             'Accept-Language': '$Language'
-          }));
+          },receiveTimeout: 5000,sendTimeout: 5000));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -452,7 +461,7 @@ class MyServiceApi {
           options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
             'Accept-Language': '$Language'
-          }));
+          },sendTimeout: 5000,receiveTimeout: 5000));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -490,7 +499,7 @@ class MyServiceApi {
           options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
             'Accept-Language': '$Language'
-          }));
+          },receiveTimeout: 5000,sendTimeout: 5000));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -528,7 +537,7 @@ class MyServiceApi {
           options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
             'Accept-Language': '$Language'
-          }));
+          },sendTimeout: 5000,receiveTimeout: 5000));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -562,7 +571,7 @@ class MyServiceApi {
           options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
             'Accept-Language': '$Language'
-          }));
+          },receiveTimeout: 5000,sendTimeout: 5000));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -596,7 +605,7 @@ class MyServiceApi {
           options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
             'Accept-Language': '$Language'
-          }));
+          },sendTimeout: 5000,receiveTimeout: 5000));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -630,7 +639,7 @@ class MyServiceApi {
           options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
             'Accept-Language': '$Language'
-          }));
+          },receiveTimeout: 5000,sendTimeout: 5000));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -664,7 +673,7 @@ class MyServiceApi {
           options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
             'Accept-Language': '$Language'
-          }));
+          },receiveTimeout: 5000,sendTimeout: 5000));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -702,7 +711,7 @@ class MyServiceApi {
           options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
             'Accept-Language': '$Language'
-          }));
+          },receiveTimeout: 5000,sendTimeout: 5000));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -778,7 +787,7 @@ class MyServiceApi {
           options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
             'Accept-Language': '$Language'
-          }));
+          },receiveTimeout: 5000,sendTimeout: 5000));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -819,7 +828,7 @@ class MyServiceApi {
           options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
             // 'Accept-Language' : '$Language'
-          }));
+          },receiveTimeout: 5000,sendTimeout: 5000));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -857,7 +866,7 @@ class MyServiceApi {
           options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
             'Accept-Language': '$Language'
-          }));
+          },receiveTimeout: 5000,sendTimeout: 5000));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -897,7 +906,7 @@ class MyServiceApi {
           options: Options(headers: {
             'Authorization': 'Bearer $Authorization',
             'Accept-Language': '$Language'
-          }));
+          },receiveTimeout: 5000,sendTimeout: 5000));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -931,7 +940,10 @@ class MyServiceApi {
     });
     try {
       Response response =
-          await Dio().post(URL + 'forgetpassword', data: fromData);
+          await Dio().post(URL + 'forgetpassword', data: fromData,options: Options(
+            sendTimeout: 5000,
+            receiveTimeout: 5000
+          ));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -965,7 +977,10 @@ class MyServiceApi {
       'code': code,
     });
     try {
-      Response response = await Dio().post(URL + 'activcode', data: fromData);
+      Response response = await Dio().post(URL + 'activcode', data: fromData,options: Options(
+        receiveTimeout: 5000,
+        sendTimeout: 5000
+      ));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -1003,7 +1018,7 @@ class MyServiceApi {
       Response response = await Dio().post(URL + 'updateprofile',
           data: fromData,
           options:
-              Options(headers: {'Authorization': 'Bearer $Authorization'}));
+              Options(headers: {'Authorization': 'Bearer $Authorization'},receiveTimeout: 5000,sendTimeout: 5000));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -1039,7 +1054,7 @@ class MyServiceApi {
       Response response = await Dio().post(URL + 'changepassword',
           data: fromData,
           options:
-              Options(headers: {'Authorization': 'Bearer $Authorization'}));
+              Options(headers: {'Authorization': 'Bearer $Authorization'},receiveTimeout: 5000,sendTimeout: 5000));
 
       if (response.statusCode == 200) {
         print(response.statusCode);
@@ -1073,7 +1088,10 @@ class MyServiceApi {
     });
     try {
       Response response =
-          await Dio().post(URL + 'rechangepass', data: fromData);
+          await Dio().post(URL + 'rechangepass', data: fromData,options: Options(
+            sendTimeout: 5000,
+            receiveTimeout: 5000
+          ));
 
       if (response.statusCode == 200) {
         print(response.statusCode);

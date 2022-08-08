@@ -53,12 +53,12 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
   //   );
   // }
   //
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   startTimer();
-  // }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Get.put(VerificationCodeController());
+  }
   //
   // @override
   // void dispose() {
@@ -210,22 +210,16 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                             hight: 50,
                             title: 'confirm'.tr,
                             onTap: () {
-                              VerificationCodeEn = _Code1.text.toString() +
-                                  _Code2.text.toString() +
-                                  _Code3.text.toString() +
-                                  _Code4.text.toString();
+                              VerificationCodeEn = _Code1.text.toString() + _Code2.text.toString() + _Code3.text.toString() + _Code4.text.toString();
+                              VerificationCodeAr = _Code4.text.toString() + _Code3.text.toString() + _Code2.text.toString() + _Code1.text.toString();
 
-                              VerificationCodeAr = _Code4.text.toString() +
-                                  _Code3.text.toString() +
-                                  _Code2.text.toString() +
-                                  _Code1.text.toString();
-
-                              if (Get.find<StorageService>().activeLocale.languageCode == 'en'){
+                              if(Get.find<StorageService>().activeLocale.languageCode == 'en'){
                                 // CustomFlutterToast(VerificationCodeEn);
                                 // CustomFlutterToast(Get.find<StorageService>().activeLocale.languageCode);
                                 Get.find<VerificationCodeController>().activeCodeByMobilePhone(widget.mobilePhone, VerificationCodeEn);
-                              }else if (Get.find<StorageService>().activeLocale.languageCode == 'ar'){
-                                // CustomFlutterToast(VerificationCodeAr);
+                              }else if(Get.find<StorageService>().activeLocale.languageCode == 'ar'){
+                                 // CustomFlutterToast(VerificationCodeAr);
+                                 // CustomFlutterToast(widget.mobilePhone);
                                 // CustomFlutterToast(Get.find<StorageService>().activeLocale.languageCode);
                                 Get.find<VerificationCodeController>().activeCodeByMobilePhone(widget.mobilePhone, VerificationCodeAr);
                               }

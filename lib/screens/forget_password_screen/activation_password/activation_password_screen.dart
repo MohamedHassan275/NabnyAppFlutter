@@ -197,12 +197,12 @@ class _ActivationPasswordScreenState extends State<ActivationPasswordScreen> {
                             VerificationCodeAr = _Code4.text.toString() + _Code3.text.toString()+ _Code2.text.toString() + _Code1.text.toString();
 
                             if(Get.find<StorageService>().activeLocale.languageCode == 'en'){
-                              CustomFlutterToast(VerificationCodeEn);
-                              CustomFlutterToast(Get.find<StorageService>().activeLocale.languageCode);
+                              // CustomFlutterToast(VerificationCodeEn);
+                              // CustomFlutterToast(Get.find<StorageService>().activeLocale.languageCode);
                               Get.find<ActivationPasswordController>().activeCodeByMobilePhone(widget.mobilePhone, VerificationCodeEn);
                             }else if(Get.find<StorageService>().activeLocale.languageCode == 'ar'){
-                              CustomFlutterToast(VerificationCodeEn);
-                              CustomFlutterToast(Get.find<StorageService>().activeLocale.languageCode);
+                              // CustomFlutterToast(VerificationCodeAr);
+                              // CustomFlutterToast(Get.find<StorageService>().activeLocale.languageCode);
                               Get.find<ActivationPasswordController>().activeCodeByMobilePhone(widget.mobilePhone, VerificationCodeAr);
                             }
 

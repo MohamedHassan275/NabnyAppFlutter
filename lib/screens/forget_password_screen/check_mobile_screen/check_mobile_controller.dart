@@ -31,19 +31,11 @@ class CheckMobileController extends GetxController {
       MyServiceApi.checkMobileByForgetPassword(phone).then((value) {
         if (value?.success == true) {
           setLoading(false);
-          CustomFlutterToast('${value?.data!.registercode}');
-          MyServiceApi.activeCodeByForgetPassword(phone, '${value?.data!.registercode}').then((value) {
-            if (value?.success == true) {
-              setLoading(false);
-              CustomFlutterToast('${value?.message}');
-              // print('${value?.data!.registercode}');
-              print('${phone}');
-              Get.to(ChagePasswordScreen(mobilePhone: '$phone',));
-            } else if (value?.success == false) {
-              setLoading(false);
-              CustomFlutterToast('${value?.message}');
-            }
-          });
+          CustomFlutterToast('${value?.message}');
+          Get.to(ActivationPasswordScreen(
+            registercode: '${value?.data!.registercode}',
+            mobilePhone: '$phone',
+          ));
         } else if (value?.success == false) {
           setLoading(false);
           CustomFlutterToast('${value?.message}');

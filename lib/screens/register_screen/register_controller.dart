@@ -28,17 +28,8 @@ class RegisterController extends GetxController{
           setLoading(false);
           print(mobilePhone);
           print('${value?.data?.registercode}');
-          CustomFlutterToast('${value?.data?.registercode}');
+         // CustomFlutterToast('${value?.data?.registercode}');
           Get.off(VerificationCodeScreen(registercode: '${value?.data?.registercode}', mobilePhone: mobilePhone,));
-          // MyServiceApi.activeCodeByRegister(mobilePhone, '${value?.data?.registercode}').then((value){
-          //   if(value?.success == true){
-          //     CustomFlutterToast('${value?.message}');
-          //     Get.off(CompleteRegisterScreen(mobilePhone: mobilePhone,));
-          //   }else {
-          //     setLoading(false);
-          //     CustomFlutterToast('${value?.message}');
-          //   }
-          // });
         }else if(value?.success == false){
           setLoading(false);
           CustomFlutterToast('${value?.message}');

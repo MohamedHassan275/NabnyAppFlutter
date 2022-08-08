@@ -24,10 +24,7 @@ class VerificationCodeController extends GetxController{
       MyServiceApi.activeCodeByRegister(phone, code).then((value) {
         if (value?.success == true) {
           setLoading(false);
-
           CustomFlutterToast('${value?.message}');
-          // print('${value?.data!.registercode}');
-          print('$phone');
           Get.off(CompleteRegisterScreen(mobilePhone: '$phone',));
         } else if (value?.success == false) {
           setLoading(false);

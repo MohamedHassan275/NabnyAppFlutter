@@ -275,6 +275,11 @@ class UserDetailsInMenu extends StatelessWidget {
                 SizedBox(
                   height: 5,
                 ),
+                Text(
+                  profileUserResponseModel?.phone != null ?'${profileUserResponseModel?.phone}' : '',
+                  style:
+                  TextStyle(fontSize: 13, color: Themes.ColorApp8),
+                ),
                 // Row(
                 //   mainAxisAlignment: MainAxisAlignment.center,
                 //   crossAxisAlignment: CrossAxisAlignment.center,
