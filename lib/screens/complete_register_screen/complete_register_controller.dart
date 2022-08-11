@@ -33,7 +33,7 @@ class CompleteRegisterController extends GetxController {
           print(mobilePhone);
           print('${value?.data?.accesstoken}');
           Get.find<StorageService>().SetToken('${value?.data?.accesstoken}');
-          CustomFlutterToast('${value?.data?.accesstoken}');
+          CustomFlutterToast('${value?.message}');
           Get.offAll(const SuccessRegisterScreen());
         } else if (value?.success == false) {
           setLoading(false);
