@@ -194,18 +194,18 @@ class DetailsMyCurrentOrder extends StatelessWidget {
                                 SizedBox(
                                   height: heightValue * 1.5,
                                 ),
-                                CirclerProgressIndicatorWidget(isLoading: myCurrentOrderController.Loading ? true : false),
-                                SizedBox(height: heightValue * .5,),
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
+                                    CirclerProgressIndicatorWidget(isLoading: myCurrentOrderController.loading ? true : false),
+                                    SizedBox(height: heightValue * .5,),
                                     CustomButtonImage(title: 'received_order'.tr, hight: 50, onTap: (){
                                       // CustomFlutterToast(currentOrder.id.toString());
                                       // CustomFlutterToast(currentOrder.executionDate);
                                       // CustomFlutterToast(myCurrentOrderController.formattedDateCurrent);
                                       if ((currentOrder.executionDate!.compareTo(myCurrentOrderController.formattedDateCurrent!) <= 0)){
-                                        myCurrentOrderController.ReceivedOrder(currentOrder.id.toString());
+                                        Get.find<MyCurrentOrderController>().ReceivedOrder('${currentOrder.id}');
                                       }else {
                                         CustomFlutterToast('operation_cannot_be_completed'.tr);
                                       }
@@ -214,14 +214,11 @@ class DetailsMyCurrentOrder extends StatelessWidget {
                                     SizedBox(height: heightValue * 1.2,),
                                     GestureDetector(
                                       onTap: (){
-                                        // CustomFlutterToast(currentOrder.id.toString());
+                                      //   CustomFlutterToast(currentOrder.id.toString());
                                         // CustomFlutterToast(currentOrder.executionDate);
                                         // CustomFlutterToast(myCurrentOrderController.formattedDateCurrent);
-                                        if ((currentOrder.executionDate!.compareTo(myCurrentOrderController.formattedDateCurrent!) <= 0)){
-                                           myCurrentOrderController.CancelOrder(currentOrder.id.toString());
-                                        }else {
-                                          CustomFlutterToast('operation_cannot_be_completed'.tr);
-                                        }
+                                        myCurrentOrderController.CancelOrder(currentOrder.id.toString());
+                                        Get.find<MyCurrentOrderController>().CancelOrder('${currentOrder.id}');
                                       },
                                       child: Container(
                                         width: Get.width,

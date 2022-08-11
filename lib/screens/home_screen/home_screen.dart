@@ -9,6 +9,7 @@ import 'package:nabny/screens/factory_details_screen/factory_details_screen.dart
 import 'package:nabny/screens/home_main_screen/home_main_controller.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:nabny/screens/home_screen/home_controller.dart';
+import 'package:nabny/screens/request_offer_price_screen/request_offer_price_controller.dart';
 import 'package:nabny/screens/request_offer_price_screen/request_offer_price_screen.dart';
 import 'package:nabny/utils/Themes.dart';
 import '../../componant/CustomButtonWidget.dart';
@@ -26,6 +27,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     HomeController homeController =  Get.put(HomeController());
     HomeMainController homeMainController = Get.put(HomeMainController());
+    RequestOfferPriceController priceController = Get.put(RequestOfferPriceController());
 
     var widthValue = Get.width * 0.024;
     var heightValue = Get.height * 0.024;
@@ -34,6 +36,7 @@ class HomeScreen extends StatelessWidget {
           onRefresh: () async{
             homeController.getHomeDetailsUser();
             homeMainController.getProfileDetailsUser();
+          //  priceController.getRequestOfferPrice();
            // myFavoriteController.getFavoriteUserList();
           },
           child: SafeArea(

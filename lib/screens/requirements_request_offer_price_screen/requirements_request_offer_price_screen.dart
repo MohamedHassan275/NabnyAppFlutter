@@ -594,11 +594,11 @@ class _RequirementsRequestOfferPriceScreenState
                                 CustomFlutterToast("Invalid_order_date".tr);
                               } else {
                                 String WithPump =
-                                    isVisiblePump == true ? '0' : '1';
+                                    isVisiblePump == true ? '1' : '0';
                                 String WithSnow =
-                                    isVisibleIce == true ? '0' : '1';
+                                    isVisibleIce == true ? '1' : '0';
                                 String WithLab =
-                                    isVisibleLab == true ? '0' : '1';
+                                    isVisibleLab == true ? '1' : '0';
                                 String companyId = widget.companyId == '' ? '' : widget.companyId;
                                 print(WithPump);
                                 print(WithSnow);
@@ -609,8 +609,10 @@ class _RequirementsRequestOfferPriceScreenState
 
                                 // CustomFlutterToast(DateOrderRequest.text);
                                //  CustomFlutterToast(companyId);
-                                // CustomFlutterToast(WithSnow);
-                                // CustomFlutterToast(WithLab);
+                               //  CustomFlutterToast(WithPump);
+                               //  CustomFlutterToast(WithSnow);
+                               //  CustomFlutterToast(WithLab);
+
                                 // CustomFlutterToast(Get.find<StorageService>().GetToken);
                                 // CustomFlutterToast(Get.find<MyLocalController>().language!.languageCode);
 

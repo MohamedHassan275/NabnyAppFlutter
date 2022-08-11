@@ -17,34 +17,39 @@ class MyWaitingOrderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var heightValue = Get.height * 0.024;
     var widthValue = Get.width * 0.024;
-
+    MyNewOrderController myNewOrderController = Get.put(MyNewOrderController());
     return Scaffold(
-      body: SafeArea(
-          child: SingleChildScrollView(
-            child: Container(
-              child: Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: GetBuilder<MyNewOrderController>(
-                  init: MyNewOrderController(),
-                  builder: (controller) {
-                    if(controller.Loading){
-                      return LoadingWidget(data: '');
-                    }
-                    return controller.newOrder!.isNotEmpty ?
-                    ListView.builder(
-                      itemCount: controller.newOrder!.length,
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                          child: MyWaitingOrderItem(MyNewOder: controller.newOrder![index],
-                            heightValue: heightValue,widthValue: widthValue,),
-                        );
-                      },): NoItemOFList();
-                  },),
-              ),
-            ),)
+      body: RefreshIndicator(
+        onRefresh: () async{
+          myNewOrderController.getMyNewOrderUser();
+        },
+        child: SafeArea(
+            child: SingleChildScrollView(
+              child: Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: GetBuilder<MyNewOrderController>(
+                    init: MyNewOrderController(),
+                    builder: (controller) {
+                      if(controller.Loading){
+                        return LoadingWidget(data: '');
+                      }
+                      return controller.newOrder!.isNotEmpty ?
+                      ListView.builder(
+                        itemCount: controller.newOrder!.length,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                            child: MyWaitingOrderItem(MyNewOder: controller.newOrder![index],
+                              heightValue: heightValue,widthValue: widthValue,),
+                          );
+                        },): NoItemOFList();
+                    },),
+                ),
+              ),)
+        ),
       ),
     );
   }
