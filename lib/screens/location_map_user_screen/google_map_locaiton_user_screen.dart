@@ -143,7 +143,7 @@ class _GoogleMapLocationUserScreenState
                             print(country);
                             print(thoroughfare);
                             print(Street);
-                            String Location = '${country} - ${Street}';
+                            String Location = '${country} - ${name} -${locality}';
 
                             // CustomFlutterToast('$Location');
                             // CustomFlutterToast(

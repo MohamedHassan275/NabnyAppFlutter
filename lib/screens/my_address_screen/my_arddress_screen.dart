@@ -30,16 +30,14 @@ class MyAddressScreen extends StatelessWidget {
             child: Container(
               width: Get.width,
               height: Get.height,
-              child: Stack(
+              child: Column(
                 children: [
                   AppbarDetailsOrder(widthValue, heightValue),
                   SizedBox(
-                    height: heightValue * 1.2,
+                    height: heightValue * 1,
                   ),
-                  Positioned(
-                    top: heightValue * 8,
-                    right: widthValue * 1,
-                    left: widthValue * 1,
+                  Expanded(
+                    flex: 6,
                     child: GetBuilder<MyAddressController>(
                       init: MyAddressController(),
                         builder: (controller){
@@ -57,15 +55,14 @@ class MyAddressScreen extends StatelessWidget {
                         }
                     }),
                   ),
-                  SizedBox(
-                    height: heightValue * 5,
-                  ),
-                  Positioned(
-                      bottom: heightValue * 3,
-                      child: CustomButtonImage(
-                          title: 'add_new_address'.tr,
-                          hight: 50,
-                          onTap: () => Get.to(const SaveMyLocationUserScreen())))
+
+                  Expanded(
+                    flex: 1,
+                    child: CustomButtonImage(
+                        title: 'add_new_address'.tr,
+                        hight: 50,
+                        onTap: () => Get.to(SaveMyLocationUserScreen(result: 'myAddress', companyId: '',))),
+                  )
                 ],
               ),
             ),

@@ -303,36 +303,46 @@ class AppbarDetailsOrder extends StatelessWidget {
 
 class NoItemOFList extends StatelessWidget {
   NoItemOFList({Key? key}) : super(key: key);
-
   var widthValue = Get.width * 0.024;
   var heightValue = Get.height * 0.024;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: Get.width,
-      height: 100,
-      child: Column(
-        children: [
-          Image.asset(
-            Assets.imagesOfferPrice,
-            fit: BoxFit.contain,
-          ),
-          SizedBox(
-            height: heightValue * 1,
-          ),
-          Text(
-            'no_requests_offers_have_added_before'.tr,
-            style: TextStyle(
-              color: Themes.ColorApp8,
-              fontSize: 25,
-              fontWeight: FontWeight.w400,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: SizedBox(
+        width: Get.width,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: heightValue * 2,
             ),
-          ),
-          SizedBox(
-            height: heightValue * .7,
-          )
-        ],
+            GestureDetector(
+              // onTap: ()=> myOrderController.getMyOrderUser(),
+              child: Image.asset(
+                Assets.imagesOfferPrice,
+                fit: BoxFit.contain,
+              ),
+            ),
+            SizedBox(
+              height: heightValue * 1,
+            ),
+            Text(
+              'no_requests_offers_have_added_before'.tr,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Themes.ColorApp8,
+                fontSize: 17,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            SizedBox(
+              height: heightValue * .7,
+            )
+          ],
+        ),
       ),
     );
   }

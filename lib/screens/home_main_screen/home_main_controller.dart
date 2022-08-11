@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/core/constant/constant.dart';
+import 'package:nabny/core/function/check_internet.dart';
 import 'package:nabny/core/servies/storage_service.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/repositries/servies_api/MyServiceApi.dart';
@@ -58,7 +59,7 @@ class HomeMainController extends GetxController {
   HomeMainController(){
     getProfileDetailsUser();
   }
-  getProfileDetailsUser() {
+  getProfileDetailsUser() async {
     setLoading(true);
     MyServiceApi.checkProfileDetails(Get.find<StorageService>().GetToken).then((value) {
       if(value?.success == true){
@@ -69,6 +70,7 @@ class HomeMainController extends GetxController {
         CustomFlutterToast('${value?.message}');
       }
     });
+
   }
 
   logoutUser(Authorization){

@@ -58,7 +58,7 @@ class RequestOfferPriceScreen extends StatelessWidget {
                   },),
                 SizedBox(height: heightValue * 1,),
                 CustomButtonImage(title: 'add_order'.tr, hight: 50, onTap: (){
-                  Get.to(RequirementsRequestOfferPriceScreen(companyId: '',));
+                  Get.to(RequirementsRequestOfferPriceScreen(companyId: '', my_location: '',));
                 }),
                 SizedBox(height: heightValue * 1,),
               ],

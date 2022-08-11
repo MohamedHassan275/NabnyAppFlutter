@@ -9,6 +9,7 @@ import 'package:nabny/core/servies/storage_service.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/my_address_request_offer_screen/my_address_request_offer_screen.dart';
 import 'package:nabny/screens/requirements_request_offer_price_screen/requirements_request_offer_price_controller.dart';
+import 'package:nabny/screens/save_location_map_user_screen/save_my_locaiton_user_screen.dart';
 import 'package:nabny/utils/Themes.dart';
 import '../../componant/CustomTextFieldWidget.dart';
 import '../../core/constant/constant.dart';
@@ -16,8 +17,8 @@ import '../../core/widget/custom_circler_progress_indicator_widget.dart';
 import '../home_main_screen/home_main_screen.dart';
 
 class RequirementsRequestOfferPriceScreen extends StatefulWidget {
-  String companyId;
-   RequirementsRequestOfferPriceScreen({Key? key,required this.companyId}) : super(key: key);
+  String companyId,my_location;
+   RequirementsRequestOfferPriceScreen({Key? key,required this.companyId,required this.my_location}) : super(key: key);
 
   @override
   _RequirementsRequestOfferPriceScreenState createState() =>
@@ -114,7 +115,7 @@ class _RequirementsRequestOfferPriceScreenState
                             isPassword: false,
                             onTapValidator: (value) {
                               if (value!.isEmpty) {
-                                return 'نوع الصبة فارغ';
+                                return 'must_not_empty'.tr;
                               }
                               return null;
                             },
@@ -209,7 +210,7 @@ class _RequirementsRequestOfferPriceScreenState
                             isPassword: false,
                             onTapValidator: (value) {
                               if (value!.isEmpty) {
-                                return 'الكميه فارغ';
+                                return 'must_not_empty'.tr;
                               }
                               return null;
                             },
@@ -230,7 +231,7 @@ class _RequirementsRequestOfferPriceScreenState
                             isPassword: false,
                             onTapValidator: (value) {
                               if (value!.isEmpty) {
-                                return 'نوع الخلطه فارغ';
+                                return 'must_not_empty'.tr;
                               }
                               return null;
                             },
@@ -251,7 +252,7 @@ class _RequirementsRequestOfferPriceScreenState
                             isPassword: false,
                             onTapValidator: (value) {
                               if (value!.isEmpty) {
-                                return 'نوع الاسمنت فارغ';
+                                return 'must_not_empty'.tr;
                               }
                               return null;
                             },
@@ -272,7 +273,7 @@ class _RequirementsRequestOfferPriceScreenState
                             isPassword: false,
                             onTapValidator: (value) {
                               if (value!.isEmpty) {
-                                return 'مقاس الحجر فارغ';
+                                return 'must_not_empty'.tr;
                               }
                               return null;
                             },
@@ -294,7 +295,7 @@ class _RequirementsRequestOfferPriceScreenState
                             isPassword: false,
                             onTapValidator: (value) {
                               if (value!.isEmpty) {
-                                return 'مواصفات خاصه فارغ';
+                                return 'must_not_empty'.tr;
                               }
                               return null;
                             },
@@ -304,25 +305,54 @@ class _RequirementsRequestOfferPriceScreenState
                         SizedBox(
                           height: heightValue * .7,
                         ),
-                        FromTextRegisterShared(
-                            labelText: 'Your_location_map'.tr,
-                            onChanged: (value) {
-                              setState(() {
-                                myLocationInMap = value;
-                              });
-                            },
-                            readOnly: false,
-                            maxLines: 1,
-                            isPassword: false,
-                            onTapValidator: (value) {
-                              if (value!.isEmpty) {
-                                return 'موقعك علي الخريطه فارغ';
-                              }
-                              return null;
-                            },
-                            keyboardType: TextInputType.text,
-                            Controller: MyLocationInMap,
-                            hintText: 'Your_location_map'.tr),
+                        InkWell(
+                          onTap: () async {
+                            Get.to(SaveMyLocationUserScreen(result: 'my_location', companyId: widget.companyId,));
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 25),
+                            child: Container(
+                              height: 65,
+                              width: Get.width,
+                              decoration: BoxDecoration(
+                                  color: Themes.whiteColor,
+                                  borderRadius: BorderRadius.circular(25),
+                                  border: Border.all(
+                                      color: Themes.ColorApp2, width: 1)),
+                              child: Padding(
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: 10),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text("Your_location_map".tr,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                      style: TextStyle(
+                                          fontFamily: 'FF Shamel Family',
+                                          fontSize: 15,
+                                          color: Themes.ColorApp8),
+                                    ),
+                                    SizedBox(
+                                      width: widthValue * .5,
+                                    ),
+                                    Text(
+                                      widget.my_location == null ? "" : widget.my_location,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                      style: TextStyle(
+                                        fontFamily: 'FF Shamel Family',
+                                        fontSize: 15,
+                                        color: Themes.ColorApp8,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                         SizedBox(
                           height: heightValue * .7,
                         ),
@@ -397,7 +427,7 @@ class _RequirementsRequestOfferPriceScreenState
                             isPassword: false,
                             onTapValidator: (value) {
                               if (value!.isEmpty) {
-                                return 'طول المضخة فارغ';
+                                return 'must_not_empty'.tr;
                               }
                               return null;
                             },
@@ -531,6 +561,8 @@ class _RequirementsRequestOfferPriceScreenState
                             onTap: () {
                               if (formattedDate == null) {
                                 CustomFlutterToast("date_must_request".tr);
+                              }else  if (widget.my_location == null) {
+                                CustomFlutterToast("my".tr);
                               } else if (!(formattedDateCurrent!.compareTo(formattedDate!) <= 0)) {
                                 CustomFlutterToast("Invalid_order_date".tr);
                               } else {

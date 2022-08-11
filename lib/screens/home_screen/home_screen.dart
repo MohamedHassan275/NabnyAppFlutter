@@ -6,6 +6,8 @@ import 'package:nabny/core/constant/constant.dart';
 import 'package:nabny/core/servies/storage_service.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/factory_details_screen/factory_details_screen.dart';
+import 'package:nabny/screens/home_main_screen/home_main_controller.dart';
+import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:nabny/screens/home_screen/home_controller.dart';
 import 'package:nabny/screens/request_offer_price_screen/request_offer_price_screen.dart';
 import 'package:nabny/utils/Themes.dart';
@@ -23,7 +25,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HomeController homeController =  Get.put(HomeController());
-    MyFavoriteController myFavoriteController = Get.put(MyFavoriteController());
+    HomeMainController homeMainController = Get.put(HomeMainController());
 
     var widthValue = Get.width * 0.024;
     var heightValue = Get.height * 0.024;
@@ -31,6 +33,7 @@ class HomeScreen extends StatelessWidget {
         body: RefreshIndicator(
           onRefresh: () async{
             homeController.getHomeDetailsUser();
+            homeMainController.getProfileDetailsUser();
            // myFavoriteController.getFavoriteUserList();
           },
           child: SafeArea(
@@ -724,7 +727,7 @@ class OrderPriceRequest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.to(RequirementsRequestOfferPriceScreen(companyId: '',)),
+      onTap: () => Get.to(RequirementsRequestOfferPriceScreen(companyId: '', my_location: '')),
       child: Container(
         width: Get.width,
         height: 100,

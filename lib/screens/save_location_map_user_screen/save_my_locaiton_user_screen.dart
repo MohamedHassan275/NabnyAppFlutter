@@ -8,15 +8,19 @@ import 'package:location/location.dart' as prefix;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nabny/core/constant/constant.dart';
 import 'package:nabny/core/localization/local_controller.dart';
+import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
+import 'package:nabny/screens/my_address_screen/my_arddress_screen.dart';
 import 'package:nabny/screens/save_location_map_user_screen/save_my_locaiton_user_controller.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../componant/CustomButtonWidget.dart';
 import '../../core/constant/Themes.dart';
 import '../../core/widget/custom_circler_progress_indicator_widget.dart';
+import '../requirements_request_offer_price_screen/requirements_request_offer_price_screen.dart';
 
 class SaveMyLocationUserScreen extends StatefulWidget {
-  const SaveMyLocationUserScreen({Key? key}) : super(key: key);
+  String result,companyId;
+  SaveMyLocationUserScreen({Key? key,required this.companyId,required this.result}) : super(key: key);
 
   @override
   _SaveMyLocationUserScreenState createState() =>
@@ -142,7 +146,7 @@ class _SaveMyLocationUserScreenState extends State<SaveMyLocationUserScreen> {
                             print(country);
                             print(thoroughfare);
                             print(Street);
-                            String Location = '${country} - ${Street}';
+                            String Location = '${country} - ${name} -${locality}';
 
                             // CustomFlutterToast('$Location');
                             // CustomFlutterToast(
@@ -150,8 +154,15 @@ class _SaveMyLocationUserScreenState extends State<SaveMyLocationUserScreen> {
                             // CustomFlutterToast(Get.find<MyLocalController>()
                             //     .language!
                             //     .languageCode);
+                            if(widget.result.contains('my_location')){
+                              CustomFlutterToast('${widget.result}');
+                              Get.off(RequirementsRequestOfferPriceScreen(companyId: widget.companyId, my_location: Location,));
+                            }else if(widget.result.contains('myAddress')){
+                              CustomFlutterToast('${widget.result}');
+                              Get.find<SaveMyLocationController>().SaveMyLocationFromMap(latlong?.latitude, latlong?.longitude, Location,Location);
+                            }
 
-                            Get.find<SaveMyLocationController>().SaveMyLocationFromMap(latlong?.latitude, latlong?.longitude, Location,Location);
+
                             // googleMapLocaitonUserController.updateMyLocationFromMap(
                             //     latlong?.latitude, latlong?.longitude, Location);
                           },

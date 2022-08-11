@@ -1,6 +1,7 @@
 
 import 'package:get/get.dart';
 import 'package:nabny/core/constant/constant.dart';
+import 'package:nabny/core/function/check_internet.dart';
 import 'package:nabny/model/home_user_model.dart';
 import 'package:nabny/repositries/servies_api/MyServiceApi.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
@@ -15,7 +16,7 @@ class HomeController extends GetxController{
 
   bool isLoading = false;
   HomeUserResponseModel? _homeUserModel;
-
+  var res;
   get isloading => isLoading;
   HomeUserResponseModel? get homeUserModel => _homeUserModel;
 
@@ -32,18 +33,20 @@ class HomeController extends GetxController{
     getHomeDetailsUser();
   }
 
-  getHomeDetailsUser(){
+  getHomeDetailsUser() async{
     setLoading(true);
+    res = await checkInternet();
     MyServiceApi.checkHomeDetailsUser(Get.find<StorageService>().GetToken, Get.find<StorageService>().activeLocale.languageCode).then((value){
       if(value?.success == true){
         setLoading(false);
-      //  CustomFlutterToast('${value?.homeUserResponseModel?.currentLocation?.address}');
+        //  CustomFlutterToast('${value?.homeUserResponseModel?.currentLocation?.address}');
         setHomeUser(value?.homeUserResponseModel);
       }else if(value?.success == false){
         setLoading(false);
         CustomFlutterToast('${value?.message}');
       }
     });
+
   }
 
   AddFavoriteCompany(companyId){

@@ -44,7 +44,7 @@ class MyCurrentOrderScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                           child: MySendOrderListItem(currentOrder: controller.currentOrder![index], heightValue: heightValue,widthValue: widthValue,),
                         );
-                      },) : NoItemOFList(myOrderController: controller,);
+                      },) : NoItemOFList();
                   },),
               ),
             ),)
@@ -158,8 +158,7 @@ class MySendOrderListItem extends StatelessWidget {
 }
 
 class NoItemOFList extends StatelessWidget {
-  NoItemOFList({Key? key,required this.myOrderController}) : super(key: key);
-  MyCurrentOrderController myOrderController;
+  NoItemOFList({Key? key}) : super(key: key);
   var widthValue = Get.width * 0.024;
   var heightValue = Get.height * 0.024;
 

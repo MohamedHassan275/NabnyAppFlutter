@@ -52,7 +52,7 @@ class FactoryDetailsScreen extends StatelessWidget {
                 Positioned(
                     bottom: heightValue * 3,
                     child: CustomButtonImage(title: 'request_price2'.tr, hight: 50, onTap: () {
-                      Get.to(RequirementsRequestOfferPriceScreen(companyId: '${companiesResponseModel.id}',));
+                      Get.to(RequirementsRequestOfferPriceScreen(companyId: '${companiesResponseModel.id}', my_location: ''));
                     },)),
               ],
             ),
