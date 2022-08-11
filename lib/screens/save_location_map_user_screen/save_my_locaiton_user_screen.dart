@@ -155,10 +155,10 @@ class _SaveMyLocationUserScreenState extends State<SaveMyLocationUserScreen> {
                             //     .language!
                             //     .languageCode);
                             if(widget.result.contains('my_location')){
-                              CustomFlutterToast('${widget.result}');
+                             // CustomFlutterToast('${widget.result}');
                               Get.off(RequirementsRequestOfferPriceScreen(companyId: widget.companyId, my_location: Location,));
                             }else if(widget.result.contains('myAddress')){
-                              CustomFlutterToast('${widget.result}');
+                            //  CustomFlutterToast('${widget.result}');
                               Get.find<SaveMyLocationController>().SaveMyLocationFromMap(latlong?.latitude, latlong?.longitude, Location,Location);
                             }
 

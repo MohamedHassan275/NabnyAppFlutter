@@ -65,7 +65,7 @@ class _RequirementsRequestOfferPriceScreenState
     formattedDateCurrent = formatter.format(now);
     print(formattedDateCurrent); // 2016-01-25
     print(widget.companyId);// 2016-01-25
-    CustomFlutterToast('${widget.companyId}');
+   // CustomFlutterToast('${widget.companyId}');
   }
 
   @override
@@ -326,19 +326,22 @@ class _RequirementsRequestOfferPriceScreenState
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text("Your_location_map".tr,
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 2,
-                                      style: TextStyle(
-                                          fontFamily: 'FF Shamel Family',
-                                          fontSize: 15,
-                                          color: Themes.ColorApp8),
+                                    Visibility(
+                                      visible: true,
+                                      child: Text(widget.my_location.contains('') ? "Your_location_map".tr : "",
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 2,
+                                        style: TextStyle(
+                                            fontFamily: 'FF Shamel Family',
+                                            fontSize: 15,
+                                            color: Themes.ColorApp8),
+                                      ),
                                     ),
                                     SizedBox(
                                       width: widthValue * .5,
                                     ),
                                     Text(
-                                      widget.my_location == null ? "" : widget.my_location,
+                                      widget.my_location.contains('') ? widget.my_location : ""  ,
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 2,
                                       style: TextStyle(
@@ -561,8 +564,8 @@ class _RequirementsRequestOfferPriceScreenState
                             onTap: () {
                               if (formattedDate == null) {
                                 CustomFlutterToast("date_must_request".tr);
-                              }else  if (widget.my_location == null) {
-                                CustomFlutterToast("my".tr);
+                              }else  if (widget.my_location.contains('')) {
+                                CustomFlutterToast("Your_location_map2".tr);
                               } else if (!(formattedDateCurrent!.compareTo(formattedDate!) <= 0)) {
                                 CustomFlutterToast("Invalid_order_date".tr);
                               } else {

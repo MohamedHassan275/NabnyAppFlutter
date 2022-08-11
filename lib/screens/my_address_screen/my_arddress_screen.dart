@@ -37,23 +37,25 @@ class MyAddressScreen extends StatelessWidget {
                     height: heightValue * 1,
                   ),
                   Expanded(
-                    flex: 6,
-                    child: GetBuilder<MyAddressController>(
-                      init: MyAddressController(),
-                        builder: (controller){
-                        if (controller.loading){
-                          return LoadingWidget(data: '');
-                        }
-                        if (controller.locationResponseModel!.isNotEmpty){
-                          return ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: controller.locationResponseModel!.length,
-                            itemBuilder: (context, index) => AddressDetailsOrder(locationResponseModel: controller.locationResponseModel![index],));
-                        }else {
-                          return NoItemOFList();
-                        }
-                    }),
+                    flex: 5,
+                    child: SingleChildScrollView(
+                      child: GetBuilder<MyAddressController>(
+                        init: MyAddressController(),
+                          builder: (controller){
+                          if (controller.loading){
+                            return LoadingWidget(data: '');
+                          }
+                          if (controller.locationResponseModel!.isNotEmpty){
+                            return ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: controller.locationResponseModel!.length,
+                              itemBuilder: (context, index) => AddressDetailsOrder(locationResponseModel: controller.locationResponseModel![index],));
+                          }else {
+                            return NoItemOFList();
+                          }
+                      }),
+                    ),
                   ),
 
                   Expanded(
