@@ -326,16 +326,13 @@ class _RequirementsRequestOfferPriceScreenState
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Visibility(
-                                      visible: true,
-                                      child: Text(widget.my_location.contains('') ? "Your_location_map".tr : "",
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 2,
-                                        style: TextStyle(
-                                            fontFamily: 'FF Shamel Family',
-                                            fontSize: 15,
-                                            color: Themes.ColorApp8),
-                                      ),
+                                    Text(widget.my_location.contains('') ?  "" : "Your_location_map".tr,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                      style: TextStyle(
+                                          fontFamily: 'FF Shamel Family',
+                                          fontSize: 15,
+                                          color: Themes.ColorApp8),
                                     ),
                                     SizedBox(
                                       width: widthValue * .5,
@@ -343,7 +340,7 @@ class _RequirementsRequestOfferPriceScreenState
                                     Text(
                                       widget.my_location.contains('') ? widget.my_location : ""  ,
                                       overflow: TextOverflow.ellipsis,
-                                      maxLines: 2,
+                                      maxLines: 1,
                                       style: TextStyle(
                                         fontFamily: 'FF Shamel Family',
                                         fontSize: 15,
