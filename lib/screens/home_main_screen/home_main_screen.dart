@@ -257,7 +257,7 @@ class UserDetailsInMenu extends StatelessWidget {
                   radius: 45,
                   child: ClipOval(
                     child: Image.asset(
-                      Assets.imagesFactoryImage,
+                      Assets.imagesImageLogoApp,
                       fit: BoxFit.cover,
                       width: 82,
                       height: 82,

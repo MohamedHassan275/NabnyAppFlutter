@@ -87,36 +87,7 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
                     ],
                   ),
                   SizedBox(
-                    height: heightValue * 1.5,
-                  ),
-                  Stack(
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: Themes.ColorApp16,
-                        radius: 75,
-                        child: ClipOval(
-                          child: Image.asset(
-                            Assets.imagesFactoryImage,
-                            fit: BoxFit.cover,
-                            width: 137,
-                            height: 137,
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: heightValue * .3,
-                        right: widthValue * 1,
-                        child: Image.asset(
-                          Assets.imagesEditIamge,
-                          fit: BoxFit.cover,
-                          width: 35,
-                          height: 35,
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: heightValue * 1.5,
+                    height: heightValue * 3,
                   ),
                   UserDetailsWidget(
                     profileUserResponseModel: controller.profileUserModel,
@@ -161,6 +132,7 @@ class UserDetailsWidget extends StatelessWidget {
       required this.widthValue,
       required this.heightValue});
 
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -169,6 +141,7 @@ class UserDetailsWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 25),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
                 child: FromTextProfileShared(
