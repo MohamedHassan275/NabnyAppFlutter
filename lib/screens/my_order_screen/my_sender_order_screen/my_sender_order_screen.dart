@@ -93,7 +93,7 @@ class MySendOrderListItem extends StatelessWidget {
                     ),
                     SizedBox(width: widthValue * .5,),
                     Text(
-                      '${sendOrder.qtyM}',
+                      '${sendOrder.offerCost}',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 14,

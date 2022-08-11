@@ -48,17 +48,12 @@ class MyOrderScreen extends StatelessWidget {
             ),
           ),
         ),
-        body: RefreshIndicator(
-          onRefresh: () async{
-            myNewOrderController.getMyNewOrderUser();
-          },
-          child: TabBarView(children: <Widget>[
-            MyWaitingOrderScreen(),
-            MySenderOrderScreen(),
-            MyCurrentOrderScreen(),
-            MyPreviousOrderScreen(),
-          ]),
-        ),
+        body: TabBarView(children: <Widget>[
+          MyWaitingOrderScreen(),
+          MySenderOrderScreen(),
+          MyCurrentOrderScreen(),
+          MyPreviousOrderScreen(),
+        ]),
       ),
     );
   }

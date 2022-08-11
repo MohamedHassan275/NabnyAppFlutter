@@ -18,6 +18,7 @@ import '../category_details_screen/category_details_screen.dart';
 import '../factory_offer_price_screen/factory_offer_price_controller.dart';
 import '../location_map_user_screen/google_map_locaiton_user_screen.dart';
 import '../my_favorite_screen/my_favorite_controller.dart';
+import '../my_order_screen/my_wating_order_screen/my_waiting_order_controller.dart';
 import '../requirements_request_offer_price_screen/requirements_request_offer_price_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -27,8 +28,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     HomeController homeController =  Get.put(HomeController());
     HomeMainController homeMainController = Get.put(HomeMainController());
-    RequestOfferPriceController priceController = Get.put(RequestOfferPriceController());
-
+    MyNewOrderController myNewOrderController = Get.put(MyNewOrderController());
     var widthValue = Get.width * 0.024;
     var heightValue = Get.height * 0.024;
     return Scaffold(
@@ -36,6 +36,7 @@ class HomeScreen extends StatelessWidget {
           onRefresh: () async{
             homeController.getHomeDetailsUser();
             homeMainController.getProfileDetailsUser();
+            myNewOrderController.getMyNewOrderUser();
           //  priceController.getRequestOfferPrice();
            // myFavoriteController.getFavoriteUserList();
           },
