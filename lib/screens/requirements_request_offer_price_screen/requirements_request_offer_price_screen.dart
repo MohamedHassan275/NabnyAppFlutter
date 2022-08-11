@@ -305,54 +305,79 @@ class _RequirementsRequestOfferPriceScreenState
                         SizedBox(
                           height: heightValue * .7,
                         ),
-                        InkWell(
-                          onTap: () async {
-                            Get.to(SaveMyLocationUserScreen(result: 'my_location', companyId: widget.companyId,));
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 25),
-                            child: Container(
-                              height: 65,
-                              width: Get.width,
-                              decoration: BoxDecoration(
-                                  color: Themes.whiteColor,
-                                  borderRadius: BorderRadius.circular(25),
-                                  border: Border.all(
-                                      color: Themes.ColorApp2, width: 1)),
-                              child: Padding(
-                                padding:
-                                const EdgeInsets.symmetric(horizontal: 10),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(widget.my_location.contains('') ?  "" : "Your_location_map".tr,
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 2,
-                                      style: TextStyle(
-                                          fontFamily: 'FF Shamel Family',
-                                          fontSize: 15,
-                                          color: Themes.ColorApp8),
-                                    ),
-                                    SizedBox(
-                                      width: widthValue * .5,
-                                    ),
-                                    Text(
-                                      widget.my_location.contains('') ? widget.my_location : ""  ,
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
-                                      style: TextStyle(
-                                        fontFamily: 'FF Shamel Family',
-                                        fontSize: 15,
-                                        color: Themes.ColorApp8,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
+                        // InkWell(
+                        //   onTap: () async {
+                        //     Get.to(SaveMyLocationUserScreen(result: 'my_location', companyId: widget.companyId,));
+                        //   },
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.symmetric(horizontal: 25),
+                        //     child: Container(
+                        //       height: 65,
+                        //       width: Get.width,
+                        //       decoration: BoxDecoration(
+                        //           color: Themes.whiteColor,
+                        //           borderRadius: BorderRadius.circular(25),
+                        //           border: Border.all(
+                        //               color: Themes.ColorApp2, width: 1)),
+                        //       child: Padding(
+                        //         padding:
+                        //         const EdgeInsets.symmetric(horizontal: 10),
+                        //         child: Row(
+                        //           mainAxisAlignment: MainAxisAlignment.start,
+                        //           crossAxisAlignment: CrossAxisAlignment.center,
+                        //           children: [
+                        //             Expanded(
+                        //               flex: 1,
+                        //               child: Text(widget.my_location.contains('') ? "Your_location_map".tr : "",
+                        //                 overflow: TextOverflow.ellipsis,
+                        //                 maxLines: 2,
+                        //                 style: TextStyle(
+                        //                     fontFamily: 'FF Shamel Family',
+                        //                     fontSize: 15,
+                        //                     color: Themes.ColorApp8),
+                        //               ),
+                        //             ),
+                        //             SizedBox(
+                        //               width: widthValue * .5,
+                        //             ),
+                        //             Expanded(
+                        //               flex: 2,
+                        //               child: Text(
+                        //                 widget.my_location.contains('') ? widget.my_location : ""  ,
+                        //                 overflow: TextOverflow.ellipsis,
+                        //                 maxLines: 1,
+                        //                 style: TextStyle(
+                        //                   fontFamily: 'FF Shamel Family',
+                        //                   fontSize: 15,
+                        //                   color: Themes.ColorApp8,
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //           ],
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+                        FromTextRegisterShared(
+                            labelText: 'Your_location'.tr,
+                            onChanged: (value) {
+                              setState(() {
+                                myLocationInMap = value;
+                              });
+                            },
+                            readOnly: false,
+                            maxLines: 1,
+                            isPassword: false,
+                            onTapValidator: (value) {
+                              if (value!.isEmpty) {
+                                return 'must_not_empty'.tr;
+                              }
+                              return null;
+                            },
+                            keyboardType: TextInputType.text,
+                            Controller: MyLocationInMap,
+                            hintText: 'Your_location'.tr),
                         SizedBox(
                           height: heightValue * .7,
                         ),
@@ -559,11 +584,13 @@ class _RequirementsRequestOfferPriceScreenState
                             title: 'send'.tr,
                             hight: 50,
                             onTap: () {
+                              //   if (widget.my_location.contains('')) {
+                              // CustomFlutterToast("Your_location_map2".tr);
+                              // }
+                              // CustomFlutterToast(widget.my_location);
                               if (formattedDate == null) {
                                 CustomFlutterToast("date_must_request".tr);
-                              }else  if (widget.my_location.contains('')) {
-                                CustomFlutterToast("Your_location_map2".tr);
-                              } else if (!(formattedDateCurrent!.compareTo(formattedDate!) <= 0)) {
+                              }else if (!(formattedDateCurrent!.compareTo(formattedDate!) <= 0)) {
                                 CustomFlutterToast("Invalid_order_date".tr);
                               } else {
                                 String WithPump =
