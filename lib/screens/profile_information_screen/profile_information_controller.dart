@@ -5,18 +5,23 @@ import 'package:nabny/core/servies/storage_service.dart';
 import 'package:nabny/model/profile_user_model.dart';
 import 'package:nabny/repositries/servies_api/MyServiceApi.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
+import 'package:path/path.dart';
+import 'package:async/async.dart';
+import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class ProfileInformationController extends GetxController {
   bool isLoading = false;
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  ProfileUserResponseModel? _profileUserModel;
+  ProfileUserResponseModel? ProfileUserModel;
 
   get isloading => isLoading;
   get formKey => _formKey;
-  get profileUserModel => _profileUserModel;
+  get profileUserModel => ProfileUserModel;
 
   setprofileUser(ProfileUserResponseModel? profile){
-    _profileUserModel = profile;
+    ProfileUserModel = profile;
   }
   setLoading(bool loading) {
     isLoading = loading;
@@ -52,4 +57,6 @@ class ProfileInformationController extends GetxController {
       }
     });
   }
+
+
 }

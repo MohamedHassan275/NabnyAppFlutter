@@ -1,5 +1,10 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/core/widget/custom_circler_progress_indicator_widget.dart';
@@ -24,12 +29,25 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
   TextEditingController FirstName = TextEditingController();
   TextEditingController LastName = TextEditingController();
   TextEditingController EmailAddress = TextEditingController();
-  
+  final ImagePicker _picker = ImagePicker();
+  File? image;
+
+  Future PickImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+      final iamgeTempoary = File(image.path);
+      setState(() => this.image = iamgeTempoary);
+    } on PlatformException catch (e) {
+      print('failed to pick image $e');
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Get.lazyPut(()=>ProfileInformationController());
+    Get.lazyPut(() => ProfileInformationController());
   }
 
   @override
@@ -76,7 +94,10 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
                           child: CircleAvatar(
                             backgroundColor: Themes.ColorApp5,
                             child: Icon(
-                              Get.find<StorageService>().activeLocale.languageCode == "en"
+                              Get.find<StorageService>()
+                                          .activeLocale
+                                          .languageCode ==
+                                      "en"
                                   ? Icons.keyboard_arrow_right
                                   : Icons.keyboard_arrow_left,
                               color: Colors.white,
@@ -87,7 +108,91 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
                     ],
                   ),
                   SizedBox(
-                    height: heightValue * 3,
+                    height: heightValue * 1.5,
+                  ),
+                  controller.ProfileUserModel!.image != null
+                      ? Stack(
+                          children: [
+                            image != null
+                                ? GestureDetector(
+                                    onTap: () => PickImage(),
+                                    child: ClipOval(
+                                      child: Image.file(
+                                        image!,
+                                        width: 137,
+                                        height: 137,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  )
+                                : GestureDetector(
+                                    onTap: () => PickImage(),
+                                    child: ClipOval(
+                                      child: FadeInImage(
+                                        image: NetworkImage(
+                                            '${controller.ProfileUserModel!.image}'),
+                                        fit: BoxFit.fill,
+                                        height: 137,
+                                        width: 137,
+                                        placeholder: AssetImage(
+                                            Assets.imagesFactoryImage),
+                                      ),
+                                    ),
+                                  ),
+                            Positioned(
+                              bottom: heightValue * .3,
+                              right: widthValue * 1,
+                              child: Image.asset(
+                                Assets.imagesEditIamge,
+                                fit: BoxFit.cover,
+                                width: 35,
+                                height: 35,
+                              ),
+                            )
+                          ],
+                        )
+                      : Stack(
+                          children: [
+                            image != null
+                                ? GestureDetector(
+                              onTap: () => PickImage(),
+                                    child: ClipOval(
+                                      child: Image.file(
+                                        image!,
+                                        width: 137,
+                                        height: 137,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  )
+                                : GestureDetector(
+                                    onTap: () => PickImage(),
+                                    child: CircleAvatar(
+                                      backgroundColor: Themes.ColorApp1,
+                                      radius: 75,
+                                      child: ClipOval(
+                                        child: Image.asset(
+                                          Assets.imagesImageLogoApp,
+                                          fit: BoxFit.fill,
+                                          color: Themes.whiteColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                            Positioned(
+                              bottom: heightValue * .3,
+                              right: widthValue * 1,
+                              child: Image.asset(
+                                Assets.imagesEditIamge,
+                                fit: BoxFit.cover,
+                                width: 35,
+                                height: 35,
+                              ),
+                            )
+                          ],
+                        ),
+                  SizedBox(
+                    height: heightValue * 1.5,
                   ),
                   UserDetailsWidget(
                     profileUserResponseModel: controller.profileUserModel,
@@ -100,21 +205,108 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
                   SizedBox(
                     height: heightValue * 2.5,
                   ),
-                  CirclerProgressIndicatorWidget(isLoading: controller.isLoading ? true : false),
+                  CirclerProgressIndicatorWidget(
+                      isLoading: controller.isLoading ? true : false),
                   SizedBox(
                     height: heightValue * 1,
                   ),
                   CustomButtonImage(
                       title: 'save'.tr,
                       hight: 50,
-                      onTap: () => Get.find<ProfileInformationController>().updateProfileUser(FirstName.text, LastName.text, EmailAddress.text,
-                          '', Get.find<StorageService>().GetToken))
+                      onTap: () => Get.find<ProfileInformationController>()
+                          .updateProfileUser(
+                              FirstName.text,
+                              LastName.text,
+                              EmailAddress.text,
+                              '',
+                              Get.find<StorageService>().GetToken))
                 ],
               ),
             ),
           ),
         ),
       )),
+    );
+  }
+}
+
+class BottomSheetItem extends StatefulWidget {
+  BottomSheetItem({Key? key}) : super(key: key);
+
+  @override
+  State<BottomSheetItem> createState() => _BottomSheetItemState();
+}
+
+class _BottomSheetItemState extends State<BottomSheetItem> {
+  @override
+  Widget build(BuildContext context) {
+    var heightValue = Get.height * 0.024;
+    var widthValue = Get.width * 0.024;
+    return SizedBox(
+      width: Get.width,
+      height: 485,
+      child: Padding(
+        padding: const EdgeInsets.all(7.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 100),
+              child: Container(
+                width: Get.width,
+                height: 5,
+                decoration: BoxDecoration(
+                    color: Themes.ColorApp11,
+                    borderRadius: BorderRadius.circular(10)),
+              ),
+            ),
+            SizedBox(
+              height: heightValue * 1.5,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 35),
+              child: Text(
+                'chose_photo'.tr,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Themes.ColorApp8,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: heightValue * 1,
+            ),
+            Column(
+              children: [
+                SizedBox(
+                  height: heightValue * .5,
+                ),
+                CustomButtonWithImage(
+                  title: 'pick_gallery'.tr,
+                  hight: 50,
+                  onTap: () {},
+                  icon: Icons.image_outlined,
+                ),
+                SizedBox(
+                  height: heightValue * 1.2,
+                ),
+                CustomButtonWithImage(
+                  title: 'pick_camera'.tr,
+                  hight: 50,
+                  onTap: () {},
+                  icon: Icons.camera_alt_outlined,
+                ),
+                SizedBox(
+                  height: heightValue * .7,
+                )
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }
@@ -132,7 +324,6 @@ class UserDetailsWidget extends StatelessWidget {
       required this.widthValue,
       required this.heightValue});
 
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -145,7 +336,9 @@ class UserDetailsWidget extends StatelessWidget {
             children: [
               Expanded(
                 child: FromTextProfileShared(
-                    labelText: profileUserResponseModel?.firstname == null ? '' : '${profileUserResponseModel?.firstname}',
+                    labelText: profileUserResponseModel?.firstname == null
+                        ? ''
+                        : '${profileUserResponseModel?.firstname}',
                     isPassword: false,
                     onTapValidator: (value) {
                       if (value!.isEmpty) {
@@ -162,7 +355,9 @@ class UserDetailsWidget extends StatelessWidget {
               ),
               Expanded(
                 child: FromTextProfileShared(
-                    labelText: profileUserResponseModel?.lastname == null ? '' : '${profileUserResponseModel?.lastname}',
+                    labelText: profileUserResponseModel?.lastname == null
+                        ? ''
+                        : '${profileUserResponseModel?.lastname}',
                     onTapValidator: (value) {
                       if (value!.isEmpty) {
                         return 'must_not_empty'.tr;
@@ -181,7 +376,9 @@ class UserDetailsWidget extends StatelessWidget {
           height: heightValue * 1,
         ),
         FromTextRegisterShared(
-            labelText: profileUserResponseModel?.email == null ? '' : '${profileUserResponseModel?.email}',
+            labelText: profileUserResponseModel?.email == null
+                ? ''
+                : '${profileUserResponseModel?.email}',
             readOnly: false,
             onTapValidator: (value) {
               if (value!.isEmpty) {

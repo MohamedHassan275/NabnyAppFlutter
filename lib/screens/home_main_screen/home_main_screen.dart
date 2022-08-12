@@ -252,15 +252,24 @@ class UserDetailsInMenu extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                profileUserResponseModel!.image !=null ?
+                ClipOval(
+                  child: FadeInImage(
+                    image: NetworkImage('${profileUserResponseModel!.image}'),
+                    fit: BoxFit.cover,
+                    height: 82,
+                    width: 82,
+                    placeholder: const AssetImage(Assets.imagesFactoryImage),
+                  ),
+                ) :
                 CircleAvatar(
-                  backgroundColor: Themes.ColorApp16,
+                  backgroundColor: Themes.ColorApp1,
                   radius: 45,
                   child: ClipOval(
                     child: Image.asset(
                       Assets.imagesImageLogoApp,
-                      fit: BoxFit.cover,
-                      width: 82,
-                      height: 82,
+                      fit: BoxFit.contain,
+                      color: Themes.whiteColor,
                     ),
                   ),
                 ),

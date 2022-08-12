@@ -139,6 +139,38 @@ class CustomButtonImage extends StatelessWidget {
   }
 }
 
+class CustomButtonWithImage extends StatelessWidget {
+  CustomButtonWithImage({required this.title,required this.hight,required this.icon,required this.onTap});
+  double hight;
+  String title;
+  IconData icon;
+  VoidCallback? onTap;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: Get.width,
+        height: hight,
+        decoration: BoxDecoration(
+          color: Themes.whiteColor,
+          borderRadius: BorderRadius.circular(15)
+        ),
+        child: Row(
+          children: [
+            Icon(icon,size: 25,),
+            SizedBox(width: 16,),
+            Text(title,style: TextStyle(
+              color: Themes.whiteColor,
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+            )),
+          ],
+        ),
+      ),
+    );
+  }
+}
 class CustomButtonImage2 extends StatelessWidget {
   CustomButtonImage2({required this.title,required this.hight,required this.width, required this.onTap});
   double hight,width;

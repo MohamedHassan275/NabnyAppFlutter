@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
@@ -1008,13 +1009,14 @@ class MyServiceApi {
   }
 
   static Future<CheckMobileUserModel?> updateProfileUser(String firstname,
-      String lastname, String Authorization, String email, String image) async {
+      String lastname, String Authorization, String email, File image) async {
     CheckMobileUserModel? checkMobileModel;
+    String fileName = image.path.split('/').last;
     var fromData = FormData.fromMap({
       'firstname': firstname,
       'lastname': lastname,
       'email': email,
-      'image': image,
+      "image": await MultipartFile.fromFile(image.path, filename:fileName),
     });
     try {
       Response response = await Dio().post(URL + 'updateprofile',
