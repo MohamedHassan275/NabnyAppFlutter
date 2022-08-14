@@ -24,168 +24,173 @@ class DetailsSenderOrderScreen extends StatelessWidget {
     var widthValue = Get.width * 0.024;
     MySendOrderController mySendOrderController = Get.put(MySendOrderController());
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            width: Get.width,
-            height: Get.height,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppbarDetailsOrder(widthValue, heightValue),
-                      SizedBox(
-                        height: heightValue * 1.2,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: Card(
-                          elevation: 2.0,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                AddressDetailsOrder(sendOrder: sendOrder,),
-                                SizedBox(
-                                  height: heightValue * .7,
-                                ),
-                                Divider(
-                                  height: 10,
-                                  color: Themes.ColorApp2,
-                                ),
-                                SizedBox(
-                                  height: heightValue * .7,
-                                ),
-                                DetailsOrder(widthValue, 'type_of_casting'.tr, '${sendOrder.castingType}'),
-                                SizedBox(
-                                  height: heightValue * .7,
-                                ),
-                                DetailsOrder(widthValue, 'execution_date'.tr, '${sendOrder.executionDate}'),
-                                SizedBox(
-                                  height: heightValue * .7,
-                                ),
-                                DetailsOrder(widthValue, 'quantity'.tr, '${sendOrder.qtyM}'),
-                                SizedBox(
-                                  height: heightValue * .7,
-                                ),
-                                DetailsOrder(widthValue, 'mix_type'.tr, '${sendOrder.mixType}'),
-                                SizedBox(
-                                  height: heightValue * .7,
-                                ),
-                                DetailsOrder(widthValue, 'cement_type'.tr, '${sendOrder.cementType}'),
-                                SizedBox(
-                                  height: heightValue * .7,
-                                ),
-                                DetailsOrder(widthValue, 'stone_size'.tr, '${sendOrder.stoneSize}'),
-                                SizedBox(
-                                  height: heightValue * .7,
-                                ),
-                                DetailsOrder(widthValue, 'Special_specifications'.tr, '${sendOrder.specialDescription}'),
-                                SizedBox(
-                                  height: heightValue * .7,
-                                ),
-                                DetailsOrder(widthValue, 'pump_order'.tr, sendOrder.withPump!.contains('1') ? 'pump_order'.tr : 'with_out_pump'.tr),
-                                SizedBox(
-                                  height: heightValue * .7,
-                                ),
-                                Container(
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                      color: Themes.ColorApp14,
-                                      borderRadius: BorderRadius.circular(25)
+      body: RefreshIndicator(
+        onRefresh: () async{
+          mySendOrderController.getMySendOrderUser();
+        },
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Container(
+              width: Get.width,
+              height: Get.height,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppbarDetailsOrder(widthValue, heightValue),
+                        SizedBox(
+                          height: heightValue * 1.2,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          child: Card(
+                            elevation: 2.0,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  AddressDetailsOrder(sendOrder: sendOrder,),
+                                  SizedBox(
+                                    height: heightValue * .7,
                                   ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'The_cost_bid'.tr,
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 18,
-                                            color: Themes.ColorApp8,
+                                  Divider(
+                                    height: 10,
+                                    color: Themes.ColorApp2,
+                                  ),
+                                  SizedBox(
+                                    height: heightValue * .7,
+                                  ),
+                                  DetailsOrder(widthValue, 'type_of_casting'.tr, '${sendOrder.castingType}'),
+                                  SizedBox(
+                                    height: heightValue * .7,
+                                  ),
+                                  DetailsOrder(widthValue, 'execution_date'.tr, '${sendOrder.executionDate}'),
+                                  SizedBox(
+                                    height: heightValue * .7,
+                                  ),
+                                  DetailsOrder(widthValue, 'quantity'.tr, '${sendOrder.qtyM}'),
+                                  SizedBox(
+                                    height: heightValue * .7,
+                                  ),
+                                  DetailsOrder(widthValue, 'mix_type'.tr, '${sendOrder.mixType}'),
+                                  SizedBox(
+                                    height: heightValue * .7,
+                                  ),
+                                  DetailsOrder(widthValue, 'cement_type'.tr, '${sendOrder.cementType}'),
+                                  SizedBox(
+                                    height: heightValue * .7,
+                                  ),
+                                  DetailsOrder(widthValue, 'stone_size'.tr, '${sendOrder.stoneSize}'),
+                                  SizedBox(
+                                    height: heightValue * .7,
+                                  ),
+                                  DetailsOrder(widthValue, 'Special_specifications'.tr, '${sendOrder.specialDescription}'),
+                                  SizedBox(
+                                    height: heightValue * .7,
+                                  ),
+                                  DetailsOrder(widthValue, 'pump_order'.tr, sendOrder.withPump!.contains('1') ? 'pump_order'.tr : 'with_out_pump'.tr),
+                                  SizedBox(
+                                    height: heightValue * .7,
+                                  ),
+                                  Container(
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        color: Themes.ColorApp14,
+                                        borderRadius: BorderRadius.circular(25)
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'The_cost_bid'.tr,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 18,
+                                              color: Themes.ColorApp8,
+                                            ),
                                           ),
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              '${sendOrder.qtyM}',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 16,
-                                                color: Themes.ColorApp1,
+                                          Row(
+                                            children: [
+                                              Text(
+                                                '${sendOrder.offerCost}',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 16,
+                                                  color: Themes.ColorApp1,
+                                                ),
                                               ),
-                                            ),
-                                            SizedBox(width: widthValue * .3,),
-                                            Text(
-                                              'sar'.tr,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 16,
-                                                color: Themes.ColorApp1,
+                                              SizedBox(width: widthValue * .3,),
+                                              Text(
+                                                'sar'.tr,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 16,
+                                                  color: Themes.ColorApp1,
+                                                ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: heightValue * 1.2,
-                                ),
-                              ],
+                                  SizedBox(
+                                    height: heightValue * 1.2,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(height: heightValue * 2,),
-                  CirclerProgressIndicatorWidget(isLoading: mySendOrderController.Loading ? true : false),
-                  SizedBox(height: heightValue * 1.5,),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CustomButtonImage(title: 'accept'.tr, hight: 50, onTap: (){
-                      //  CustomFlutterToast(sendOrder.id.toString());
-                        mySendOrderController.AcceptOrder(sendOrder.id.toString(), '');
-                      }),
-                      SizedBox(height: heightValue * 1.2,),
-                      GestureDetector(
-                        onTap: (){
-                         // CustomFlutterToast(sendOrder.id.toString());
-                          mySendOrderController.CancelOrder(sendOrder.id.toString());
-                        },
-                        child: Container(
-                          width: Get.width,
-                          height: 50,
-                          child: Center(
-                            child:  Text(
-                              'cancel_order'.tr,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16,
-                                color: Themes.ColorApp9,
+                        )
+                      ],
+                    ),
+                    SizedBox(height: heightValue * 2,),
+                    CirclerProgressIndicatorWidget(isLoading: mySendOrderController.Loading ? true : false),
+                    SizedBox(height: heightValue * 1.5,),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CustomButtonImage(title: 'accept'.tr, hight: 50, onTap: (){
+                        //  CustomFlutterToast(sendOrder.id.toString());
+                          mySendOrderController.AcceptOrder(sendOrder.id.toString(), '');
+                        }),
+                        SizedBox(height: heightValue * 1.2,),
+                        GestureDetector(
+                          onTap: (){
+                           // CustomFlutterToast(sendOrder.id.toString());
+                            mySendOrderController.CancelOrder(sendOrder.id.toString());
+                          },
+                          child: Container(
+                            width: Get.width,
+                            height: 50,
+                            child: Center(
+                              child:  Text(
+                                'cancel_order'.tr,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16,
+                                  color: Themes.ColorApp9,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(height: heightValue * 1.5,),
-                    ],
-                  ),
-                  SizedBox(height: heightValue * 2,)
-                ],
+                        SizedBox(height: heightValue * 1.5,),
+                      ],
+                    ),
+                    SizedBox(height: heightValue * 2,)
+                  ],
+                ),
               ),
             ),
           ),

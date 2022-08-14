@@ -26,43 +26,36 @@ class RequestOfferPriceMenuScreen extends StatelessWidget {
     var widthValue = Get.width * 0.024;
     var heightValue = Get.height * 0.024;
     return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: () async{
-          requestOfferPriceController.getRequestOfferPrice();
-        },
-        child: SafeArea(
+      body: SafeArea(
+        child: RefreshIndicator(
+          onRefresh: () async{
+            requestOfferPriceController.getRequestOfferPrice();
+          },
           child: SingleChildScrollView(
-            child: Column(
-              children: [
-                // AppbarDetailsOrder(widthValue, heightValue),
-                // SizedBox(height: heightValue * 1,),
-                GetBuilder<RequestOfferPriceController>(
-                  init: RequestOfferPriceController(),
-                  builder: (controller) {
-                    if(controller.Loading){
-                      return LoadingWidget(data: '');
-                    }
-                    print("is length ${controller.offerOrderRequestResponseModel!.length}");
-                    return controller.offerOrderRequestResponseModel!.isNotEmpty ?
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 0),
-                      child: ListView.builder(
-                        itemCount: controller.offerOrderRequestResponseModel!.length,
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return RequestOfferOrderItems(requestOfferOrderModel: controller.offerOrderRequestResponseModel![index]);
-                        },
-                      ),
-                    ) : NoItemOFList();
-                  },),
-                SizedBox(height: heightValue * 1,),
-                // CustomButtonImage(title: 'add_order'.tr, hight: 50, onTap: (){
-                //   Get.to(RequirementsRequestOfferPriceScreen(companyId: '',));
-                // }),
-                // SizedBox(height: heightValue * 1,),
-              ],
-            ),
+            child: GetBuilder<RequestOfferPriceController>(
+              init: RequestOfferPriceController(),
+              builder: (controller) {
+                if(controller.Loading){
+                  return LoadingWidget(data: '');
+                }
+                print("is length ${controller.offerOrderRequestResponseModel!.length}");
+                return controller.offerOrderRequestResponseModel!.isNotEmpty ?
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 0),
+                  child: ListView.builder(
+                    itemCount: controller.offerOrderRequestResponseModel!.length,
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return RequestOfferOrderItems(requestOfferOrderModel: controller.offerOrderRequestResponseModel![index]);
+                    },
+                  ),
+                ) : RefreshIndicator(
+                    onRefresh: ()async {
+                      requestOfferPriceController.getRequestOfferPrice();
+                    },
+                    child: NoItemOFList());
+              },)
           ),
         ),
       ),

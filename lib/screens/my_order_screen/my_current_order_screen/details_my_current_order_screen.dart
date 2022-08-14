@@ -117,7 +117,7 @@ class DetailsMyCurrentOrder extends StatelessWidget {
                                         Row(
                                           children: [
                                             Text(
-                                              '${currentOrder.qtyM}',
+                                              '${currentOrder.offerCost}',
                                               style: TextStyle(
                                                 fontWeight: FontWeight.w500,
                                                 fontSize: 16,
