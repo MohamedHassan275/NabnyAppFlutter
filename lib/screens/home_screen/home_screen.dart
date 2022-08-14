@@ -35,6 +35,7 @@ class HomeScreen extends StatelessWidget {
     MySendOrderController mySendOrderController = Get.put(MySendOrderController());
     MyCurrentOrderController myCurrentOrderController = Get.put(MyCurrentOrderController());
     MyPreviousOrderController myPreviousOrderController = Get.put(MyPreviousOrderController());
+    RequestOfferPriceController requestOfferPriceController = Get.put(RequestOfferPriceController());
     var widthValue = Get.width * 0.024;
     var heightValue = Get.height * 0.024;
     return Scaffold(
@@ -46,6 +47,7 @@ class HomeScreen extends StatelessWidget {
             mySendOrderController.getMySendOrderUser();
             myCurrentOrderController.getMyOrderUser();
             myPreviousOrderController.getPreviousMyOrderUser();
+            requestOfferPriceController.getRequestOfferPrice();
           //  priceController.getRequestOfferPrice();
            // myFavoriteController.getFavoriteUserList();
           },

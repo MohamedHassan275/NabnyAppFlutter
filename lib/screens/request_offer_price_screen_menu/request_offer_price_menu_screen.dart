@@ -50,11 +50,7 @@ class RequestOfferPriceMenuScreen extends StatelessWidget {
                       return RequestOfferOrderItems(requestOfferOrderModel: controller.offerOrderRequestResponseModel![index]);
                     },
                   ),
-                ) : RefreshIndicator(
-                    onRefresh: ()async {
-                      requestOfferPriceController.getRequestOfferPrice();
-                    },
-                    child: NoItemOFList());
+                ) : NoItemOFList();
               },)
           ),
         ),

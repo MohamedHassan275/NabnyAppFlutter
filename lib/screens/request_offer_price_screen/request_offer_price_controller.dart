@@ -34,7 +34,7 @@ class RequestOfferPriceController extends GetxController{
     MyServiceApi.GetRequestOfferPrice(Get.find<StorageService>().GetToken,Get.find<StorageService>().activeLocale.languageCode).then((value){
       if(value?.success == true){
         setLoading(false);
-        print(value?.offerOrderRequestResponseModel!.length);
+        print('offer Order Request is length${value?.offerOrderRequestResponseModel!.length}');
         setOfferOrder(value?.offerOrderRequestResponseModel);
       }else {
         setLoading(false);
