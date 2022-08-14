@@ -143,9 +143,6 @@ class DetailsSenderOrderScreen extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: heightValue * 1.2,
-                                  ),
                                 ],
                               ),
                             ),
@@ -153,41 +150,44 @@ class DetailsSenderOrderScreen extends StatelessWidget {
                         )
                       ],
                     ),
-                    SizedBox(height: heightValue * 2,),
-                    CirclerProgressIndicatorWidget(isLoading: mySendOrderController.Loading ? true : false),
-                    SizedBox(height: heightValue * 1.5,),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CustomButtonImage(title: 'accept'.tr, hight: 50, onTap: (){
-                        //  CustomFlutterToast(sendOrder.id.toString());
-                          mySendOrderController.AcceptOrder(sendOrder.id.toString(), '');
-                        }),
-                        SizedBox(height: heightValue * 1.2,),
-                        GestureDetector(
-                          onTap: (){
-                           // CustomFlutterToast(sendOrder.id.toString());
-                            mySendOrderController.CancelOrder(sendOrder.id.toString());
-                          },
-                          child: Container(
-                            width: Get.width,
-                            height: 50,
-                            child: Center(
-                              child:  Text(
-                                'cancel_order'.tr,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16,
-                                  color: Themes.ColorApp9,
+
+                    GetBuilder<MySendOrderController>(
+                      init: MySendOrderController(),
+                        builder: (controller) => Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(height: heightValue * 1.5,),
+                            CirclerProgressIndicatorWidget(isLoading: controller.Loading ? true : false),
+                            SizedBox(height: heightValue * .7,),
+                            CustomButtonImage(title: 'accept'.tr, hight: 50, onTap: (){
+                              //  CustomFlutterToast(sendOrder.id.toString());
+                              controller.AcceptOrder(sendOrder.id.toString(), '');
+                            }),
+                            SizedBox(height: heightValue * 1,),
+                            GestureDetector(
+                              onTap: (){
+                                // CustomFlutterToast(sendOrder.id.toString());
+                                controller.CancelOrder(sendOrder.id.toString());
+                              },
+                              child: Container(
+                                width: Get.width,
+                                height: 50,
+                                child: Center(
+                                  child:  Text(
+                                    'cancel_order'.tr,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16,
+                                      color: Themes.ColorApp9,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                        SizedBox(height: heightValue * 1.5,),
-                      ],
-                    ),
+                            SizedBox(height: heightValue * 1.5,),
+                          ],
+                        ),),
                     SizedBox(height: heightValue * 2,)
                   ],
                 ),
