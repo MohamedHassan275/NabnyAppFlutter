@@ -110,7 +110,7 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
                   SizedBox(
                     height: heightValue * 1.5,
                   ),
-                  controller.ProfileUserModel!.image != null
+                  controller.ProfileUserModel?.image != null
                       ? Stack(
                           children: [
                             image != null
@@ -314,7 +314,9 @@ class _BottomSheetItemState extends State<BottomSheetItem> {
 class UserDetailsWidget extends StatelessWidget {
   ProfileUserResponseModel? profileUserResponseModel;
   double heightValue, widthValue;
-  TextEditingController FirstName, LastName, Email;
+  TextEditingController FirstName = new TextEditingController();
+  TextEditingController LastName = new TextEditingController();
+  TextEditingController Email = new TextEditingController();
 
   UserDetailsWidget(
       {required this.profileUserResponseModel,
@@ -336,9 +338,7 @@ class UserDetailsWidget extends StatelessWidget {
             children: [
               Expanded(
                 child: FromTextProfileShared(
-                    labelText: profileUserResponseModel?.firstname == null
-                        ? ''
-                        : '${profileUserResponseModel?.firstname}',
+                  //  labelText: profileUserResponseModel?.firstname == null ? '' : '${profileUserResponseModel?.firstname}',
                     isPassword: false,
                     onTapValidator: (value) {
                       if (value!.isEmpty) {
@@ -346,18 +346,21 @@ class UserDetailsWidget extends StatelessWidget {
                       }
                       return null;
                     },
+                    onChanged: (value){
+                      profileUserResponseModel?.firstname= value;
+                    },
                     keyboardType: TextInputType.text,
                     Controller: FirstName,
-                    hintText: '${profileUserResponseModel?.firstname}'),
+                    hintText:  profileUserResponseModel?.firstname == null ? '' : '${profileUserResponseModel?.firstname}'),
               ),
               SizedBox(
                 height: widthValue * 1.5,
               ),
               Expanded(
                 child: FromTextProfileShared(
-                    labelText: profileUserResponseModel?.lastname == null
-                        ? ''
-                        : '${profileUserResponseModel?.lastname}',
+                    // labelText: profileUserResponseModel?.lastname == null
+                    //     ? ''
+                    //     : '${profileUserResponseModel?.lastname}',
                     onTapValidator: (value) {
                       if (value!.isEmpty) {
                         return 'must_not_empty'.tr;
@@ -367,7 +370,7 @@ class UserDetailsWidget extends StatelessWidget {
                     isPassword: false,
                     keyboardType: TextInputType.text,
                     Controller: LastName,
-                    hintText: '${profileUserResponseModel?.lastname}'),
+                    hintText:  profileUserResponseModel?.lastname == null ? '' : '${profileUserResponseModel?.lastname}'),
               ),
             ],
           ),
@@ -376,9 +379,9 @@ class UserDetailsWidget extends StatelessWidget {
           height: heightValue * 1,
         ),
         FromTextRegisterShared(
-            labelText: profileUserResponseModel?.email == null
-                ? ''
-                : '${profileUserResponseModel?.email}',
+            // labelText: profileUserResponseModel?.email == null
+            //     ? ''
+            //     : '${profileUserResponseModel?.email}',
             readOnly: false,
             onTapValidator: (value) {
               if (value!.isEmpty) {
@@ -391,7 +394,7 @@ class UserDetailsWidget extends StatelessWidget {
             isPassword: false,
             keyboardType: TextInputType.emailAddress,
             Controller: Email,
-            hintText: '${profileUserResponseModel?.email}'),
+            hintText:  profileUserResponseModel?.email == null ? '' : '${profileUserResponseModel?.email}'),
       ],
     );
   }

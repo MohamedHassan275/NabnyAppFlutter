@@ -201,8 +201,8 @@ class FromTextRegisterShared extends StatelessWidget {
         this.height,
         required this.keyboardType,
         this.suffixIcon,
-        required this.labelText,
-        required this.hintText,
+         this.labelText,
+         this.hintText,
         this.textAlign,
         this.isPassword});
 
@@ -286,7 +286,7 @@ class FromTextProfileShared extends StatelessWidget {
         this.height,
         required this.keyboardType,
         this.suffixIcon,
-        required this.labelText,
+        this.labelText,
         required this.hintText,
         this.textAlign,
         this.isPassword});

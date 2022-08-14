@@ -16,9 +16,9 @@ class MyNewOrderController extends GetxController {
 
   bool Loading = false;
 //  List<NewOrder>? _newOrder;
-  final RxList<NewOrder>? _newOrder = <NewOrder>[].obs;
+  final RxList _newOrder = [].obs;
   get loading => Loading;
-  List get newOrder => _newOrder!.value;
+  List get newOrder => _newOrder.value;
  // List<NewOrder>? get newOrder => _newOrder;
 
   setLoading(bool loading){
@@ -42,7 +42,7 @@ class MyNewOrderController extends GetxController {
       print("my newOrder order length is ${value?.newOrder!.length}");
       if(value?.success == true){
         setLoading(false);
-        _newOrder!.value = value!.newOrder!;
+        _newOrder.value = value!.newOrder!;
       }else if(value?.success == false){
         setLoading(false);
         CustomFlutterToast(value?.message);
