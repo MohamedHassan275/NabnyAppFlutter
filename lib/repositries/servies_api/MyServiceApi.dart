@@ -1023,8 +1023,7 @@ class MyServiceApi {
     try {
       Response response = await Dio().post(URL + 'updateprofile',
           data: fromData,
-          options:
-              Options(headers: {'Authorization': 'Bearer $Authorization'},receiveTimeout: 10000,sendTimeout: 10000));
+          options: Options(headers: {'Authorization': 'Bearer $Authorization'},receiveTimeout: 10000,sendTimeout: 10000));
 
       if (response.statusCode == 200) {
         print(response.statusCode);

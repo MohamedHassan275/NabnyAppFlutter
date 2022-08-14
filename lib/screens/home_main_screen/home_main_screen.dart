@@ -33,7 +33,7 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Get.lazyPut(() => HomeMainController());
+    Get.put(HomeMainController());
     Get.put(MyNewOrderController());
     Get.put(MySendOrderController());
   }
@@ -256,10 +256,10 @@ class UserDetailsInMenu extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                profileUserResponseModel!.image !=null ?
+                profileUserResponseModel?.image !=null ?
                 ClipOval(
                   child: FadeInImage(
-                    image: NetworkImage('${profileUserResponseModel!.image}'),
+                    image: NetworkImage('${profileUserResponseModel?.image}'),
                     fit: BoxFit.cover,
                     height: 82,
                     width: 82,

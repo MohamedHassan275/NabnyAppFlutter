@@ -213,13 +213,14 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
                   CustomButtonImage(
                       title: 'save'.tr,
                       hight: 50,
-                      onTap: () => Get.find<ProfileInformationController>()
-                          .updateProfileUser(
-                              FirstName.text,
-                              LastName.text,
-                              EmailAddress.text,
-                              image,
-                              Get.find<StorageService>().GetToken))
+                      onTap: (){
+                        Get.find<ProfileInformationController>().updateProfileUser(
+                            FirstName.text.isEmpty ? controller.ProfileUserModel!.firstname : FirstName.text,
+                            LastName.text.isEmpty ? controller.ProfileUserModel!.lastname : LastName.text,
+                            EmailAddress.text.isEmpty ? controller.ProfileUserModel!.email :EmailAddress.text,
+                            image == null ? File(controller.ProfileUserModel!.image!.split('/').last) : image,
+                            Get.find<StorageService>().GetToken);
+                      })
                 ],
               ),
             ),
