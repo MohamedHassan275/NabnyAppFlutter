@@ -88,36 +88,36 @@ class MySendOrderListItem extends StatelessWidget {
                       width: 15,
                       height: 15,
                       child: CircleAvatar(
-                        backgroundColor: Themes.ColorApp17,
+                        backgroundColor: Themes.ColorApp13,
                       ),
                     ),
                     SizedBox(width: widthValue * 1,),
                     Text(
-                      'cost_of_bid'.tr,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14,
-                        color: Themes.ColorApp17,
-                      ),
-                    ),
-                    SizedBox(width: widthValue * 1,),
-                    Text(
-                      '${currentOrder.offerCost}',
+                      'request_currently'.tr,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 14,
                         color: Themes.ColorApp1,
                       ),
                     ),
-                    SizedBox(width: widthValue * .5,),
-                    Text(
-                      'sar'.tr,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14,
-                        color: Themes.ColorApp1,
-                      ),
-                    ),
+                    SizedBox(width: widthValue * 1,),
+                    // Text(
+                    //   '${currentOrder.offerCost}',
+                    //   style: TextStyle(
+                    //     fontWeight: FontWeight.w500,
+                    //     fontSize: 14,
+                    //     color: Themes.ColorApp1,
+                    //   ),
+                    // ),
+                    // SizedBox(width: widthValue * .5,),
+                    // Text(
+                    //   'sar'.tr,
+                    //   style: TextStyle(
+                    //     fontWeight: FontWeight.w500,
+                    //     fontSize: 14,
+                    //     color: Themes.ColorApp1,
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

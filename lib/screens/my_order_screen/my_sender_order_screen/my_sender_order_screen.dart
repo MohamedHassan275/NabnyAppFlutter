@@ -18,8 +18,10 @@ class MySenderOrderScreen extends StatelessWidget {
     var heightValue = Get.height * 0.024;
     var widthValue = Get.width * 0.024;
     MySendOrderController mySendOrderController = Get.put(MySendOrderController());
+    GlobalKey<RefreshIndicatorState> _efreshIndicatorState = new GlobalKey<RefreshIndicatorState>();
     return Scaffold(
       body: RefreshIndicator(
+        key: _efreshIndicatorState,
         onRefresh: () async{
           mySendOrderController.getMySendOrderUser();
         },
@@ -248,7 +250,7 @@ class CompanyDetails extends StatelessWidget {
                 ],
               ),
               Text(
-                '${myCurrentOrderModel!.orderNumber}',
+                '${myCurrentOrderModel!.orderNumber}#',
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 13,
@@ -272,7 +274,16 @@ class CompanyDetails extends StatelessWidget {
                       Image.asset(Assets.iconsWalletMenuIcon,width: 15,height: 15,fit: BoxFit.contain,),
                       SizedBox(width: widthValue * 1,),
                       Text(
-                        '${myCurrentOrderModel!.orderNumber}',
+                        '${myCurrentOrderModel!.offerCost}',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                          color: Themes.ColorApp1,
+                        ),
+                      ),
+                      SizedBox(width: widthValue *.2,),
+                      Text(
+                        'sar'.tr,
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 12,

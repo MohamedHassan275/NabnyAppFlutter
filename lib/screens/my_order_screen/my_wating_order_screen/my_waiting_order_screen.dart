@@ -9,6 +9,9 @@ import 'package:nabny/screens/setting_screen/setting_screen.dart';
 
 import '../../../generated/assets.dart';
 import '../../../utils/Themes.dart';
+import '../my_current_order_screen/my_current_order_controller.dart';
+import '../my_previous_order_screen/my_previous_order_controller.dart';
+import '../my_sender_order_screen/my_send_order_controller.dart';
 
 class MyWaitingOrderScreen extends StatelessWidget {
    MyWaitingOrderScreen({Key? key}) : super(key: key);
@@ -18,10 +21,16 @@ class MyWaitingOrderScreen extends StatelessWidget {
     var heightValue = Get.height * 0.024;
     var widthValue = Get.width * 0.024;
     MyNewOrderController myNewOrderController = Get.put(MyNewOrderController());
+    MySendOrderController mySendOrderController = Get.put(MySendOrderController());
+    MyCurrentOrderController myCurrentOrderController = Get.put(MyCurrentOrderController());
+    MyPreviousOrderController myPreviousOrderController = Get.put(MyPreviousOrderController());
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async{
           myNewOrderController.getMyNewOrderUser();
+          mySendOrderController.getMySendOrderUser();
+          myCurrentOrderController.getMyOrderUser();
+          myPreviousOrderController.getPreviousMyOrderUser();
         },
         child: SafeArea(
             child: SingleChildScrollView(

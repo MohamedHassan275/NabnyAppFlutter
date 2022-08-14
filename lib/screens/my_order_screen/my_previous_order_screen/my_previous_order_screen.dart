@@ -18,34 +18,42 @@ class MyPreviousOrderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var heightValue = Get.height * 0.024;
     var widthValue = Get.width * 0.024;
+    MyPreviousOrderController myPreviousOrderController = Get.put(MyPreviousOrderController());
+
     return Scaffold(
-      body: SafeArea(child: SingleChildScrollView(
-        child: Container(
-          child: Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: GetBuilder<MyPreviousOrderController>(
-              init: MyPreviousOrderController(),
-              builder: (controller) {
-                if(controller.Loading){
-                  return LoadingWidget(data: '');
-                }else {
-                  return controller.previousOrder!.isNotEmpty ?
-                  ListView.builder(
-                    itemCount: controller.previousOrder!.length,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                        child: MyPreviousOrderItem(previousOrder: controller.previousOrder![index],
-                            heightValue: heightValue, widthValue: widthValue),
-                      );
-                    },) : NoItemOFList();
-                }
-              },),
+      body: RefreshIndicator(
+        onRefresh: () async{
+          myPreviousOrderController.getPreviousMyOrderUser();
+        },
+        child: SafeArea(
+            child: SingleChildScrollView(
+          child: Container(
+            child: Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: GetBuilder<MyPreviousOrderController>(
+                init: MyPreviousOrderController(),
+                builder: (controller) {
+                  if(controller.Loading){
+                    return LoadingWidget(data: '');
+                  }else {
+                    return controller.previousOrder!.isNotEmpty ?
+                    ListView.builder(
+                      itemCount: controller.previousOrder!.length,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                          child: MyPreviousOrderItem(previousOrder: controller.previousOrder![index],
+                              heightValue: heightValue, widthValue: widthValue),
+                        );
+                      },) : NoItemOFList();
+                  }
+                },),
+            ),
           ),
-        ),
-      )),
+        )),
+      ),
     );
   }
 }
