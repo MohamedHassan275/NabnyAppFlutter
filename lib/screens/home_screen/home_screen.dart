@@ -9,6 +9,9 @@ import 'package:nabny/screens/factory_details_screen/factory_details_screen.dart
 import 'package:nabny/screens/home_main_screen/home_main_controller.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:nabny/screens/home_screen/home_controller.dart';
+import 'package:nabny/screens/my_order_screen/my_current_order_screen/my_current_order_controller.dart';
+import 'package:nabny/screens/my_order_screen/my_previous_order_screen/my_previous_order_controller.dart';
+import 'package:nabny/screens/my_order_screen/my_sender_order_screen/my_send_order_controller.dart';
 import 'package:nabny/screens/request_offer_price_screen/request_offer_price_controller.dart';
 import 'package:nabny/screens/request_offer_price_screen/request_offer_price_screen.dart';
 import 'package:nabny/utils/Themes.dart';
@@ -29,6 +32,9 @@ class HomeScreen extends StatelessWidget {
     HomeController homeController =  Get.put(HomeController());
     HomeMainController homeMainController = Get.put(HomeMainController());
     MyNewOrderController myNewOrderController = Get.put(MyNewOrderController());
+    MySendOrderController mySendOrderController = Get.put(MySendOrderController());
+    MyCurrentOrderController myCurrentOrderController = Get.put(MyCurrentOrderController());
+    MyPreviousOrderController myPreviousOrderController = Get.put(MyPreviousOrderController());
     var widthValue = Get.width * 0.024;
     var heightValue = Get.height * 0.024;
     return Scaffold(
@@ -37,6 +43,9 @@ class HomeScreen extends StatelessWidget {
             homeController.getHomeDetailsUser();
             homeMainController.getProfileDetailsUser();
             myNewOrderController.getMyNewOrderUser();
+            mySendOrderController.getMySendOrderUser();
+            myCurrentOrderController.getMyOrderUser();
+            myPreviousOrderController.getPreviousMyOrderUser();
           //  priceController.getRequestOfferPrice();
            // myFavoriteController.getFavoriteUserList();
           },

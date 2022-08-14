@@ -49,6 +49,7 @@ class MyPreviousOrderController extends GetxController {
     MyServiceApi.GetMyPreviousOrderUser(Get.find<StorageService>().GetToken, Get.find<StorageService>().activeLocale.languageCode).then((value){
       print("my order status is ${value?.success}");
       if(value?.success == true){
+        print("my previousOrder order status is ${value?.previousOrder!.length}");
         setLoading(false);
         setMyOrderUser(value?.previousOrder);
       }else if(value?.success == false){

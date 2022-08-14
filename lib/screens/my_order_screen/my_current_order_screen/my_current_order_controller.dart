@@ -22,7 +22,7 @@ class MyCurrentOrderController extends GetxController {
     var now = DateTime.now();
     var formatter = new DateFormat('yyyy-MM-dd');
     formattedDateCurrent = formatter.format(now);
-    print(formattedDateCurrent);
+    print('time is $formattedDateCurrent');
    // CustomFlutterToast(formattedDateCurrent);
   }
   setLoading(bool loading){
@@ -45,6 +45,7 @@ class MyCurrentOrderController extends GetxController {
       print("my order status is ${value?.success}");
       if(value?.success == true){
         setLoading(false);
+        print("my current order status is ${value?.currentOrder!.length}");
         setMyOrderUser(value?.currentOrder);
       }else if(value?.success == false){
         setLoading(false);

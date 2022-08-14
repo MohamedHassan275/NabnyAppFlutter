@@ -17,28 +17,38 @@ class MySenderOrderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var heightValue = Get.height * 0.024;
     var widthValue = Get.width * 0.024;
-
+    MySendOrderController mySendOrderController = Get.put(MySendOrderController());
     return Scaffold(
-      body: SafeArea(
-          child: SingleChildScrollView(
-            child: GetBuilder<MySendOrderController>(
-              init: MySendOrderController(),
-              builder: (controller) {
-                if(controller.Loading){
-                  return LoadingWidget(data: '');
-                }
-                return controller.sendOrder!.isNotEmpty ?
-                ListView.builder(
-                  itemCount: controller.sendOrder!.length,
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                      child: MySendOrderListItem(sendOrder: controller.sendOrder![index], heightValue: heightValue,widthValue: widthValue,),
-                    );
-                  },) : NoItemOFList();
-              },),)
+      body: RefreshIndicator(
+        onRefresh: () async{
+          mySendOrderController.getMySendOrderUser();
+        },
+        child: SafeArea(
+            child: SingleChildScrollView(
+              child: Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: GetBuilder<MySendOrderController>(
+                    init: MySendOrderController(),
+                    builder: (controller) {
+                      if(controller.Loading){
+                        return LoadingWidget(data: '');
+                      }
+                      return controller.sendOrder!.isNotEmpty ?
+                      ListView.builder(
+                        itemCount: controller.sendOrder!.length,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                            child: MySendOrderListItem(sendOrder: controller.sendOrder![index], heightValue: heightValue,widthValue: widthValue,),
+                          );
+                        },) : NoItemOFList();
+                    },),
+                ),
+              ),)
+        ),
       ),
     );
   }
@@ -60,7 +70,7 @@ class MySendOrderListItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(15)
         ),
         child: Padding(
-          padding: const EdgeInsets.all(5.0),
+          padding: const EdgeInsets.all(0.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [

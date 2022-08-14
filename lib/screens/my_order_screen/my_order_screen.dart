@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/LoadingWidget.dart';
 import 'package:nabny/core/constant/constant.dart';
+import 'package:nabny/screens/my_order_screen/my_current_order_screen/my_current_order_controller.dart';
+import 'package:nabny/screens/my_order_screen/my_previous_order_screen/my_previous_order_controller.dart';
+import 'package:nabny/screens/my_order_screen/my_sender_order_screen/my_send_order_controller.dart';
 import 'package:nabny/screens/my_order_screen/my_sender_order_screen/my_sender_order_screen.dart';
 import 'package:nabny/screens/my_order_screen/my_wating_order_screen/my_waiting_order_controller.dart';
 
@@ -10,9 +13,25 @@ import 'my_current_order_screen/my_current_order_screen.dart';
 import 'my_previous_order_screen/my_previous_order_screen.dart';
 import 'my_wating_order_screen/my_waiting_order_screen.dart';
 
-class MyOrderScreen extends StatelessWidget {
+class MyOrderScreen extends StatefulWidget {
   const MyOrderScreen({Key? key}) : super(key: key);
 
+  @override
+  State<MyOrderScreen> createState() => _MyOrderScreenState();
+}
+
+class _MyOrderScreenState extends State<MyOrderScreen> {
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Get.put(MyNewOrderController());
+    Get.put(MySendOrderController());
+    Get.put(MyCurrentOrderController());
+    Get.put(MyPreviousOrderController());
+  }
   @override
   Widget build(BuildContext context) {
     MyNewOrderController myNewOrderController = Get.put(MyNewOrderController());

@@ -40,8 +40,10 @@ class MySendOrderController extends GetxController {
     MyServiceApi.GetMySendOrderUser(Get.find<StorageService>().GetToken, Get.find<StorageService>().activeLocale.languageCode).then((value){
       print("my order status is ${value?.success}");
       if(value?.success == true){
+        print("my order status is ${value!.success}");
+        print("my sender order length is ${value.sentOrder!.length}");
         setLoading(false);
-        setMyOrderUser(value?.sentOrder);
+        setMyOrderUser(value.sentOrder);
       }else if(value?.success == false){
         setLoading(false);
         CustomFlutterToast(value?.message);

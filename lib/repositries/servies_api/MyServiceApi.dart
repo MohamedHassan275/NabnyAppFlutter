@@ -1012,12 +1012,14 @@ class MyServiceApi {
       String lastname, String Authorization, String email, File image) async {
     CheckMobileUserModel? checkMobileModel;
     String fileName = image.path.split('/').last;
+
     var fromData = FormData.fromMap({
       'firstname': firstname,
       'lastname': lastname,
       'email': email,
       "image": await MultipartFile.fromFile(image.path, filename:fileName),
     });
+
     try {
       Response response = await Dio().post(URL + 'updateprofile',
           data: fromData,

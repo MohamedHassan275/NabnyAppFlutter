@@ -218,7 +218,7 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
                               FirstName.text,
                               LastName.text,
                               EmailAddress.text,
-                              '',
+                              image,
                               Get.find<StorageService>().GetToken))
                 ],
               ),

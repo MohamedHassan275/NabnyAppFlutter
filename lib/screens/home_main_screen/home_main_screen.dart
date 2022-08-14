@@ -7,6 +7,7 @@ import 'package:nabny/model/profile_user_model.dart';
 import 'package:nabny/screens/home_main_screen/home_main_controller.dart';
 import 'package:nabny/screens/login_screen/login_screen.dart';
 import 'package:nabny/screens/my_address_screen/my_arddress_screen.dart';
+import 'package:nabny/screens/my_order_screen/my_wating_order_screen/my_waiting_order_controller.dart';
 import 'package:nabny/screens/my_wallet_screen/my_wallet_screen.dart';
 import 'package:nabny/screens/setting_profile_screen/setting_profile_screen.dart';
 import 'package:nabny/utils/Themes.dart';
@@ -14,6 +15,7 @@ import 'package:provider/provider.dart';
 
 import '../../core/servies/storage_service.dart';
 import '../change_password_profile/change_password_profile.dart';
+import '../my_order_screen/my_sender_order_screen/my_send_order_controller.dart';
 
 
 class HomeMainScreen extends StatefulWidget {
@@ -32,6 +34,8 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
     // TODO: implement initState
     super.initState();
     Get.lazyPut(() => HomeMainController());
+    Get.put(MyNewOrderController());
+    Get.put(MySendOrderController());
   }
 
   @override

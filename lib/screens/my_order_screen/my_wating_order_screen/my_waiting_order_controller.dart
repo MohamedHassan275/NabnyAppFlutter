@@ -15,19 +15,21 @@ import '../../../generated/assets.dart';
 class MyNewOrderController extends GetxController {
 
   bool Loading = false;
-  List<NewOrder>? _newOrder;
-
+//  List<NewOrder>? _newOrder;
+  final RxList<NewOrder>? _newOrder = <NewOrder>[].obs;
   get loading => Loading;
-  List<NewOrder>? get newOrder => _newOrder;
+  List get newOrder => _newOrder!.value;
+ // List<NewOrder>? get newOrder => _newOrder;
 
   setLoading(bool loading){
     Loading = loading;
     update();
   }
 
-  setMyOrderUser(List<NewOrder>? newOrder){
-    _newOrder = newOrder;
-  }
+  // setMyOrderUser(List<NewOrder>? newOrder){
+  //   _newOrder = newOrder;
+  //   update();
+  // }
 
   MyNewOrderController(){
     getMyNewOrderUser();
@@ -37,9 +39,10 @@ class MyNewOrderController extends GetxController {
     setLoading(true);
     MyServiceApi.GetNewMyOrderUser(Get.find<StorageService>().GetToken, Get.find<StorageService>().activeLocale.languageCode).then((value){
       print("my order status is ${value?.success}");
+      print("my newOrder order length is ${value?.newOrder!.length}");
       if(value?.success == true){
         setLoading(false);
-        setMyOrderUser(value?.newOrder);
+        _newOrder!.value = value!.newOrder!;
       }else if(value?.success == false){
         setLoading(false);
         CustomFlutterToast(value?.message);
@@ -47,4 +50,10 @@ class MyNewOrderController extends GetxController {
     });
   }
 
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    getMyNewOrderUser();
+  }
 }
