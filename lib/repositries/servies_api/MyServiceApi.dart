@@ -1009,15 +1009,15 @@ class MyServiceApi {
   }
 
   static Future<CheckMobileUserModel?> updateProfileUser(String firstname,
-      String lastname, String Authorization, String email, String image) async {
+      String lastname, String Authorization, String email, File image) async {
     CheckMobileUserModel? checkMobileModel;
-  //  String fileName = image.path.split('/').last;
+    String fileName = image.path.split('/').last;
 
     var fromData = FormData.fromMap({
       'firstname': firstname,
       'lastname': lastname,
       'email': email,
-      "image": image,
+      "image": await MultipartFile.fromFile(image.path, filename:fileName)
     });
 
     try {
