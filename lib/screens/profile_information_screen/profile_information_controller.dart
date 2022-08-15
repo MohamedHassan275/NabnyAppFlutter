@@ -11,6 +11,8 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../location_map_user_screen/google_map_locaiton_user_screen.dart';
+
 class ProfileInformationController extends GetxController {
   bool isLoading = false;
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -50,7 +52,7 @@ class ProfileInformationController extends GetxController {
       if(value?.success == true){
         setLoading(false);
         CustomFlutterToast('${value?.message}');
-        Get.off(HomeMainScreen(valueBack: ''));
+        Get.off(const GoogleMapLocationUserScreen());
       }else if(value?.success == false){
         setLoading(false);
         CustomFlutterToast('${value?.message}');

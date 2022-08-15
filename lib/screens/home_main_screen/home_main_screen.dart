@@ -1,3 +1,5 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/core/constant/constant.dart';
@@ -29,10 +31,26 @@ class HomeMainScreen extends StatefulWidget {
 
 class _HomeMainScreenState extends State<HomeMainScreen> {
 
+  late FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+  String? Firebase_token;
+
+  getFirebaseToken(){
+    Firebase.initializeApp().whenComplete(() {
+      print("completed");
+      print(Firebase_token);
+    });
+    _firebaseMessaging.getToken().then((value){
+      print('The Token is $value');
+      Firebase_token = value!;
+      print(Firebase_token);
+    });
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+   // getFirebaseToken();
     Get.put(HomeMainController());
     Get.put(MyNewOrderController());
     Get.put(MySendOrderController());
@@ -256,16 +274,16 @@ class UserDetailsInMenu extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                profileUserResponseModel?.image !=null ?
-                ClipOval(
-                  child: FadeInImage(
-                    image: NetworkImage('${profileUserResponseModel?.image}'),
-                    fit: BoxFit.cover,
-                    height: 82,
-                    width: 82,
-                    placeholder: const AssetImage(Assets.imagesFactoryImage),
-                  ),
-                ) :
+                // profileUserResponseModel?.image !=null ?
+                // ClipOval(
+                //   child: FadeInImage(
+                //     image: NetworkImage('${profileUserResponseModel?.image}'),
+                //     fit: BoxFit.cover,
+                //     height: 82,
+                //     width: 82,
+                //     placeholder: const AssetImage(Assets.imagesFactoryImage),
+                //   ),
+                // ) :
                 CircleAvatar(
                   backgroundColor: Themes.ColorApp1,
                   radius: 45,

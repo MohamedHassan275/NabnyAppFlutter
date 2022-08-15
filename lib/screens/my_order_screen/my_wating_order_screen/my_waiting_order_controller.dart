@@ -43,6 +43,7 @@ class MyNewOrderController extends GetxController {
       if(value?.success == true){
         setLoading(false);
         _newOrder.value = value!.newOrder!;
+        print('new order is length ${value.newOrder!.length}');
       }else if(value?.success == false){
         setLoading(false);
         CustomFlutterToast(value?.message);

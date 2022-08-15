@@ -10,20 +10,29 @@ import '../../../generated/assets.dart';
 import '../../../model/my_send_order_model.dart';
 import '../../../utils/Themes.dart';
 
-class MySenderOrderScreen extends StatelessWidget {
+class MySenderOrderScreen extends StatefulWidget {
   const MySenderOrderScreen({Key? key}) : super(key: key);
 
   @override
+  State<MySenderOrderScreen> createState() => _MySenderOrderScreenState();
+}
+
+class _MySenderOrderScreenState extends State<MySenderOrderScreen> {
+
+  var heightValue = Get.height * 0.024;
+  var widthValue = Get.width * 0.024;
+  MySendOrderController mySendOrderController = Get.put(MySendOrderController());
+
+
+  @override
   Widget build(BuildContext context) {
-    var heightValue = Get.height * 0.024;
-    var widthValue = Get.width * 0.024;
-    MySendOrderController mySendOrderController = Get.put(MySendOrderController());
-    GlobalKey<RefreshIndicatorState> _efreshIndicatorState = new GlobalKey<RefreshIndicatorState>();
+
     return Scaffold(
       body: RefreshIndicator(
-        key: _efreshIndicatorState,
         onRefresh: () async{
-          mySendOrderController.getMySendOrderUser();
+          setState(() {
+            mySendOrderController.getMySendOrderUser();
+          });
         },
         child: SafeArea(
             child: SingleChildScrollView(

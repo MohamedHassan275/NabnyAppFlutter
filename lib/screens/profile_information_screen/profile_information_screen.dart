@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/core/widget/custom_circler_progress_indicator_widget.dart';
@@ -29,24 +28,25 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
   TextEditingController FirstName = TextEditingController();
   TextEditingController LastName = TextEditingController();
   TextEditingController EmailAddress = TextEditingController();
-  final ImagePicker _picker = ImagePicker();
+ // final ImagePicker _picker = ImagePicker();
   File? image;
 
-  Future PickImage() async {
-    try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (image == null) return;
-      final iamgeTempoary = File(image.path);
-      setState(() => this.image = iamgeTempoary);
-    } on PlatformException catch (e) {
-      print('failed to pick image $e');
-    }
-  }
+  // Future PickImage() async {
+  //   try {
+  //     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+  //     if (image == null) return;
+  //     final iamgeTempoary = File(image.path);
+  //     setState(() => this.image = iamgeTempoary);
+  //   } on PlatformException catch (e) {
+  //     print('failed to pick image $e');
+  //   }
+  // }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
     Get.lazyPut(() => ProfileInformationController());
   }
 
@@ -58,173 +58,178 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
       body: SafeArea(
           child: SingleChildScrollView(
         child: GetBuilder<ProfileInformationController>(
-          builder: (controller) => Container(
-            width: Get.width,
-            height: Get.height,
-            child: Form(
-              key: controller.formKey,
-              child: Column(
-                children: [
-                  Stack(
-                    children: [
-                      Container(
-                        height: 119,
-                        width: Get.width,
-                        decoration: const BoxDecoration(
-                            color: Themes.ColorApp14,
-                            borderRadius: const BorderRadius.only(
-                                topRight: const Radius.circular(25),
-                                topLeft: Radius.circular(25))),
-                        child: Center(
-                          child: Text(
-                            'account_information'.tr,
-                            style: TextStyle(
-                              color: Themes.ColorApp15,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        top: heightValue * 2.3,
-                        right: widthValue * 1.5,
-                        child: GestureDetector(
-                          onTap: () => Get.off(SettingProfileScreen()),
-                          child: CircleAvatar(
-                            backgroundColor: Themes.ColorApp5,
-                            child: Icon(
-                              Get.find<StorageService>()
-                                          .activeLocale
-                                          .languageCode ==
-                                      "en"
-                                  ? Icons.keyboard_arrow_right
-                                  : Icons.keyboard_arrow_left,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: heightValue * 1.5,
-                  ),
-                  controller.ProfileUserModel?.image != null
-                      ? Stack(
-                          children: [
-                            image != null
-                                ? GestureDetector(
-                                    onTap: () => PickImage(),
-                                    child: ClipOval(
-                                      child: Image.file(
-                                        image!,
-                                        width: 137,
-                                        height: 137,
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  )
-                                : GestureDetector(
-                                    onTap: () => PickImage(),
-                                    child: ClipOval(
-                                      child: FadeInImage(
-                                        image: NetworkImage(
-                                            '${controller.ProfileUserModel!.image}'),
-                                        fit: BoxFit.fill,
-                                        height: 137,
-                                        width: 137,
-                                        placeholder: AssetImage(
-                                            Assets.imagesFactoryImage),
-                                      ),
-                                    ),
-                                  ),
-                            Positioned(
-                              bottom: heightValue * .3,
-                              right: widthValue * 1,
-                              child: Image.asset(
-                                Assets.imagesEditIamge,
-                                fit: BoxFit.cover,
-                                width: 35,
-                                height: 35,
+          builder: (controller){
+            FirstName.text = '${controller.ProfileUserModel?.firstname!}';
+            LastName.text = '${controller.ProfileUserModel?.lastname!}';
+            EmailAddress.text = '${controller.ProfileUserModel?.email!}';
+            return Container(
+              width: Get.width,
+              height: Get.height,
+              child: Form(
+                key: controller.formKey,
+                child: Column(
+                  children: [
+                    Stack(
+                      children: [
+                        Container(
+                          height: 119,
+                          width: Get.width,
+                          decoration: const BoxDecoration(
+                              color: Themes.ColorApp14,
+                              borderRadius: const BorderRadius.only(
+                                  topRight: const Radius.circular(25),
+                                  topLeft: Radius.circular(25))),
+                          child: Center(
+                            child: Text(
+                              'account_information'.tr,
+                              style: TextStyle(
+                                color: Themes.ColorApp15,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
                               ),
-                            )
-                          ],
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: heightValue * 2.3,
+                          right: widthValue * 1.5,
+                          child: GestureDetector(
+                            onTap: () => Get.off(SettingProfileScreen()),
+                            child: CircleAvatar(
+                              backgroundColor: Themes.ColorApp5,
+                              child: Icon(
+                                Get.find<StorageService>()
+                                    .activeLocale
+                                    .languageCode ==
+                                    "en"
+                                    ? Icons.keyboard_arrow_right
+                                    : Icons.keyboard_arrow_left,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
                         )
-                      : Stack(
-                          children: [
-                            image != null
-                                ? GestureDetector(
-                              onTap: () => PickImage(),
-                                    child: ClipOval(
-                                      child: Image.file(
-                                        image!,
-                                        width: 137,
-                                        height: 137,
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  )
-                                : GestureDetector(
-                                    onTap: () => PickImage(),
-                                    child: CircleAvatar(
-                                      backgroundColor: Themes.ColorApp1,
-                                      radius: 75,
-                                      child: ClipOval(
-                                        child: Image.asset(
-                                          Assets.imagesImageLogoApp,
-                                          fit: BoxFit.fill,
-                                          color: Themes.whiteColor,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                            Positioned(
-                              bottom: heightValue * .3,
-                              right: widthValue * 1,
+                      ],
+                    ),
+                    SizedBox(
+                      height: heightValue * 1.5,
+                    ),
+                    // controller.ProfileUserModel?.image != null
+                    //     ? Stack(
+                    //         children: [
+                    //           image != null
+                    //               ? GestureDetector(
+                    //                   onTap: () => PickImage(),
+                    //                   child: ClipOval(
+                    //                     child: Image.file(
+                    //                       image!,
+                    //                       width: 137,
+                    //                       height: 137,
+                    //                       fit: BoxFit.fill,
+                    //                     ),
+                    //                   ),
+                    //                 ) :
+                    //           GestureDetector(
+                    //                   onTap: () => PickImage(),
+                    //                   child: ClipOval(
+                    //                     child: FadeInImage(
+                    //                       image: NetworkImage(
+                    //                           '${controller.ProfileUserModel!.image}'),
+                    //                       fit: BoxFit.fill,
+                    //                       height: 137,
+                    //                       width: 137,
+                    //                       placeholder: AssetImage(
+                    //                           Assets.imagesFactoryImage),
+                    //                     ),
+                    //                   ),
+                    //                 ),
+                    //           Positioned(
+                    //             bottom: heightValue * .3,
+                    //             right: widthValue * 1,
+                    //             child: Image.asset(
+                    //               Assets.imagesEditIamge,
+                    //               fit: BoxFit.cover,
+                    //               width: 35,
+                    //               height: 35,
+                    //             ),
+                    //           )
+                    //         ],
+                    //       ) :
+                    Stack(
+                      children: [
+                        // image != null
+                        //     ? GestureDetector(
+                        //   onTap: () => PickImage(),
+                        //         child: ClipOval(
+                        //           child: Image.file(
+                        //             image!,
+                        //             width: 137,
+                        //             height: 137,
+                        //             fit: BoxFit.fill,
+                        //           ),
+                        //         ),
+                        //       ) :
+                        GestureDetector(
+                          // onTap: () => PickImage(),
+                          child: CircleAvatar(
+                            backgroundColor: Themes.ColorApp1,
+                            radius: 75,
+                            child: ClipOval(
                               child: Image.asset(
-                                Assets.imagesEditIamge,
-                                fit: BoxFit.cover,
-                                width: 35,
-                                height: 35,
+                                Assets.imagesImageLogoApp,
+                                fit: BoxFit.fill,
+                                color: Themes.whiteColor,
                               ),
-                            )
-                          ],
+                            ),
+                          ),
                         ),
-                  SizedBox(
-                    height: heightValue * 1.5,
-                  ),
-                  UserDetailsWidget(
-                    profileUserResponseModel: controller.profileUserModel,
-                    heightValue: heightValue,
-                    widthValue: widthValue,
-                    FirstName: FirstName,
-                    LastName: LastName,
-                    Email: EmailAddress,
-                  ),
-                  SizedBox(
-                    height: heightValue * 2.5,
-                  ),
-                  CirclerProgressIndicatorWidget(
-                      isLoading: controller.isLoading ? true : false),
-                  SizedBox(
-                    height: heightValue * 1,
-                  ),
-                  CustomButtonImage(
-                      title: 'save'.tr,
-                      hight: 50,
-                      onTap: (){
-                        Get.find<ProfileInformationController>().updateProfileUser(
-                            FirstName.text.isEmpty ? controller.ProfileUserModel!.firstname : FirstName.text,
-                            LastName.text.isEmpty ? controller.ProfileUserModel!.lastname : LastName.text,
-                            EmailAddress.text.isEmpty ? controller.ProfileUserModel!.email :EmailAddress.text,
-                            image == null ? File(controller.ProfileUserModel!.image!.split('/').last) : image,
-                            Get.find<StorageService>().GetToken);
-                      })
-                ],
+                        // Positioned(
+                        //   bottom: heightValue * .3,
+                        //   right: widthValue * 1,
+                        //   child: Image.asset(
+                        //     Assets.imagesEditIamge,
+                        //     fit: BoxFit.cover,
+                        //     width: 35,
+                        //     height: 35,
+                        //   ),
+                        // )
+                      ],
+                    ),
+                    SizedBox(
+                      height: heightValue * 1.5,
+                    ),
+                    UserDetailsWidget(
+                      profileUserResponseModel: controller.profileUserModel,
+                      heightValue: heightValue,
+                      widthValue: widthValue,
+                      FirstName: FirstName,
+                      LastName: LastName,
+                      Email: EmailAddress,
+                    ),
+                    SizedBox(
+                      height: heightValue * 2.5,
+                    ),
+                    CirclerProgressIndicatorWidget(
+                        isLoading: controller.isLoading ? true : false),
+                    SizedBox(
+                      height: heightValue * 1,
+                    ),
+                    CustomButtonImage(
+                        title: 'save'.tr,
+                        hight: 50,
+                        onTap: (){
+                          Get.find<ProfileInformationController>().updateProfileUser(
+                              FirstName.text.isEmpty ? controller.ProfileUserModel!.firstname : FirstName.text,
+                              LastName.text.isEmpty ? controller.ProfileUserModel!.lastname : LastName.text,
+                              EmailAddress.text.isEmpty ? controller.ProfileUserModel!.email :EmailAddress.text, '',
+                              // image == null ? File(controller.ProfileUserModel!.image!.split('/').last) : image,
+                              Get.find<StorageService>().GetToken);
+                        })
+                  ],
+                ),
               ),
-            ),
-          ),
+            );
+          },
         ),
       )),
     );

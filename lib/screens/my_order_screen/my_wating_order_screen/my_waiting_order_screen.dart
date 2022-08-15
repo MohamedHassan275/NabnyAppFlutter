@@ -13,24 +13,43 @@ import '../my_current_order_screen/my_current_order_controller.dart';
 import '../my_previous_order_screen/my_previous_order_controller.dart';
 import '../my_sender_order_screen/my_send_order_controller.dart';
 
-class MyWaitingOrderScreen extends StatelessWidget {
+
+class MyWaitingOrderScreen extends StatefulWidget {
    MyWaitingOrderScreen({Key? key}) : super(key: key);
 
   @override
+  State<MyWaitingOrderScreen> createState() => _MyWaitingOrderScreenState();
+}
+
+class _MyWaitingOrderScreenState extends State<MyWaitingOrderScreen> {
+
+  var heightValue = Get.height * 0.024;
+  var widthValue = Get.width * 0.024;
+  MyNewOrderController myNewOrderController = Get.put(MyNewOrderController());
+  MySendOrderController mySendOrderController = Get.put(MySendOrderController());
+  MyCurrentOrderController myCurrentOrderController = Get.put(MyCurrentOrderController());
+  MyPreviousOrderController myPreviousOrderController = Get.put(MyPreviousOrderController());
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      Get.put(MyNewOrderController());
+    });
+  }
+  @override
   Widget build(BuildContext context) {
-    var heightValue = Get.height * 0.024;
-    var widthValue = Get.width * 0.024;
-    MyNewOrderController myNewOrderController = Get.put(MyNewOrderController());
-    MySendOrderController mySendOrderController = Get.put(MySendOrderController());
-    MyCurrentOrderController myCurrentOrderController = Get.put(MyCurrentOrderController());
-    MyPreviousOrderController myPreviousOrderController = Get.put(MyPreviousOrderController());
+
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async{
-          myNewOrderController.getMyNewOrderUser();
-          mySendOrderController.getMySendOrderUser();
-          myCurrentOrderController.getMyOrderUser();
-          myPreviousOrderController.getPreviousMyOrderUser();
+         setState(() {
+           myNewOrderController.getMyNewOrderUser();
+           mySendOrderController.getMySendOrderUser();
+           myCurrentOrderController.getMyOrderUser();
+           myPreviousOrderController.getPreviousMyOrderUser();
+         });
         },
         child: SafeArea(
             child: SingleChildScrollView(
@@ -43,15 +62,15 @@ class MyWaitingOrderScreen extends StatelessWidget {
                       if(controller.Loading){
                         return LoadingWidget(data: '');
                       }
-                      return controller.newOrder!.isNotEmpty ?
+                      return controller.newOrder.isNotEmpty ?
                       ListView.builder(
-                        itemCount: controller.newOrder!.length,
+                        itemCount: controller.newOrder.length,
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                            child: MyWaitingOrderItem(MyNewOder: controller.newOrder![index],
+                            child: MyWaitingOrderItem(MyNewOder: controller.newOrder[index],
                               heightValue: heightValue,widthValue: widthValue,),
                           );
                         },): NoItemOFList();

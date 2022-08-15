@@ -450,7 +450,7 @@ class OfferPriceAndAcceptedOffer extends StatelessWidget {
               Get.bottomSheet(
                 BottomSheetItem(companies: factoryOfferPriceModel, offerOrderRequestResponseModel: offerOrderRequestResponseModel,),
                 backgroundColor: Themes.whiteColor,
-                shape: const RoundedRectangleBorder(
+                shape:  RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(25),
                         topRight: Radius.circular(25))),

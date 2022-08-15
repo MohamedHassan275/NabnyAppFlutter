@@ -7,6 +7,7 @@ import 'package:nabny/generated/assets.dart';
 import 'package:nabny/model/request_offer_order_model.dart';
 import 'package:nabny/screens/factory_offer_price_screen/factory_offer_price_screen.dart';
 import 'package:nabny/screens/request_offer_price_screen/request_offer_price_controller.dart';
+import 'package:nabny/screens/request_offer_price_screen_menu/request_offer_price_menu_controller.dart';
 import 'package:nabny/screens/requirements_request_offer_price_screen/requirements_request_offer_price_controller.dart';
 import 'package:nabny/screens/requirements_request_offer_price_screen/requirements_request_offer_price_screen.dart';
 import 'package:nabny/utils/Themes.dart';
@@ -16,44 +17,55 @@ import '../../core/servies/storage_service.dart';
 import '../../model/OfferOrderRequestModel.dart';
 import '../home_main_screen/home_main_screen.dart';
 
-class RequestOfferPriceMenuScreen extends StatelessWidget {
+class RequestOfferPriceMenuScreen extends StatefulWidget {
   RequestOfferPriceMenuScreen({Key? key}) : super(key: key);
 
-  RequestOfferPriceController requestOfferPriceController =  Get.put(RequestOfferPriceController());
+  @override
+  State<RequestOfferPriceMenuScreen> createState() => _RequestOfferPriceMenuScreenState();
+}
+
+class _RequestOfferPriceMenuScreenState extends State<RequestOfferPriceMenuScreen> {
+  RequestOfferPriceMenuController requestOfferPriceController =  Get.put(RequestOfferPriceMenuController());
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Get.put(RequestOfferPriceMenuController());
+  }
 
   @override
   Widget build(BuildContext context) {
     var widthValue = Get.width * 0.024;
     var heightValue = Get.height * 0.024;
     return Scaffold(
-      body: SafeArea(
-        child: RefreshIndicator(
-          onRefresh: () async{
-            requestOfferPriceController.getRequestOfferPrice();
-          },
-          child: SingleChildScrollView(
-            child: GetBuilder<RequestOfferPriceController>(
-              init: RequestOfferPriceController(),
-              builder: (controller) {
-                if(controller.Loading){
-                  return LoadingWidget(data: '');
-                }
-                print("is length ${controller.offerOrderRequestResponseModel!.length}");
-                return controller.offerOrderRequestResponseModel!.isNotEmpty ?
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 0),
-                  child: ListView.builder(
-                    itemCount: controller.offerOrderRequestResponseModel!.length,
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return RequestOfferOrderItems(requestOfferOrderModel: controller.offerOrderRequestResponseModel![index]);
-                    },
-                  ),
-                ) : NoItemOFList();
-              },)
-          ),
-        ),
+      body: RefreshIndicator(
+
+        onRefresh: () async{
+          requestOfferPriceController.getRequestOfferPrice();
+        },
+        child: SingleChildScrollView(
+          child: GetBuilder<RequestOfferPriceController>(
+            init: RequestOfferPriceController(),
+            builder: (controller) {
+              if(controller.Loading){
+                return LoadingWidget(data: '');
+              }
+              print("is length ${controller.offerOrderRequestResponseModel!.length}");
+              return controller.offerOrderRequestResponseModel!.isNotEmpty ?
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 0),
+                child: ListView.builder(
+                  itemCount: controller.offerOrderRequestResponseModel!.length,
+                  physics: ClampingScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return RequestOfferOrderItems(requestOfferOrderModel: controller.offerOrderRequestResponseModel![index]);
+                  },
+                ),
+              ) : NoItemOFList();
+            },),
+        )
       ),
     );
 

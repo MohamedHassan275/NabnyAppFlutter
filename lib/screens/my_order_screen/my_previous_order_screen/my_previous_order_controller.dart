@@ -27,7 +27,7 @@ class MyPreviousOrderController extends GetxController {
     var formatter = new DateFormat('yyyy-MM-dd');
     _formattedDateCurrent = formatter.format(now);
     print(formattedDateCurrent);
-    CustomFlutterToast(formattedDateCurrent);
+   // CustomFlutterToast(formattedDateCurrent);
   }
 
   setLoading(bool loading){
