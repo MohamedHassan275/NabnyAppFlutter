@@ -19,18 +19,19 @@ void main() async {
   await SharedPreferences.getInstance();
   await Firebase.initializeApp();
   Get.put(LocalizationService.init(), permanent: true);
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+   MyApp({Key? key}) : super(key: key);
 
+  MyLocalController myLocalController = Get.put(MyLocalController());
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       translations: MyTranslation(),
-      locale: Get.find<StorageService>().activeLocale,
+      locale: myLocalController.language,
       home: const SplashScreen(),
     );
   }

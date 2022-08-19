@@ -15,7 +15,6 @@ class LocalizationService extends GetxService {
   final Locale _activeLocale;
   LocalizationService(this._activeLocale);
 
-  Locale get activeLocale => _activeLocale;
 
   static LocalizationService init() {
     //Get active local from storage

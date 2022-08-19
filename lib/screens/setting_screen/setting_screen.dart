@@ -59,6 +59,7 @@ class _SettingScreenState extends State<SettingScreen> {
     // TODO: implement initState
     super.initState();
     Get.lazyPut(() => SettingController());
+    print("lan is ${Get.find<MyLocalController>().language!.languageCode}");
   }
     @override
     Widget build(BuildContext context) {
@@ -311,6 +312,8 @@ class _ChangeLanguageBottomSheetItemState extends State<ChangeLanguageBottomShee
   //   Get.updateLocale(myLocal);
   // }
 
+  MyLocalController myLocalController = Get.put(MyLocalController());
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -358,7 +361,9 @@ class _ChangeLanguageBottomSheetItemState extends State<ChangeLanguageBottomShee
                     setState(() {
                      // changelanguage("ar");
                      // CustomFlutterToast(Get.find<StorageService>().GetLanguage);
-                      Get.find<LocalizationService>().toggleLocale('ar');
+                    //  Get.find<LocalizationService>().toggleLocale('ar');
+                      myLocalController.changelanguage("ar");
+                      print("change lan is ${Get.find<MyLocalController>().language!.languageCode}");
                       Get.offAll(const SplashScreen());
                     });
                     }),
@@ -368,8 +373,10 @@ class _ChangeLanguageBottomSheetItemState extends State<ChangeLanguageBottomShee
                     hight: 50,
                     onTap: (){
                      setState(() {
-                       Get.find<LocalizationService>().toggleLocale('en');
+                     //  Get.find<LocalizationService>().toggleLocale('en');
                      //  CustomFlutterToast(Get.find<StorageService>().GetLanguage);
+                       myLocalController.changelanguage("en");
+                       print("change lan is ${Get.find<MyLocalController>().language!.languageCode}");
                        Get.offAll(const SplashScreen());
                      });
                     })
@@ -385,8 +392,6 @@ class _ChangeLanguageBottomSheetItemState extends State<ChangeLanguageBottomShee
 
   }
 }
-
-
 
 
 class ContactWithUsItem extends StatelessWidget {

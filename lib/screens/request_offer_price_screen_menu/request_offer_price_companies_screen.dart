@@ -1,77 +1,71 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nabny/componant/CustomButtonWidget.dart';
-import 'package:nabny/componant/LoadingWidget.dart';
-import 'package:nabny/core/constant/constant.dart';
-import 'package:nabny/generated/assets.dart';
-import 'package:nabny/model/request_offer_order_model.dart';
-import 'package:nabny/screens/factory_offer_price_screen/factory_offer_price_screen.dart';
-import 'package:nabny/screens/request_offer_price_screen/request_offer_price_controller.dart';
 import 'package:nabny/screens/request_offer_price_screen_menu/request_offer_price_menu_controller.dart';
-import 'package:nabny/screens/requirements_request_offer_price_screen/requirements_request_offer_price_controller.dart';
-import 'package:nabny/screens/requirements_request_offer_price_screen/requirements_request_offer_price_screen.dart';
-import 'package:nabny/utils/Themes.dart';
 
-import '../../core/localization/local_controller.dart';
+import '../../componant/CustomButtonWidget.dart';
+import '../../componant/LoadingWidget.dart';
+import '../../core/constant/constant.dart';
 import '../../core/servies/storage_service.dart';
+import '../../generated/assets.dart';
 import '../../model/OfferOrderRequestModel.dart';
+import '../../utils/Themes.dart';
+import '../factory_offer_price_screen/factory_offer_price_screen.dart';
 import '../home_main_screen/home_main_screen.dart';
+import '../request_offer_price_screen/request_offer_price_controller.dart';
 
-class RequestOfferPriceMenuScreen extends StatefulWidget {
-  RequestOfferPriceMenuScreen({Key? key}) : super(key: key);
+class RequestOfferPriceCompaniesScreen extends StatefulWidget {
+  const RequestOfferPriceCompaniesScreen({Key? key}) : super(key: key);
 
   @override
-  State<RequestOfferPriceMenuScreen> createState() => _RequestOfferPriceMenuScreenState();
+  _RequestOfferPriceCompaniesScreenState createState() => _RequestOfferPriceCompaniesScreenState();
 }
 
-class _RequestOfferPriceMenuScreenState extends State<RequestOfferPriceMenuScreen> {
+class _RequestOfferPriceCompaniesScreenState extends State<RequestOfferPriceCompaniesScreen> {
+
   RequestOfferPriceMenuController requestOfferPriceController =  Get.put(RequestOfferPriceMenuController());
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Get.put(RequestOfferPriceMenuController());
+    requestOfferPriceController = Get.put(RequestOfferPriceMenuController());
   }
 
   @override
   Widget build(BuildContext context) {
-    var widthValue = Get.width * 0.024;
-    var heightValue = Get.height * 0.024;
     return Scaffold(
       body: RefreshIndicator(
 
-        onRefresh: () async{
-          requestOfferPriceController.getRequestOfferPrice();
-        },
-        child: SingleChildScrollView(
-          child: GetBuilder<RequestOfferPriceController>(
-            init: RequestOfferPriceController(),
-            builder: (controller) {
-              if(controller.Loading){
-                return LoadingWidget(data: '');
-              }
-              print("is length ${controller.offerOrderRequestResponseModel!.length}");
-              return controller.offerOrderRequestResponseModel!.isNotEmpty ?
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 0),
-                child: ListView.builder(
-                  itemCount: controller.offerOrderRequestResponseModel!.length,
-                  physics: ClampingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return RequestOfferOrderItems(requestOfferOrderModel: controller.offerOrderRequestResponseModel![index]);
-                  },
-                ),
-              ) : NoItemOFList();
-            },),
-        )
+          onRefresh: () async{
+            requestOfferPriceController.getRequestOfferPrice();
+          },
+          child: SingleChildScrollView(
+            child: GetBuilder<RequestOfferPriceController>(
+              init: RequestOfferPriceController(),
+              builder: (controller) {
+                if(controller.Loading){
+                  return LoadingWidget(data: '');
+                }
+                print("is length ${controller.offerOrderRequestResponseModel!.length}");
+                return controller.offerOrderRequestResponseModel!.isNotEmpty ?
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 0),
+                  child: ListView.builder(
+                    itemCount: controller.offerOrderRequestResponseModel!.length,
+                    physics: const ClampingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return RequestOfferOrderItems(requestOfferOrderModel: controller.offerOrderRequestResponseModel![index]);
+                    },
+                  ),
+                ) : NoItemOFList();
+              },),
+          )
       ),
     );
-
   }
 }
-
 
 class RequestOfferOrderItems extends StatefulWidget {
   RequestOfferOrderItems({required this.requestOfferOrderModel});
@@ -113,7 +107,7 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
               SizedBox(
                 height: heightValue * .7,
               ),
-              Divider(
+            const  Divider(
                 height: 10,
                 color: Themes.ColorApp2,
               ),
@@ -191,7 +185,7 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
                         children: [
                           Text(
                             'you_have_offers'.tr,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 16,
                               color: Themes.ColorApp8,
@@ -211,7 +205,7 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
                             child: Center(
                               child:  Text(
                                 '${widget.requestOfferOrderModel.request!.length}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 16,
                                   color: Themes.ColorApp1,
@@ -222,7 +216,7 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
                           SizedBox(width: widthValue * .5,),
                           Text(
                             'offers'.tr,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 16,
                               color: Themes.ColorApp1,
@@ -233,11 +227,11 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
                       SizedBox(width: widthValue *.5,),
                       Expanded(
                         child: CustomButtonImage2(title: 'watch'.tr, hight: 38, width: 85, onTap: (){
-                         if (widget.requestOfferOrderModel.request!.isEmpty){
-                           CustomFlutterToast('no_companies_here'.tr);
-                         }else if (widget.requestOfferOrderModel.request!.isNotEmpty){
-                           Get.to(FactoryOfferPriceScreen(offerOrderRequestResponseModel: widget.requestOfferOrderModel,));
-                         }
+                          if (widget.requestOfferOrderModel.request!.isEmpty){
+                            CustomFlutterToast('no_companies_here'.tr);
+                          }else if (widget.requestOfferOrderModel.request!.isNotEmpty){
+                            Get.to(FactoryOfferPriceScreen(offerOrderRequestResponseModel: widget.requestOfferOrderModel,));
+                          }
                         }),
                       ),
                     ],
@@ -252,8 +246,6 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
   }
 }
 
-
-
 class AppbarDetailsOrder extends StatelessWidget {
   AppbarDetailsOrder(this.widthValue, this.heightValue);
 
@@ -266,14 +258,14 @@ class AppbarDetailsOrder extends StatelessWidget {
         Container(
           width: Get.width,
           height: 119,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               color: Themes.ColorApp14,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(35), topRight: Radius.circular(35))),
           child: Center(
             child: Text(
               'request_offer_price'.tr,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Themes.ColorApp15,
                 fontSize: 20,
                 fontWeight: FontWeight.w500,
@@ -333,7 +325,7 @@ class NoItemOFList extends StatelessWidget {
             Text(
               'no_requests_offers_have_added_before'.tr,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Themes.ColorApp8,
                 fontSize: 17,
                 fontWeight: FontWeight.w400,
@@ -384,8 +376,8 @@ class AddressDetailsOrder extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Text(
                 '${requestOfferOrderModel.address}',
-                 textAlign: TextAlign.start,
-                style: TextStyle(
+                textAlign: TextAlign.start,
+                style: const TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 14,
                   color: Themes.ColorApp1,
@@ -412,7 +404,7 @@ class DetailsOrder extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.w400,
             fontSize: 14,
             color: Themes.ColorApp8,
@@ -423,7 +415,7 @@ class DetailsOrder extends StatelessWidget {
         ),
         Text(
           details,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.w400,
             fontSize: 14,
             color: Themes.ColorApp1,
@@ -435,28 +427,3 @@ class DetailsOrder extends StatelessWidget {
 }
 
 
-
-// Padding(
-// padding: const EdgeInsets.symmetric(horizontal: 5),
-// child: Row(
-// mainAxisAlignment: MainAxisAlignment.center,
-// children: [
-// SizedBox(
-// width: 15,
-// height: 15,
-// child: CircleAvatar(
-// backgroundColor: Themes.ColorApp9,
-// ),
-// ),
-// SizedBox(width: widthValue * 1,),
-// Text(
-// 'waiting_send_offer_price'.tr,
-// style: TextStyle(
-// fontWeight: FontWeight.w500,
-// fontSize: 13,
-// color: Themes.ColorApp9,
-// ),
-// ),
-// ],
-// ),
-// ),

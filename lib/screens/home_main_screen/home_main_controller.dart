@@ -2,20 +2,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/core/constant/constant.dart';
-import 'package:nabny/core/function/check_internet.dart';
 import 'package:nabny/core/servies/storage_service.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/repositries/servies_api/MyServiceApi.dart';
 import 'package:nabny/screens/home_screen/home_screen.dart';
 import 'package:nabny/screens/login_screen/login_screen.dart';
-import 'package:nabny/screens/my_favorite_screen/my_favorite_screen.dart';
 import 'package:nabny/screens/my_order_screen/my_order_screen.dart';
 import 'package:nabny/screens/setting_screen/setting_screen.dart';
 
 import '../../model/profile_user_model.dart';
 import '../../utils/Themes.dart';
-import '../request_offer_price_screen/request_offer_price_screen.dart';
-import '../request_offer_price_screen_menu/request_offer_price_menu_screen.dart';
+import '../request_offer_price_screen_menu/request_offer_price_companies_screen.dart';
 
 class HomeMainController extends GetxController {
 
@@ -43,7 +40,7 @@ class HomeMainController extends GetxController {
   }
 
  // List<Widget> PageList = [const HomeScreen(),const MyOrderScreen(), SettingScreen()];
-  List<Widget> PageList = [const HomeScreen(),const MyOrderScreen(), RequestOfferPriceMenuScreen(),const SettingScreen()];
+  List<Widget> PageList = [const HomeScreen(),const MyOrderScreen(), const RequestOfferPriceCompaniesScreen(),const SettingScreen()];
 
   List<BottomNavigationBarItem> navigationItem = [
     BottomNavigationBarItem(icon: Image.asset(Assets.iconsIconHome2,width: 30,height: 30,color: Themes.ColorApp11,),label: 'home'.tr,

@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/core/widget/custom_circler_progress_indicator_widget.dart';
@@ -32,16 +31,16 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
  // final ImagePicker _picker = ImagePicker();
   File? image;
 
-  Future PickImage() async {
-    try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (image == null) return;
-      final iamgeTempoary = File(image.path);
-      setState(() => this.image = iamgeTempoary);
-    } on PlatformException catch (e) {
-      print('failed to pick image $e');
-    }
-  }
+  // Future PickImage() async {
+  //   try {
+  //     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+  //     if (image == null) return;
+  //     final iamgeTempoary = File(image.path);
+  //     setState(() => this.image = iamgeTempoary);
+  //   } on PlatformException catch (e) {
+  //     print('failed to pick image $e');
+  //   }
+  // }
 
   @override
   void initState() {
@@ -115,61 +114,61 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
                     SizedBox(
                       height: heightValue * 1.5,
                     ),
-                    controller.ProfileUserModel?.image != null
-                        ? Stack(
-                            children: [
-                              image != null
-                                  ? GestureDetector(
-                                      onTap: () => PickImage(),
-                                      child: ClipOval(
-                                        child: Image.file(
-                                          image!,
-                                          width: 137,
-                                          height: 137,
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                    ) :
-                              GestureDetector(
-                                      onTap: () => PickImage(),
-                                      child: ClipOval(
-                                        child: FadeInImage(
-                                          image: NetworkImage(
-                                              '${controller.ProfileUserModel!.image}'),
-                                          fit: BoxFit.fill,
-                                          height: 137,
-                                          width: 137,
-                                          placeholder: AssetImage(
-                                              Assets.imagesFactoryImage),
-                                        ),
-                                      ),
-                                    ),
-                              Positioned(
-                                bottom: heightValue * .3,
-                                right: widthValue * 1,
-                                child: Image.asset(
-                                  Assets.imagesEditIamge,
-                                  fit: BoxFit.cover,
-                                  width: 35,
-                                  height: 35,
-                                ),
-                              )
-                            ],
-                          ) :
+                    // controller.ProfileUserModel?.image != null ?
+                    // Stack(
+                    //         children: [
+                    //           image != null
+                    //               ? GestureDetector(
+                    //                   onTap: () => PickImage(),
+                    //                   child: ClipOval(
+                    //                     child: Image.file(
+                    //                       image!,
+                    //                       width: 137,
+                    //                       height: 137,
+                    //                       fit: BoxFit.fill,
+                    //                     ),
+                    //                   ),
+                    //                 ) :
+                    //           GestureDetector(
+                    //                   onTap: () => PickImage(),
+                    //                   child: ClipOval(
+                    //                     child: FadeInImage(
+                    //                       image: NetworkImage(
+                    //                           '${controller.ProfileUserModel!.image}'),
+                    //                       fit: BoxFit.fill,
+                    //                       height: 137,
+                    //                       width: 137,
+                    //                       placeholder: AssetImage(
+                    //                           Assets.imagesFactoryImage),
+                    //                     ),
+                    //                   ),
+                    //                 ),
+                    //           Positioned(
+                    //             bottom: heightValue * .3,
+                    //             right: widthValue * 1,
+                    //             child: Image.asset(
+                    //               Assets.imagesEditIamge,
+                    //               fit: BoxFit.cover,
+                    //               width: 35,
+                    //               height: 35,
+                    //             ),
+                    //           )
+                    //         ],
+                    //       ) :
                     Stack(
                       children: [
-                        image != null
-                            ? GestureDetector(
-                          onTap: () => PickImage(),
-                                child: ClipOval(
-                                  child: Image.file(
-                                    image!,
-                                    width: 137,
-                                    height: 137,
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                              ) :
+                        // image != null
+                        //     ? GestureDetector(
+                        //   onTap: () => PickImage(),
+                        //         child: ClipOval(
+                        //           child: Image.file(
+                        //             image!,
+                        //             width: 137,
+                        //             height: 137,
+                        //             fit: BoxFit.fill,
+                        //           ),
+                        //         ),
+                        //       ) :
                         GestureDetector(
                           // onTap: () => PickImage(),
                           child: CircleAvatar(
@@ -184,16 +183,16 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
                             ),
                           ),
                         ),
-                        Positioned(
-                          bottom: heightValue * .3,
-                          right: widthValue * 1,
-                          child: Image.asset(
-                            Assets.imagesEditIamge,
-                            fit: BoxFit.cover,
-                            width: 35,
-                            height: 35,
-                          ),
-                        )
+                        // Positioned(
+                        //   bottom: heightValue * .3,
+                        //   right: widthValue * 1,
+                        //   child: Image.asset(
+                        //     Assets.imagesEditIamge,
+                        //     fit: BoxFit.cover,
+                        //     width: 35,
+                        //     height: 35,
+                        //   ),
+                        // )
                       ],
                     ),
                     SizedBox(
