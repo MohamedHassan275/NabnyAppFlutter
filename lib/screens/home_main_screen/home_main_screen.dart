@@ -15,6 +15,7 @@ import 'package:nabny/screens/setting_profile_screen/setting_profile_screen.dart
 import 'package:nabny/utils/Themes.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/localization/local_controller.dart';
 import '../../core/servies/storage_service.dart';
 import '../change_password_profile/change_password_profile.dart';
 import '../my_order_screen/my_sender_order_screen/my_send_order_controller.dart';
@@ -54,6 +55,7 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
     Get.put(HomeMainController());
     Get.put(MyNewOrderController());
     Get.put(MySendOrderController());
+    Get.put(MyLocalController());
   }
 
   @override

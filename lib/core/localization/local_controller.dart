@@ -3,29 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/core/servies/services.dart';
 import 'package:nabny/core/servies/storage_service.dart';
+import 'package:nabny/core/servies/storage_service_language.dart';
 
 class MyLocalController extends GetxController {
 
-  Locale? language;
-  MyServices myServices = Get.put(MyServices());
+  Locale? myLocal;
 
   changelanguage(String codeCountry){
-    language = Locale(codeCountry);
-    Get.find<StorageService>().activeLocale = language! ;
-    Get.updateLocale(language!);
+    Locale language = Locale(codeCountry);
+    Get.find<StorageServiceLanguage>().setActiveLocale(language);
+    Get.updateLocale(language);
   }
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    String? myLanguage = Get.find<StorageService>().activeLocale.languageCode;
+    String? myLanguage = Get.find<StorageServiceLanguage>().activeLocale.languageCode;
     if(myLanguage == 'ar'){
-      language = const Locale("ar");
+      myLocal = const Locale("ar");
     }else if(myLanguage == 'en'){
-      language = const Locale("en");
+      myLocal = const Locale("en");
     }else {
-      language = Locale(Get.deviceLocale!.languageCode);
+      myLocal = Locale(Get.deviceLocale!.languageCode);
     }
   }
 }

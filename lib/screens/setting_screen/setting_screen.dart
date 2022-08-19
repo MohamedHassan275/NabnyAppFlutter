@@ -59,7 +59,7 @@ class _SettingScreenState extends State<SettingScreen> {
     // TODO: implement initState
     super.initState();
     Get.lazyPut(() => SettingController());
-    print("lan is ${Get.find<MyLocalController>().language!.languageCode}");
+    print("lan is ${Get.find<MyLocalController>().myLocal!.languageCode}");
   }
     @override
     Widget build(BuildContext context) {
@@ -363,7 +363,7 @@ class _ChangeLanguageBottomSheetItemState extends State<ChangeLanguageBottomShee
                      // CustomFlutterToast(Get.find<StorageService>().GetLanguage);
                     //  Get.find<LocalizationService>().toggleLocale('ar');
                       myLocalController.changelanguage("ar");
-                      print("change lan is ${Get.find<MyLocalController>().language!.languageCode}");
+                      print("change lan is ${Get.find<MyLocalController>().myLocal!.languageCode}");
                       Get.offAll(const SplashScreen());
                     });
                     }),
@@ -376,7 +376,7 @@ class _ChangeLanguageBottomSheetItemState extends State<ChangeLanguageBottomShee
                      //  Get.find<LocalizationService>().toggleLocale('en');
                      //  CustomFlutterToast(Get.find<StorageService>().GetLanguage);
                        myLocalController.changelanguage("en");
-                       print("change lan is ${Get.find<MyLocalController>().language!.languageCode}");
+                       print("change lan is ${Get.find<MyLocalController>().myLocal!.languageCode}");
                        Get.offAll(const SplashScreen());
                      });
                     })

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nabny/core/servies/storage_service_language.dart';
 import '../servies/storage_service.dart';
 
 class SupportedLocales {
@@ -15,10 +16,11 @@ class LocalizationService extends GetxService {
   final Locale _activeLocale;
   LocalizationService(this._activeLocale);
 
+  get activeLocale => _activeLocale;
 
   static LocalizationService init() {
     //Get active local from storage
-    Locale activeLocale = Get.find<StorageService>().activeLocale;
+    Locale activeLocale = Get.find<StorageServiceLanguage>().activeLocale;
     return LocalizationService(activeLocale);
   }
 
@@ -27,15 +29,14 @@ class LocalizationService extends GetxService {
 
     if(codeCountry == 'ar'){
       newLocale = const Locale("ar");
-      Get.find<StorageService>().activeLocale = newLocale;
+      Get.find<StorageServiceLanguage>().activeLocale ;
       Get.updateLocale(newLocale);
     }else if(codeCountry == 'en'){
       newLocale = const Locale("en");
-      Get.find<StorageService>().activeLocale = newLocale;
+      Get.find<StorageServiceLanguage>().activeLocale;
       Get.updateLocale(newLocale);
     }else {
-      newLocale = Locale(Get.deviceLocale!.languageCode);
-      Get.find<StorageService>().activeLocale = newLocale;
+      newLocale = const Locale("en");
       Get.updateLocale(newLocale);
     }
 

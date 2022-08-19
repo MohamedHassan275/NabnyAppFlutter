@@ -10,12 +10,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/localization/localization_service.dart';
 import 'core/servies/storage_service.dart';
+import 'core/servies/storage_service_language.dart';
 import 'screens/location_map_user_screen/google_map_locaiton_user_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initialServices();
   await initialServicesUser();
+  await initialServicesLanguageUser();
   await SharedPreferences.getInstance();
   await Firebase.initializeApp();
   Get.put(LocalizationService.init(), permanent: true);
@@ -25,13 +27,13 @@ void main() async {
 class MyApp extends StatelessWidget {
    MyApp({Key? key}) : super(key: key);
 
-  MyLocalController myLocalController = Get.put(MyLocalController());
+   MyLocalController myLocalController = Get.put(MyLocalController());
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       translations: MyTranslation(),
-      locale: myLocalController.language,
+      locale: myLocalController.myLocal,
       home: const SplashScreen(),
     );
   }

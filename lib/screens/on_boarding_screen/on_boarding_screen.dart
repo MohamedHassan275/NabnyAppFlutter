@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/core/constant/constant.dart';
+import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/core/servies/storage_service.dart';
+import 'package:nabny/core/servies/storage_service_language.dart';
 import 'package:nabny/screens/on_boarding_screen/Widget/custom_button.dart';
+import 'package:nabny/screens/splash_screen/splash_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../utils/Themes.dart';
@@ -21,7 +24,15 @@ class OnBoardingScreen extends StatefulWidget{
   
 }
 class OnBoardingScreenState extends State<OnBoardingScreen>{
+  late MyLocalController myLocalController;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print("lang is ${Get.find<StorageServiceLanguage>().activeLocale.languageCode}");
+     myLocalController = Get.put(MyLocalController());
 
+  }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -47,7 +58,10 @@ class OnBoardingScreenState extends State<OnBoardingScreen>{
               right: 25,
               left: 25,
               child: GestureDetector(
-               // onTap: ()=> CustomFlutterToast(Get.find<StorageService>().activeLocale.languageCode),
+                onTap: (){
+                  myLocalController.changelanguage("en");
+                  Get.offAll(const SplashScreen());
+                },
                 child: Image.asset(
                   Assets.imagesLogoApp,
                   fit: BoxFit.contain,
