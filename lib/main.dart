@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       translations: MyTranslation(),
-      locale: myLocalController.myLocal,
+      locale: Get.find<StorageServiceLanguage>().activeLocale,
       home: const SplashScreen(),
     );
   }
