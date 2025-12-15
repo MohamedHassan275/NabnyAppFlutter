@@ -36,7 +36,9 @@ class StorageServiceLanguage extends GetxService {
   
 }
 
-initialServicesLanguageUser () async{
+initialServicesLanguageUser () async {
+
   await Get.putAsync(() => StorageServiceLanguage().init());
+
 }
 

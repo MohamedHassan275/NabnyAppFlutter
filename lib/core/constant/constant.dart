@@ -2,7 +2,7 @@
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nabny/core/constant/Themes.dart';
 
-const  String URL = 'https://nebny.net/api/v2/';
+const  String URL = 'https://nabny-sa.com/api/v2/';
 const String logout = 'are you logout in the application';
 const String apiUrl = "http://bneksy.first-meeting.net/api/";
 const String categoriesImagesUrl =
