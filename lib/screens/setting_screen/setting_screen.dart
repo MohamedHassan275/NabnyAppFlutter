@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_launch/flutter_launch.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/core/constant/constant.dart';
@@ -257,14 +256,10 @@ class ContactWithUs extends StatelessWidget {
               ContactWithUsItem(
                 imageTitle: Assets.iconsWhatsUpImage,
                 onTap: () async{
-                  bool whatsapp = await FlutterLaunch.hasApp(name: "whatsapp");
-
-                  if (whatsapp) {
-                    await FlutterLaunch.launchWhatsapp(
-                        phone: controller.settingResponseModel!.socialmedia![0].whatsapp!,message: '');
-                  } else {
-                    print("Whatsapp não instalado");
-                  }
+                  launchWhatsApp(
+                      phone: controller.settingResponseModel!.socialmedia![0].whatsapp!,
+                      message: "السلام عليكم، أريد الاستفسار عن..."
+                  );
                 },
               ),
               SizedBox(
@@ -294,6 +289,34 @@ class ContactWithUs extends StatelessWidget {
       ),
     ));
   }
+  Future<void> launchWhatsApp({required String phone, String message = ""}) async {
+    // تنظيف الرقم من أي مسافات أو علامات زائد لضمان عمل الرابط بشكل صحيح
+    final cleanPhone = phone.replaceAll(RegExp(r'[^\d]'), '');
+
+    // روابط الواتساب
+    final String whatsappUrl = "whatsapp://send?phone=$cleanPhone&text=${Uri.encodeComponent(message)}";
+    final String webUrl = "https://wa.me/$cleanPhone";
+
+    try {
+      // المحاولة الأولى: فتح تطبيق الواتساب مباشرة
+      if (await canLaunchUrl(Uri.parse(whatsappUrl))) {
+        await launchUrl(
+          Uri.parse(whatsappUrl),
+          mode: LaunchMode.externalApplication,
+        );
+      }
+      // المحاولة الثانية: إذا لم يفتح التطبيق، نفتح رابط الويب (يعمل في المتصفح أو يحول للتطبيق)
+      else {
+        await launchUrl(
+          Uri.parse(webUrl),
+          mode: LaunchMode.externalApplication,
+        );
+      }
+    } catch (e) {
+      print("Could not launch WhatsApp: $e");
+    }
+  }
+
 }
 
 class ChangeLanguageBottomSheetItem extends StatefulWidget {

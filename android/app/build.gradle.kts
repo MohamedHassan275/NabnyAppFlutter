@@ -12,28 +12,39 @@ plugins {
 
 android {
     namespace = "com.waslny.nabny"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 36
 
     // ملاحظة: إصدار NDK هذا (27.x.x) يبدو جديداً جداً وغير شائع.
     // إذا واجهت مشاكل في البناء (Build Issues)، يفضل إما إزالة هذا السطر للاعتماد على إصدار Android Studio
     // الافتراضي، أو استخدام إصدار مستقر معروف (مثل 25.2.8992147).
     ndkVersion = "27.0.12077973"
 
+//    compileOptions {
+//        // تمكين Desugaring لدعم ميزات Java الحديثة (مثل Streams و Time APIs) على Android القديم.
+//        isCoreLibraryDesugaringEnabled = true
+//        sourceCompatibility = JavaVersion.VERSION_17
+//        targetCompatibility = JavaVersion.VERSION_17
+//    }
+//
+//    kotlinOptions {
+//        jvmTarget = "17"
+//    }
+
     compileOptions {
-        // تمكين Desugaring لدعم ميزات Java الحديثة (مثل Streams و Time APIs) على Android القديم.
-        isCoreLibraryDesugaringEnabled = true
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = "17"
     }
 
-    kotlinOptions {
-        jvmTarget = "11"
-    }
+
+
 
     defaultConfig {
         applicationId = "com.waslny.nabny"
-        minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
+        minSdk = 24
+        targetSdk = 36
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
@@ -64,7 +75,10 @@ android {
             // تمكين تصغير الكود والموارد (لتقليل حجم التطبيق)
             isMinifyEnabled = true
             isShrinkResources = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
 
             // إعداد رموز NDK لتتبع الأعطال الأصلية في Google Play Console
             ndk {
