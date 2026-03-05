@@ -1,9 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/core/servies/storage_service.dart';
-import 'package:nabny/generated/assets.dart';
-import 'package:nabny/model/factory_model.dart';
 import 'package:nabny/model/favouriteModel.dart';
 import 'package:nabny/repositries/servies_api/MyServiceApi.dart';
 
@@ -25,8 +21,9 @@ class MyFavoriteController extends GetxController {
     update();
   }
 
-  setFavoriteUserList(List<FavouriteResponseModel>? favouriteResponseModel){
+  setFavoriteUserList(List<FavouriteResponseModel>? favouriteResponseModel) {
     _favouriteResponseModel = favouriteResponseModel;
+    update();
   }
 
 
@@ -65,14 +62,4 @@ class MyFavoriteController extends GetxController {
     });
   }
 
-  // RxList<FactoryModel> factoryModel = List<FactoryModel>.from([
-  //   FactoryModel(Assets.imagesFactoryImage, 'شركه بن لادن', 'جيد جدا', '4.7', '250 km'),
-  //   FactoryModel(Assets.imagesFactoryImage, 'شركه بن لادن', 'جيد جدا', '4.7', '250 km'),
-  //   FactoryModel(Assets.imagesFactoryImage, 'شركه بن لادن', 'جيد جدا', '4.7', '250 km'),
-  //   FactoryModel(Assets.imagesFactoryImage, 'شركه بن لادن', 'جيد جدا', '4.7', '250 km'),
-  //   FactoryModel(Assets.imagesFactoryImage, 'شركه بن لادن', 'جيد جدا', '4.7', '250 km'),
-  // ]).obs;
-  //
-  //
-  //
 }

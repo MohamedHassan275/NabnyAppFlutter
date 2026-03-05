@@ -1,5 +1,3 @@
-import 'package:nabny/model/my_previous_order_model.dart';
-
 class MyNewOrderModel {
   bool? success;
   List<NewOrder>? newOrder;
@@ -9,7 +7,7 @@ class MyNewOrderModel {
 
   MyNewOrderModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
-    if(json['data'] != null){
+    if (json['data'] != null) {
       newOrder = <NewOrder>[];
       json['data'].forEach((v) {
         newOrder!.add(new NewOrder.fromJson(v));
@@ -19,8 +17,7 @@ class MyNewOrderModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> myOrderResponseModel =
-        new Map<String, dynamic>();
+    final Map<String, dynamic> myOrderResponseModel = new Map<String, dynamic>();
     myOrderResponseModel['success'] = this.success;
     if (this.newOrder != null) {
       myOrderResponseModel['data'] = newOrder!.map((e) => e.toJson()).toList();
@@ -42,12 +39,12 @@ class NewOrder {
   String? stoneSize;
   String? specialDescription;
   String? address;
-  String? withPump;
+  int? withPump;
   String? pumpLength;
-  String? withSnow;
-  String? withLab;
-  String? offerCost;
-  String? status;
+  int? withSnow;
+  int? withLab;
+  int? offerCost;
+  int? status;
 
   NewOrder(
       {this.id,
@@ -89,8 +86,7 @@ class NewOrder {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> myOrderResponseModel =
-        new Map<String, dynamic>();
+    final Map<String, dynamic> myOrderResponseModel = new Map<String, dynamic>();
     myOrderResponseModel['id'] = this.id;
     myOrderResponseModel['company'] = this.company;
     myOrderResponseModel['order_number'] = this.orderNumber;
@@ -111,4 +107,3 @@ class NewOrder {
     return myOrderResponseModel;
   }
 }
-

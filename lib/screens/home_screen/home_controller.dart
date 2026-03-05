@@ -25,28 +25,32 @@ class HomeController extends GetxController{
     update();
   }
 
-  setHomeUser(HomeUserResponseModel? homeUserModel){
+  setHomeUser(HomeUserResponseModel? homeUserModel) {
     _homeUserModel = homeUserModel;
+    update();
   }
 
   HomeController(){
     getHomeDetailsUser();
   }
 
-  getHomeDetailsUser() async{
+  getHomeDetailsUser() async {
     setLoading(true);
     res = await checkInternet();
-    MyServiceApi.checkHomeDetailsUser(Get.find<StorageService>().GetToken, Get.find<StorageService>().activeLocale.languageCode).then((value){
-      if(value?.success == true){
-        setLoading(false);
-        //  CustomFlutterToast('${value?.homeUserResponseModel?.currentLocation?.address}');
-        setHomeUser(value?.homeUserResponseModel);
-      }else if(value?.success == false){
-        setLoading(false);
-        CustomFlutterToast('${value?.message}');
-      }
-    });
-
+    final value = await MyServiceApi.checkHomeDetailsUser(
+      Get.find<StorageService>().GetToken,
+      Get.find<StorageService>().activeLocale.languageCode,
+    );
+    if (value?.success == true) {
+      setLoading(false);
+      setHomeUser(value?.homeUserResponseModel);
+    } else if (value?.success == false) {
+      setLoading(false);
+      CustomFlutterToast('${value?.message}');
+    } else {
+      // API returned null (network error)
+      setLoading(false);
+    }
   }
 
   AddFavoriteCompany(companyId){

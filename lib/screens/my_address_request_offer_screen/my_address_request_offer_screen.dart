@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
-import 'package:nabny/core/localization/local_controller.dart';
-import 'package:nabny/core/servies/storage_service.dart';
+import 'package:nabny/componant/nabny_app_bar.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
-import 'package:nabny/screens/requirements_request_offer_price_screen/requirements_request_offer_price_screen.dart';
 
 import '../../generated/assets.dart';
 import '../../utils/Themes.dart';
@@ -26,31 +24,24 @@ class _MyAddressRequestOfferScreenState
     var heightValue = Get.height * 0.024;
     var widthValue = Get.width * 0.024;
     return Scaffold(
+      backgroundColor: Themes.ColorApp7,
+      appBar: NabnyAppBar(title: 'execution_request'.tr),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            width: Get.width,
-            height: Get.height,
-            child: Stack(
-              children: [
-                AppbarDetailsOrder(widthValue, heightValue),
-                SizedBox(
-                  height: heightValue * 1.2,
-                ),
-                Positioned(
-                  top: heightValue * 8,
-                  right: widthValue * 1,
-                  left: widthValue * 1,
-                  child: AddressDetailsOrder(),
-                ),
-                SizedBox(
-                  height: heightValue * 5,
-                ),
-                Positioned(
-                    bottom: heightValue * .1, child: const BottomSheetItem())
-              ],
+        child: Stack(
+          children: [
+            Positioned(
+              top: heightValue * 1,
+              right: widthValue * 1,
+              left: widthValue * 1,
+              child: AddressDetailsOrder(),
             ),
-          ),
+            Positioned(
+              bottom: heightValue * .1,
+              left: 0,
+              right: 0,
+              child: const BottomSheetItem(),
+            ),
+          ],
         ),
       ),
     );
@@ -139,52 +130,6 @@ class AddressDetailsOrder extends StatelessWidget {
   }
 }
 
-class AppbarDetailsOrder extends StatelessWidget {
-  AppbarDetailsOrder(this.widthValue, this.heightValue);
-
-  double heightValue, widthValue;
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          width: Get.width,
-          height: 119,
-          decoration: BoxDecoration(
-              color: Themes.ColorApp14,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(35), topRight: Radius.circular(35))),
-          child: Center(
-            child: Text(
-              'execution_request'.tr,
-              style: TextStyle(
-                color: Themes.ColorApp15,
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          top: heightValue * 2.3,
-          right: widthValue * 1.5,
-          child: GestureDetector(
-            onTap: () => Get.off(RequirementsRequestOfferPriceScreen(companyId: '', my_location: '')),
-            child: CircleAvatar(
-              backgroundColor: Themes.ColorApp5,
-              child: Icon(
-                Get.find<StorageService>().activeLocale.languageCode == "en"
-                    ? Icons.keyboard_arrow_right
-                    : Icons.keyboard_arrow_left,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
 
 class BottomSheetItem extends StatefulWidget {
   const BottomSheetItem({Key? key}) : super(key: key);

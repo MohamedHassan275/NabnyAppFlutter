@@ -1,312 +1,270 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
-import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/model/favouriteModel.dart';
-import 'package:nabny/model/home_user_model.dart';
-import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:nabny/screens/requirements_request_offer_price_screen/requirements_request_offer_price_screen.dart';
 
-import '../../core/servies/storage_service.dart';
 import '../../generated/assets.dart';
 import '../../utils/Themes.dart';
 
 class FactoryDetailsFavoriteScreen extends StatelessWidget {
-   FactoryDetailsFavoriteScreen({Key? key,required this.favouriteResponseModel}) : super(key: key);
-   FavouriteResponseModel favouriteResponseModel;
+  FactoryDetailsFavoriteScreen(
+      {Key? key, required this.favouriteResponseModel})
+      : super(key: key);
+  FavouriteResponseModel favouriteResponseModel;
+
   @override
   Widget build(BuildContext context) {
-    var heightValue = Get.height * 0.024;
-    var widthValue = Get.width * 0.024;
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            width: Get.width,
-            height: Get.height,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(Assets.imagesBackgroundFactoryDetails),
-                  fit: BoxFit.cover,
-                ),
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(35), topLeft: Radius.circular(35))),
-            child: Stack(
-              children: [
-                ImageAndFavoriteFactory(heightValue: heightValue, favouriteResponseModel: favouriteResponseModel,),
-                Positioned(
-                    top: heightValue * 13,
-                    right: widthValue * 2,
-                    left: widthValue * 2,
-                    child: FactoryDetails(
-                      heightValue: heightValue,
-                      widthValue: widthValue, favouriteResponseModel: favouriteResponseModel,
-                    )),
-                SizedBox(height: heightValue * 1.5,),
-                Positioned(
-                    top: heightValue * 22,
-                    child: FactoryDetails2(
-                      heightValue: heightValue,
-                      widthValue: widthValue, favouriteResponseModel: favouriteResponseModel,
-                    )),
-                Positioned(
-                    bottom: heightValue * 3,
-                    child: CustomButtonImage(title: 'request_price2'.tr, hight: 50, onTap: () {
-                      Get.to(RequirementsRequestOfferPriceScreen(companyId: '${favouriteResponseModel.id}', my_location: ''));
-                    },)),
-              ],
+      backgroundColor: Colors.white,
+      body: Stack(
+        children: [
+          // ── صورة الخلفية تملأ النصف العلوي ──
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            height: Get.height * 0.45,
+            child: Image.asset(
+              Assets.imagesBackgroundFactoryDetails,
+              fit: BoxFit.cover,
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class ImageAndFavoriteFactory extends StatelessWidget {
-  ImageAndFavoriteFactory({required this.heightValue,required this.favouriteResponseModel});
-  FavouriteResponseModel favouriteResponseModel;
-  double heightValue;
-  double height = Get.height * 0.024 * 2;
-  @override
-  Widget build(BuildContext context) {
-    return  Padding(
-      padding: EdgeInsets.symmetric(horizontal: 25, vertical: height),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GestureDetector(
-            onTap: ()=> Get.to(HomeMainScreen(valueBack: '')),
-            child: CirclerIcons(
-                width: 35,
-                height: 35,
-                widget: Icon(
-                  Get.find<StorageService>().activeLocale.languageCode == "en"
-                      ? Icons.keyboard_arrow_right
-                      : Icons.keyboard_arrow_left,),
-                color: Themes.whiteColor),
+          // ── تعتيم خفيف ──
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            height: Get.height * 0.45,
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.black.withOpacity(0.3),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+            ),
           ),
-          GestureDetector(
-            onTap: () {},
-            child: CirclerIcons(
-                width: 35,
-                height: 35,
-                widget: Image.asset(Assets.iconsFavoriteIcon),
-                color: Themes.whiteColor),
-          )
+          // ── أزرار رجوع ومفضلة ──
+          SafeArea(
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () => Get.back(),
+                    child: const _CircleActionBtn(
+                      icon: Icons.arrow_back_ios_rounded,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {},
+                    child: const _CircleActionBtn(
+                      icon: Icons.favorite_rounded,
+                      iconColor: Colors.redAccent,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          // ── كارت التفاصيل ──
+          Positioned(
+            top: Get.height * 0.38,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius:
+                    BorderRadius.vertical(top: Radius.circular(28)),
+              ),
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // ── اسم + تقييم ──
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${favouriteResponseModel.name ?? ''}',
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                  color: Themes.ColorApp15,
+                                ),
+                              ),
+                              if (favouriteResponseModel.category != null)
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 4),
+                                  child: Text(
+                                    '${favouriteResponseModel.category}',
+                                    style: const TextStyle(
+                                      fontSize: 13,
+                                      color: Themes.ColorApp8,
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: Themes.ColorApp12,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.star_rounded,
+                                  size: 14, color: Themes.ColorApp13),
+                              const SizedBox(width: 4),
+                              Text(
+                                '${favouriteResponseModel.rate ?? ''}',
+                                style: const TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w700,
+                                  color: Themes.ColorApp13,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    // ── تبويبات ──
+                    _InfoTabRow(),
+
+                    const SizedBox(height: 20),
+                    const Divider(color: Color(0xFFF0F0F0), height: 1),
+                    const SizedBox(height: 16),
+
+                    // ── عن الشركة ──
+                    const Text(
+                      'عن الشركة',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                        color: Themes.ColorApp15,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      favouriteResponseModel.about?.isNotEmpty == true
+                          ? '${favouriteResponseModel.about}'
+                          : 'وريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تفاصيل المنتجات أو وصف المصانع بالتفصيل. يمكن أيضاً أن يلتمس على الشمال أو منتصف الشاشة.',
+                      style: const TextStyle(
+                        fontSize: 13,
+                        color: Themes.ColorApp8,
+                        height: 1.7,
+                      ),
+                    ),
+
+                    const SizedBox(height: 24),
+
+                    // ── زرار الطلب ──
+                    CustomButtonImage(
+                      title: 'request_price2'.tr,
+                      hight: 52,
+                      onTap: () => Get.to(
+                        RequirementsRequestOfferPriceScreen(
+                          companyId: '${favouriteResponseModel.id}',
+                          my_location: '',
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 }
 
-class FactoryDetails extends StatelessWidget {
-  FactoryDetails({required this.favouriteResponseModel, required this.heightValue, required this.widthValue});
-  FavouriteResponseModel favouriteResponseModel;
-  double heightValue, widthValue;
+class _InfoTabRow extends StatelessWidget {
+  const _InfoTabRow();
 
   @override
   Widget build(BuildContext context) {
-    var List = favouriteResponseModel.services;
-    var stringList = List!.join(" , ");
-    return Card(
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15))),
-      child: Container(
-        width: Get.width,
-        child: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                            color: Themes.ColorApp14,
-                            borderRadius: BorderRadius.circular(15)),
-                        child: Center(
-                          child: Image.asset(
-                            Assets.iconsFactoryNamIcon,
-                            width: 35,
-                            height: 35,
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: widthValue * .7,
-                      ),
-                      Text(
-                        '${favouriteResponseModel.name}',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Themes.ColorApp1,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      )
-                    ],
+    final tabs = [
+      ('طلبات', Icons.receipt_long_rounded),
+      ('المحدد', Icons.check_circle_outline_rounded),
+      ('فوائد', Icons.star_outline_rounded),
+    ];
+    return Row(
+      children: tabs.map((tab) {
+        return Expanded(
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 4),
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            decoration: BoxDecoration(
+              color: Themes.ColorApp4,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Column(
+              children: [
+                Icon(tab.$2, size: 20, color: Themes.ColorApp1),
+                const SizedBox(height: 4),
+                Text(
+                  tab.$1,
+                  style: const TextStyle(
+                    fontSize: 11,
+                    color: Themes.ColorApp15,
+                    fontWeight: FontWeight.w600,
                   ),
-                  Row(
-                    children: [
-                      Text(
-                        '${favouriteResponseModel.category}',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Themes.ColorApp1,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(
-                        width: widthValue * .3,
-                      ),
-                      Container(
-                        width: 70,
-                        height: 30,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(35),
-                            color: Themes.ColorApp12),
-                        child: Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                '${favouriteResponseModel.rate}',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12,
-                                  color: Themes.ColorApp13,
-                                ),
-                              ),
-                              SizedBox(
-                                width: widthValue * .2,
-                              ),
-                              Icon(
-                                Icons.star,
-                                color: Themes.ColorApp13,
-                              )
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: heightValue * .7,
-              ),
-              StyleOrderWidget(
-                title: '${stringList}',
-              ),
-              SizedBox(
-                height: heightValue * 1.5,
-              )
-            ],
+                ),
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      }).toList(),
     );
   }
 }
 
-class FactoryDetails2 extends StatelessWidget {
-   FactoryDetails2({required this.favouriteResponseModel, required this.heightValue, required this.widthValue});
-   FavouriteResponseModel favouriteResponseModel;
-  double heightValue, widthValue;
+class _CircleActionBtn extends StatelessWidget {
+  const _CircleActionBtn({required this.icon, this.iconColor});
+  final IconData icon;
+  final Color? iconColor;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: Get.width,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'about_company'.tr,
-              style: TextStyle(
-                fontSize: 16,
-                color: Themes.ColorApp8,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            SizedBox(height: heightValue * .5,),
-            Text(
-              '${favouriteResponseModel.about}',
-              style: TextStyle(
-                fontSize: 16,
-                color: Themes.ColorApp8,
-                fontWeight: FontWeight.w400,
-              ),
-            )
-          ],
-        ),
+      width: 40,
+      height: 40,
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.9),
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.12),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
-    );
-  }
-}
-
-
-class StyleOrderWidget extends StatelessWidget {
-  StyleOrderWidget({required this.title});
-
-  String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25),
-      child: Container(
-        width: Get.width,
-        height: 30,
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(25),color: Themes.ColorApp14,),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SizedBox(height: 5,),
-            Text(
-              title,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 14,
-                color: Themes.ColorApp1,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            SizedBox(height: 5,)
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class CirclerIcons extends StatelessWidget {
-  CirclerIcons(
-      {required this.width,
-      required this.height,
-      required this.widget,
-      required this.color});
-
-  double width, height;
-  Color color;
-  Widget widget;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      height: height,
-      child: CircleAvatar(
-        backgroundColor: color,
-        child: Center(child: widget),
+      child: Center(
+        child: Icon(icon, size: 18, color: iconColor ?? Themes.ColorApp1),
       ),
     );
   }

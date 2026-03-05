@@ -3,11 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/generated/assets.dart';
-import 'package:nabny/screens/location_map_user_screen/google_map_locaiton_user_screen.dart';
-import 'package:nabny/screens/on_boarding_screen/on_boarding_screen.dart';
+import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
+import 'package:nabny/screens/login_screen/login_screen.dart';
 
 import '../../core/servies/storage_service.dart';
-import '../home_main_screen/home_main_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -22,15 +21,19 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Timer(
         const Duration(seconds: 3),
-        () => Get.offAll(Get.find<StorageService>().GetToken != ""
-            ? GoogleMapLocationUserScreen()
-            : OnBoardingScreen()));
-
-
+        () {
+          final token = Get.find<StorageService>().GetToken;
+          if (token != "") {
+            // مسجل دخول → الهوم مباشرة (بدون الخريطة)
+            Get.offAll(() => HomeMainScreen(valueBack: ''));
+          } else {
+            // غير مسجل → شاشة اللوجن
+            Get.offAll(() => const LoginScreen());
+          }
+        });
   }
 
   @override

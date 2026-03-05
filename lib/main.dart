@@ -4,14 +4,12 @@ import 'package:get/get.dart';
 import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/core/localization/translation.dart';
 import 'package:nabny/core/servies/services.dart';
-import 'package:nabny/screens/profile_information_screen/profile_information_controller.dart';
 import 'package:nabny/screens/splash_screen/splash_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/localization/localization_service.dart';
 import 'core/servies/storage_service.dart';
 import 'core/servies/storage_service_language.dart';
-import 'screens/location_map_user_screen/google_map_locaiton_user_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,11 +23,11 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-   MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
 
-   MyLocalController myLocalController = Get.put(MyLocalController());
   @override
   Widget build(BuildContext context) {
+    Get.put(MyLocalController());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       translations: MyTranslation(),

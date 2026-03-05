@@ -5,7 +5,7 @@ import 'package:nabny/core/servies/storage_service.dart';
 import 'package:nabny/model/my_current_order_model.dart';
 import 'package:nabny/repositries/servies_api/MyServiceApi.dart';
 
-import '../../../generated/assets.dart';
+
 import '../../home_main_screen/home_main_screen.dart';
 
 
@@ -30,8 +30,9 @@ class MyCurrentOrderController extends GetxController {
     update();
   }
 
-  setMyOrderUser(List<CurrentOrder>? currentOrder){
+  setMyOrderUser(List<CurrentOrder>? currentOrder) {
     _currentOrder = currentOrder;
+    update();
   }
 
   MyCurrentOrderController(){
@@ -44,13 +45,15 @@ class MyCurrentOrderController extends GetxController {
     MyServiceApi.GetMyCurrentOrderUser(Get.find<StorageService>().GetToken, Get.find<StorageService>().activeLocale.languageCode).then((value){
       print("my order status is ${value?.success}");
       if(value?.success == true){
-        setLoading(false);
-        print("my current order status is ${value?.currentOrder!.length}");
+        print("my current order status is ${value?.currentOrder?.length}");
         setMyOrderUser(value?.currentOrder);
       }else if(value?.success == false){
-        setLoading(false);
         CustomFlutterToast(value?.message);
       }
+    }).catchError((e){
+      print('getMyOrderUser error: $e');
+    }).whenComplete((){
+      setLoading(false);
     });
   }
 

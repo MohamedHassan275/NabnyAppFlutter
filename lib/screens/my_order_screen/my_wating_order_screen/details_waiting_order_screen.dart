@@ -1,35 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:nabny/componant/CustomButtonWidget.dart';
-import 'package:nabny/core/localization/local_controller.dart';
+import 'package:nabny/componant/nabny_app_bar.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/model/my_new_order_model.dart';
 
-import '../../../core/servies/storage_service.dart';
 import '../../../utils/Themes.dart';
-import '../../home_main_screen/home_main_screen.dart';
 
 class DetailsWaitingOrderScreen extends StatelessWidget {
-   DetailsWaitingOrderScreen({Key? key,required this.newOrder}) : super(key: key);
-   NewOrder newOrder;
+  DetailsWaitingOrderScreen({Key? key, required this.newOrder}) : super(key: key);
+  NewOrder newOrder;
   @override
   Widget build(BuildContext context) {
     var heightValue = Get.height * 0.024;
     var widthValue = Get.width * 0.024;
     return Scaffold(
+      backgroundColor: Themes.ColorApp7,
+      appBar: NabnyAppBar(title: 'contract_details'.tr),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
             width: Get.width,
-            height: Get.height,
             child: Column(
               children: [
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AppbarDetailsOrder(widthValue, heightValue),
                     SizedBox(
                       height: heightValue * 1.2,
                     ),
@@ -37,14 +33,15 @@ class DetailsWaitingOrderScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 5),
                       child: Card(
                         elevation: 2.0,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              AddressDetailsOrder(newOrder: newOrder,),
+                              AddressDetailsOrder(
+                                newOrder: newOrder,
+                              ),
                               SizedBox(
                                 height: heightValue * .7,
                               ),
@@ -83,16 +80,13 @@ class DetailsWaitingOrderScreen extends StatelessWidget {
                               SizedBox(
                                 height: heightValue * .7,
                               ),
-                              DetailsOrder(widthValue, 'pump_order'.tr, newOrder.withPump!.contains('1') ? 'pump_order'.tr : 'with_out_pump'.tr),
+                              DetailsOrder(widthValue, 'pump_order'.tr, newOrder.withPump == 1 ? 'pump_order'.tr : 'with_out_pump'.tr),
                               SizedBox(
                                 height: heightValue * .7,
                               ),
                               Container(
                                 height: 50,
-                                decoration: BoxDecoration(
-                                    color: Themes.ColorApp14,
-                                    borderRadius: BorderRadius.circular(25)
-                                ),
+                                decoration: BoxDecoration(color: Themes.ColorApp14, borderRadius: BorderRadius.circular(25)),
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 10),
                                   child: Center(
@@ -117,7 +111,9 @@ class DetailsWaitingOrderScreen extends StatelessWidget {
                     )
                   ],
                 ),
-                SizedBox(height: heightValue * 2,),
+                SizedBox(
+                  height: heightValue * 2,
+                ),
               ],
             ),
           ),
@@ -127,52 +123,6 @@ class DetailsWaitingOrderScreen extends StatelessWidget {
   }
 }
 
-class AppbarDetailsOrder extends StatelessWidget {
-   AppbarDetailsOrder(this.widthValue,this.heightValue);
-   double heightValue,widthValue;
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          width: Get.width,
-          height: 119,
-          decoration: BoxDecoration(
-              color: Themes.ColorApp14,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(35),
-                  topRight: Radius.circular(35))),
-          child: Center(
-            child: Text(
-              'contract_details'.tr,
-              style: TextStyle(
-                color: Themes.ColorApp15,
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          top: heightValue * 2.3,
-          right: heightValue * 1.5,
-          child: GestureDetector(
-            onTap: () => Get.off(HomeMainScreen(valueBack: '')),
-            child: CircleAvatar(
-              backgroundColor: Themes.ColorApp5,
-              child: Icon(
-                Get.find<StorageService>().activeLocale.languageCode == "en"
-                    ? Icons.keyboard_arrow_right
-                    : Icons.keyboard_arrow_left,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
 
 class AddressDetailsOrder extends StatelessWidget {
   AddressDetailsOrder({required this.newOrder});
@@ -182,7 +132,7 @@ class AddressDetailsOrder extends StatelessWidget {
   var widthValue = Get.width * 0.024;
   @override
   Widget build(BuildContext context) {
-    return  Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Row(
@@ -228,7 +178,7 @@ class AddressDetailsOrder extends StatelessWidget {
 }
 
 class DetailsOrder extends StatelessWidget {
-  DetailsOrder(this.widthValue,this.title,this.details);
+  DetailsOrder(this.widthValue, this.title, this.details);
 
   double widthValue;
   String title, details;

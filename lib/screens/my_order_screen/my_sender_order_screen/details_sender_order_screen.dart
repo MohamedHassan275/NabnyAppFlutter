@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
+import 'package:nabny/componant/nabny_app_bar.dart';
 import 'package:nabny/core/constant/constant.dart';
 import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/generated/assets.dart';
@@ -9,10 +10,8 @@ import 'package:nabny/model/my_new_order_model.dart';
 import 'package:nabny/model/my_send_order_model.dart';
 import 'package:nabny/screens/my_order_screen/my_sender_order_screen/my_send_order_controller.dart';
 
-import '../../../core/servies/storage_service.dart';
 import '../../../core/widget/custom_circler_progress_indicator_widget.dart';
 import '../../../utils/Themes.dart';
-import '../../home_main_screen/home_main_screen.dart';
 
 
 class DetailsSenderOrderScreen extends StatelessWidget {
@@ -22,8 +21,10 @@ class DetailsSenderOrderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var heightValue = Get.height * 0.024;
     var widthValue = Get.width * 0.024;
-    MySendOrderController mySendOrderController = Get.put(MySendOrderController());
+    MySendOrderController mySendOrderController = Get.find<MySendOrderController>();
     return Scaffold(
+      backgroundColor: Themes.ColorApp7,
+      appBar: NabnyAppBar(title: 'contract_details'.tr),
       body: RefreshIndicator(
         onRefresh: () async{
           mySendOrderController.getMySendOrderUser();
@@ -32,7 +33,6 @@ class DetailsSenderOrderScreen extends StatelessWidget {
           child: SingleChildScrollView(
             child: Container(
               width: Get.width,
-              height: Get.height,
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -40,7 +40,6 @@ class DetailsSenderOrderScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        AppbarDetailsOrder(widthValue, heightValue),
                         SizedBox(
                           height: heightValue * 1.2,
                         ),
@@ -152,7 +151,6 @@ class DetailsSenderOrderScreen extends StatelessWidget {
                     ),
 
                     GetBuilder<MySendOrderController>(
-                      init: MySendOrderController(),
                         builder: (controller) => Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -200,53 +198,7 @@ class DetailsSenderOrderScreen extends StatelessWidget {
   }
 }
 
-class AppbarDetailsOrder extends StatelessWidget {
-   AppbarDetailsOrder(this.widthValue,this.heightValue);
 
-   double heightValue,widthValue;
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          width: Get.width,
-          height: 119,
-          decoration: BoxDecoration(
-              color: Themes.ColorApp14,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(35),
-                  topRight: Radius.circular(35))),
-          child: Center(
-            child: Text(
-              'contract_details'.tr,
-              style: TextStyle(
-                color: Themes.ColorApp15,
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          top: heightValue * 2.3,
-          right: heightValue * 1.5,
-          child: GestureDetector(
-            onTap: () => Get.off(HomeMainScreen(valueBack: '')),
-            child: CircleAvatar(
-              backgroundColor: Themes.ColorApp5,
-              child: Icon(
-                Get.find<StorageService>().activeLocale.languageCode == "en"
-                    ? Icons.keyboard_arrow_right
-                    : Icons.keyboard_arrow_left,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
 
 class AddressDetailsOrder extends StatelessWidget {
   AddressDetailsOrder({required this.sendOrder});

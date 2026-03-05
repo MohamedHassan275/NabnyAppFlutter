@@ -21,7 +21,7 @@ class _MySenderOrderScreenState extends State<MySenderOrderScreen> {
 
   var heightValue = Get.height * 0.024;
   var widthValue = Get.width * 0.024;
-  MySendOrderController mySendOrderController = Get.put(MySendOrderController());
+  MySendOrderController mySendOrderController = Get.find<MySendOrderController>();
 
 
   @override
@@ -29,10 +29,8 @@ class _MySenderOrderScreenState extends State<MySenderOrderScreen> {
 
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: () async{
-          setState(() {
-            mySendOrderController.getMySendOrderUser();
-          });
+        onRefresh: () async {
+          mySendOrderController.getMySendOrderUser();
         },
         child: SafeArea(
             child: SingleChildScrollView(
@@ -40,13 +38,12 @@ class _MySenderOrderScreenState extends State<MySenderOrderScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: GetBuilder<MySendOrderController>(
-                    init: MySendOrderController(),
                     builder: (controller) {
                       if(controller.Loading){
                         return LoadingWidget(data: '');
                       }
-                      return controller.sendOrder!.isNotEmpty ?
-                      ListView.builder(
+                      return controller.sendOrder?.isNotEmpty == true
+                      ? ListView.builder(
                         itemCount: controller.sendOrder!.length,
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),

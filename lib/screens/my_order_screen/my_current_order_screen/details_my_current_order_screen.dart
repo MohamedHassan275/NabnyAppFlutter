@@ -1,33 +1,33 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nabny/componant/nabny_app_bar.dart';
 import 'package:nabny/model/my_current_order_model.dart';
 import 'package:nabny/model/my_new_order_model.dart';
-import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:nabny/screens/my_order_screen/my_current_order_screen/my_current_order_controller.dart';
 
 import '../../../componant/CustomButtonWidget.dart';
 import '../../../core/constant/Themes.dart';
 import '../../../core/constant/constant.dart';
 import '../../../core/localization/local_controller.dart';
-import '../../../core/servies/storage_service.dart';
 import '../../../core/widget/custom_circler_progress_indicator_widget.dart';
 import '../../../generated/assets.dart';
 
 class DetailsMyCurrentOrder extends StatelessWidget {
   DetailsMyCurrentOrder({Key? key,required this.currentOrder}) : super(key: key);
   CurrentOrder currentOrder;
-  MyCurrentOrderController myCurrentOrderController = Get.put(MyCurrentOrderController());
+  MyCurrentOrderController myCurrentOrderController = Get.find<MyCurrentOrderController>();
   @override
   Widget build(BuildContext context) {
     var heightValue = Get.height * 0.024;
     var widthValue = Get.width * 0.024;
     return Scaffold(
+      backgroundColor: Themes.ColorApp7,
+      appBar: NabnyAppBar(title: 'contract_details'.tr),
       body: SafeArea(
         child: SingleChildScrollView(
           child: SizedBox(
             width: Get.width,
-            height: Get.height,
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,7 +36,6 @@ class DetailsMyCurrentOrder extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AppbarDetailsOrder(widthValue, heightValue),
                       SizedBox(
                         height: heightValue * 1.2,
                       ),
@@ -192,7 +191,6 @@ class DetailsMyCurrentOrder extends StatelessWidget {
                                   ],
                                 ),
                               GetBuilder<MyCurrentOrderController>(
-                                init: MyCurrentOrderController(),
                                   builder: (controller) =>  Column(
                                     children: [
                                       SizedBox(
@@ -255,53 +253,7 @@ class DetailsMyCurrentOrder extends StatelessWidget {
     );
   }
 }
-class AppbarDetailsOrder extends StatelessWidget {
-  AppbarDetailsOrder(this.widthValue,this.heightValue);
 
-  double heightValue,widthValue;
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          width: Get.width,
-          height: 119,
-          decoration: BoxDecoration(
-              color: Themes.ColorApp14,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(35),
-                  topRight: Radius.circular(35))),
-          child: Center(
-            child: Text(
-              'contract_details'.tr,
-              style: TextStyle(
-                color: Themes.ColorApp15,
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          top: heightValue * 2.3,
-          right: heightValue * 1.5,
-          child: GestureDetector(
-            onTap: () => Get.off(HomeMainScreen(valueBack: '')),
-            child: CircleAvatar(
-              backgroundColor: Themes.ColorApp5,
-              child: Icon(
-                Get.find<StorageService>().activeLocale.languageCode == "en"
-                    ? Icons.keyboard_arrow_right
-                    : Icons.keyboard_arrow_left,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
 
 class AddressDetailsOrder extends StatelessWidget {
   AddressDetailsOrder({required this.currentOrder});

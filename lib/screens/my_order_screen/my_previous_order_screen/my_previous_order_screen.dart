@@ -18,7 +18,7 @@ class MyPreviousOrderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var heightValue = Get.height * 0.024;
     var widthValue = Get.width * 0.024;
-    MyPreviousOrderController myPreviousOrderController = Get.put(MyPreviousOrderController());
+    MyPreviousOrderController myPreviousOrderController = Get.find<MyPreviousOrderController>();
 
     return Scaffold(
       body: RefreshIndicator(
@@ -31,12 +31,11 @@ class MyPreviousOrderScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(2.0),
               child: GetBuilder<MyPreviousOrderController>(
-                init: MyPreviousOrderController(),
                 builder: (controller) {
                   if(controller.Loading){
                     return LoadingWidget(data: '');
                   }else {
-                    return controller.previousOrder!.isNotEmpty ?
+                    return controller.previousOrder?.isNotEmpty == true ?
                     ListView.builder(
                       itemCount: controller.previousOrder!.length,
                       shrinkWrap: true,
@@ -60,19 +59,11 @@ class MyPreviousOrderScreen extends StatelessWidget {
 
 class MyPreviousOrderItem extends StatelessWidget {
    MyPreviousOrderItem({Key? key,required this.previousOrder,required this.heightValue,required this.widthValue}) : super(key: key);
-   double heightValue,widthValue;
-   PreviousOrder previousOrder;
-   String? statusOrder;
+   final double heightValue, widthValue;
+   final PreviousOrder previousOrder;
 
   @override
   Widget build(BuildContext context) {
-    getStatusOrder(String order){
-      if(previousOrder.status!.contains('4')){
-        statusOrder = ''.tr;
-      }else {
-
-      }
-    }
     return GestureDetector(
       onTap: (){
         Get.to(DetailsPreviousOrderScreen(previousOrder: previousOrder,));

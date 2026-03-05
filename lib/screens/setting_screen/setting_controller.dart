@@ -11,14 +11,15 @@ class SettingController extends GetxController {
   SettingResponseModel? settingResponseModel;
 
   get isLodaing => isloading;
-  SettingResponseModel? get _settingResponseModel => settingResponseModel;
 
-  setLoading(bool isLoading){
+  setLoading(bool isLoading) {
     isloading = isLoading;
+    update();
   }
 
-  setGetSettingUser(SettingResponseModel? SettingResponseModel){
-    settingResponseModel = SettingResponseModel;
+  setGetSettingUser(SettingResponseModel? settingResponse) {
+    settingResponseModel = settingResponse;
+    update();
   }
 
   SettingController(){

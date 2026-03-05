@@ -25,18 +25,16 @@ class _MyWaitingOrderScreenState extends State<MyWaitingOrderScreen> {
 
   var heightValue = Get.height * 0.024;
   var widthValue = Get.width * 0.024;
-  MyNewOrderController myNewOrderController = Get.put(MyNewOrderController());
-  MySendOrderController mySendOrderController = Get.put(MySendOrderController());
-  MyCurrentOrderController myCurrentOrderController = Get.put(MyCurrentOrderController());
-  MyPreviousOrderController myPreviousOrderController = Get.put(MyPreviousOrderController());
+  // Retrieve controllers that are already registered by MyOrderScreen
+  MyNewOrderController myNewOrderController = Get.find<MyNewOrderController>();
+  MySendOrderController mySendOrderController = Get.find<MySendOrderController>();
+  MyCurrentOrderController myCurrentOrderController = Get.find<MyCurrentOrderController>();
+  MyPreviousOrderController myPreviousOrderController = Get.find<MyPreviousOrderController>();
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    setState(() {
-      Get.put(MyNewOrderController());
-    });
+    // Controllers are already registered by MyOrderScreen — no need to re-create them.
   }
   @override
   Widget build(BuildContext context) {
@@ -57,7 +55,6 @@ class _MyWaitingOrderScreenState extends State<MyWaitingOrderScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: GetBuilder<MyNewOrderController>(
-                    init: MyNewOrderController(),
                     builder: (controller) {
                       if(controller.Loading){
                         return LoadingWidget(data: '');

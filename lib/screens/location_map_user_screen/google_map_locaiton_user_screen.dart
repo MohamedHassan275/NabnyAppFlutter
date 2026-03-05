@@ -4,14 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:location/location.dart' as prefix;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:nabny/core/constant/constant.dart';
-import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/screens/location_map_user_screen/google_map_locaiton_user_controller.dart';
-import 'package:permission_handler/permission_handler.dart';
 
-import '../../componant/CustomButtonWidget.dart';
 import '../../core/constant/Themes.dart';
 import '../../core/widget/custom_circler_progress_indicator_widget.dart';
 
@@ -28,190 +23,321 @@ class _GoogleMapLocationUserScreenState
   LatLng? latlong;
   late CameraPosition _cameraPosition;
   GoogleMapController? _controller;
-
   final Set<Marker> _markers = {};
-  late Position userLocation;
-  prefix.Location currentLocation = prefix.Location();
-  TextEditingController locationController = TextEditingController();
+
+  // ── حالات UI ──
+  bool _isLocating = false;       // جاري البحث عن الموقع
+  bool _gpsDisabled = false;      // GPS مطفي
+  bool _permissionDenied = false; // إذن مرفوض (نهائي أو مؤقت)
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
-    _cameraPosition = CameraPosition(target: LatLng(0, 0), zoom: 10.0);
+    // موقع افتراضي (الرياض) حتى يتم جلب الموقع الحقيقي
+    _cameraPosition = const CameraPosition(
+      target: LatLng(24.7136, 46.6753),
+      zoom: 10.0,
+    );
     getCurrentLocation();
-    setState(() {
-      getLocation();
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    var heightValue = Get.height * 0.024;
+    final heightValue = Get.height * 0.024;
+
     return Scaffold(
       body: SafeArea(
-          child: GetBuilder<GetMyLocationController>(
-            init: GetMyLocationController(),
-            builder: (googleMapLocaitonUserController) =>  Stack(
+        child: GetBuilder<GetMyLocationController>(
+          init: GetMyLocationController(),
+          builder: (mapController) => Stack(
             children: [
-              (latlong != null)
-                  ? GoogleMap(
+              // ── الخريطة دايماً في الخلفية ──
+              GoogleMap(
+                mapType: MapType.normal,
                 initialCameraPosition: _cameraPosition,
                 onMapCreated: (GoogleMapController controller) {
-                  _controller = (controller);
+                  _controller = controller;
                   _controller!.animateCamera(
-                      CameraUpdate.newCameraPosition(_cameraPosition));
+                    CameraUpdate.newCameraPosition(_cameraPosition),
+                  );
                 },
                 markers: _markers,
-              )
-                  : GoogleMap(
-                mapType: MapType.hybrid,
-                initialCameraPosition: CameraPosition(
-                    target: LatLng(31.132112313, 30.212312321), zoom: 10.0),
-                onMapCreated: (GoogleMapController controller) {
-                  _controller = (controller);
-                  _controller!.animateCamera(CameraUpdate.newCameraPosition(
-                      CameraPosition(
-                          target: LatLng(31.132112313, 30.212312321),
-                          zoom: 10.0)));
-                },
-                markers: _markers,
+                myLocationEnabled: !_gpsDisabled && !_permissionDenied,
+                myLocationButtonEnabled: false,
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  width: Get.width,
-                  height: 200,
-                  // color: Themes.whiteColor,
-                  child: Column(
-                    children: [
-                      const Spacer(),
-                      Visibility(
-                        visible: googleMapLocaitonUserController.isLoading
-                            ? true
-                            : false,
-                        child: Container(
-                            width: 75,
-                            height: 75,
-                            decoration: BoxDecoration(
-                                color: Themes.whiteColor,
-                                borderRadius: BorderRadius.circular(25)
+
+              // ── overlay لو GPS مطفي أو إذن مرفوض ──
+              if (_gpsDisabled || _permissionDenied)
+                _buildBlockedOverlay(heightValue),
+
+              // ── زر GPS (فقط لو كل شيء تمام) ──
+              if (!_gpsDisabled && !_permissionDenied)
+                Positioned(
+                  top: 15,
+                  right: 15,
+                  child: FloatingActionButton(
+                    heroTag: 'gps_btn',
+                    backgroundColor: Themes.ColorApp1,
+                    onPressed: _isLocating ? null : getCurrentLocation,
+                    child: _isLocating
+                        ? const SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 2,
                             ),
-                            child: CirclerProgressIndicatorWidget(
-                                isLoading: googleMapLocaitonUserController.isLoading
-                                    ? true
-                                    : false)),
-                      ),
-                      SizedBox(height: heightValue * .5,),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: 0,left: 60 ,right: 60 ,bottom: 10,),
-                        child: MaterialButton(
+                          )
+                        : const Icon(Icons.gps_fixed_outlined,
+                            color: Colors.white),
+                  ),
+                ),
+
+              // ── باقة الحفظ في الأسفل ──
+              if (!_gpsDisabled && !_permissionDenied)
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    width: Get.width,
+                    padding: const EdgeInsets.fromLTRB(40, 12, 40, 20),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.93),
+                      borderRadius:
+                          const BorderRadius.vertical(top: Radius.circular(22)),
+                      boxShadow: const [
+                        BoxShadow(color: Colors.black12, blurRadius: 12)
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (mapController.isLoading)
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: CirclerProgressIndicatorWidget(isLoading: true),
+                          ),
+                        MaterialButton(
                           height: 50,
+                          minWidth: double.infinity,
                           color: Themes.ColorApp1,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(35)
+                            borderRadius: BorderRadius.circular(35),
                           ),
-                          child: Center(
-                            child: Text('save_location'.tr,style: TextStyle(
+                          onPressed: mapController.isLoading
+                              ? null
+                              : () async {
+                                  if (latlong == null) {
+                                    Get.snackbar('تنبيه',
+                                        'لم يتم تحديد الموقع بعد');
+                                    return;
+                                  }
+                                  try {
+                                    final places =
+                                        await placemarkFromCoordinates(
+                                      latlong!.latitude,
+                                      latlong!.longitude,
+                                    );
+                                    final p = places[0];
+                                    final name =
+                                        '${p.country} - ${p.locality} - ${p.street}';
+                                    Get.find<GetMyLocationController>()
+                                        .updateMyLocationFromMap(
+                                      latlong!.latitude,
+                                      latlong!.longitude,
+                                      name,
+                                    );
+                                  } catch (e) {
+                                    Get.snackbar(
+                                        'خطأ', 'تعذر الحصول على بيانات العنوان');
+                                  }
+                                },
+                          child: Text(
+                            'save_location'.tr,
+                            style: TextStyle(
                               color: Themes.whiteColor,
                               fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                            )),
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                          onPressed: () async{
-                            List<Placemark> newPlace =
-                            await placemarkFromCoordinates(
-                                latlong!.latitude, latlong!.longitude);
-                            // this is all you need
-                            Placemark placeMark = newPlace[0];
-                            String? name = placeMark.name;
-                            String? locality = placeMark.locality;
-                            String? administrativeArea =
-                                placeMark.administrativeArea;
-                            String? administrativeSub =
-                                placeMark.subAdministrativeArea;
-                            String? postalCode = placeMark.postalCode;
-                            String? country = placeMark.country;
-                            String? thoroughfare = placeMark.thoroughfare;
-                            String? Street = placeMark.street;
-                            print(name);
-                            print(locality);
-                            print('${administrativeSub} - ${Street}');
-                            print(postalCode);
-                            print(country);
-                            print(thoroughfare);
-                            print(Street);
-                            String Location = '${country} - ${name} -${locality}';
-
-                            // CustomFlutterToast('$Location');
-                            // CustomFlutterToast(
-                            //     '${latlong!.latitude} ${latlong!.longitude}');
-                            // CustomFlutterToast(Get.find<MyLocalController>()
-                            //     .language!
-                            //     .languageCode);
-
-                            Get.find<GetMyLocationController>().updateMyLocationFromMap(latlong?.latitude, latlong?.longitude, Location);
-                            // googleMapLocaitonUserController.updateMyLocationFromMap(
-                            //     latlong?.latitude, latlong?.longitude, Location);
-                          },
                         ),
-                      ),
-                    ],
-                  ),
-                  alignment: Alignment.bottomCenter,
-                ),
-              ),
-              Align(
-                alignment: Alignment.topRight,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                  child: FloatingActionButton(
-                    child: Icon(Icons.gps_fixed_outlined),
-                    onPressed: () {
-                      getCurrentLocation();
-                    },
+                      ],
+                    ),
                   ),
                 ),
-              ),
             ],
-          ),)
+          ),
+        ),
       ),
     );
   }
 
-  Future getCurrentLocation() async {
-    LocationPermission permission = await Geolocator.checkPermission();
-    if (permission != PermissionStatus.granted) {
-      LocationPermission permission = await Geolocator.requestPermission();
-      if (permission != PermissionStatus.granted) getLocation();
-      return;
-    }
-    getLocation();
+  // ─────────────────────────────────────────────────────────────
+  // Overlay: GPS مطفي أو إذن مرفوض
+  // ─────────────────────────────────────────────────────────────
+  Widget _buildBlockedOverlay(double heightValue) {
+    final isGpsOff = _gpsDisabled;
+
+    return Container(
+      color: Colors.white,
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                isGpsOff
+                    ? Icons.location_off_rounded
+                    : Icons.location_disabled_rounded,
+                size: 80,
+                color: Themes.ColorApp1,
+              ),
+              SizedBox(height: heightValue),
+              Text(
+                isGpsOff ? 'GPS غير مفعّل' : 'إذن الموقع مرفوض',
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Themes.ColorApp1,
+                ),
+              ),
+              SizedBox(height: heightValue * 0.5),
+              Text(
+                isGpsOff
+                    ? 'يرجى تفعيل خدمة الموقع (GPS) لتتمكن من تحديد موقعك على الخريطة.'
+                    : 'تم رفض إذن الموقع. يرجى الذهاب إلى إعدادات التطبيق وتفعيل إذن الموقع.',
+                textAlign: TextAlign.center,
+                style:
+                    const TextStyle(fontSize: 15, color: Colors.grey, height: 1.5),
+              ),
+              SizedBox(height: heightValue * 1.5),
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Themes.ColorApp1,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+                icon: Icon(
+                  isGpsOff
+                      ? Icons.settings_outlined
+                      : Icons.app_settings_alt_outlined,
+                  color: Colors.white,
+                ),
+                label: Text(
+                  isGpsOff ? 'تفعيل GPS' : 'فتح إعدادات التطبيق',
+                  style: const TextStyle(color: Colors.white, fontSize: 16),
+                ),
+                onPressed: () async {
+                  if (isGpsOff) {
+                    await Geolocator.openLocationSettings();
+                  } else {
+                    await Geolocator.openAppSettings();
+                  }
+                  // إعادة المحاولة بعد رجوع المستخدم من الإعدادات
+                  await Future.delayed(const Duration(milliseconds: 800));
+                  getCurrentLocation();
+                },
+              ),
+              SizedBox(height: heightValue),
+              TextButton(
+                onPressed: () => Get.back(),
+                child: Text(
+                  'رجوع',
+                  style: TextStyle(color: Themes.ColorApp2, fontSize: 15),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
-  // List<Address> results = [];
-  getLocation() async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    print(position.latitude);
+  // ─────────────────────────────────────────────────────────────
+  // منطق الإذن وجلب الموقع
+  // ─────────────────────────────────────────────────────────────
+  Future<void> getCurrentLocation() async {
+    if (!mounted) return;
 
     setState(() {
-      latlong = new LatLng(position.latitude, position.longitude);
-      _cameraPosition = CameraPosition(target: latlong!, zoom: 15.0);
-      if (_controller != null)
-        _controller!
-            .animateCamera(CameraUpdate.newCameraPosition(_cameraPosition));
-
-      _markers.add(Marker(
-          markerId: MarkerId("a"),
-          draggable: true,
-          position: latlong!,
-          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-          onDragEnd: (_currentlatLng) {
-            latlong = _currentlatLng;
-          }));
+      _isLocating = true;
+      _gpsDisabled = false;
+      _permissionDenied = false;
     });
+
+    try {
+      // ① هل GPS شغال؟
+      final serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) {
+        if (mounted) {
+          setState(() {
+            _gpsDisabled = true;
+            _isLocating = false;
+          });
+        }
+        return;
+      }
+
+      // ② فحص الإذن
+      LocationPermission permission = await Geolocator.checkPermission();
+
+      if (permission == LocationPermission.denied) {
+        // طلب الإذن من المستخدم
+        permission = await Geolocator.requestPermission();
+      }
+
+      if (permission == LocationPermission.denied ||
+          permission == LocationPermission.deniedForever) {
+        if (mounted) {
+          setState(() {
+            _permissionDenied = true;
+            _isLocating = false;
+          });
+        }
+        return;
+      }
+
+      // ③ جلب الموقع
+      await _fetchAndMoveToLocation();
+    } catch (e) {
+      print('getCurrentLocation error: $e');
+    } finally {
+      if (mounted) setState(() => _isLocating = false);
+    }
+  }
+
+  Future<void> _fetchAndMoveToLocation() async {
+    try {
+      final position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+
+      if (!mounted) return;
+
+      final newLatLng = LatLng(position.latitude, position.longitude);
+      final newCamera = CameraPosition(target: newLatLng, zoom: 15.0);
+
+      setState(() {
+        latlong = newLatLng;
+        _cameraPosition = newCamera;
+        _markers
+          ..clear()
+          ..add(Marker(
+            markerId: const MarkerId('user_loc'),
+            draggable: true,
+            position: newLatLng,
+            onDragEnd: (newPos) => setState(() => latlong = newPos),
+          ));
+      });
+
+      _controller?.animateCamera(
+        CameraUpdate.newCameraPosition(newCamera),
+      );
+    } catch (e) {
+      print('_fetchAndMoveToLocation error: $e');
+    }
   }
 }

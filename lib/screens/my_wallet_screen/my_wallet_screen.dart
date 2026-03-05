@@ -1,10 +1,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nabny/componant/nabny_app_bar.dart';
 import 'package:nabny/generated/assets.dart';
 
 import '../../utils/Themes.dart';
-import '../home_main_screen/home_main_screen.dart';
 
 class MyWalletScreen extends StatefulWidget {
   const MyWalletScreen({Key? key}) : super(key: key);
@@ -19,18 +19,18 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
     var heightValue = Get.height * 0.024;
     var widthValue = Get.width * 0.024;
     return Scaffold(
+      backgroundColor: Themes.ColorApp7,
+      appBar: NabnyAppBar(title: 'my_wallet'.tr),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
             width: Get.width,
-            height: Get.height,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AppbarDetailsOrder(widthValue, heightValue),
                   SizedBox(height: heightValue * 1.2,),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -112,51 +112,6 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
   }
 }
 
-class AppbarDetailsOrder extends StatelessWidget {
-  AppbarDetailsOrder(this.widthValue, this.heightValue);
-
-  double heightValue, widthValue;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          width: Get.width,
-          height: 119,
-          decoration: BoxDecoration(
-              color: Themes.ColorApp14,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(35), topRight: Radius.circular(35))),
-          child: Center(
-            child: Text(
-              'my_wallet'.tr,
-              style: TextStyle(
-                color: Themes.ColorApp15,
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          top: heightValue * 2.3,
-          right: heightValue * 1.5,
-          child: GestureDetector(
-            onTap: () => Get.off(HomeMainScreen(valueBack: '')),
-            child: CircleAvatar(
-              backgroundColor: Themes.ColorApp5,
-              child: Icon(
-                Icons.arrow_right_alt_rounded,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
 
 class AddressDetailsOrder extends StatelessWidget {
   AddressDetailsOrder({required this.balanceText,required this.dateBalance,required this.myBalance,required this.color});

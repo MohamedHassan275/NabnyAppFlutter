@@ -4,17 +4,14 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
-import 'package:nabny/core/localization/local_controller.dart';
+import 'package:nabny/componant/nabny_app_bar.dart';
 import 'package:nabny/core/servies/storage_service.dart';
 import 'package:nabny/generated/assets.dart';
-import 'package:nabny/screens/my_address_request_offer_screen/my_address_request_offer_screen.dart';
 import 'package:nabny/screens/requirements_request_offer_price_screen/requirements_request_offer_price_controller.dart';
-import 'package:nabny/screens/save_location_map_user_screen/save_my_locaiton_user_screen.dart';
 import 'package:nabny/utils/Themes.dart';
 import '../../componant/CustomTextFieldWidget.dart';
 import '../../core/constant/constant.dart';
 import '../../core/widget/custom_circler_progress_indicator_widget.dart';
-import '../home_main_screen/home_main_screen.dart';
 
 class RequirementsRequestOfferPriceScreen extends StatefulWidget {
   String companyId,my_location;
@@ -73,6 +70,8 @@ class _RequirementsRequestOfferPriceScreenState
     var widthValue = Get.width * 0.024;
     var heightValue = Get.height * 0.024;
     return Scaffold(
+      backgroundColor: Themes.ColorApp7,
+      appBar: NabnyAppBar(title: 'request_offer_price'.tr),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
@@ -81,10 +80,7 @@ class _RequirementsRequestOfferPriceScreenState
               init: RequirementsRequestOfferPriceController(),
               builder: (controller) => Column(
                 children: [
-                  AppbarDetailsOrder(widthValue, heightValue),
-                  SizedBox(
-                    height: heightValue * 1.2,
-                  ),
+                  SizedBox(height: heightValue * 1.2),
                   Form(
                     key: controller.formKey,
                     child: Column(
@@ -732,50 +728,3 @@ class NotActiveWidgetChoseItem extends StatelessWidget {
   }
 }
 
-class AppbarDetailsOrder extends StatelessWidget {
-  AppbarDetailsOrder(this.widthValue, this.heightValue);
-
-  double heightValue, widthValue;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          width: Get.width,
-          height: 119,
-          decoration: BoxDecoration(
-              color: Themes.ColorApp14,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(35), topRight: Radius.circular(35))),
-          child: Center(
-            child: Text(
-              'request_offer_price'.tr,
-              style: TextStyle(
-                color: Themes.ColorApp15,
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          top: heightValue * 2.3,
-          right: heightValue * 1.5,
-          child: GestureDetector(
-            onTap: () => Get.off(HomeMainScreen(valueBack: '')),
-            child: CircleAvatar(
-              backgroundColor: Themes.ColorApp5,
-              child: Icon(
-                Get.find<StorageService>().activeLocale.languageCode == "en"
-                    ? Icons.keyboard_arrow_right
-                    : Icons.keyboard_arrow_left,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}

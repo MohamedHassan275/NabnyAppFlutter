@@ -29,13 +29,12 @@ class MyCurrentOrderScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(2.0),
                 child: GetBuilder<MyCurrentOrderController>(
-                  init: MyCurrentOrderController(),
                   builder: (controller) {
                     if(controller.Loading){
                       return LoadingWidget(data: '');
                     }
-                    return controller.currentOrder!.isNotEmpty ?
-                    ListView.builder(
+                    return controller.currentOrder?.isNotEmpty == true
+                    ? ListView.builder(
                       itemCount: controller.currentOrder!.length,
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),

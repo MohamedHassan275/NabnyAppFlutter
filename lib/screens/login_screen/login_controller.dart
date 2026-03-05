@@ -39,23 +39,20 @@ class LoginController extends GetxController{
       print(Firebase_token);
     });
   }
-   checkLoginUser(mobilePhone,password,token){
-    if(_formKey.currentState!.validate()){
-      print(mobilePhone);
-      print(password);
-      print(token);
-      print(Firebase_token);
+   checkLoginUser(mobilePhone, password, token) {
+    if (_formKey.currentState!.validate()) {
       setLoading(true);
-      MyServiceApi.checkLoginUser(mobilePhone, password, token).then((value){
-        if(value!.success == true){
+      MyServiceApi.checkLoginUser(mobilePhone, password, token).then((value) {
+        if (value == null) {
+          setLoading(false);
+          CustomFlutterToast('حدث خطأ. يرجى المحاولة مرة أخرى');
+          return;
+        }
+        if (value.success == true) {
           setLoading(false);
           Get.find<StorageService>().SetToken('${value.data!.accesstoken}');
-          // CustomFlutterToast('${value.message}');
-          // CustomFlutterToast(value.data!.accesstoken);
-          // print(value.data!.accesstoken);
-          // CustomFlutterToast(token);
           Get.offAll(const GoogleMapLocationUserScreen());
-        }else if(value.success == false){
+        } else if (value.success == false) {
           setLoading(false);
           CustomFlutterToast('${value.message}');
         }

@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/componant/LoadingWidget.dart';
-import 'package:nabny/core/localization/local_controller.dart';
+import 'package:nabny/componant/nabny_app_bar.dart';
 import 'package:nabny/model/LocationModel.dart';
-import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:nabny/screens/my_address_screen/MyAddressController.dart';
 
-import '../../core/servies/storage_service.dart';
 import '../../generated/assets.dart';
 import '../../utils/Themes.dart';
 import '../save_location_map_user_screen/save_my_locaiton_user_screen.dart';
@@ -17,95 +15,125 @@ class MyAddressScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MyAddressController myAddressController = Get.put(MyAddressController());
-    var heightValue = Get.height * 0.024;
-    var widthValue = Get.width * 0.024;
-    return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: () async{
-          myAddressController.getMyLocationUser();
-        },
-        child: SafeArea(
-          child: SingleChildScrollView(
-            child: Container(
-              width: Get.width,
-              height: Get.height,
-              child: Column(
-                children: [
-                  AppbarDetailsOrder(widthValue, heightValue),
-                  SizedBox(
-                    height: heightValue * 1,
-                  ),
-                  Expanded(
-                    flex: 5,
-                    child: SingleChildScrollView(
-                      child: GetBuilder<MyAddressController>(
-                        init: MyAddressController(),
-                          builder: (controller){
-                          if (controller.loading){
-                            return LoadingWidget(data: '');
-                          }
-                          if (controller.locationResponseModel!.isNotEmpty){
-                            return ListView.builder(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: controller.locationResponseModel!.length,
-                              itemBuilder: (context, index) => AddressDetailsOrder(locationResponseModel: controller.locationResponseModel![index],));
-                          }else {
-                            return NoItemOFList();
-                          }
-                      }),
-                    ),
-                  ),
+    final MyAddressController myAddressController =
+        Get.put(MyAddressController());
+    final heightValue = Get.height * 0.024;
 
-                  Expanded(
-                    flex: 1,
-                    child: CustomButtonImage(
-                        title: 'add_new_address'.tr,
-                        hight: 50,
-                        onTap: () => Get.to(SaveMyLocationUserScreen(result: 'myAddress', companyId: '',))),
-                  )
-                ],
+    return Scaffold(
+      backgroundColor: Themes.ColorApp7,
+      appBar: NabnyAppBar(title: 'my_addresses'.tr),
+      body: Column(
+        children: [
+          SizedBox(height: heightValue * 1),
+          Expanded(
+            flex: 5,
+            child: RefreshIndicator(
+              onRefresh: () async {
+                myAddressController.getMyLocationUser();
+              },
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: GetBuilder<MyAddressController>(
+                  builder: (controller) {
+                    if (controller.loading) {
+                      return LoadingWidget(data: '');
+                    }
+                    if (controller.locationResponseModel?.isNotEmpty == true) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: ListView.separated(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount:
+                              controller.locationResponseModel!.length,
+                          separatorBuilder: (_, __) =>
+                              const SizedBox(height: 12),
+                          itemBuilder: (context, index) =>
+                              AddressDetailsOrder(
+                            locationResponseModel:
+                                controller.locationResponseModel![index],
+                          ),
+                        ),
+                      );
+                    } else {
+                      return NoItemOFList();
+                    }
+                  },
+                ),
               ),
             ),
           ),
-        ),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: CustomButtonImage(
+              title: 'add_new_address'.tr,
+              hight: 52,
+              onTap: () async {
+                // الانتظار حتى يرجع المستخدم من شاشة إضافة العنوان
+                await Get.to(
+                  SaveMyLocationUserScreen(
+                      result: 'myAddress', companyId: ''),
+                );
+                // تحديث الداتا عند الرجوع
+                myAddressController.getMyLocationUser();
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
 }
+
 class NoItemOFList extends StatelessWidget {
   NoItemOFList({Key? key}) : super(key: key);
 
-  var widthValue = Get.width * 0.024;
-  var heightValue = Get.height * 0.024;
+  final widthValue = Get.width * 0.024;
+  final heightValue = Get.height * 0.024;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: Get.width,
+    return SizedBox(
+      height: Get.height * 0.6,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(
-            Assets.imagesOfferPrice,
-            fit: BoxFit.contain,
+          Container(
+            width: 100,
+            height: 100,
+            decoration: BoxDecoration(
+              color: Themes.ColorApp4,
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(
+              Icons.location_off_outlined,
+              size: 50,
+              color: Themes.ColorApp1,
+            ),
           ),
-          SizedBox(
-            height: heightValue * 1,
-          ),
+          SizedBox(height: heightValue * 1.5),
           Text(
             'no_location_have'.tr,
             textAlign: TextAlign.center,
             maxLines: 2,
-            style: TextStyle(
+            style: const TextStyle(
               color: Themes.ColorApp8,
-              fontSize: 19,
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          SizedBox(height: heightValue * 0.5),
+          Text(
+            'add_new_address'.tr,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Themes.ColorApp1.withOpacity(0.6),
+              fontSize: 14,
               fontWeight: FontWeight.w400,
             ),
           ),
-          SizedBox(
-            height: heightValue * .7,
-          )
+          SizedBox(height: heightValue * .7),
         ],
       ),
     );
@@ -114,119 +142,90 @@ class NoItemOFList extends StatelessWidget {
 
 class AddressDetailsOrder extends StatelessWidget {
   AddressDetailsOrder({required this.locationResponseModel});
-  LocationResponseModel locationResponseModel;
-  var heightValue = Get.height * 0.024;
-  var widthValue = Get.width * 0.024;
+  final LocationResponseModel locationResponseModel;
+  final heightValue = Get.height * 0.024;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 1,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.07),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
       child: Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: SizedBox(
-          width: Get.width,
-          height: 110,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+        padding: const EdgeInsets.all(14),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // ── أيقونة الموقع ──
+            Container(
+              width: 52,
+              height: 52,
+              decoration: BoxDecoration(
+                color: Themes.ColorApp1.withOpacity(0.08),
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: const Center(
+                child: Icon(
+                  Icons.location_on_rounded,
+                  color: Themes.ColorApp1,
+                  size: 28,
+                ),
+              ),
+            ),
+            const SizedBox(width: 14),
+            // ── نص العنوان ──
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    width: 60,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      color: Themes.ColorApp14,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Center(
-                      child: Image(
-                        image: AssetImage(Assets.iconsDistanceIcon),
-                        fit: BoxFit.contain,
-                        width: 45,
-                        height: 45,
-                      ),
+                  Text(
+                    'delivery_address'.tr,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Themes.ColorApp8,
                     ),
                   ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${locationResponseModel.address}',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14,
-                              color: Themes.ColorApp1,
-                            ),
-                          ),
-                          SizedBox(
-                            height: heightValue * .3,
-                          ),
-                        ],
-                      ),
+                  const SizedBox(height: 4),
+                  Text(
+                    '${locationResponseModel.address}',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14,
+                      color: Themes.ColorApp15,
                     ),
-                  )
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ],
               ),
-            ],
-          ),
+            ),
+            const SizedBox(width: 8),
+            // ── تحديد ──
+            Container(
+              width: 32,
+              height: 32,
+              decoration: BoxDecoration(
+                color: Themes.ColorApp4,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: const Icon(
+                Icons.chevron_right_rounded,
+                color: Themes.ColorApp1,
+                size: 20,
+              ),
+            ),
+          ],
         ),
       ),
-    );
-  }
-}
-
-class AppbarDetailsOrder extends StatelessWidget {
-  AppbarDetailsOrder(this.widthValue, this.heightValue);
-
-  double heightValue, widthValue;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          width: Get.width,
-          height: 119,
-          decoration: BoxDecoration(
-              color: Themes.ColorApp14,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(35), topRight: Radius.circular(35))),
-          child: Center(
-            child: Text(
-              'my_addresses'.tr,
-              style: TextStyle(
-                color: Themes.ColorApp15,
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          top: heightValue * 2.3,
-          right: heightValue * 1.5,
-          child: GestureDetector(
-            onTap: () => Get.off(HomeMainScreen(valueBack: '')),
-            child: CircleAvatar(
-              backgroundColor: Themes.ColorApp5,
-              child: Icon(
-                Get.find<StorageService>().activeLocale.languageCode == "en"
-                    ? Icons.keyboard_arrow_right
-                    : Icons.keyboard_arrow_left,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

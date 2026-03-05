@@ -1,15 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:get/get.dart';
 import 'package:nabny/core/constant/constant.dart';
-import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/core/servies/storage_service.dart';
-import 'package:nabny/model/my_current_order_model.dart';
-import 'package:nabny/model/my_new_order_model.dart';
 import 'package:nabny/model/my_send_order_model.dart';
 import 'package:nabny/repositries/servies_api/MyServiceApi.dart';
 
-import '../../../generated/assets.dart';
 import '../../home_main_screen/home_main_screen.dart';
 
 
@@ -26,8 +20,9 @@ class MySendOrderController extends GetxController {
     update();
   }
 
-  setMyOrderUser(List<SendOrder>? sendOrder){
+  setMyOrderUser(List<SendOrder>? sendOrder) {
     _sendOrder = sendOrder;
+    update();
   }
 
   MySendOrderController(){
@@ -42,12 +37,14 @@ class MySendOrderController extends GetxController {
       if(value?.success == true){
         print("my order status is ${value!.success}");
         print("my sender order length is ${value.sentOrder!.length}");
-        setLoading(false);
         setMyOrderUser(value.sentOrder);
       }else if(value?.success == false){
-        setLoading(false);
         CustomFlutterToast(value?.message);
       }
+    }).catchError((e){
+      print('getMySendOrderUser error: $e');
+    }).whenComplete((){
+      setLoading(false);
     });
   }
 

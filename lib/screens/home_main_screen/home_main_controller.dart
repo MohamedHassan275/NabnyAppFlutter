@@ -31,8 +31,9 @@ class HomeMainController extends GetxController {
     isLogout = logout;
     update();
   }
-  setprofileUser(ProfileUserResponseModel? profile){
+  setprofileUser(ProfileUserResponseModel? profile) {
     _profileUserModel = profile;
+    update();
   }
   setLoading(bool loading) {
     isLoading = loading;

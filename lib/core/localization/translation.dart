@@ -150,6 +150,8 @@ class MyTranslation extends Translations {
       "Password_does_not_match" : "كلمة المرور غير متطابقة",
       "save_location" : "حفظ الموقع",
       "km" : "كيلو متر",
+      "personal_info" : "البيانات الشخصية",
+      "delivery_address" : "عنوان التوصيل",
     },
     "en" : {
       "skip" : "skip",
@@ -285,7 +287,6 @@ class MyTranslation extends Translations {
       "back_credit" : "Back credit",
       "available_balance" : "available balance",
       "recent_transactions" : "recent transactions",
-      "recent_transactions" : "recent transactions",
       "tell_us_about_your_requirements" : "Please tell us about your requirements",
       "view" : "View",
       "accept_offer" : "Accepted offer",
@@ -298,6 +299,8 @@ class MyTranslation extends Translations {
       "change_password" : "Change password",
       "save_location" : "Save Location",
       "km" : "Km",
+      "personal_info" : "Personal Information",
+      "delivery_address" : "Delivery Address",
     },
   };
 

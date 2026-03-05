@@ -3,22 +3,20 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/core/constant/constant.dart';
-import 'package:nabny/core/widget/custom_circler_progress_indicator_widget.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/model/profile_user_model.dart';
 import 'package:nabny/screens/home_main_screen/home_main_controller.dart';
+import 'package:nabny/screens/home_screen/home_controller.dart';
 import 'package:nabny/screens/login_screen/login_screen.dart';
-import 'package:nabny/screens/my_address_screen/my_arddress_screen.dart';
 import 'package:nabny/screens/my_order_screen/my_wating_order_screen/my_waiting_order_controller.dart';
-import 'package:nabny/screens/my_wallet_screen/my_wallet_screen.dart';
-import 'package:nabny/screens/setting_profile_screen/setting_profile_screen.dart';
 import 'package:nabny/utils/Themes.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/localization/local_controller.dart';
-import '../../core/servies/storage_service.dart';
-import '../change_password_profile/change_password_profile.dart';
+import '../my_order_screen/my_current_order_screen/my_current_order_controller.dart';
+import '../my_order_screen/my_previous_order_screen/my_previous_order_controller.dart';
 import '../my_order_screen/my_sender_order_screen/my_send_order_controller.dart';
+import '../request_offer_price_screen/request_offer_price_controller.dart';
 
 
 class HomeMainScreen extends StatefulWidget {
@@ -49,62 +47,23 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-   // getFirebaseToken();
+    // Register all controllers used across the main screen and its children
     Get.put(HomeMainController());
+    Get.put(HomeController());
     Get.put(MyNewOrderController());
     Get.put(MySendOrderController());
+    Get.put(MyCurrentOrderController());
+    Get.put(MyPreviousOrderController());
+    Get.put(RequestOfferPriceController());
     Get.put(MyLocalController());
   }
 
   @override
   Widget build(BuildContext context) {
-    var widthValue = Get.width * 0.024;
-    var heightValue = Get.height * 0.024;
     return GetBuilder<HomeMainController>(
-      init: HomeMainController(),
       builder: (controller) => Scaffold(
-        backgroundColor: Themes.whiteColor,
-        appBar: AppBar(
-            backgroundColor: Themes.ColorApp1,
-            toolbarHeight: 75,
-            title: Container(
-              height: 75,
-              child: Row(
-                children: [
-                  UserProfileWithNotification(heightValue: heightValue, widthValue: widthValue, profileUserResponseModel: controller.profileUserModel,),
-                ],
-              ),
-            ),
-            leading: Builder(
-              builder: (context) => IconButton(
-                icon: new Icon(
-                  Icons.menu,
-                  color: Colors.white,
-                ),
-                onPressed: () => Scaffold.of(context).openDrawer(),
-              ),
-            ),
-            actions: [
-              InkWell(
-                  onTap: (){
-                    // MyNavigator.NavigatorToPage(context, SearchSessionUserPage());
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(7.0),
-                    child: CircleAvatar(
-                      backgroundColor: Themes.whiteColor,
-                      child: Center(
-                          child: const Icon(
-                            Icons.notifications_none,
-                            color: Themes.ColorApp1,
-                          )),
-                    ),
-                  )
-              )
-            ]
-        ),
+        backgroundColor: Themes.ColorApp7,
         body: controller.PageList[controller.indexPage!],
         bottomNavigationBar: BottomNavigationBar(
           items: controller.navigationItem,
@@ -113,6 +72,8 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
           type: BottomNavigationBarType.fixed,
           selectedFontSize: 11,
           unselectedFontSize: 11,
+          backgroundColor: Colors.white,
+          elevation: 8,
           selectedIconTheme: const IconThemeData(color: Themes.ColorApp1),
           unselectedIconTheme: const IconThemeData(color: Themes.ColorApp11),
           onTap: (int? index) {
@@ -122,49 +83,6 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
             controller.PageList[controller.indexPage!];
           },
           currentIndex: controller.indexPage!,
-        ),
-        drawer: Drawer(
-          backgroundColor: Themes.whiteColor,
-          child: ListView(
-            children: [
-              UserDetailsInMenu(widthValue: widthValue, profileUserResponseModel: controller.profileUserModel,),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                color: Themes.whiteColor,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Column(
-                    children: [
-                      WidgetMenuItem(title: 'my_account', widthValue: widthValue, image: Assets.iconsProfileMenuIcon,
-                        onTap: () => Get.to(SettingProfileScreen()),),
-                      SizedBox(
-                        height: heightValue * .7,
-                      ),
-                      WidgetMenuItem(title: 'my_wallet', widthValue: widthValue, image: Assets.iconsWalletMenuIcon,
-                        onTap: ()=>Get.to(const MyWalletScreen()),),
-                      SizedBox(
-                        height: heightValue * .7,
-                      ),
-                      WidgetMenuItem(title: 'my_addresses', widthValue: widthValue, image: Assets.iconsMyLocationMenuIcon,
-                          onTap: () {
-                            print(Get.find<StorageService>().GetToken);
-                         //   CustomFlutterToast(Get.find<StorageService>().GetToken);
-                            Get.to(const MyAddressScreen());
-                          }),
-                      SizedBox(
-                        height: heightValue * 2.5,
-                      ),
-                      CirclerProgressIndicatorWidget(isLoading: controller.isLogout ? true : false),
-                      SizedBox(
-                        height: heightValue * 1.5,
-                      ),
-                      WidgetMenuItemLogOut(heightValue: heightValue, onTap: () => controller.logoutUser('Bearer '+Get.find<StorageService>().GetToken),)
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );
