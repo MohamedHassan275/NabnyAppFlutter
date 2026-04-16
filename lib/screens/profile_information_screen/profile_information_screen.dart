@@ -1,20 +1,23 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/model/profile_user_model.dart';
 import 'package:nabny/screens/change_password_profile/change_password_profile.dart';
 import 'package:nabny/screens/profile_information_screen/profile_information_controller.dart';
 import 'package:nabny/utils/Themes.dart';
-import 'package:nabny/generated/assets.dart';
+
 import '../../componant/CustomTextFieldWidget.dart';
 import '../../core/servies/storage_service.dart';
+import '../../generated/assets.dart';
 
 class ProfileInformationScreen extends StatefulWidget {
   const ProfileInformationScreen({Key? key}) : super(key: key);
 
   @override
-  _ProfileInformationScreenState createState() =>
-      _ProfileInformationScreenState();
+  _ProfileInformationScreenState createState() => _ProfileInformationScreenState();
 }
 
 class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
@@ -26,6 +29,28 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
   void initState() {
     super.initState();
     Get.lazyPut(() => ProfileInformationController());
+  }
+
+  File? _selectedImage; // لاستخدام File قم باستيراد 'import 'dart:io';'
+
+  Future<void> _pickImage(ImageSource source) async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: source);
+
+    if (image != null) {
+      setState(() {
+        _selectedImage = File(image.path); // حفظ الصورة المختارة
+      });
+    }
+    Get.back(); // إغلاق الـ BottomSheet
+  }
+
+// عند الضغط على أيقونة القلم لتعديل الصورة:
+  void openBottomSheet() {
+    Get.bottomSheet(
+      BottomSheetItem(onPick: (source) => _pickImage(source)),
+      isScrollControlled: true,
+    );
   }
 
   @override
@@ -90,30 +115,24 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
                         // ── صورة البروفايل ──
                         Center(
                           child: GestureDetector(
-                            onTap: () {
-                              Get.bottomSheet(
-                                BottomSheetItem(),
-                                backgroundColor: Colors.white,
-                                shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-                                ),
-                              );
-                            },
+                            onTap: () => openBottomSheet(),
                             child: Stack(
                               children: [
                                 Container(
                                   width: 110,
                                   height: 110,
                                   decoration: BoxDecoration(
-                                    color: Themes.ColorApp4,
+                                    // استخدام ألوان الهوية البصرية لـ SoftBridge (الأزرق/الأبيض)
+                                    color: controller.ProfileUserModel?.image == null ? Themes.ColorApp1 : Themes.ColorApp4,
                                     shape: BoxShape.circle,
-                                    border: Border.all(color: Themes.ColorApp14, width: 2),
-                                    image: DecorationImage(
-                                      image: controller.ProfileUserModel?.image != null
-                                          ? NetworkImage(controller.ProfileUserModel!.image!)
-                                          : const AssetImage(Assets.imagesImageLogoApp) as ImageProvider,
-                                      fit: BoxFit.cover,
+                                    border: Border.all(
+                                      color: Themes.ColorApp14,
+                                      width: 1.5,
                                     ),
+                                  ),
+                                  child: ClipOval(
+                                    // هذا الجزء يضمن القص الدائري للصورة
+                                    child: _buildProfileImage(imageProfile: controller.ProfileUserModel?.image),
                                   ),
                                 ),
                                 Positioned(
@@ -143,64 +162,28 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
                           child: Column(
                             crossAxisAlignment: isAr ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                children: [
-                                  // الاسم الأول
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: isAr ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'first_name'.tr,
-                                          style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Themes.ColorApp15),
-                                        ),
-                                        const SizedBox(height: 8),
-                                        FromTextProfileShared(
-                                          isPassword: false,
-                                          onTapValidator: (val) => val!.isEmpty ? 'must_not_empty'.tr : null,
-                                          onChanged: (val) => controller.ProfileUserModel?.firstname = val,
-                                          keyboardType: TextInputType.text,
-                                          Controller: FirstName,
-                                          hintText: 'first_name'.tr,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(width: 12),
-                                  // اسم العائلة
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: isAr ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'last_name'.tr,
-                                          style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Themes.ColorApp15),
-                                        ),
-                                        const SizedBox(height: 8),
-                                        FromTextProfileShared(
-                                          isPassword: false,
-                                          onTapValidator: (val) => val!.isEmpty ? 'must_not_empty'.tr : null,
-                                          onChanged: (val) => controller.ProfileUserModel?.lastname = val,
-                                          keyboardType: TextInputType.text,
-                                          Controller: LastName,
-                                          hintText: 'last_name'.tr,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
+                              // الاسم الأول
+                              FromTextProfileShared(
+                                isPassword: false,
+                                onTapValidator: (val) => val!.isEmpty ? 'must_not_empty'.tr : null,
+                                onChanged: (val) => controller.ProfileUserModel?.firstname = val,
+                                keyboardType: TextInputType.text,
+                                Controller: FirstName,
+                                hintText: 'first_name'.tr,
                               ),
-
-                              const SizedBox(height: 20),
-
-                              // البريد الإلكتروني
-                              Text(
-                                'email'.tr,
-                                style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Themes.ColorApp15),
+                              const SizedBox(height: 18),
+                              // اسم العائلة
+                              FromTextProfileShared(
+                                isPassword: false,
+                                onTapValidator: (val) => val!.isEmpty ? 'must_not_empty'.tr : null,
+                                onChanged: (val) => controller.ProfileUserModel?.lastname = val,
+                                keyboardType: TextInputType.text,
+                                Controller: LastName,
+                                hintText: 'last_name'.tr,
                               ),
-                              const SizedBox(height: 8),
-                              FromTextRegisterShared(
-                                readOnly: false,
+                              const SizedBox(height: 18),
+                              FromTextProfileShared(
+                                readOnly: true,
                                 onTapValidator: (val) {
                                   if (val!.isEmpty) return 'must_not_empty'.tr;
                                   if (!val.contains('@')) return 'not_valid'.tr;
@@ -215,7 +198,7 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
                           ),
                         ),
 
-                        const SizedBox(height: 30),
+                        const SizedBox(height: 20),
 
                         // ── رابط تغيير كلمة المرور ──
                         Align(
@@ -267,74 +250,101 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
       ),
     );
   }
+
+  // دالة مساعدة لفصل منطق اختيار الصورة (Refactoring)
+  Widget _buildProfileImage({required String? imageProfile}) {
+    if (imageProfile != null) {
+      return Image.network(
+        imageProfile,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) => Image.asset(Assets.iconsLogoApp, fit: BoxFit.cover),
+      );
+    } else if (_selectedImage != null) {
+      return Image.file(
+        _selectedImage!,
+        fit: BoxFit.cover,
+      );
+    } else {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Image.asset(Assets.iconsLogoApp, fit: BoxFit.contain),
+      );
+    }
+  }
 }
 
-class BottomSheetItem extends StatefulWidget {
-  BottomSheetItem({Key? key}) : super(key: key);
+class BottomSheetItem extends StatelessWidget {
+  final Function(ImageSource) onPick;
 
-  @override
-  State<BottomSheetItem> createState() => _BottomSheetItemState();
-}
+  const BottomSheetItem({Key? key, required this.onPick}) : super(key: key);
 
-class _BottomSheetItemState extends State<BottomSheetItem> {
   @override
   Widget build(BuildContext context) {
-    var heightValue = Get.height * 0.024;
-    var widthValue = Get.width * 0.024;
-    return SizedBox(
-      width: Get.width,
-      height: 485,
-      child: Padding(
-        padding: const EdgeInsets.all(7.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 100),
-              child: Container(
-                width: Get.width,
-                height: 5,
-                decoration: BoxDecoration(
-                    color: Themes.ColorApp11,
-                    borderRadius: BorderRadius.circular(10)),
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(30)), // زوايا دائرية كبيرة كما في الصورة
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min, // ليأخذ الارتفاع بناءً على المحتوى فقط
+        children: [
+          // الخط الرمادي العلوي
+          Container(
+            width: 50,
+            height: 4,
+            decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          const SizedBox(height: 25),
+          Text(
+            'chose_photo'.tr, // "Chose photo from"
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+          const SizedBox(height: 30),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildOption(
+                label: 'pick_gallery'.tr,
+                icon: Icons.image_outlined,
+                onTap: () => onPick(ImageSource.gallery),
               ),
-            ),
-            SizedBox(height: heightValue * 1.5),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 35),
-              child: Text(
-                'chose_photo'.tr,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Themes.ColorApp8,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w400,
-                ),
+              _buildOption(
+                label: 'pick_camera'.tr,
+                icon: Icons.camera_alt_outlined,
+                onTap: () => onPick(ImageSource.camera),
               ),
-            ),
-            SizedBox(height: heightValue * 1),
-            Column(
-              children: [
-                SizedBox(height: heightValue * .5),
-                CustomButtonWithImage(
-                  title: 'pick_gallery'.tr,
-                  hight: 50,
-                  onTap: () {},
-                  icon: Icons.image_outlined,
-                ),
-                SizedBox(height: heightValue * 1.2),
-                CustomButtonWithImage(
-                  title: 'pick_camera'.tr,
-                  hight: 50,
-                  onTap: () {},
-                  icon: Icons.camera_alt_outlined,
-                ),
-                SizedBox(height: heightValue * .7),
-              ],
-            ),
-          ],
-        ),
+            ],
+          ),
+          const SizedBox(height: 20),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildOption({required String label, required IconData icon, required VoidCallback onTap}) {
+    return InkWell(
+      onTap: onTap,
+      child: Column(
+        children: [
+          CircleAvatar(
+            radius: 35,
+            backgroundColor: const Color(0xffe9f2ff), // لون الخلفية الزرقاء الفاتحة
+            child: Icon(icon, size: 30, color: const Color(0xff2196F3)),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            label,
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+          ),
+        ],
       ),
     );
   }
@@ -374,9 +384,7 @@ class UserDetailsWidget extends StatelessWidget {
                 },
                 keyboardType: TextInputType.text,
                 Controller: FirstName,
-                hintText: profileUserResponseModel?.firstname == null
-                    ? ''
-                    : '${profileUserResponseModel?.firstname}',
+                hintText: profileUserResponseModel?.firstname == null ? '' : '${profileUserResponseModel?.firstname}',
               ),
             ),
             SizedBox(width: widthValue * 1.5),
@@ -389,9 +397,7 @@ class UserDetailsWidget extends StatelessWidget {
                 isPassword: false,
                 keyboardType: TextInputType.text,
                 Controller: LastName,
-                hintText: profileUserResponseModel?.lastname == null
-                    ? ''
-                    : '${profileUserResponseModel?.lastname}',
+                hintText: profileUserResponseModel?.lastname == null ? '' : '${profileUserResponseModel?.lastname}',
               ),
             ),
           ],
@@ -407,9 +413,7 @@ class UserDetailsWidget extends StatelessWidget {
           isPassword: false,
           keyboardType: TextInputType.emailAddress,
           Controller: Email,
-          hintText: profileUserResponseModel?.email == null
-              ? ''
-              : '${profileUserResponseModel?.email}',
+          hintText: profileUserResponseModel?.email == null ? '' : '${profileUserResponseModel?.email}',
         ),
       ],
     );

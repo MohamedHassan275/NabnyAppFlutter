@@ -38,6 +38,7 @@ dependencies:
   flutter_screenutil: ^5.9.3
   carousel_slider: ^5.0.0
   persistent_bottom_nav_bar: ^6.2.1
+  image_picker: ^1.0.7
 
   # الخرائط والموقع
   google_maps_flutter: ^2.10.0

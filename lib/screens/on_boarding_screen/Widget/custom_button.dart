@@ -1,11 +1,9 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/controller/OnBoardingController.dart';
-import 'package:nabny/core/constant/on_boarding_list.dart';
 
 import '../../../componant/CustomButtonWidget.dart';
+import '../../../core/servies/storage_service.dart';
 import '../../login_screen/login_screen.dart';
 
 class CustomButton extends StatelessWidget {
@@ -16,28 +14,27 @@ class CustomButton extends StatelessWidget {
 
     return GetBuilder<OnBoardingControllerImp>(
         builder: (controller) => Positioned(
-      left: 0,
-      right: 0,
-      bottom: valueHight * 4.5,
-      child: Material(
-        type: MaterialType.transparency,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 35, vertical: 15),
-          child: CustomButtonImage(
-            hight: 50,
-            title: controller.pageController!.hasClients ? (controller.currentPage == 3 ? 'get_started'.tr : 'next'.tr) : 'next'.tr,
-            onTap: () {
-              if (controller.currentPage != 3) {
-                controller.pageController?.nextPage(
-                    duration: Duration(milliseconds: 500),
-                    curve: Curves.easeIn);
-              } else {
-                Get.to(() => LoginScreen(), transition: Transition.rightToLeft , duration: Duration(milliseconds: 500));
-              }
-            },
-          ),
-        ),
-      ),
-    ));
+              left: 0,
+              right: 0,
+              bottom: valueHight * 4.5,
+              child: Material(
+                type: MaterialType.transparency,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 35, vertical: 15),
+                  child: CustomButtonImage(
+                    hight: 50,
+                    title: controller.pageController!.hasClients ? (controller.currentPage == 3 ? 'get_started'.tr : 'next'.tr) : 'next'.tr,
+                    onTap: () {
+                      if (controller.currentPage != 3) {
+                        controller.pageController?.nextPage(duration: Duration(milliseconds: 500), curve: Curves.easeIn);
+                      } else {
+                        Get.find<StorageService>().isSkipOnBoarding(true);
+                        Get.to(() => LoginScreen(), transition: Transition.rightToLeft, duration: Duration(milliseconds: 500));
+                      }
+                    },
+                  ),
+                ),
+              ),
+            ));
   }
 }

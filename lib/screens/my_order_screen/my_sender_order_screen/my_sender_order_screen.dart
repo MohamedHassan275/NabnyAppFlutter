@@ -1,8 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/LoadingWidget.dart';
-import 'package:nabny/model/my_new_order_model.dart';
 import 'package:nabny/screens/my_order_screen/my_sender_order_screen/details_sender_order_screen.dart';
 import 'package:nabny/screens/my_order_screen/my_sender_order_screen/my_send_order_controller.dart';
 
@@ -18,54 +16,76 @@ class MySenderOrderScreen extends StatefulWidget {
 }
 
 class _MySenderOrderScreenState extends State<MySenderOrderScreen> {
+  // بنستخدم find لأن الكنترولر تم تعريفه في الشاشة الأم MyOrderScreen
+  final MySendOrderController mySendOrderController = Get.find<MySendOrderController>();
 
-  var heightValue = Get.height * 0.024;
-  var widthValue = Get.width * 0.024;
-  MySendOrderController mySendOrderController = Get.find<MySendOrderController>();
-
+  @override
+  void initState() {
+    super.initState();
+    // طلب البيانات عند فتح التاب لأول مرة
+    mySendOrderController.getMySendOrderUser();
+  }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: () async {
-          mySendOrderController.getMySendOrderUser();
+      body: GetBuilder<MySendOrderController>(
+        builder: (controller) {
+          return RefreshIndicator(
+            onRefresh: () async {
+              // مهم جداً يكون async و await عشان علامة التحميل تختفي لما الداتا توصل
+              await controller.getMySendOrderUser();
+            },
+            child: _buildBody(controller),
+          );
         },
-        child: SafeArea(
-            child: SingleChildScrollView(
-              child: Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: GetBuilder<MySendOrderController>(
-                    builder: (controller) {
-                      if(controller.Loading){
-                        return LoadingWidget(data: '');
-                      }
-                      return controller.sendOrder?.isNotEmpty == true
-                      ? ListView.builder(
-                        itemCount: controller.sendOrder!.length,
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                            child: MySendOrderListItem(sendOrder: controller.sendOrder![index], heightValue: heightValue,widthValue: widthValue,),
-                          );
-                        },) : NoItemOFList();
-                    },),
-                ),
-              ),)
-        ),
       ),
+    );
+  }
+
+  Widget _buildBody(MySendOrderController controller) {
+    // 1. حالة التحميل
+    if (controller.Loading) {
+      return LoadingWidget(data: '');
+    }
+
+    // 2. حالة القائمة فارغة
+    if (controller.sendOrder == null || controller.sendOrder!.isEmpty) {
+      return ListView(
+        // AlwaysScrollableScrollPhysics هي اللي بتخلي الريفرش يشتغل حتى لو الشاشة فاضية
+        physics: const AlwaysScrollableScrollPhysics(),
+        children: [
+          // لو عايز العنصر يكون في النص بالظبط ممكن تستخدم SizedBox بارتفاع معين
+          SizedBox(height: Get.height * 0.2),
+          NoItemOFList(),
+        ],
+      );
+    }
+
+    // 3. حالة وجود بيانات
+    return ListView.builder(
+      // برضه بنضيف physics هنا عشان لو العناصر قليلة (مش مالية الشاشة) الريفرش يفضل شغال
+      physics: const AlwaysScrollableScrollPhysics(),
+      padding: const EdgeInsets.all(10.0),
+      itemCount: controller.sendOrder!.length,
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          child: MySendOrderListItem(
+            sendOrder: controller.sendOrder![index],
+            heightValue: Get.height * 0.024,
+            widthValue: Get.width * 0.024,
+          ),
+        );
+      },
     );
   }
 }
 
 class MySendOrderListItem extends StatelessWidget {
-   MySendOrderListItem({Key? key,required this.sendOrder,required this.widthValue,required this.heightValue}) : super(key: key);
-   double heightValue,widthValue;
-   SendOrder sendOrder;
+  MySendOrderListItem({Key? key, required this.sendOrder, required this.widthValue, required this.heightValue}) : super(key: key);
+  double heightValue, widthValue;
+  SendOrder sendOrder;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -74,21 +94,26 @@ class MySendOrderListItem extends StatelessWidget {
       // },
       child: Card(
         elevation: 2,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15)
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         child: Padding(
           padding: const EdgeInsets.all(0.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CompanyDetails(sendOrder),
-              SizedBox(height: heightValue * 1,),
+              SizedBox(
+                height: heightValue * 1,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5),
-                child: Divider(height: 10, color: Themes.ColorApp2,),
+                child: Divider(
+                  height: 10,
+                  color: Themes.ColorApp2,
+                ),
               ),
-              SizedBox(height: heightValue * .5,),
+              SizedBox(
+                height: heightValue * .5,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: Row(
@@ -100,7 +125,9 @@ class MySendOrderListItem extends StatelessWidget {
                         backgroundColor: Themes.ColorApp17,
                       ),
                     ),
-                    SizedBox(width: widthValue * 1,),
+                    SizedBox(
+                      width: widthValue * 1,
+                    ),
                     Text(
                       'cost_of_bid'.tr,
                       style: TextStyle(
@@ -109,7 +136,9 @@ class MySendOrderListItem extends StatelessWidget {
                         color: Themes.ColorApp17,
                       ),
                     ),
-                    SizedBox(width: widthValue * .5,),
+                    SizedBox(
+                      width: widthValue * .5,
+                    ),
                     Text(
                       '${sendOrder.offerCost}',
                       style: TextStyle(
@@ -118,7 +147,9 @@ class MySendOrderListItem extends StatelessWidget {
                         color: Themes.ColorApp1,
                       ),
                     ),
-                    SizedBox(width: widthValue * .3,),
+                    SizedBox(
+                      width: widthValue * .3,
+                    ),
                     Text(
                       'sar'.tr,
                       style: TextStyle(
@@ -130,12 +161,16 @@ class MySendOrderListItem extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: heightValue * 1,),
+              SizedBox(
+                height: heightValue * 1,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: GestureDetector(
-                  onTap: (){
-                    Get.to(DetailsSenderOrderScreen(sendOrder: sendOrder,));
+                  onTap: () {
+                    Get.to(DetailsSenderOrderScreen(
+                      sendOrder: sendOrder,
+                    ));
                   },
                   child: Container(
                     width: Get.width,
@@ -145,7 +180,7 @@ class MySendOrderListItem extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Center(
-                      child:  Text(
+                      child: Text(
                         'order_details'.tr,
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
@@ -157,7 +192,9 @@ class MySendOrderListItem extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: heightValue * 1,)
+              SizedBox(
+                height: heightValue * 1,
+              )
             ],
           ),
         ),
@@ -244,7 +281,9 @@ class CompanyDetails extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(width: widthValue *1,),
+                  SizedBox(
+                    width: widthValue * 1,
+                  ),
                   Text(
                     '${myCurrentOrderModel!.company}',
                     style: TextStyle(
@@ -266,7 +305,9 @@ class CompanyDetails extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: heightValue* .5,),
+        SizedBox(
+          height: heightValue * .5,
+        ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Row(
@@ -277,8 +318,15 @@ class CompanyDetails extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Image.asset(Assets.iconsWalletMenuIcon,width: 15,height: 15,fit: BoxFit.contain,),
-                      SizedBox(width: widthValue * 1,),
+                      Image.asset(
+                        Assets.iconsWalletMenuIcon,
+                        width: 15,
+                        height: 15,
+                        fit: BoxFit.contain,
+                      ),
+                      SizedBox(
+                        width: widthValue * 1,
+                      ),
                       Text(
                         '${myCurrentOrderModel!.offerCost}',
                         style: TextStyle(
@@ -287,7 +335,9 @@ class CompanyDetails extends StatelessWidget {
                           color: Themes.ColorApp1,
                         ),
                       ),
-                      SizedBox(width: widthValue *.2,),
+                      SizedBox(
+                        width: widthValue * .2,
+                      ),
                       Text(
                         'sar'.tr,
                         style: TextStyle(
@@ -313,7 +363,9 @@ class CompanyDetails extends StatelessWidget {
                           color: Themes.ColorApp2,
                         ),
                       ),
-                      SizedBox(width: widthValue * .2,),
+                      SizedBox(
+                        width: widthValue * .2,
+                      ),
                       Text(
                         '${myCurrentOrderModel!.castingType}',
                         style: TextStyle(

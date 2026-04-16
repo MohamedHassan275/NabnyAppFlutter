@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:nabny/core/servies/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../localization/localization_service.dart';
-
 
 abstract class StorageKeys {
   StorageKeys();
@@ -13,7 +10,7 @@ abstract class StorageKeys {
   //Declare all storage keys here & create its correpsonding setters & getters
   static const String token = "TOKEN";
   static const String activeLocale = "ACTIVE_LOCAL";
-
+  static const String skipOnBoarding = "skipOnBoarding";
 }
 
 class StorageService extends GetxService {
@@ -25,17 +22,24 @@ class StorageService extends GetxService {
   }
 
   //TOKEN
-   get GetToken {
+  get GetToken {
     return _prefs.getString(StorageKeys.token) ?? "";
   }
 
-   SetToken(String token) {
+  SetToken(String token) {
     _prefs.setString(StorageKeys.token, token);
   }
 
+  get skipOnBoarding {
+    return _prefs.getBool(StorageKeys.skipOnBoarding) ?? "";
+  }
+
+  isSkipOnBoarding(bool token) {
+    _prefs.setBool(StorageKeys.skipOnBoarding, token);
+  }
+
   Locale get activeLocale {
-    return Locale(_prefs.getString(StorageKeys.activeLocale) ??
-        SupportedLocales.arabic.toString());
+    return Locale(_prefs.getString(StorageKeys.activeLocale) ?? SupportedLocales.arabic.toString());
   }
 
   set activeLocale(Locale activeLocal) {
@@ -45,7 +49,6 @@ class StorageService extends GetxService {
   clear() => _prefs.clear();
 }
 
-initialServicesUser () async{
+initialServicesUser() async {
   await Get.putAsync(() => StorageService().init());
 }
-

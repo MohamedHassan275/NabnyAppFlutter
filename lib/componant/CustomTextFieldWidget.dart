@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 
-import '../utils/Themes.dart';
 import '../core/constant/style.dart';
+import '../utils/Themes.dart';
 
 Widget SharedFromTextField({
   Function()? onTapFunction,
@@ -54,7 +52,7 @@ Widget SharedFromTextField({
                   width: 1.0,
                 ),
               ),
-              errorBorder:  OutlineInputBorder(
+              errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
                 borderSide: BorderSide(
                   color: Colors.red,
@@ -74,7 +72,6 @@ Widget SharedFromTextField({
         ),
       ),
     );
-
 
 class FromTextShared extends StatelessWidget {
   Function()? onTapFunction;
@@ -98,25 +95,25 @@ class FromTextShared extends StatelessWidget {
   bool? isPassword = false;
 
   FromTextShared(
-      { this.onTapFunction,
-       this.onTapValidator,
-       this.onChanged,
+      {this.onTapFunction,
+      this.onTapValidator,
+      this.onChanged,
       this.onTapsuffixIcon,
       this.onSaved,
-       this.validator,
+      this.validator,
       required this.Controller,
-       this.maxLines,
-       this.maxLength,
-        this.focusNode,
-        this.namePath,
-        this.width,
-        this.height,
+      this.maxLines,
+      this.maxLength,
+      this.focusNode,
+      this.namePath,
+      this.width,
+      this.height,
       required this.keyboardType,
       this.suffixIcon,
       required this.labelText,
       required this.hintText,
-       this.textAlign,
-        this.isPassword});
+      this.textAlign,
+      this.isPassword});
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +137,11 @@ class FromTextShared extends StatelessWidget {
             hintText: hintText,
             filled: true,
             fillColor: Colors.white,
-            prefixIcon: Image.asset(namePath!,width: width,height: height,),
+            prefixIcon: Image.asset(
+              namePath!,
+              width: width,
+              height: height,
+            ),
             suffixIcon: suffixIcon != null
                 ? IconButton(
                     icon: Icon(suffixIcon),
@@ -148,18 +149,11 @@ class FromTextShared extends StatelessWidget {
                     onPressed: onTapsuffixIcon,
                   )
                 : null,
-            focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(25),
-                borderSide: BorderSide(color: Themes.ColorApp9, width: 1)),
-            enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(25),
-                borderSide: BorderSide(color: Themes.ColorApp2, width: 1)),
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(25),
-                borderSide: BorderSide(color: Themes.ColorApp2, width: 1)),
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(25),
-                borderSide: BorderSide(color: Themes.ColorApp2, width: 1)),
+            focusedErrorBorder:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(25), borderSide: BorderSide(color: Themes.ColorApp9, width: 1)),
+            enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25), borderSide: BorderSide(color: Themes.ColorApp2, width: 1)),
+            focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25), borderSide: BorderSide(color: Themes.ColorApp2, width: 1)),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(25), borderSide: BorderSide(color: Themes.ColorApp2, width: 1)),
             labelText: labelText),
       ),
     );
@@ -187,24 +181,24 @@ class FromTextRegisterShared extends StatelessWidget {
   bool? isPassword = false;
 
   FromTextRegisterShared(
-      { this.onTapFunction,
-        this.onTapValidator,
-        this.onChanged,
-        this.onTapsuffixIcon,
-        this.validator,
-        required this.Controller,
-        this.maxLines,
-        this.maxLength,
-        this.focusNode,
-        this.readOnly,
-        this.width,
-        this.height,
-        required this.keyboardType,
-        this.suffixIcon,
-         this.labelText,
-         this.hintText,
-        this.textAlign,
-        this.isPassword});
+      {this.onTapFunction,
+      this.onTapValidator,
+      this.onChanged,
+      this.onTapsuffixIcon,
+      this.validator,
+      required this.Controller,
+      this.maxLines,
+      this.maxLength,
+      this.focusNode,
+      this.readOnly,
+      this.width,
+      this.height,
+      required this.keyboardType,
+      this.suffixIcon,
+      this.labelText,
+      this.hintText,
+      this.textAlign,
+      this.isPassword});
 
   @override
   Widget build(BuildContext context) {
@@ -230,23 +224,16 @@ class FromTextRegisterShared extends StatelessWidget {
             fillColor: Colors.white,
             suffixIcon: suffixIcon != null
                 ? IconButton(
-              icon: Icon(suffixIcon),
-              color: Themes.ColorApp1,
-              onPressed: onTapsuffixIcon,
-            )
+                    icon: Icon(suffixIcon),
+                    color: Themes.ColorApp1,
+                    onPressed: onTapsuffixIcon,
+                  )
                 : null,
-            focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(25),
-                borderSide: BorderSide(color: Themes.ColorApp9, width: 1)),
-            enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(25),
-                borderSide: BorderSide(color: Themes.ColorApp2, width: 1)),
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(25),
-                borderSide: BorderSide(color: Themes.ColorApp2, width: 1)),
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(25),
-                borderSide: BorderSide(color: Themes.ColorApp2, width: 1)),
+            focusedErrorBorder:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(25), borderSide: BorderSide(color: Themes.ColorApp9, width: 1)),
+            enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25), borderSide: BorderSide(color: Themes.ColorApp2, width: 1)),
+            focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25), borderSide: BorderSide(color: Themes.ColorApp2, width: 1)),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(25), borderSide: BorderSide(color: Themes.ColorApp2, width: 1)),
             labelText: labelText),
       ),
     );
@@ -264,6 +251,7 @@ class FromTextProfileShared extends StatelessWidget {
   int? maxLength;
   double? width;
   double? height;
+  bool? readOnly;
   TextInputType? keyboardType;
   IconData? suffixIcon;
   FocusNode? focusNode;
@@ -273,23 +261,24 @@ class FromTextProfileShared extends StatelessWidget {
   bool? isPassword = false;
 
   FromTextProfileShared(
-      { this.onTapFunction,
-        this.onTapValidator,
-        this.onChanged,
-        this.onTapsuffixIcon,
-        this.validator,
-        required this.Controller,
-        this.maxLines,
-        this.maxLength,
-        this.focusNode,
-        this.width,
-        this.height,
-        required this.keyboardType,
-        this.suffixIcon,
-        this.labelText,
-        required this.hintText,
-        this.textAlign,
-        this.isPassword});
+      {this.onTapFunction,
+      this.onTapValidator,
+      this.onChanged,
+      this.onTapsuffixIcon,
+      this.validator,
+      this.readOnly,
+      required this.Controller,
+      this.maxLines,
+      this.maxLength,
+      this.focusNode,
+      this.width,
+      this.height,
+      required this.keyboardType,
+      this.suffixIcon,
+      this.labelText,
+      required this.hintText,
+      this.textAlign,
+      this.isPassword});
 
   @override
   Widget build(BuildContext context) {
@@ -308,29 +297,23 @@ class FromTextProfileShared extends StatelessWidget {
         validator: onTapValidator,
         obscureText: isPassword!,
         keyboardType: keyboardType,
+        readOnly: readOnly ?? false,
         decoration: InputDecoration(
             hintText: hintText,
             filled: true,
             fillColor: Colors.white,
             suffixIcon: suffixIcon != null
                 ? IconButton(
-              icon: Icon(suffixIcon),
-              color: Themes.ColorApp1,
-              onPressed: onTapsuffixIcon,
-            )
+                    icon: Icon(suffixIcon),
+                    color: Themes.ColorApp1,
+                    onPressed: onTapsuffixIcon,
+                  )
                 : null,
-            focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(25),
-                borderSide: BorderSide(color: Themes.ColorApp9, width: 1)),
-            enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(25),
-                borderSide: BorderSide(color: Themes.ColorApp2, width: 1)),
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(25),
-                borderSide: BorderSide(color: Themes.ColorApp2, width: 1)),
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(25),
-                borderSide: BorderSide(color: Themes.ColorApp2, width: 1)),
+            focusedErrorBorder:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(25), borderSide: BorderSide(color: Themes.ColorApp9, width: 1)),
+            enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25), borderSide: BorderSide(color: Themes.ColorApp2, width: 1)),
+            focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25), borderSide: BorderSide(color: Themes.ColorApp2, width: 1)),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(25), borderSide: BorderSide(color: Themes.ColorApp2, width: 1)),
             labelText: labelText),
       ),
     );
@@ -467,20 +450,39 @@ class FromTextRequestShared extends StatelessWidget {
   int? minLines = 5;
   bool? isPassword = false;
 
-   FromTextRequestShared({this.height,this.hintText,this.Controller,this.keyboardType,this.maxLines,this.onTapFunction,this.onTapsuffixIcon,
-   this.prefixIcon,this.suffixIcon,this.textAlign,this.validator,this.onTapValidator,this.onChanged,this.labelText,this.isPassword,this.minLines,
-   this.textAlignVertical,this.TextColor});
+  FromTextRequestShared(
+      {this.height,
+      this.hintText,
+      this.Controller,
+      this.keyboardType,
+      this.maxLines,
+      this.onTapFunction,
+      this.onTapsuffixIcon,
+      this.prefixIcon,
+      this.suffixIcon,
+      this.textAlign,
+      this.validator,
+      this.onTapValidator,
+      this.onChanged,
+      this.labelText,
+      this.isPassword,
+      this.minLines,
+      this.textAlignVertical,
+      this.TextColor});
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
+    return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 0),
       child: TextFormField(
         onChanged: onChanged,
         onTap: onTapFunction,
         controller: Controller,
         textAlignVertical: textAlignVertical,
-        style: TextStyle(fontSize: 15, color: TextColor,height: height,
+        style: TextStyle(
+          fontSize: 15,
+          color: TextColor,
+          height: height,
         ),
         textAlign: textAlign!,
         maxLines: 10,
@@ -494,22 +496,21 @@ class FromTextRequestShared extends StatelessWidget {
             filled: true,
             fillColor: Colors.white,
             hintText: hintText,
-            hintStyle:TextStyle(fontSize: 15, color: primaryColor,height: height,
+            hintStyle: TextStyle(
+              fontSize: 15,
+              color: primaryColor,
+              height: height,
             ),
             alignLabelWithHint: true,
             suffixIcon: suffixIcon != null
                 ? IconButton(
-              icon: Icon(suffixIcon),
-              color: primaryColor,
-              onPressed: onTapsuffixIcon,
-            )
+                    icon: Icon(suffixIcon),
+                    color: primaryColor,
+                    onPressed: onTapsuffixIcon,
+                  )
                 : null,
             border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(3),
-                borderSide: BorderSide(
-                    color: primaryColor,
-                    width: 1,
-                    style: BorderStyle.solid)),
+                borderRadius: BorderRadius.circular(3), borderSide: BorderSide(color: primaryColor, width: 1, style: BorderStyle.solid)),
             labelText: labelText),
       ),
     );

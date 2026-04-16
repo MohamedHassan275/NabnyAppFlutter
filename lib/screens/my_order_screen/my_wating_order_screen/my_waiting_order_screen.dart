@@ -1,81 +1,79 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nabny/componant/LoadingWidget.dart';
 import 'package:nabny/model/my_new_order_model.dart';
 import 'package:nabny/screens/my_order_screen/my_wating_order_screen/details_waiting_order_screen.dart';
 import 'package:nabny/screens/my_order_screen/my_wating_order_screen/my_waiting_order_controller.dart';
-import 'package:nabny/screens/setting_screen/setting_screen.dart';
 
 import '../../../generated/assets.dart';
 import '../../../utils/Themes.dart';
-import '../my_current_order_screen/my_current_order_controller.dart';
-import '../my_previous_order_screen/my_previous_order_controller.dart';
-import '../my_sender_order_screen/my_send_order_controller.dart';
-
 
 class MyWaitingOrderScreen extends StatefulWidget {
-   MyWaitingOrderScreen({Key? key}) : super(key: key);
+  MyWaitingOrderScreen({Key? key}) : super(key: key);
 
   @override
   State<MyWaitingOrderScreen> createState() => _MyWaitingOrderScreenState();
 }
 
 class _MyWaitingOrderScreenState extends State<MyWaitingOrderScreen> {
+  // بنعرف الكنترولر هنا عشان نستخدمه في الـ initState بس
+  final MyNewOrderController _controller = Get.find<MyNewOrderController>();
 
   var heightValue = Get.height * 0.024;
   var widthValue = Get.width * 0.024;
-  // Retrieve controllers that are already registered by MyOrderScreen
-  MyNewOrderController myNewOrderController = Get.find<MyNewOrderController>();
-  MySendOrderController mySendOrderController = Get.find<MySendOrderController>();
-  MyCurrentOrderController myCurrentOrderController = Get.find<MyCurrentOrderController>();
-  MyPreviousOrderController myPreviousOrderController = Get.find<MyPreviousOrderController>();
 
   @override
   void initState() {
     super.initState();
-    // Controllers are already registered by MyOrderScreen — no need to re-create them.
+    // استدعاء الداتا عند فتح الشاشة
+    _controller.getMyNewOrderUser();
   }
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: () async{
-         setState(() {
-           myNewOrderController.getMyNewOrderUser();
-           mySendOrderController.getMySendOrderUser();
-           myCurrentOrderController.getMyOrderUser();
-           myPreviousOrderController.getPreviousMyOrderUser();
-         });
+      body: GetBuilder<MyNewOrderController>(
+        builder: (controller) {
+          return RefreshIndicator(
+            onRefresh: () async {
+              // بننادي الدالة اللي بتجيب الداتا من السيرفر
+              await controller.getMyNewOrderUser();
+            },
+            child: controller.Loading ? Center(child: LoadingWidget(data: '')) : _buildBody(controller),
+          );
         },
-        child: SafeArea(
-            child: SingleChildScrollView(
-              child: Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: GetBuilder<MyNewOrderController>(
-                    builder: (controller) {
-                      if(controller.Loading){
-                        return LoadingWidget(data: '');
-                      }
-                      return controller.newOrder.isNotEmpty ?
-                      ListView.builder(
-                        itemCount: controller.newOrder.length,
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                            child: MyWaitingOrderItem(MyNewOder: controller.newOrder[index],
-                              heightValue: heightValue,widthValue: widthValue,),
-                          );
-                        },): NoItemOFList();
-                    },),
-                ),
-              ),)
-        ),
       ),
+    );
+  }
+
+  // دالة لفصل المحتوى وتنظيمه
+  Widget _buildBody(MyNewOrderController controller) {
+    // لو مفيش داتا، هنعرض واجهة "لا يوجد طلبات" جوه ListView عشان الريفرش يشتغل
+    if (controller.newOrder.isEmpty) {
+      return ListView(
+        physics: const AlwaysScrollableScrollPhysics(), // سطر جوهري عشان يخلي الشاشة تقبل السحب حتى وهي فاضية
+        children: [
+          SizedBox(height: Get.height * 0.2), // توسيط وهمي
+          NoItemOFList(),
+        ],
+      );
+    }
+
+    // لو فيه داتا، هنعرض الـ List العادي
+    return ListView.builder(
+      physics: const AlwaysScrollableScrollPhysics(), // سطر جوهري لضمان عمل الريفرش دائماً
+      padding: const EdgeInsets.all(5.0),
+      itemCount: controller.newOrder.length,
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+          child: MyWaitingOrderItem(
+            MyNewOder: controller.newOrder[index],
+            heightValue: heightValue,
+            widthValue: widthValue,
+          ),
+        );
+      },
     );
   }
 }
@@ -126,9 +124,10 @@ class NoItemOFList extends StatelessWidget {
 }
 
 class MyWaitingOrderItem extends StatelessWidget {
-   MyWaitingOrderItem({Key? key,required this.MyNewOder,required this.widthValue, required this.heightValue}) : super(key: key);
-   double heightValue,widthValue;
-   NewOrder MyNewOder;
+  MyWaitingOrderItem({Key? key, required this.MyNewOder, required this.widthValue, required this.heightValue}) : super(key: key);
+  double heightValue, widthValue;
+  NewOrder MyNewOder;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -137,21 +136,26 @@ class MyWaitingOrderItem extends StatelessWidget {
       // },
       child: Card(
         elevation: 2,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15)
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         child: Padding(
           padding: const EdgeInsets.all(5.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CompanyDetails(MyNewOder),
-              SizedBox(height: heightValue * 1,),
+              SizedBox(
+                height: heightValue * 1,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5),
-                child: Divider(height: 10, color: Themes.ColorApp2,),
+                child: Divider(
+                  height: 10,
+                  color: Themes.ColorApp2,
+                ),
               ),
-              SizedBox(height: heightValue * .5,),
+              SizedBox(
+                height: heightValue * .5,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: Row(
@@ -163,7 +167,9 @@ class MyWaitingOrderItem extends StatelessWidget {
                         backgroundColor: Themes.ColorApp9,
                       ),
                     ),
-                    SizedBox(width: widthValue * 1,),
+                    SizedBox(
+                      width: widthValue * 1,
+                    ),
                     Text(
                       'waiting_send_offer_price'.tr,
                       style: TextStyle(
@@ -175,12 +181,16 @@ class MyWaitingOrderItem extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: heightValue * 1,),
+              SizedBox(
+                height: heightValue * 1,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: GestureDetector(
-                  onTap: (){
-                    Get.to(DetailsWaitingOrderScreen(newOrder: MyNewOder,));
+                  onTap: () {
+                    Get.to(DetailsWaitingOrderScreen(
+                      newOrder: MyNewOder,
+                    ));
                   },
                   child: Container(
                     width: Get.width,
@@ -190,7 +200,7 @@ class MyWaitingOrderItem extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Center(
-                      child:   Text(
+                      child: Text(
                         'order_details'.tr,
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
@@ -202,7 +212,9 @@ class MyWaitingOrderItem extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: heightValue * 1,)
+              SizedBox(
+                height: heightValue * 1,
+              )
             ],
           ),
         ),
@@ -212,11 +224,12 @@ class MyWaitingOrderItem extends StatelessWidget {
 }
 
 class CompanyDetails extends StatelessWidget {
-   CompanyDetails(this.myCurrentOrderModel);
+  CompanyDetails(this.myCurrentOrderModel);
 
-   NewOrder? myCurrentOrderModel;
-   var heightValue = Get.height * 0.024;
-   var widthValue = Get.width * 0.024;
+  NewOrder? myCurrentOrderModel;
+  var heightValue = Get.height * 0.024;
+  var widthValue = Get.width * 0.024;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -243,7 +256,9 @@ class CompanyDetails extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: widthValue *1,),
+              SizedBox(
+                width: widthValue * 1,
+              ),
               Text(
                 '${myCurrentOrderModel!.company}',
                 style: TextStyle(
@@ -255,7 +270,9 @@ class CompanyDetails extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: heightValue* .5,),
+        SizedBox(
+          height: heightValue * .5,
+        ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
@@ -277,7 +294,9 @@ class CompanyDetails extends StatelessWidget {
                               color: Themes.ColorApp2,
                             ),
                           ),
-                          SizedBox(width: widthValue * .2,),
+                          SizedBox(
+                            width: widthValue * .2,
+                          ),
                           Text(
                             '${myCurrentOrderModel!.castingType}',
                             style: TextStyle(
@@ -303,7 +322,9 @@ class CompanyDetails extends StatelessWidget {
                               color: Themes.ColorApp2,
                             ),
                           ),
-                          SizedBox(width: widthValue * .2,),
+                          SizedBox(
+                            width: widthValue * .2,
+                          ),
                           Text(
                             '${myCurrentOrderModel!.qtyM}',
                             style: TextStyle(

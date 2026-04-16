@@ -10,13 +10,14 @@ import 'package:nabny/screens/home_screen/home_controller.dart';
 import 'package:nabny/screens/my_order_screen/my_current_order_screen/my_current_order_controller.dart';
 import 'package:nabny/screens/my_order_screen/my_previous_order_screen/my_previous_order_controller.dart';
 import 'package:nabny/screens/my_order_screen/my_sender_order_screen/my_send_order_controller.dart';
+import 'package:nabny/screens/my_order_screen/my_wating_order_screen/my_waiting_order_controller.dart';
 import 'package:nabny/screens/request_offer_price_screen/request_offer_price_controller.dart';
 import 'package:nabny/utils/Themes.dart';
+
 import '../../model/home_user_model.dart';
 import '../category_details_screen/category_details_screen.dart';
 import '../location_map_user_screen/google_map_locaiton_user_screen.dart';
 import '../requirements_request_offer_price_screen/requirements_request_offer_price_screen.dart';
-import 'package:nabny/screens/my_order_screen/my_wating_order_screen/my_waiting_order_controller.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -133,8 +134,7 @@ class HomeScreen extends StatelessWidget {
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 14),
                               child: FactoryItemList(
-                                companiesModel:
-                                    ctrl.homeUserModel?.companies?[index],
+                                companiesModel: ctrl.homeUserModel?.companies?[index],
                                 homeController: homeController,
                               ),
                             );
@@ -187,8 +187,7 @@ class _HomeCarouselState extends State<_HomeCarousel> {
                         fit: BoxFit.cover,
                         errorBuilder: (_, __, ___) => Container(
                           color: Themes.ColorApp4,
-                          child: const Icon(Icons.factory_outlined,
-                              color: Themes.ColorApp1, size: 50),
+                          child: const Icon(Icons.factory_outlined, color: Themes.ColorApp1, size: 50),
                         ),
                       ),
                     ))
@@ -223,9 +222,7 @@ class _HomeCarouselState extends State<_HomeCarousel> {
                   margin: const EdgeInsets.symmetric(horizontal: 3),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4),
-                    color: _currentIndex == entry.key
-                        ? Colors.white
-                        : Colors.white.withOpacity(0.5),
+                    color: _currentIndex == entry.key ? Colors.white : Colors.white.withOpacity(0.5),
                   ),
                 );
               }).toList(),
@@ -347,8 +344,7 @@ class _CategoriesSection extends StatelessWidget {
                         child: FadeInImage(
                           image: NetworkImage('${cat.image}'),
                           fit: BoxFit.contain,
-                          placeholder:
-                              const AssetImage(Assets.imagesFactoryImage),
+                          placeholder: const AssetImage(Assets.imagesFactoryImage),
                           imageErrorBuilder: (_, __, ___) => const Icon(
                             Icons.factory_outlined,
                             color: Themes.ColorApp1,
@@ -402,8 +398,7 @@ class _OrderPriceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final isAr = Get.locale?.languageCode == 'ar';
     return GestureDetector(
-      onTap: () => Get.to(
-          RequirementsRequestOfferPriceScreen(companyId: '', my_location: '')),
+      onTap: () => Get.to(RequirementsRequestOfferPriceScreen(companyId: '', my_location: '')),
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
@@ -425,7 +420,7 @@ class _OrderPriceCard extends StatelessWidget {
             // النص والأيقونة
             Row(
               children: [
-                 // سهم الانتقال
+                // سهم الانتقال
                 Container(
                   width: 46,
                   height: 46,
@@ -442,7 +437,7 @@ class _OrderPriceCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                 const SizedBox(width: 5),
+                const SizedBox(width: 5),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
@@ -467,7 +462,7 @@ class _OrderPriceCard extends StatelessWidget {
                 ),
               ],
             ),
-               Container(
+            Container(
               width: 36,
               height: 36,
               decoration: BoxDecoration(
@@ -475,9 +470,7 @@ class _OrderPriceCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(
-                isAr
-                    ? Icons.keyboard_arrow_left_rounded
-                    : Icons.keyboard_arrow_right_rounded,
+                isAr ? Icons.keyboard_arrow_left_rounded : Icons.keyboard_arrow_right_rounded,
                 size: 22,
                 color: Themes.ColorApp1,
               ),
@@ -526,12 +519,7 @@ class LookingForFactory extends StatelessWidget {
 }
 
 class SearchForSomeFactories extends StatelessWidget {
-  SearchForSomeFactories(
-      {Key? key,
-      required this.homeUserResponseModel,
-      required this.onTap,
-      required this.heightValue,
-      required this.widthValue})
+  SearchForSomeFactories({Key? key, required this.homeUserResponseModel, required this.onTap, required this.heightValue, required this.widthValue})
       : super(key: key);
 
   HomeUserResponseModel? homeUserResponseModel;
@@ -545,10 +533,7 @@ class SearchForSomeFactories extends StatelessWidget {
 }
 
 class DetailsCompany extends StatelessWidget {
-  DetailsCompany(
-      {required this.CompaniesModel,
-      required this.heightValue,
-      required this.widthValue});
+  DetailsCompany({required this.CompaniesModel, required this.heightValue, required this.widthValue});
 
   Companies? CompaniesModel;
   double heightValue, widthValue;
@@ -560,8 +545,7 @@ class DetailsCompany extends StatelessWidget {
 }
 
 class CategoryListBuild extends StatelessWidget {
-  CategoryListBuild(
-      {required this.heightValue, required this.homeUserResponseModel});
+  CategoryListBuild({required this.heightValue, required this.homeUserResponseModel});
 
   HomeUserResponseModel? homeUserResponseModel;
   double heightValue;
@@ -608,27 +592,40 @@ class _HomeHeader extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // زرار الإشعارات (يسار)
-                Container(
-                  width: 42,
-                  height: 42,
-                  decoration: BoxDecoration(
-                    color: Themes.ColorApp1.withOpacity(0.08),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.notifications_none_rounded,
-                    color: Themes.ColorApp1,
-                    size: 24,
-                  ),
-                ),
-
                 // التحية + البروفايل (يمين)
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    Container(
+                      width: 46,
+                      height: 46,
+                      decoration: BoxDecoration(
+                        // اختيار لون الخلفية بناءً على حالة الصورة
+                        color: mainCtrl.profileUserModel?.image == null ? Themes.ColorApp1 : Themes.ColorApp4,
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Themes.ColorApp14,
+                          width: 1.5,
+                        ),
+                      ),
+                      child: ClipOval(
+                        child: mainCtrl.profileUserModel?.image != null
+                            ? Image.network(
+                                mainCtrl.profileUserModel!.image!,
+                                fit: BoxFit.cover,
+                                // معالجة الخطأ في تحميل الصورة من السيرفر
+                                errorBuilder: (context, error, stackTrace) => Image.asset(Assets.iconsLogoApp, fit: BoxFit.cover),
+                              )
+                            : Padding(
+                                padding: const EdgeInsets.all(8.0), // مسافة بسيطة للشعار الداخلي
+                                child: Image.asset(Assets.iconsLogoApp, fit: BoxFit.contain),
+                              ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'welcome_back'.tr,
@@ -651,24 +648,22 @@ class _HomeHeader extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(width: 10),
-                    Container(
-                      width: 46,
-                      height: 46,
-                      decoration: BoxDecoration(
-                        color: Themes.ColorApp4,
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Themes.ColorApp14, width: 1.5),
-                        image: DecorationImage(
-                          image: mainCtrl.profileUserModel?.image != null
-                              ? NetworkImage(mainCtrl.profileUserModel!.image!)
-                              : const AssetImage(Assets.imagesImageLogoApp)
-                                  as ImageProvider,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
                   ],
+                ),
+                // زرار الإشعارات (يسار)
+
+                Container(
+                  width: 42,
+                  height: 42,
+                  decoration: BoxDecoration(
+                    color: Themes.ColorApp1.withOpacity(0.08),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.notifications_none_rounded,
+                    color: Themes.ColorApp1,
+                    size: 24,
+                  ),
                 ),
               ],
             ),
@@ -715,9 +710,7 @@ class _HomeHeader extends StatelessWidget {
                         ),
                       ),
                       Icon(
-                        Get.locale?.languageCode == 'ar'
-                            ? Icons.keyboard_arrow_left_rounded
-                            : Icons.keyboard_arrow_right_rounded,
+                        Get.locale?.languageCode == 'ar' ? Icons.keyboard_arrow_left_rounded : Icons.keyboard_arrow_right_rounded,
                         color: Themes.ColorApp8,
                         size: 20,
                       ),
