@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Nabny</string>
+	<string>نبني - Nabny</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -47,5 +47,17 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We need your location to show nearby factories and facilitate request delivery. / نحتاج موقعك لعرض المصانع القريبة وتسهيل طلبات العروض.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>We need your location to show nearby factories even when the app is in background. / نحتاج الوصول لموقعك لعرض المصانع القريبة حتى في الخلفية.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We need your location to show nearby factories and facilitate request delivery. / نحتاج موقعك لعرض المصانع القريبة وتسهيل طلبات العروض.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>We need camera access to capture requirement photos. / نحتاج الوصول للكاميرا لتصوير متطلباتك.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need gallery access to select requirement photos. / نحتاج الوصول لمعرض الصور لاختيار متطلباتك.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need microphone access for requirement videos. / نحتاج الوصول للميكروفون لتسجيل الفيديوهات.</string>
 </dict>
 </plist>
