@@ -45,108 +45,106 @@ class HomeScreen extends StatelessWidget {
           myPreviousOrderController.getPreviousMyOrderUser();
           requestOfferPriceController.getRequestOfferPrice();
         },
-        child: SafeArea(
-          child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            child: GetBuilder<HomeController>(
-              init: HomeController(),
-              builder: (controller) {
-                if (controller.isLoading) {
-                  return SizedBox(
-                    height: Get.height * 0.8,
-                    child: LoadingWidget(data: ''),
-                  );
-                }
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // ══════════════════════════════
-                    // 0) Header – يشبه AppBar مدمج
-                    // ══════════════════════════════
-                    _HomeHeader(homeController: controller, homeMainController: homeMainController),
-
-                    const SizedBox(height: 12),
-
-                    // ══════════════════════════════
-                    // 1) Carousel Slider
-                    // ══════════════════════════════
-                    _HomeCarousel(controller: controller),
-
-                    const SizedBox(height: 16),
-
-                    // ══════════════════════════════
-                    // 2) سيرش بار "ابحث عن مصنع"
-                    // ══════════════════════════════
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: _SearchBar(),
-                    ),
-
-                    const SizedBox(height: 20),
-
-                    // ══════════════════════════════
-                    // 3) كل الفئات
-                    // ══════════════════════════════
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: _CategoriesSection(
-                        homeUserResponseModel: controller.homeUserModel,
-                      ),
-                    ),
-
-                    const SizedBox(height: 20),
-
-                    // ══════════════════════════════
-                    // 4) طلب عروض أسعار
-                    // ══════════════════════════════
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: _OrderPriceCard(),
-                    ),
-
-                    const SizedBox(height: 20),
-
-                    // ══════════════════════════════
-                    // 5) بعض المصانع
-                    // ══════════════════════════════
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Text(
-                        'some_factories'.tr,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 17,
-                          color: Themes.ColorApp15,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    GetBuilder<HomeController>(
-                      builder: (ctrl) {
-                        return ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          physics: const NeverScrollableScrollPhysics(),
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          itemCount: ctrl.homeUserModel?.companies?.length ?? 0,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 14),
-                              child: FactoryItemList(
-                                companiesModel: ctrl.homeUserModel?.companies?[index],
-                                homeController: homeController,
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                  ],
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: GetBuilder<HomeController>(
+            init: HomeController(),
+            builder: (controller) {
+              if (controller.isLoading) {
+                return SizedBox(
+                  height: Get.height * 0.8,
+                  child: LoadingWidget(data: ''),
                 );
-              },
-            ),
+              }
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // ══════════════════════════════
+                  // 0) Header – يشبه AppBar مدمج
+                  // ══════════════════════════════
+                  _HomeHeader(homeController: controller, homeMainController: homeMainController),
+
+                  const SizedBox(height: 12),
+
+                  // ══════════════════════════════
+                  // 1) Carousel Slider
+                  // ══════════════════════════════
+                  _HomeCarousel(controller: controller),
+
+                  const SizedBox(height: 16),
+
+                  // ══════════════════════════════
+                  // 2) سيرش بار "ابحث عن مصنع"
+                  // ══════════════════════════════
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: _SearchBar(),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // ══════════════════════════════
+                  // 3) كل الفئات
+                  // ══════════════════════════════
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: _CategoriesSection(
+                      homeUserResponseModel: controller.homeUserModel,
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // ══════════════════════════════
+                  // 4) طلب عروض أسعار
+                  // ══════════════════════════════
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: _OrderPriceCard(),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // ══════════════════════════════
+                  // 5) بعض المصانع
+                  // ══════════════════════════════
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Text(
+                      'some_factories'.tr,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 17,
+                        color: Themes.ColorApp15,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  GetBuilder<HomeController>(
+                    builder: (ctrl) {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        itemCount: ctrl.homeUserModel?.companies?.length ?? 0,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 14),
+                            child: FactoryItemList(
+                              companiesModel: ctrl.homeUserModel?.companies?[index],
+                              homeController: homeController,
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                ],
+              );
+            },
           ),
         ),
       ),

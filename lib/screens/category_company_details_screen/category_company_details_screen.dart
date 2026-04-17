@@ -21,43 +21,41 @@ class CategoryCompanyDetailsScreen extends StatelessWidget {
     var heightValue = Get.height * 0.024;
     var widthValue = Get.width * 0.024;
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            width: Get.width,
-            height: Get.height,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(Assets.imagesBackgroundFactoryDetails),
-                  fit: BoxFit.cover,
-                ),
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(35), topLeft: Radius.circular(35))),
-            child: Stack(
-              children: [
-                ImageAndFavoriteFactory(heightValue: heightValue, categories: categories!,),
-                Positioned(
-                    top: heightValue * 13,
-                    right: widthValue * 2,
-                    left: widthValue * 2,
-                    child: FactoryDetails(
-                      heightValue: heightValue,
-                      widthValue: widthValue, companies: companiesResponseModel,
-                    )),
-                SizedBox(height: heightValue * 1.5,),
-                Positioned(
-                    top: heightValue * 22,
-                    child: FactoryDetails2(
-                      heightValue: heightValue,
-                      widthValue: widthValue, companies: companiesResponseModel,
-                    )),
-                Positioned(
-                    bottom: heightValue * 3,
-                    child: CustomButtonImage(title: 'request_price2'.tr, hight: 50, onTap: () {
-                      Get.to(RequirementsRequestOfferPriceScreen(companyId: '${companiesResponseModel.id}', my_location: ''));
-                    },)),
-              ],
-            ),
+      body: SingleChildScrollView(
+        child: Container(
+          width: Get.width,
+          height: Get.height,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(Assets.imagesBackgroundFactoryDetails),
+                fit: BoxFit.cover,
+              ),
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(35), topLeft: Radius.circular(35))),
+          child: Stack(
+            children: [
+              ImageAndFavoriteFactory(heightValue: heightValue, categories: categories!,),
+              Positioned(
+                  top: heightValue * 13,
+                  right: widthValue * 2,
+                  left: widthValue * 2,
+                  child: FactoryDetails(
+                    heightValue: heightValue,
+                    widthValue: widthValue, companies: companiesResponseModel,
+                  )),
+              SizedBox(height: heightValue * 1.5,),
+              Positioned(
+                  top: heightValue * 22,
+                  child: FactoryDetails2(
+                    heightValue: heightValue,
+                    widthValue: widthValue, companies: companiesResponseModel,
+                  )),
+              Positioned(
+                  bottom: heightValue * 3,
+                  child: CustomButtonImage(title: 'request_price2'.tr, hight: 50, onTap: () {
+                    Get.to(RequirementsRequestOfferPriceScreen(companyId: '${companiesResponseModel.id}', my_location: ''));
+                  },)),
+            ],
           ),
         ),
       ),

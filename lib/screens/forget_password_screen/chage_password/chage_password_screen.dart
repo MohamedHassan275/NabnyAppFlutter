@@ -44,153 +44,151 @@ class _ChagePasswordScreenState extends State<ChagePasswordScreen> {
     double paddingWidget = heightValue * 10;
 
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          width: Get.width,
-          height: Get.height,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage(Assets.imagesBackgroundSplash),
-                  fit: BoxFit.fill)),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: heightValue * 6.0,
-                ),
-                Image.asset(
-                  Assets.imagesLogoImage,
-                  fit: BoxFit.contain,
-                ),
-                SizedBox(
-                  height: heightValue * 5.5,
-                ),
-              const ForgetPasswordWidget(),
-                SizedBox(height: heightValue*.2,),
-                GetBuilder<ChangePasswordController>(
-                  init: ChangePasswordController(),
-                    builder: (controller) => Container(
-                  width: Get.width,
-                  color: Colors.white,
-                  child: Form(
-                    key: controller.formKey,
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: heightValue * 2,
+      body: Container(
+        width: Get.width,
+        height: Get.height,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(Assets.imagesBackgroundSplash),
+                fit: BoxFit.fill)),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: heightValue * 6.0,
+              ),
+              Image.asset(
+                Assets.imagesLogoImage,
+                fit: BoxFit.contain,
+              ),
+              SizedBox(
+                height: heightValue * 5.5,
+              ),
+            const ForgetPasswordWidget(),
+              SizedBox(height: heightValue*.2,),
+              GetBuilder<ChangePasswordController>(
+                init: ChangePasswordController(),
+                  builder: (controller) => Container(
+                width: Get.width,
+                color: Colors.white,
+                child: Form(
+                  key: controller.formKey,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: heightValue * 2,
+                      ),
+                      FromTextShared(
+                        //  textAlign: TextAlign.center,
+                        labelText: 'password'.tr,
+                        onTapFunction: () {
+                          setState(() {
+                            FocusScope.of(context).unfocus();
+                            FocusScope.of(context)
+                                .requestFocus(_focusNodePassword);
+                          });
+                        },
+                        namePath: Assets.iconsPasswordIcon,
+                        width: 25,
+                        height: 25,
+                        focusNode: _focusNodePassword,
+                        onChanged: (value) {
+                          setState(() {
+                            password = value;
+                          });
+                        },
+                        isPassword: isPassword,
+                        onTapValidator: (value) {
+                          if (value!.isEmpty) {
+                            return 'must_not_empty'.tr;
+                          } else if (value.length <= 6) {
+                            return 'short_password'.tr;
+                          }
+                          return null;
+                        },
+                        suffixIcon: isPassword
+                            ? Icons.visibility_sharp
+                            : Icons.visibility_off,
+                        onTapsuffixIcon: () {
+                          setState(() {
+                            isPassword = !isPassword;
+                          });
+                        },
+                        keyboardType: TextInputType.text,
+                        maxLines: 1,
+                        Controller: Password,
+                        hintText: 'password'.tr,
+                      ),
+                      SizedBox(
+                        height: heightValue * 1,
+                      ),
+                      FromTextShared(
+                        //  textAlign: TextAlign.center,
+                        labelText: 'confirm_password'.tr,
+                        onTapFunction: () {
+                          setState(() {
+                            FocusScope.of(context).unfocus();
+                            FocusScope.of(context).requestFocus(
+                                _focusNodeConfirmPassword);
+                          });
+                        },
+                        focusNode: _focusNodeConfirmPassword,
+                        onChanged: (value) {
+                          setState(() {
+                            confirmPassword = value;
+                          });
+                        },
+                        namePath: Assets.iconsPasswordIcon,
+                        width: 25,
+                        height: 25,
+                        isPassword: isConfirmPassword,
+                        onTapValidator: (value) {
+                          if (value!.isEmpty) {
+                            return 'must_not_empty'.tr;
+                          } else if (value.length <= 6) {
+                            return 'short_password'.tr;
+                          } else if (!(value.contains(Password.text))) {
+                            return ' Password_does_not_match'.tr;
+                          }
+                          return null;
+                        },
+                        suffixIcon: isConfirmPassword
+                            ? Icons.visibility_sharp
+                            : Icons.visibility_off,
+                        onTapsuffixIcon: () {
+                          setState(() {
+                            isConfirmPassword = !isConfirmPassword;
+                          });
+                        },
+                        keyboardType: TextInputType.text,
+                        maxLines: 1,
+                        Controller: ConfirmPassword,
+                        hintText: 'confirm_password'.tr,
+                      ),
+                      SizedBox(
+                        height: heightValue * 1,
+                      ),
+                      CirclerProgressIndicatorWidget(isLoading: controller.isLoading ? true : false),
+                      SizedBox(
+                        height: heightValue * .5,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 15),
+                        child: CustomButtonImage(
+                          hight: 50,
+                          title: 'confirm'.tr,
+                          onTap: () => Get.find<ChangePasswordController>().changePasswordByForgetPassword(widget.mobilePhone,Password.text)
                         ),
-                        FromTextShared(
-                          //  textAlign: TextAlign.center,
-                          labelText: 'password'.tr,
-                          onTapFunction: () {
-                            setState(() {
-                              FocusScope.of(context).unfocus();
-                              FocusScope.of(context)
-                                  .requestFocus(_focusNodePassword);
-                            });
-                          },
-                          namePath: Assets.iconsPasswordIcon,
-                          width: 25,
-                          height: 25,
-                          focusNode: _focusNodePassword,
-                          onChanged: (value) {
-                            setState(() {
-                              password = value;
-                            });
-                          },
-                          isPassword: isPassword,
-                          onTapValidator: (value) {
-                            if (value!.isEmpty) {
-                              return 'must_not_empty'.tr;
-                            } else if (value.length <= 6) {
-                              return 'short_password'.tr;
-                            }
-                            return null;
-                          },
-                          suffixIcon: isPassword
-                              ? Icons.visibility_sharp
-                              : Icons.visibility_off,
-                          onTapsuffixIcon: () {
-                            setState(() {
-                              isPassword = !isPassword;
-                            });
-                          },
-                          keyboardType: TextInputType.text,
-                          maxLines: 1,
-                          Controller: Password,
-                          hintText: 'password'.tr,
-                        ),
-                        SizedBox(
-                          height: heightValue * 1,
-                        ),
-                        FromTextShared(
-                          //  textAlign: TextAlign.center,
-                          labelText: 'confirm_password'.tr,
-                          onTapFunction: () {
-                            setState(() {
-                              FocusScope.of(context).unfocus();
-                              FocusScope.of(context).requestFocus(
-                                  _focusNodeConfirmPassword);
-                            });
-                          },
-                          focusNode: _focusNodeConfirmPassword,
-                          onChanged: (value) {
-                            setState(() {
-                              confirmPassword = value;
-                            });
-                          },
-                          namePath: Assets.iconsPasswordIcon,
-                          width: 25,
-                          height: 25,
-                          isPassword: isConfirmPassword,
-                          onTapValidator: (value) {
-                            if (value!.isEmpty) {
-                              return 'must_not_empty'.tr;
-                            } else if (value.length <= 6) {
-                              return 'short_password'.tr;
-                            } else if (!(value.contains(Password.text))) {
-                              return ' Password_does_not_match'.tr;
-                            }
-                            return null;
-                          },
-                          suffixIcon: isConfirmPassword
-                              ? Icons.visibility_sharp
-                              : Icons.visibility_off,
-                          onTapsuffixIcon: () {
-                            setState(() {
-                              isConfirmPassword = !isConfirmPassword;
-                            });
-                          },
-                          keyboardType: TextInputType.text,
-                          maxLines: 1,
-                          Controller: ConfirmPassword,
-                          hintText: 'confirm_password'.tr,
-                        ),
-                        SizedBox(
-                          height: heightValue * 1,
-                        ),
-                        CirclerProgressIndicatorWidget(isLoading: controller.isLoading ? true : false),
-                        SizedBox(
-                          height: heightValue * .5,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 15, vertical: 15),
-                          child: CustomButtonImage(
-                            hight: 50,
-                            title: 'confirm'.tr,
-                            onTap: () => Get.find<ChangePasswordController>().changePasswordByForgetPassword(widget.mobilePhone,Password.text)
-                          ),
-                        ),
-                        SizedBox(
-                          height: 16,
-                        ),
-                      ],
-                    ),
+                      ),
+                      SizedBox(
+                        height: 16,
+                      ),
+                    ],
                   ),
-                )),
-              ],
-            ),
+                ),
+              )),
+            ],
           ),
         ),
       ),

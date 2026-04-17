@@ -36,8 +36,7 @@ class _SettingScreenState extends State<SettingScreen> {
 
     return Scaffold(
       backgroundColor: Themes.ColorApp7,
-      body: SafeArea(
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -194,7 +193,7 @@ class _SettingScreenState extends State<SettingScreen> {
             ],
           ),
         ),
-      ),
+      
     );
   }
 }

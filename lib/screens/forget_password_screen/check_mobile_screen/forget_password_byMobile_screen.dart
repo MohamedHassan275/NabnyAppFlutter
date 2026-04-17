@@ -66,9 +66,8 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
     final double valueWidth = Get.width * .024;
 
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          width: Get.width,
+      body: Container(
+        width: Get.width,
           height: Get.height,
           decoration: const BoxDecoration(
               image: const DecorationImage(
@@ -169,7 +168,6 @@ class _ForgetPasswordByMobileState extends State<ForgetPasswordByMobile> {
                 ),
               ],
             ),
-          ),
         ),
       ),
     );

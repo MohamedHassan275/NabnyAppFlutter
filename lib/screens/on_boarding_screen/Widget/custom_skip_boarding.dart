@@ -17,15 +17,20 @@ class CustomSkipBoarding extends StatelessWidget {
       type: MaterialType.transparency,
       child: GetBuilder<OnBoardingControllerImp>(
           builder: (controller) => Visibility(
-                visible: controller.pageController!.hasClients ? (controller.currentPage == 3 ? false : true) : true,
+                visible: controller.pageController!.hasClients
+                    ? (controller.currentPage == 3 ? false : true)
+                    : true,
                 child: Container(
                   margin: EdgeInsets.all(buttonWidth),
                   child: CustomButtonSkipOnBoarding(
                     onTap: () {
                       if (controller.pageController!.hasClients) {
-                        if (controller.currentPage != myOnBoardingList.length - 1) {
+                        if (controller.currentPage !=
+                            myOnBoardingList.length - 1) {
                           Get.find<StorageService>().isSkipOnBoarding(true);
-                          Get.to(const LoginScreen(), transition: Transition.leftToRight, duration: const Duration(milliseconds: 3));
+                          Get.to(const LoginScreen(),
+                              transition: Transition.leftToRight,
+                              duration: const Duration(milliseconds: 3));
                         } else {
                           print('has click');
                         }

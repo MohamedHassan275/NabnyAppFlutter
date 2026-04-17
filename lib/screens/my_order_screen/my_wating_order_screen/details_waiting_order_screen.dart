@@ -16,8 +16,7 @@ class DetailsWaitingOrderScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Themes.ColorApp7,
       appBar: NabnyAppBar(title: 'contract_details'.tr),
-      body: SafeArea(
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
           child: Container(
             width: Get.width,
             child: Column(
@@ -118,7 +117,6 @@ class DetailsWaitingOrderScreen extends StatelessWidget {
             ),
           ),
         ),
-      ),
     );
   }
 }

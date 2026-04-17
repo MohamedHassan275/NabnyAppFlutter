@@ -26,8 +26,7 @@ class CategoryDetailsScreen extends StatelessWidget {
         onRefresh: () async{
           categoryDetailsController.getCategoryDetails(categories!.id.toString());
         },
-        child: SafeArea(
-          child: SingleChildScrollView(
+        child: SingleChildScrollView(
             child: GetBuilder<CategoryDetailsController>(
               init: CategoryDetailsController(categories!.id.toString()),
               builder: (controller) {
@@ -58,7 +57,7 @@ class CategoryDetailsScreen extends StatelessWidget {
               },),
           ),
         ),
-      ),
+      
     );
   }
 }

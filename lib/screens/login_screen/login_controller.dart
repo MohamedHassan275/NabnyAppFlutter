@@ -29,10 +29,6 @@ class LoginController extends GetxController{
   }
 
   getFirebaseToken(){
-    Firebase.initializeApp().whenComplete(() {
-      print("completed");
-      print(Firebase_token);
-    });
     _firebaseMessaging.getToken().then((value){
       print('The Token is $value');
       Firebase_token = value!;

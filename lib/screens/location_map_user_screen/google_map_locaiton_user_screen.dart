@@ -46,8 +46,7 @@ class _GoogleMapLocationUserScreenState extends State<GoogleMapLocationUserScree
     final heightValue = Get.height * 0.024;
 
     return Scaffold(
-      body: SafeArea(
-        child: GetBuilder<GetMyLocationController>(
+      body: GetBuilder<GetMyLocationController>(
           init: GetMyLocationController(),
           builder: (mapController) => Stack(
             children: [
@@ -209,7 +208,7 @@ class _GoogleMapLocationUserScreenState extends State<GoogleMapLocationUserScree
             ],
           ),
         ),
-      ),
+      
     );
   }
 

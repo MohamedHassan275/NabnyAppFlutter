@@ -31,8 +31,7 @@ class _TermsConditionScreenState extends State<TermsConditionScreen> {
     var widthValue = Get.width * 0.024;
     var heightValue = Get.height * 0.024;
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -115,7 +114,6 @@ class _TermsConditionScreenState extends State<TermsConditionScreen> {
             ],
           ),
         ),
-      ),
     );
   }
 }

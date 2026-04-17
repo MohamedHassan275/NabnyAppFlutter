@@ -27,100 +27,106 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          width: Get.width,
-          height: Get.height,
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: const AssetImage(Assets.imagesBackgroundSplash),
-                  fit: BoxFit.fill)),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: valueHight * 6.0,
-                ),
-                Image.asset(
-                  Assets.imagesLogoImage,
-                  fit: BoxFit.contain,
-                ),
-                SizedBox(
-                  height: valueHight * 5.5,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 160,
-                        height: 60,
-                        child: Card(
-                          elevation: 3,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          child: Center(
-                            child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 15),
-                                child: Text(
-                                  'create_account'.tr,
-                                  style: const TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.w700,
-                                      color: Themes.ColorApp1),
-                                )),
-                          ),
+      body: Container(
+        width: Get.width,
+        height: Get.height,
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: const AssetImage(Assets.imagesBackgroundSplash),
+                fit: BoxFit.fill)),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: valueHight * 6.0,
+              ),
+              Image.asset(
+                Assets.imagesLogoImage,
+                fit: BoxFit.contain,
+              ),
+              SizedBox(
+                height: valueHight * 5.5,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 160,
+                      height: 60,
+                      child: Card(
+                        elevation: 3,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        child: Center(
+                          child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 15),
+                              child: Text(
+                                'create_account'.tr,
+                                style: const TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w700,
+                                    color: Themes.ColorApp1),
+                              )),
                         ),
                       ),
+                    ),
+                  ],
+                  mainAxisAlignment: MainAxisAlignment.start,
+                ),
+              ),
+              SizedBox(
+                height: valueHight * .2,
+              ),
+              GetBuilder<RegisterController>(
+                init: RegisterController(),
+                builder: (controller) => Container(
+                  width: Get.width,
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: valueHight * 1.5,
+                      ),
+                      Form(
+                          key: controller.formKey,
+                          child: Column(
+                            children: [
+                              TextFieldMobileWidget(
+                                  textEditingController: MobilePhone,
+                                  value: mobilePhone),
+                              SizedBox(
+                                height: valueHight * 1,
+                              ),
+                              CirclerProgressIndicatorWidget(
+                                  isLoading: controller.isLoading ? true : false),
+                              SizedBox(
+                                height: valueHight * .5,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 15),
+                                child: CustomButtonImage(
+                                    hight: 50,
+                                    title: 'register'.tr,
+                                    onTap: () {
+                                      print(MobilePhone.text);
+                                      Get.find<RegisterController>()
+                                          .createAccount(MobilePhone.text);
+                                    }),
+                              ),
+                              const LoginUserFromRegisterWidget()
+                            ],
+                          )),
+                      SizedBox(
+                        height: valueHight * 2.0,
+                      ),
                     ],
-                    mainAxisAlignment: MainAxisAlignment.start,
                   ),
                 ),
-                SizedBox(height: valueHight*.2,),
-                GetBuilder<RegisterController>(
-                  init: RegisterController(),
-                  builder: (controller) => Container(
-                    width: Get.width,
-                    color: Colors.white,
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: valueHight * 1.5,
-                        ),
-                        Form(
-                            key: controller.formKey,
-                            child: Column(
-                              children: [
-                                TextFieldMobileWidget(textEditingController: MobilePhone, value: mobilePhone),
-                                SizedBox(
-                                  height: valueHight * 1,
-                                ),
-                                CirclerProgressIndicatorWidget(isLoading: controller.isLoading ? true : false),
-                                SizedBox(
-                                  height: valueHight * .5,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 15, vertical: 15),
-                                  child: CustomButtonImage(
-                                      hight: 50,
-                                      title: 'register'.tr,
-                                      onTap: () {
-                                        print(MobilePhone.text);
-                                        Get.find<RegisterController>().createAccount(MobilePhone.text);
-                                      }
-                                  ),
-                                ),
-                                const LoginUserFromRegisterWidget()
-                              ],
-                            )),
-                        SizedBox(height: valueHight*2.0,),
-                      ],
-                    ),
-                  ),)
-              ],
-            ),
+              )
+            ],
           ),
         ),
       ),

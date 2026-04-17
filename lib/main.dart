@@ -11,13 +11,17 @@ import 'core/localization/localization_service.dart';
 import 'core/servies/storage_service.dart';
 import 'core/servies/storage_service_language.dart';
 
+import 'firebase_options.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initialServices();
   await initialServicesUser();
   await initialServicesLanguageUser();
   await SharedPreferences.getInstance();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   Get.put(LocalizationService.init(), permanent: true);
   runApp(MyApp());
 }

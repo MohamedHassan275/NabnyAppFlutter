@@ -25,8 +25,7 @@ class DetailsPreviousOrderScreen extends StatelessWidget {
         onRefresh: () async{
           myPreviousOrderController.getPreviousMyOrderUser();
         },
-        child: SafeArea(
-          child: SingleChildScrollView(
+        child: SingleChildScrollView(
             child: SizedBox(
               width: Get.width,
               height: Get.height,
@@ -184,7 +183,6 @@ class DetailsPreviousOrderScreen extends StatelessWidget {
             ),
           ),
         ),
-      ),
     );
   }
 }

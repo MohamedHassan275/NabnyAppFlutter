@@ -24,8 +24,7 @@ class DetailsMyCurrentOrder extends StatelessWidget {
     return Scaffold(
       backgroundColor: Themes.ColorApp7,
       appBar: NabnyAppBar(title: 'contract_details'.tr),
-      body: SafeArea(
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
           child: SizedBox(
             width: Get.width,
             child: SingleChildScrollView(
@@ -249,7 +248,6 @@ class DetailsMyCurrentOrder extends StatelessWidget {
             ),
           ),
         ),
-      ),
     );
   }
 }
