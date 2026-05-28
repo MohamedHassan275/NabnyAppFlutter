@@ -1,0 +1,5 @@
+flutter_launcher_icons:
+  android: false
+  ios: true
+  image_path: "android/app/src/main/res/mipmap-xxxhdpi/logo_app.png"
+  remove_alpha_ios: true
