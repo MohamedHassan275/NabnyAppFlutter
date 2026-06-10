@@ -53,141 +53,139 @@ class _SaveMyLocationUserScreenState extends State<SaveMyLocationUserScreen> {
   Widget build(BuildContext context) {
     var heightValue = Get.height * 0.024;
     return Scaffold(
-      body: SafeArea(
-          child: GetBuilder<SaveMyLocationController>(
-            init: SaveMyLocationController(),
-            builder: (SaveLocaitonUserController) =>  Stack(
-            children: [
-              (latlong != null)
-                  ? GoogleMap(
-                initialCameraPosition: _cameraPosition,
-                onMapCreated: (GoogleMapController controller) {
-                  _controller = (controller);
-                  _controller!.animateCamera(
-                      CameraUpdate.newCameraPosition(_cameraPosition));
-                },
-                markers: _markers,
-              )
-                  : GoogleMap(
-                mapType: MapType.hybrid,
-                initialCameraPosition: CameraPosition(
-                    target: LatLng(31.132112313, 30.212312321), zoom: 10.0),
-                onMapCreated: (GoogleMapController controller) {
-                  _controller = (controller);
-                  _controller!.animateCamera(CameraUpdate.newCameraPosition(
-                      CameraPosition(
-                          target: LatLng(31.132112313, 30.212312321),
-                          zoom: 10.0)));
-                },
-                markers: _markers,
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  width: Get.width,
-                  height: 200,
-                  // color: Themes.whiteColor,
-                  child: Column(
-                    children: [
-                      const Spacer(),
-                      Visibility(
-                        visible: SaveLocaitonUserController.isLoading
-                            ? true
-                            : false,
-                        child: Container(
-                            width: 75,
-                            height: 75,
-                            decoration: BoxDecoration(
-                                color: Themes.whiteColor,
-                                borderRadius: BorderRadius.circular(25)
-                            ),
-                            child: CirclerProgressIndicatorWidget(
-                                isLoading: SaveLocaitonUserController.isLoading
-                                    ? true
-                                    : false)),
-                      ),
-                      SizedBox(height: heightValue * .5,),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: 0,left: 60 ,right: 60 ,bottom: 10,),
-                        child: MaterialButton(
-                          height: 50,
-                          color: Themes.ColorApp1,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(35)
-                          ),
-                          child: Center(
-                            child: Text('save_location'.tr,style: TextStyle(
-                              color: Themes.whiteColor,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                            )),
-                          ),
-                          onPressed: () async{
-                            List<Placemark> newPlace =
-                            await placemarkFromCoordinates(
-                                latlong!.latitude, latlong!.longitude);
-                            // this is all you need
-                            Placemark placeMark = newPlace[0];
-                            String? name = placeMark.name;
-                            String? locality = placeMark.locality;
-                            String? administrativeArea =
-                                placeMark.administrativeArea;
-                            String? administrativeSub =
-                                placeMark.subAdministrativeArea;
-                            String? postalCode = placeMark.postalCode;
-                            String? country = placeMark.country;
-                            String? thoroughfare = placeMark.thoroughfare;
-                            String? Street = placeMark.street;
-                            print(name);
-                            print(locality);
-                            print('${administrativeSub} - ${Street}');
-                            print(postalCode);
-                            print(country);
-                            print(thoroughfare);
-                            print(Street);
-                            String Location = '${country} - ${name} -${locality}';
-
-                            // CustomFlutterToast('$Location');
-                            // CustomFlutterToast(
-                            //     '${latlong!.latitude} ${latlong!.longitude}');
-                            // CustomFlutterToast(Get.find<MyLocalController>()
-                            //     .language!
-                            //     .languageCode);
-                            if(widget.result.contains('my_location')){
-                             // CustomFlutterToast('${widget.result}');
-                              Get.off(RequirementsRequestOfferPriceScreen(companyId: widget.companyId, my_location: Location,));
-                            }else if(widget.result.contains('myAddress')){
-                            //  CustomFlutterToast('${widget.result}');
-                              Get.find<SaveMyLocationController>().SaveMyLocationFromMap(latlong?.latitude, latlong?.longitude, Location,Location);
-                            }
-
-
-                            // googleMapLocaitonUserController.updateMyLocationFromMap(
-                            //     latlong?.latitude, latlong?.longitude, Location);
-                          },
+      body: GetBuilder<SaveMyLocationController>(
+        init: SaveMyLocationController(),
+        builder: (SaveLocaitonUserController) =>  Stack(
+        children: [
+          (latlong != null)
+              ? GoogleMap(
+            initialCameraPosition: _cameraPosition,
+            onMapCreated: (GoogleMapController controller) {
+              _controller = (controller);
+              _controller!.animateCamera(
+                  CameraUpdate.newCameraPosition(_cameraPosition));
+            },
+            markers: _markers,
+          )
+              : GoogleMap(
+            mapType: MapType.hybrid,
+            initialCameraPosition: CameraPosition(
+                target: LatLng(31.132112313, 30.212312321), zoom: 10.0),
+            onMapCreated: (GoogleMapController controller) {
+              _controller = (controller);
+              _controller!.animateCamera(CameraUpdate.newCameraPosition(
+                  CameraPosition(
+                      target: LatLng(31.132112313, 30.212312321),
+                      zoom: 10.0)));
+            },
+            markers: _markers,
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              width: Get.width,
+              height: 200,
+              // color: Themes.whiteColor,
+              child: Column(
+                children: [
+                  const Spacer(),
+                  Visibility(
+                    visible: SaveLocaitonUserController.isLoading
+                        ? true
+                        : false,
+                    child: Container(
+                        width: 75,
+                        height: 75,
+                        decoration: BoxDecoration(
+                            color: Themes.whiteColor,
+                            borderRadius: BorderRadius.circular(25)
                         ),
+                        child: CirclerProgressIndicatorWidget(
+                            isLoading: SaveLocaitonUserController.isLoading
+                                ? true
+                                : false)),
+                  ),
+                  SizedBox(height: heightValue * .5,),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 0,left: 60 ,right: 60 ,bottom: 10,),
+                    child: MaterialButton(
+                      height: 50,
+                      color: Themes.ColorApp1,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(35)
                       ),
-                    ],
+                      child: Center(
+                        child: Text('save_location'.tr,style: TextStyle(
+                          color: Themes.whiteColor,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                        )),
+                      ),
+                      onPressed: () async{
+                        List<Placemark> newPlace =
+                        await placemarkFromCoordinates(
+                            latlong!.latitude, latlong!.longitude);
+                        // this is all you need
+                        Placemark placeMark = newPlace[0];
+                        String? name = placeMark.name;
+                        String? locality = placeMark.locality;
+                        String? administrativeArea =
+                            placeMark.administrativeArea;
+                        String? administrativeSub =
+                            placeMark.subAdministrativeArea;
+                        String? postalCode = placeMark.postalCode;
+                        String? country = placeMark.country;
+                        String? thoroughfare = placeMark.thoroughfare;
+                        String? Street = placeMark.street;
+                        print(name);
+                        print(locality);
+                        print('${administrativeSub} - ${Street}');
+                        print(postalCode);
+                        print(country);
+                        print(thoroughfare);
+                        print(Street);
+                        String Location = '${country} - ${name} -${locality}';
+
+                        // CustomFlutterToast('$Location');
+                        // CustomFlutterToast(
+                        //     '${latlong!.latitude} ${latlong!.longitude}');
+                        // CustomFlutterToast(Get.find<MyLocalController>()
+                        //     .language!
+                        //     .languageCode);
+                        if(widget.result.contains('my_location')){
+                         // CustomFlutterToast('${widget.result}');
+                          Get.off(RequirementsRequestOfferPriceScreen(companyId: widget.companyId, my_location: Location,));
+                        }else if(widget.result.contains('myAddress')){
+                        //  CustomFlutterToast('${widget.result}');
+                          Get.find<SaveMyLocationController>().SaveMyLocationFromMap(latlong?.latitude, latlong?.longitude, Location,Location);
+                        }
+
+
+                        // googleMapLocaitonUserController.updateMyLocationFromMap(
+                        //     latlong?.latitude, latlong?.longitude, Location);
+                      },
+                    ),
                   ),
-                  alignment: Alignment.bottomCenter,
-                ),
+                ],
               ),
-              Align(
-                alignment: Alignment.topRight,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                  child: FloatingActionButton(
-                    child: Icon(Icons.gps_fixed_outlined),
-                    onPressed: () {
-                      getCurrentLocation();
-                    },
-                  ),
-                ),
+              alignment: Alignment.bottomCenter,
+            ),
+          ),
+          Align(
+            alignment: Alignment.topRight,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+              child: FloatingActionButton(
+                child: Icon(Icons.gps_fixed_outlined),
+                onPressed: () {
+                  getCurrentLocation();
+                },
               ),
-            ],
-          ),)
-      ),
+            ),
+          ),
+        ],
+      ),),
     );
   }
 

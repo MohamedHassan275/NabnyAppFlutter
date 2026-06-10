@@ -26,23 +26,21 @@ class _MyAddressRequestOfferScreenState
     return Scaffold(
       backgroundColor: Themes.ColorApp7,
       appBar: NabnyAppBar(title: 'execution_request'.tr),
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Positioned(
-              top: heightValue * 1,
-              right: widthValue * 1,
-              left: widthValue * 1,
-              child: AddressDetailsOrder(),
-            ),
-            Positioned(
-              bottom: heightValue * .1,
-              left: 0,
-              right: 0,
-              child: const BottomSheetItem(),
-            ),
-          ],
-        ),
+      body: Stack(
+        children: [
+          Positioned(
+            top: heightValue * 1,
+            right: widthValue * 1,
+            left: widthValue * 1,
+            child: AddressDetailsOrder(),
+          ),
+          Positioned(
+            bottom: heightValue * .1,
+            left: 0,
+            right: 0,
+            child: const BottomSheetItem(),
+          ),
+        ],
       ),
     );
   }

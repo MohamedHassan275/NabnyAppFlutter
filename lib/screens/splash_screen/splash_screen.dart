@@ -44,8 +44,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-          child: SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Container(
           width: Get.width,
           height: Get.height,
@@ -56,7 +55,7 @@ class _SplashScreenState extends State<SplashScreen> {
             fit: BoxFit.contain,
           )),
         ),
-      )),
+      ),
     );
   }
 }

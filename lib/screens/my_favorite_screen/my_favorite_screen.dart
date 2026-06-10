@@ -20,8 +20,7 @@ class MyFavoriteScreen extends StatelessWidget {
           onRefresh: () async{
             myFavoriteController.getFavoriteUserList();
           },
-          child: SafeArea(
-              child: GetBuilder<MyFavoriteController>(
+          child: GetBuilder<MyFavoriteController>(
                     init: MyFavoriteController(),
                     builder: (controller){
                       if(controller.Loading){
@@ -39,12 +38,13 @@ class MyFavoriteScreen extends StatelessWidget {
                               child: FactoryItemList(factoryModel: controller.favouriteResponseModel![index], myFavoriteController: myFavoriteController,),
                             );
                           },);
-                      }else {
+                      } else {
                         return NoItemOFList();
                       }
-                    }
-                )),
-        ));
+                    },
+                  ),
+        ),
+    );
   }
 }
 

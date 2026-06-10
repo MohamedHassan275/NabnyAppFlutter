@@ -30,27 +30,28 @@ class _SuccessRegisterScreenState extends State<SuccessRegisterScreen> {
   Widget build(BuildContext context) {
     var hight = Get.height *0.024;
     return Scaffold(
-      body: SafeArea(
-          child: SingleChildScrollView(
-            child: SizedBox(
-              height: Get.height,
-              width: Get.width,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(Assets.imagesCompleteRegister),
-                  SizedBox(height: hight * 1.5,),
-                  Text(
-                    'register_complete'.tr,
-                    style: const TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w700,
-                        color: Themes.ColorApp8),
-                  ),
-                ],
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: Get.height,
+          width: Get.width,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(Assets.imagesCompleteRegister),
+              SizedBox(
+                height: hight * 1.5,
               ),
-            ),
-          )),
+              Text(
+                'register_complete'.tr,
+                style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w700,
+                    color: Themes.ColorApp8),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

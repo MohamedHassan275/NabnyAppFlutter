@@ -21,8 +21,7 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
     return Scaffold(
       backgroundColor: Themes.ColorApp7,
       appBar: NabnyAppBar(title: 'my_wallet'.tr),
-      body: SafeArea(
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
           child: Container(
             width: Get.width,
             child: Padding(
@@ -107,7 +106,6 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
             ),
           ),
         ),
-      ),
     );
   }
 }

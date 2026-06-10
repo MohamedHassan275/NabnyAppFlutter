@@ -40,199 +40,197 @@ class _ChangePasswordProfileState extends State<ChangePasswordProfile> {
     ChangePasswordController controller = Get.put(ChangePasswordController());
 
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            width: Get.width,
-            height: Get.height,
-            child: Form(
-              key: controller.formKey,
-              child: Column(
-                children: [
-                  Stack(
-                    children: [
-                      Container(
-                        width: Get.width,
-                        height: 119,
-                        decoration: const BoxDecoration(
-                            color: Themes.ColorApp14,
-                            borderRadius: BorderRadius.only(
-                                topLeft: const Radius.circular(35),
-                                topRight: const Radius.circular(35))),
-                        child:  Center(
-                          child: Text(
-                            'change_password'.tr,
-                            style: TextStyle(
-                              color: Themes.ColorApp15,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                            ),
+      body: SingleChildScrollView(
+        child: Container(
+          width: Get.width,
+          height: Get.height,
+          child: Form(
+            key: controller.formKey,
+            child: Column(
+              children: [
+                Stack(
+                  children: [
+                    Container(
+                      width: Get.width,
+                      height: 119,
+                      decoration: const BoxDecoration(
+                          color: Themes.ColorApp14,
+                          borderRadius: BorderRadius.only(
+                              topLeft: const Radius.circular(35),
+                              topRight: const Radius.circular(35))),
+                      child:  Center(
+                        child: Text(
+                          'change_password'.tr,
+                          style: TextStyle(
+                            color: Themes.ColorApp15,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),
-                      Positioned(
-                        top: heightValue * 2.3,
-                        right: heightValue * 1.5,
-                        child: GestureDetector(
-                          onTap: ()=>Get.off( SettingProfileScreen()),
-                          child:  CircleAvatar(
-                            backgroundColor: Themes.whiteColor,
-                            child: Icon(
-                              Get.find<StorageService>().activeLocale.languageCode == "en" ? Icons.keyboard_arrow_right : Icons.keyboard_arrow_left,
-                              color: Colors.black87,),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(height: heightValue * 1.5,),
-                  FromTextRegisterShared(
-                    //  textAlign: TextAlign.center,
-                    labelText: 'current_password'.tr,
-                    onTapFunction: () {
-                      setState(() {
-                        FocusScope.of(context).unfocus();
-                        FocusScope.of(context)
-                            .requestFocus(_focusNodeCurrentPassword);
-                      });
-                    },
-                    focusNode: _focusNodeCurrentPassword,
-                    onChanged: (value) {
-                      setState(() {
-                     //   currentPassword = value;
-                      });
-                    },
-                    readOnly: false,
-                    isPassword: isCurrentPassword,
-                    onTapValidator: (value) {
-                      if (value!.isEmpty) {
-                        return 'must_not_empty'.tr;
-                      } else if (value.length <= 6) {
-                        return 'short_password'.tr;
-                      }
-                      return null;
-                    },
-                    suffixIcon: isCurrentPassword
-                        ? Icons.visibility_sharp
-                        : Icons.visibility_off,
-                    onTapsuffixIcon: () {
-                      setState(() {
-                        isCurrentPassword = !isCurrentPassword;
-                      });
-                    },
-                    keyboardType: TextInputType.text,
-                    maxLines: 1,
-                    Controller: CurrentPassword,
-                    hintText: 'current_password'.tr,
-                  ),
-                  SizedBox(
-                    height: heightValue * 1,
-                  ),
-                  FromTextRegisterShared(
-                    //  textAlign: TextAlign.center,
-                    labelText: 'new_password'.tr,
-                    onTapFunction: () {
-                      setState(() {
-                        FocusScope.of(context).unfocus();
-                        FocusScope.of(context)
-                            .requestFocus(_focusNodePassword);
-                      });
-                    },
-                    readOnly: false,
-                    focusNode: _focusNodePassword,
-                    onChanged: (value) {
-                      setState(() {
-                       // password = value;
-                      });
-                    },
-                    isPassword: isPassword,
-                    onTapValidator: (value) {
-                      if (value!.isEmpty) {
-                        return 'must_not_empty'.tr;
-                      } else if (value.length <= 6) {
-                        return 'short_password'.tr;
-                      }
-                      return null;
-                    },
-                    suffixIcon: isPassword
-                        ? Icons.visibility_sharp
-                        : Icons.visibility_off,
-                    onTapsuffixIcon: () {
-                      setState(() {
-                        isPassword = !isPassword;
-                      });
-                    },
-                    keyboardType: TextInputType.text,
-                    maxLines: 1,
-                    Controller: Password,
-                    hintText: 'new_password'.tr,
-                  ),
-                  SizedBox(
-                    height: heightValue * 1,
-                  ),
-                  FromTextRegisterShared(
-                    //  textAlign: TextAlign.center,
-                    labelText: 'confirm_new_password'.tr,
-                    onTapFunction: () {
-                      setState(() {
-                        FocusScope.of(context).unfocus();
-                        FocusScope.of(context).requestFocus(
-                            _focusNodeConfirmPassword);
-                      });
-                    },
-                    readOnly: false,
-                    focusNode: _focusNodeConfirmPassword,
-                    onChanged: (value) {
-                      setState(() {
-                    //    confirmPassword = value;
-                      });
-                    },
-                    isPassword: isConfirmPassword,
-                    onTapValidator: (value) {
-                      if (value!.isEmpty) {
-                        return 'must_not_empty'.tr;
-                      } else if (value.length <= 6) {
-                        return 'short_password'.tr;
-                      } else if (!(value.contains(Password.text))) {
-                        return ' Password_does_not_match'.tr;
-                      }
-                      return null;
-                    },
-                    suffixIcon: isConfirmPassword
-                        ? Icons.visibility_sharp
-                        : Icons.visibility_off,
-                    onTapsuffixIcon: () {
-                      setState(() {
-                        isConfirmPassword = !isConfirmPassword;
-                      });
-                    },
-                    keyboardType: TextInputType.text,
-                    maxLines: 1,
-                    Controller: ConfirmPassword,
-                    hintText: 'confirm_new_password'.tr,
-                  ),
-                  SizedBox(
-                    height: heightValue * 1,
-                  ),
-                  CirclerProgressIndicatorWidget(isLoading: controller.isLoading ? true : false),
-                  SizedBox(
-                    height: heightValue * 1,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 15),
-                    child: CustomButtonImage(
-                      hight: 50,
-                      title: 'change_password'.tr,
-                      onTap: () => Get.find<ChangePasswordController>().changePasswordUser('Bearer '+Get.find<StorageService>().GetToken,
-                          CurrentPassword.text, Password.text)
                     ),
+                    Positioned(
+                      top: heightValue * 2.3,
+                      right: heightValue * 1.5,
+                      child: GestureDetector(
+                        onTap: ()=>Get.off( SettingProfileScreen()),
+                        child:  CircleAvatar(
+                          backgroundColor: Themes.whiteColor,
+                          child: Icon(
+                            Get.find<StorageService>().activeLocale.languageCode == "en" ? Icons.keyboard_arrow_right : Icons.keyboard_arrow_left,
+                            color: Colors.black87,),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(height: heightValue * 1.5,),
+                FromTextRegisterShared(
+                  //  textAlign: TextAlign.center,
+                  labelText: 'current_password'.tr,
+                  onTapFunction: () {
+                    setState(() {
+                      FocusScope.of(context).unfocus();
+                      FocusScope.of(context)
+                          .requestFocus(_focusNodeCurrentPassword);
+                    });
+                  },
+                  focusNode: _focusNodeCurrentPassword,
+                  onChanged: (value) {
+                    setState(() {
+                   //   currentPassword = value;
+                    });
+                  },
+                  readOnly: false,
+                  isPassword: isCurrentPassword,
+                  onTapValidator: (value) {
+                    if (value!.isEmpty) {
+                      return 'must_not_empty'.tr;
+                    } else if (value.length <= 6) {
+                      return 'short_password'.tr;
+                    }
+                    return null;
+                  },
+                  suffixIcon: isCurrentPassword
+                      ? Icons.visibility_sharp
+                      : Icons.visibility_off,
+                  onTapsuffixIcon: () {
+                    setState(() {
+                      isCurrentPassword = !isCurrentPassword;
+                    });
+                  },
+                  keyboardType: TextInputType.text,
+                  maxLines: 1,
+                  Controller: CurrentPassword,
+                  hintText: 'current_password'.tr,
+                ),
+                SizedBox(
+                  height: heightValue * 1,
+                ),
+                FromTextRegisterShared(
+                  //  textAlign: TextAlign.center,
+                  labelText: 'new_password'.tr,
+                  onTapFunction: () {
+                    setState(() {
+                      FocusScope.of(context).unfocus();
+                      FocusScope.of(context)
+                          .requestFocus(_focusNodePassword);
+                    });
+                  },
+                  readOnly: false,
+                  focusNode: _focusNodePassword,
+                  onChanged: (value) {
+                    setState(() {
+                     // password = value;
+                    });
+                  },
+                  isPassword: isPassword,
+                  onTapValidator: (value) {
+                    if (value!.isEmpty) {
+                      return 'must_not_empty'.tr;
+                    } else if (value.length <= 6) {
+                      return 'short_password'.tr;
+                    }
+                    return null;
+                  },
+                  suffixIcon: isPassword
+                      ? Icons.visibility_sharp
+                      : Icons.visibility_off,
+                  onTapsuffixIcon: () {
+                    setState(() {
+                      isPassword = !isPassword;
+                    });
+                  },
+                  keyboardType: TextInputType.text,
+                  maxLines: 1,
+                  Controller: Password,
+                  hintText: 'new_password'.tr,
+                ),
+                SizedBox(
+                  height: heightValue * 1,
+                ),
+                FromTextRegisterShared(
+                  //  textAlign: TextAlign.center,
+                  labelText: 'confirm_new_password'.tr,
+                  onTapFunction: () {
+                    setState(() {
+                      FocusScope.of(context).unfocus();
+                      FocusScope.of(context).requestFocus(
+                          _focusNodeConfirmPassword);
+                    });
+                  },
+                  readOnly: false,
+                  focusNode: _focusNodeConfirmPassword,
+                  onChanged: (value) {
+                    setState(() {
+                  //    confirmPassword = value;
+                    });
+                  },
+                  isPassword: isConfirmPassword,
+                  onTapValidator: (value) {
+                    if (value!.isEmpty) {
+                      return 'must_not_empty'.tr;
+                    } else if (value.length <= 6) {
+                      return 'short_password'.tr;
+                    } else if (!(value.contains(Password.text))) {
+                      return ' Password_does_not_match'.tr;
+                    }
+                    return null;
+                  },
+                  suffixIcon: isConfirmPassword
+                      ? Icons.visibility_sharp
+                      : Icons.visibility_off,
+                  onTapsuffixIcon: () {
+                    setState(() {
+                      isConfirmPassword = !isConfirmPassword;
+                    });
+                  },
+                  keyboardType: TextInputType.text,
+                  maxLines: 1,
+                  Controller: ConfirmPassword,
+                  hintText: 'confirm_new_password'.tr,
+                ),
+                SizedBox(
+                  height: heightValue * 1,
+                ),
+                CirclerProgressIndicatorWidget(isLoading: controller.isLoading ? true : false),
+                SizedBox(
+                  height: heightValue * 1,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 15, vertical: 15),
+                  child: CustomButtonImage(
+                    hight: 50,
+                    title: 'change_password'.tr,
+                    onTap: () => Get.find<ChangePasswordController>().changePasswordUser('Bearer '+Get.find<StorageService>().GetToken,
+                        CurrentPassword.text, Password.text)
                   ),
-                  SizedBox(
-                    height: heightValue * 1,
-                  ),
-                ],
-              ),
+                ),
+                SizedBox(
+                  height: heightValue * 1,
+                ),
+              ],
             ),
           ),
         ),

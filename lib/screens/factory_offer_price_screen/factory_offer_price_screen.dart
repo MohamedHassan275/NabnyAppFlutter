@@ -30,36 +30,34 @@ class FactoryOfferPriceScreen extends StatelessWidget {
         onRefresh: () async{
           requestOfferPriceMenuController.getRequestOfferPrice();
         },
-        child: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: heightValue * 1.2),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: NumberOfOfferPrice(companies: offerOrderRequestResponseModel.request!.length,),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: heightValue * 1.2),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: NumberOfOfferPrice(companies: offerOrderRequestResponseModel.request!.length,),
+              ),
+              SizedBox(
+                height: heightValue * .7,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: offerOrderRequestResponseModel.request!.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      child: FactoryItemList(
+                          factoryOfferPriceModel: offerOrderRequestResponseModel.request![index],offerOrderRequestResponseModel: offerOrderRequestResponseModel),
+                    );
+                  },
                 ),
-                SizedBox(
-                  height: heightValue * .7,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: offerOrderRequestResponseModel.request!.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5),
-                        child: FactoryItemList(
-                            factoryOfferPriceModel: offerOrderRequestResponseModel.request![index],offerOrderRequestResponseModel: offerOrderRequestResponseModel),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

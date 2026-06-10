@@ -72,8 +72,7 @@ class _RequirementsRequestOfferPriceScreenState
     return Scaffold(
       backgroundColor: Themes.ColorApp7,
       appBar: NabnyAppBar(title: 'request_offer_price'.tr),
-      body: SafeArea(
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
           child: Container(
             width: Get.width,
             child: GetBuilder<RequirementsRequestOfferPriceController>(
@@ -631,7 +630,6 @@ class _RequirementsRequestOfferPriceScreenState
             ),
           ),
         ),
-      ),
     );
   }
 }

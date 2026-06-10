@@ -59,8 +59,7 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: GetBuilder<ProfileInformationController>(
+      body: GetBuilder<ProfileInformationController>(
           builder: (controller) {
             FirstName.text = controller.ProfileUserModel?.firstname ?? '';
             LastName.text = controller.ProfileUserModel?.lastname ?? '';
@@ -247,7 +246,6 @@ class _ProfileInformationScreenState extends State<ProfileInformationScreen> {
             );
           },
         ),
-      ),
     );
   }
 

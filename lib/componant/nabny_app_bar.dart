@@ -67,9 +67,7 @@ class NabnyAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ],
       ),
-      child: SafeArea(
-        bottom: false,
-        child: Column(
+      child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
@@ -125,7 +123,6 @@ class NabnyAppBar extends StatelessWidget implements PreferredSizeWidget {
             if (bottomWidget != null) bottomWidget!,
           ],
         ),
-      ),
     );
   }
 }

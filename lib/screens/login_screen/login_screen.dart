@@ -29,18 +29,18 @@ class _LoginScreenState extends State<LoginScreen> {
   FocusNode? _focusNodePassword;
   bool showProgressbar = true;
   bool isPassword = true;
-  String? mobilePhone, password,firebase_token;
+  String? mobilePhone, password, firebase_token;
   TextEditingController MobilePhone = new TextEditingController();
   TextEditingController Password = new TextEditingController();
   late FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
-  getFirebaseToken(){
+  getFirebaseToken() {
     setState(() {
       Firebase.initializeApp().whenComplete(() {
         print("completed");
         setState(() {});
       });
-      _firebaseMessaging.getToken().then((value){
+      _firebaseMessaging.getToken().then((value) {
         print('The Token is $value');
         firebase_token = value!;
         CustomFlutterToast(firebase_token);
@@ -55,10 +55,10 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
     // IsUserAcesstoken();
-  //  getFirebaseToken();
+    //  getFirebaseToken();
     _focusNodePassword = FocusNode();
 
- //   Get.lazyPut(()=>LoginController());
+    //   Get.lazyPut(()=>LoginController());
     // IsUserAcesstoken();
   }
 
@@ -75,101 +75,113 @@ class _LoginScreenState extends State<LoginScreen> {
     final double valueWidth = Get.width * .024;
 
     return Scaffold(
-      body: SafeArea(
+      body: Container(
+        width: double.infinity,
+        height: Get.height,
+        decoration: const BoxDecoration(
+            image: const DecorationImage(
+                image: const AssetImage(Assets.imagesBackgroundSplash),
+                fit: BoxFit.fill)),
         child: Container(
-          width: double.infinity,
-          height: Get.height,
-          decoration: const BoxDecoration(
-              image: const DecorationImage(
-                  image: const AssetImage(Assets.imagesBackgroundSplash),
-                  fit: BoxFit.fill)),
-          child: Container(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: valueHight * 6.0,
-                  ),
-                  Image.asset(
-                    Assets.imagesLogoImage,
-                    fit: BoxFit.contain,
-                  ),
-                  SizedBox(
-                    height: valueHight * 5.5,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 160,
-                          height: 60,
-                          child: Card(
-                            elevation: 3,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'welcome_back'.tr,
-                                style: const TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w700,
-                                    color: Themes.ColorApp1),
-                              ),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: valueHight * 6.0,
+                ),
+                Image.asset(
+                  Assets.imagesLogoImage,
+                  fit: BoxFit.contain,
+                ),
+                SizedBox(
+                  height: valueHight * 5.5,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 160,
+                        height: 60,
+                        child: Card(
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'welcome_back'.tr,
+                              style: const TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w700,
+                                  color: Themes.ColorApp1),
                             ),
                           ),
                         ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: valueHight * .2,
+                ),
+                GetBuilder<LoginController>(
+                  init: LoginController(),
+                  builder: (controller) => Container(
+                    width: Get.width,
+                    color: Colors.white,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: valueHight * 1.5,
+                        ),
+                        Form(
+                            key: controller.formKey,
+                            child: Column(
+                              children: [
+                                TextFieldMobileWidget(
+                                    textEditingController: MobilePhone,
+                                    value: mobilePhone),
+                                SizedBox(
+                                  height: valueHight * .5,
+                                ),
+                                TextFieldPasswordWidget(
+                                  textEditingController: Password,
+                                  isPassword: isPassword,
+                                ),
+                                SizedBox(
+                                  height: valueHight * 1,
+                                ),
+                                const ForgetPasswordWidget(),
+                                SizedBox(
+                                  height: valueHight * .2,
+                                ),
+                                CirclerProgressIndicatorWidget(
+                                    isLoading:
+                                        controller.isLoading ? true : false),
+                                SizedBox(height: 15),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 25, vertical: 15),
+                                  child: CustomButtonImage(
+                                      hight: 50,
+                                      title: 'login'.tr,
+                                      onTap: () => Get.find<LoginController>()
+                                          .checkLoginUser(MobilePhone.text,
+                                              Password.text, 'token')),
+                                ),
+                                const CreateAccountFromLoginWidget(),
+                              ],
+                            )),
+                        SizedBox(
+                          height: valueHight * 1.5,
+                        )
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: valueHight * .2,
-                  ),
-                  GetBuilder<LoginController>(
-                    init: LoginController(),
-                    builder: (controller) => Container(
-                      width: Get.width,
-                      color: Colors.white,
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: valueHight * 1.5,
-                          ),
-                          Form(
-                              key: controller.formKey,
-                              child: Column(
-                                children: [
-                                  TextFieldMobileWidget(textEditingController: MobilePhone, value: mobilePhone),
-                                  SizedBox(height: valueHight * .5,),
-                                  TextFieldPasswordWidget(textEditingController: Password, isPassword: isPassword,),
-                                  SizedBox(height: valueHight * 1,),
-                                  const ForgetPasswordWidget(),
-                                  SizedBox(height: valueHight * .2,),
-                                  CirclerProgressIndicatorWidget(isLoading: controller.isLoading ? true : false),
-                                  SizedBox(height: 15),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 25, vertical: 15),
-                                    child: CustomButtonImage(
-                                      hight: 50,
-                                      title: 'login'.tr,
-                                      onTap: () => Get.find<LoginController>().checkLoginUser(MobilePhone.text, Password.text, 'token')
-                                    ),
-                                  ),
-                                  const CreateAccountFromLoginWidget(),
-                                ],
-                              )),
-                          SizedBox(
-                            height: valueHight * 1.5,
-                          )
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              ),
+                )
+              ],
             ),
           ),
         ),
@@ -195,8 +207,7 @@ class ForgetPasswordWidget extends StatelessWidget {
                     color: Themes.ColorApp6,
                     fontSize: 17,
                   )),
-              onTap: () =>  Get.to(ForgetPasswordByMobile())
-          ),
+              onTap: () => Get.to(ForgetPasswordByMobile())),
         ],
       ),
     );
@@ -209,8 +220,7 @@ class CreateAccountFromLoginWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-          horizontal: 25),
+      padding: const EdgeInsets.symmetric(horizontal: 25),
       child: Container(
         width: Get.width,
         height: 50,
@@ -220,8 +230,7 @@ class CreateAccountFromLoginWidget extends StatelessWidget {
         ),
         child: Center(
           child: Row(
-            mainAxisAlignment:
-            MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 'not_account'.tr,
@@ -241,8 +250,7 @@ class CreateAccountFromLoginWidget extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 14,
                     color: Themes.ColorApp6,
-                    fontWeight:
-                    FontWeight.bold,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),

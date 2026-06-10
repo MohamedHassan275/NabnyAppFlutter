@@ -50,8 +50,7 @@ class FactoryDetailsFavoriteScreen extends StatelessWidget {
             ),
           ),
           // ── أزرار رجوع ومفضلة ──
-          SafeArea(
-            child: Padding(
+          Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               child: Row(
@@ -73,7 +72,6 @@ class FactoryDetailsFavoriteScreen extends StatelessWidget {
                 ],
               ),
             ),
-          ),
           // ── كارت التفاصيل ──
           Positioned(
             top: Get.height * 0.38,

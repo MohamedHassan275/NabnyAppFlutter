@@ -17,7 +17,7 @@
     </queries>
 
     <application
-        android:icon="@mipmap/logo_app"
+        android:icon="@mipmap/ic_launcher"
         android:label="nabny"
         android:usesCleartextTraffic="true">
 

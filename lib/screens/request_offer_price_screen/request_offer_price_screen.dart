@@ -15,9 +15,10 @@ import 'package:nabny/utils/Themes.dart';
 import '../../model/OfferOrderRequestModel.dart';
 
 class RequestOfferPriceScreen extends StatelessWidget {
-   RequestOfferPriceScreen({Key? key}) : super(key: key);
+  RequestOfferPriceScreen({Key? key}) : super(key: key);
 
-  RequestOfferPriceController requestOfferPriceController =  Get.put(RequestOfferPriceController());
+  RequestOfferPriceController requestOfferPriceController =
+      Get.put(RequestOfferPriceController());
 
   @override
   Widget build(BuildContext context) {
@@ -26,52 +27,72 @@ class RequestOfferPriceScreen extends StatelessWidget {
       backgroundColor: Themes.ColorApp7,
       appBar: NabnyAppBar(title: 'request_offer_price'.tr),
       body: RefreshIndicator(
-        onRefresh: () async{
+        onRefresh: () async {
           requestOfferPriceController.getRequestOfferPrice();
         },
-        child: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: heightValue * 1,),
-                GetBuilder<RequestOfferPriceController>(
-                  init: RequestOfferPriceController(),
-                  builder: (controller) {
-                    if(controller.Loading){
-                      return LoadingWidget(data: '');
-                    }
-                    print("is length ${controller.offerOrderRequestResponseModel!.length}");
-                    return controller.offerOrderRequestResponseModel!.isNotEmpty ?
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 0),
-                      child: ListView.builder(
-                        itemCount: controller.offerOrderRequestResponseModel!.length,
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return RequestOfferOrderItems(requestOfferOrderModel: controller.offerOrderRequestResponseModel![index], controller: controller,);
-                        },
-                      ),
-                    ) : NoItemOFList();
-                  },),
-                SizedBox(height: heightValue * 1,),
-                CustomButtonImage(title: 'add_order'.tr, hight: 50, onTap: (){
-                  Get.to(RequirementsRequestOfferPriceScreen(companyId: '', my_location: '',));
-                }),
-                SizedBox(height: heightValue * 1,),
-              ],
-            ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: heightValue * 1,
+              ),
+              GetBuilder<RequestOfferPriceController>(
+                init: RequestOfferPriceController(),
+                builder: (controller) {
+                  if (controller.Loading) {
+                    return LoadingWidget(data: '');
+                  }
+                  print(
+                      "is length ${controller.offerOrderRequestResponseModel!.length}");
+                  return controller.offerOrderRequestResponseModel!.isNotEmpty
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 0),
+                          child: ListView.builder(
+                            itemCount: controller
+                                .offerOrderRequestResponseModel!.length,
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return RequestOfferOrderItems(
+                                requestOfferOrderModel: controller
+                                    .offerOrderRequestResponseModel![index],
+                                controller: controller,
+                              );
+                            },
+                          ),
+                        )
+                      : NoItemOFList();
+                },
+              ),
+              SizedBox(
+                height: heightValue * 1,
+              ),
+              CustomButtonImage(
+                  title: 'add_order'.tr,
+                  hight: 50,
+                  onTap: () {
+                    Get.to(RequirementsRequestOfferPriceScreen(
+                      companyId: '',
+                      my_location: '',
+                    ));
+                  }),
+              SizedBox(
+                height: heightValue * 1,
+              ),
+            ],
           ),
         ),
       ),
     );
-
   }
 }
 
-
 class RequestOfferOrderItems extends StatefulWidget {
-  RequestOfferOrderItems({Key? key,required this.requestOfferOrderModel,required this.controller}) : super(key: key);
+  RequestOfferOrderItems(
+      {Key? key,
+      required this.requestOfferOrderModel,
+      required this.controller})
+      : super(key: key);
   OfferOrderRequestResponseModel requestOfferOrderModel;
   RequestOfferPriceController controller;
 
@@ -80,12 +101,11 @@ class RequestOfferOrderItems extends StatefulWidget {
 }
 
 class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
-
   bool isVisible = false;
 
   void _changed(bool visibility, String field) {
     setState(() {
-      if (field == "tag"){
+      if (field == "tag") {
         isVisible = visibility;
       }
     });
@@ -96,17 +116,18 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
     var widthValue = Get.width * 0.024;
     var heightValue = Get.height * 0.024;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       child: Card(
         elevation: 2.0,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              AddressDetailsOrder(requestOfferOrderModel: widget.requestOfferOrderModel,),
+              AddressDetailsOrder(
+                requestOfferOrderModel: widget.requestOfferOrderModel,
+              ),
               SizedBox(
                 height: heightValue * .7,
               ),
@@ -120,55 +141,77 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  DetailsOrder(widthValue, 'type_of_casting'.tr, '${widget.requestOfferOrderModel.castingType}'),
+                  DetailsOrder(widthValue, 'type_of_casting'.tr,
+                      '${widget.requestOfferOrderModel.castingType}'),
                   GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         setState(() {
-                          isVisible ? _changed(false, "tag") : _changed(true, "tag");
+                          isVisible
+                              ? _changed(false, "tag")
+                              : _changed(true, "tag");
                           // isVisible = !isVisible;
                           // CustomFlutterToast('msg');
                         });
-
                       },
-                      child: Icon(isVisible ? Icons.keyboard_arrow_up_rounded : Icons.keyboard_arrow_down_rounded,size: 25,color: Themes.ColorApp1,))
+                      child: Icon(
+                        isVisible
+                            ? Icons.keyboard_arrow_up_rounded
+                            : Icons.keyboard_arrow_down_rounded,
+                        size: 25,
+                        color: Themes.ColorApp1,
+                      ))
                 ],
               ),
               SizedBox(
                 height: heightValue * .7,
               ),
-              DetailsOrder(widthValue, 'execution_date'.tr, '${widget.requestOfferOrderModel.executionDate}'),
+              DetailsOrder(widthValue, 'execution_date'.tr,
+                  '${widget.requestOfferOrderModel.executionDate}'),
               SizedBox(
                 height: heightValue * .7,
               ),
-              isVisible ? Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  DetailsOrder(widthValue, 'quantity'.tr, '${widget.requestOfferOrderModel.qtyM}'),
-                  SizedBox(
-                    height: heightValue * .7,
-                  ),
-                  DetailsOrder(widthValue, 'mix_type'.tr, '${widget.requestOfferOrderModel.mixType}'),
-                  SizedBox(
-                    height: heightValue * .7,
-                  ),
-                  DetailsOrder(widthValue, 'cement_type'.tr, '${widget.requestOfferOrderModel.cementType}'),
-                  SizedBox(
-                    height: heightValue * .7,
-                  ),
-                  DetailsOrder(widthValue, 'stone_size'.tr, '${widget.requestOfferOrderModel.stoneSize}'),
-                  SizedBox(
-                    height: heightValue * .7,
-                  ),
-                  DetailsOrder(widthValue, 'Special_specifications'.tr, '${widget.requestOfferOrderModel.specialDescription}'),
-                  SizedBox(
-                    height: heightValue * .7,
-                  ),
-                  DetailsOrder(widthValue, 'pump_order'.tr, widget.requestOfferOrderModel.withPump!.contains('1')? 'طلب مضخه' : 'بدون طلب مضخه',),
-                  SizedBox(
-                    height: heightValue * .7,
-                  ),
-                ],
-              ) : Container(),
+              isVisible
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        DetailsOrder(widthValue, 'quantity'.tr,
+                            '${widget.requestOfferOrderModel.qtyM}'),
+                        SizedBox(
+                          height: heightValue * .7,
+                        ),
+                        DetailsOrder(widthValue, 'mix_type'.tr,
+                            '${widget.requestOfferOrderModel.mixType}'),
+                        SizedBox(
+                          height: heightValue * .7,
+                        ),
+                        DetailsOrder(widthValue, 'cement_type'.tr,
+                            '${widget.requestOfferOrderModel.cementType}'),
+                        SizedBox(
+                          height: heightValue * .7,
+                        ),
+                        DetailsOrder(widthValue, 'stone_size'.tr,
+                            '${widget.requestOfferOrderModel.stoneSize}'),
+                        SizedBox(
+                          height: heightValue * .7,
+                        ),
+                        DetailsOrder(widthValue, 'Special_specifications'.tr,
+                            '${widget.requestOfferOrderModel.specialDescription}'),
+                        SizedBox(
+                          height: heightValue * .7,
+                        ),
+                        DetailsOrder(
+                          widthValue,
+                          'pump_order'.tr,
+                          widget.requestOfferOrderModel.withPump!.contains('1')
+                              ? 'طلب مضخه'
+                              : 'بدون طلب مضخه',
+                        ),
+                        SizedBox(
+                          height: heightValue * .7,
+                        ),
+                      ],
+                    )
+                  : Container(),
               SizedBox(
                 height: heightValue * 1.2,
               ),
@@ -176,12 +219,10 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
                 height: 53,
                 decoration: BoxDecoration(
                     color: Themes.ColorApp14,
-                    borderRadius: BorderRadius.circular(25)
-                ),
+                    borderRadius: BorderRadius.circular(25)),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child:
-                  Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
@@ -194,19 +235,18 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
                               color: Themes.ColorApp8,
                             ),
                           ),
-                          SizedBox(width: widthValue * .5,),
+                          SizedBox(
+                            width: widthValue * .5,
+                          ),
                           Container(
                             width: 40,
                             height: 20,
                             decoration: BoxDecoration(
                                 border: Border.all(
-                                    width: 1,
-                                    color: Themes.ColorApp1
-                                ),
-                                borderRadius: BorderRadius.circular(35)
-                            ),
+                                    width: 1, color: Themes.ColorApp1),
+                                borderRadius: BorderRadius.circular(35)),
                             child: Center(
-                              child:  Text(
+                              child: Text(
                                 '${widget.requestOfferOrderModel.request!.length}',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
@@ -216,7 +256,9 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
                               ),
                             ),
                           ),
-                          SizedBox(width: widthValue * .5,),
+                          SizedBox(
+                            width: widthValue * .5,
+                          ),
                           Text(
                             'offers'.tr,
                             style: TextStyle(
@@ -227,15 +269,26 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
                           ),
                         ],
                       ),
-                      SizedBox(width: widthValue *.5,),
+                      SizedBox(
+                        width: widthValue * .5,
+                      ),
                       Expanded(
-                        child: CustomButtonImage2(title: 'watch'.tr, hight: 38, width: 85, onTap: (){
-                          if (widget.requestOfferOrderModel.request!.isEmpty){
-                            CustomFlutterToast('no_companies_here'.tr);
-                          }else if (widget.requestOfferOrderModel.request!.isNotEmpty){
-                            Get.to(FactoryOfferPriceScreen(offerOrderRequestResponseModel: widget.requestOfferOrderModel,));
-                          }
-                        }),
+                        child: CustomButtonImage2(
+                            title: 'watch'.tr,
+                            hight: 38,
+                            width: 85,
+                            onTap: () {
+                              if (widget
+                                  .requestOfferOrderModel.request!.isEmpty) {
+                                CustomFlutterToast('no_companies_here'.tr);
+                              } else if (widget
+                                  .requestOfferOrderModel.request!.isNotEmpty) {
+                                Get.to(FactoryOfferPriceScreen(
+                                  offerOrderRequestResponseModel:
+                                      widget.requestOfferOrderModel,
+                                ));
+                              }
+                            }),
                       ),
                     ],
                   ),
@@ -248,10 +301,6 @@ class _RequestOfferOrderItemsState extends State<RequestOfferOrderItems> {
     );
   }
 }
-
-
-
-
 
 class NoItemOFList extends StatelessWidget {
   NoItemOFList({Key? key}) : super(key: key);
@@ -325,7 +374,7 @@ class AddressDetailsOrder extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Text(
                 '${requestOfferOrderModel.address}',
-                 textAlign: TextAlign.start,
+                textAlign: TextAlign.start,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 14,

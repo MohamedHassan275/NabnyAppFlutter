@@ -75,3 +75,11 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/app_icon_professional.png"
+  remove_alpha_ios: true
+
+  min_sdk_android: 21
