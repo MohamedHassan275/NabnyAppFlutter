@@ -25,264 +25,157 @@ class _GoogleMapLocationUserScreenState extends State<GoogleMapLocationUserScree
 
   // ── حالات UI ──
   bool _isLocating = false; // جاري البحث عن الموقع
-  bool _gpsDisabled = false; // GPS مطفي
-  bool _permissionDenied = false; // إذن مرفوض (نهائي أو مؤقت)
+  String _selectedAddress = 'قم بتحديد موقعك من الخريطة';
 
   @override
   void initState() {
     super.initState();
-    // موقع افتراضي (الرياض) حتى يتم جلب الموقع الحقيقي
+    // موقع افتراضي حتى يتم جلب الموقع الحقيقي أو تحديد موقع يدوياً
     _cameraPosition = const CameraPosition(
       target: LatLng(24.7136, 46.6753),
       zoom: 10.0,
     );
-    getCurrentLocation();
-  }
 
-  String _selectedAddress = '';
+    // نحاول جلب الموقع بصمت دون حجب الشاشة إذا رفض
+    _silentlyTryGetLocation();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final heightValue = Get.height * 0.024;
-
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('تحديد الموقع', style: TextStyle(fontFamily: 'Tajawal', fontSize: 18)),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Get.back(),
+        ),
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        elevation: 0,
+      ),
       body: SafeArea(
         child: GetBuilder<GetMyLocationController>(
           init: GetMyLocationController(),
           builder: (mapController) => Stack(
             children: [
-              // ── الخريطة دايماً في الخلفية ──
+              // ── الخريطة تعمل دائماً دون حجب ──
               GoogleMap(
                 mapType: MapType.normal,
                 initialCameraPosition: _cameraPosition,
                 onMapCreated: (GoogleMapController controller) {
                   _controller = controller;
-                  _controller!.animateCamera(
-                    CameraUpdate.newCameraPosition(_cameraPosition),
-                  );
                 },
-                // ── التعديل الجديد هنا ──
                 onTap: (LatLng tappedPoint) async {
-                  setState(() {
-                    latlong = tappedPoint;
-                    _selectedAddress = "جاري جلب العنوان..."; // تحديث الحالة مؤقتاً
-                    _markers.clear();
-                    _markers.add(
-                      Marker(
-                        markerId: const MarkerId('user_loc'),
-                        position: tappedPoint,
-                      ),
-                    );
-                  });
-
-                  // جلب اسم العنوان الجديد
-                  try {
-                    List<Placemark> placemarks = await placemarkFromCoordinates(
-                      tappedPoint.latitude,
-                      tappedPoint.longitude,
-                    );
-                    if (placemarks.isNotEmpty) {
-                      Placemark p = placemarks[0];
-                      setState(() {
-                        _selectedAddress = "${p.street}, ${p.locality}, ${p.country}";
-                      });
-                    }
-                  } catch (e) {
-                    setState(() => _selectedAddress = "تعذر تحديد تفاصيل العنوان");
-                  }
+                  _updateAddressFromCoordinates(tappedPoint);
                 },
                 markers: _markers,
-                myLocationEnabled: !_gpsDisabled && !_permissionDenied,
+                myLocationEnabled: true, // تظهر نقطة المستخدم الزرقاء فقط لو سمح بالصلاحية
                 myLocationButtonEnabled: false,
               ),
 
-              // ── overlay لو GPS مطفي أو إذن مرفوض ──
-              if (_gpsDisabled || _permissionDenied) _buildBlockedOverlay(heightValue),
-
-              // ── زر GPS (فقط لو كل شيء تمام) ──
-              if (!_gpsDisabled && !_permissionDenied)
-                Positioned(
-                  top: 15,
-                  right: 15,
-                  child: FloatingActionButton(
-                    heroTag: 'gps_btn',
-                    backgroundColor: Themes.ColorApp1,
-                    onPressed: _isLocating ? null : getCurrentLocation,
-                    child: _isLocating
-                        ? const SizedBox(
-                            width: 24,
-                            height: 24,
-                            child: CircularProgressIndicator(
-                              color: Colors.white,
-                              strokeWidth: 2,
-                            ),
-                          )
-                        : const Icon(Icons.gps_fixed_outlined, color: Colors.white),
-                  ),
-                ),
-
-              // ── باقة الحفظ في الأسفل ──
-              if (!_gpsDisabled && !_permissionDenied)
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    width: Get.width,
-                    padding: const EdgeInsets.fromLTRB(40, 12, 40, 20),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.93),
-                      borderRadius: const BorderRadius.vertical(top: Radius.circular(22)),
-                      boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 12)],
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 15),
-                          child: Row(
-                            children: [
-                              Icon(Icons.location_on, color: Themes.ColorApp1, size: 20),
-                              const SizedBox(width: 8),
-                              Expanded(
-                                child: Text(
-                                  _selectedAddress,
-                                  style: TextStyle(
-                                    color: Colors.black87,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: 'Tajawal', // أو الخط المستخدم في المشروع
-                                  ),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        if (mapController.isLoading)
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8),
-                            child: CirclerProgressIndicatorWidget(isLoading: true),
-                          ),
-                        MaterialButton(
-                          height: 50,
-                          minWidth: double.infinity,
-                          color: Themes.ColorApp1,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(35),
-                          ),
-                          onPressed: mapController.isLoading
-                              ? null
-                              : () async {
-                                  if (latlong == null) {
-                                    Get.snackbar('تنبيه', 'لم يتم تحديد الموقع بعد');
-                                    return;
-                                  }
-                                  try {
-                                    final places = await placemarkFromCoordinates(
-                                      latlong!.latitude,
-                                      latlong!.longitude,
-                                    );
-                                    final p = places[0];
-                                    final name = '${p.country} - ${p.locality} - ${p.street}';
-                                    Get.find<GetMyLocationController>().updateMyLocationFromMap(
-                                      latlong!.latitude,
-                                      latlong!.longitude,
-                                      name,
-                                    );
-                                  } catch (e) {
-                                    Get.snackbar('خطأ', 'تعذر الحصول على بيانات العنوان');
-                                  }
-                                },
-                          child: Text(
-                            'save_location'.tr,
-                            style: TextStyle(
-                              color: Themes.whiteColor,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  // ─────────────────────────────────────────────────────────────
-  // Overlay: GPS مطفي أو إذن مرفوض
-  // ─────────────────────────────────────────────────────────────
-  Widget _buildBlockedOverlay(double heightValue) {
-    final isGpsOff = _gpsDisabled;
-
-    return Container(
-      color: Colors.white,
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                isGpsOff ? Icons.location_off_rounded : Icons.location_disabled_rounded,
-                size: 80,
-                color: Themes.ColorApp1,
-              ),
-              SizedBox(height: heightValue),
-              Text(
-                isGpsOff ? 'GPS غير مفعّل' : 'إذن الموقع مرفوض',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Themes.ColorApp1,
-                ),
-              ),
-              SizedBox(height: heightValue * 0.5),
-              Text(
-                isGpsOff
-                    ? 'يرجى تفعيل خدمة الموقع (GPS) لتتمكن من تحديد موقعك على الخريطة.'
-                    : 'تم رفض إذن الموقع. يرجى الذهاب إلى إعدادات التطبيق وتفعيل إذن الموقع.',
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 15, color: Colors.grey, height: 1.5),
-              ),
-              SizedBox(height: heightValue * 1.5),
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
+              // ── زر الـ GPS الذكي ──
+              Positioned(
+                top: 15,
+                right: 15,
+                child: FloatingActionButton(
+                  heroTag: 'gps_btn',
                   backgroundColor: Themes.ColorApp1,
-                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
+                  onPressed: _isLocating ? null : handleGpsButtonPress,
+                  child: _isLocating
+                      ? const SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          ),
+                        )
+                      : const Icon(Icons.gps_fixed_outlined, color: Colors.white),
                 ),
-                icon: Icon(
-                  isGpsOff ? Icons.settings_outlined : Icons.app_settings_alt_outlined,
-                  color: Colors.white,
-                ),
-                label: Text(
-                  isGpsOff ? 'تفعيل GPS' : 'فتح إعدادات التطبيق',
-                  style: const TextStyle(color: Colors.white, fontSize: 16),
-                ),
-                onPressed: () async {
-                  if (isGpsOff) {
-                    await Geolocator.openLocationSettings();
-                  } else {
-                    await Geolocator.openAppSettings();
-                  }
-                  // إعادة المحاولة بعد رجوع المستخدم من الإعدادات
-                  await Future.delayed(const Duration(milliseconds: 800));
-                  getCurrentLocation();
-                },
               ),
-              SizedBox(height: heightValue),
-              TextButton(
-                onPressed: () => Get.back(),
-                child: Text(
-                  'رجوع',
-                  style: TextStyle(color: Themes.ColorApp2, fontSize: 15),
+
+              // ── باقة الحفظ في الأسفل (تعمل دائماً للتحديد اليدوي) ──
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  width: Get.width,
+                  padding: const EdgeInsets.fromLTRB(40, 12, 40, 20),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.95),
+                    borderRadius: const BorderRadius.vertical(top: Radius.circular(22)),
+                    boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 12)],
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 15),
+                        child: Row(
+                          children: [
+                            Icon(Icons.location_on, color: Themes.ColorApp1, size: 20),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                _selectedAddress,
+                                style: const TextStyle(
+                                  color: Colors.black87,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: 'Tajawal',
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      if (mapController.isLoading)
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: CirclerProgressIndicatorWidget(isLoading: true),
+                        ),
+                      MaterialButton(
+                        height: 50,
+                        minWidth: double.infinity,
+                        color: Themes.ColorApp1,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(35),
+                        ),
+                        onPressed: mapController.isLoading
+                            ? null
+                            : () async {
+                                if (latlong == null) {
+                                  Get.snackbar('تنبيه', 'يرجى الضغط على الخريطة لتحديد الموقع أولاً');
+                                  return;
+                                }
+                                try {
+                                  final places = await placemarkFromCoordinates(
+                                    latlong!.latitude,
+                                    latlong!.longitude,
+                                  );
+                                  final p = places[0];
+                                  final name = '${p.country} - ${p.locality} - ${p.street}';
+                                  Get.find<GetMyLocationController>().updateMyLocationFromMap(
+                                    latlong!.latitude,
+                                    latlong!.longitude,
+                                    name,
+                                  );
+                                } catch (e) {
+                                  Get.snackbar('خطأ', 'تعذر الحصول على بيانات العنوان');
+                                }
+                              },
+                        child: Text(
+                          'save_location'.tr,
+                          style: TextStyle(
+                            color: Themes.whiteColor,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -293,111 +186,89 @@ class _GoogleMapLocationUserScreenState extends State<GoogleMapLocationUserScree
   }
 
   // ─────────────────────────────────────────────────────────────
-  // منطق الإذن وجلب الموقع
+  // منطق الصلاحيات وجلب الموقع الجديد المتوافق مع أبل
   // ─────────────────────────────────────────────────────────────
-  Future<void> getCurrentLocation() async {
-    if (!mounted) return;
 
-    setState(() {
-      _isLocating = true;
-      _gpsDisabled = false;
-      _permissionDenied = false;
-    });
+  // محاولة جلب الموقع بصمت عند فتح الشاشة
+  Future<void> _silentlyTryGetLocation() async {
+    final serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) return;
 
-    try {
-      // ① هل GPS شغال؟
-      final serviceEnabled = await Geolocator.isLocationServiceEnabled();
-      if (!serviceEnabled) {
-        if (mounted) {
-          setState(() {
-            _gpsDisabled = true;
-            _isLocating = false;
-          });
-        }
-        return;
-      }
-
-      // ② فحص الإذن
-      LocationPermission permission = await Geolocator.checkPermission();
-
-      if (permission == LocationPermission.denied) {
-        // طلب الإذن من المستخدم
-        permission = await Geolocator.requestPermission();
-      }
-
-      if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
-        if (mounted) {
-          setState(() {
-            _permissionDenied = true;
-            _isLocating = false;
-          });
-        }
-        return;
-      }
-
-      // ③ جلب الموقع
-      await _fetchAndMoveToLocation();
-    } catch (e) {
-      print('getCurrentLocation error: $e');
-    } finally {
-      if (mounted) setState(() => _isLocating = false);
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.whileInUse || permission == LocationPermission.always) {
+      _fetchAndMoveToLocation();
     }
   }
 
+  // التعامل مع ضغط زر الـ GPS
+  Future<void> handleGpsButtonPress() async {
+    setState(() => _isLocating = true);
+
+    // 1. هل خدمة الـ GPS مطفأة في الجهاز؟
+    final serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      setState(() => _isLocating = false);
+      _showOptionalSettingsDialog(
+        'خدمة الموقع معطلة',
+        'يرجى تفعيل الـ GPS لتحديد موقعك الحالي تلقائياً، أو يمكنك تحديد الموقع يدوياً على الخريطة.',
+        isGpsService: true,
+      );
+      return;
+    }
+
+    // 2. فحص صلاحية التطبيق
+    LocationPermission permission = await Geolocator.checkPermission();
+
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+    }
+
+    // إذا رفض المستخدم بشكل نهائي أو مؤقت
+    if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
+      setState(() => _isLocating = false);
+      _showOptionalSettingsDialog(
+        'إذن الموقع مطلوب',
+        'تحتاج لتفعيل صلاحية الموقع لتحديد مكانك تلقائياً. يمكنك الاستمرار في استخدام الخريطة يدوياً أو تفعيل الإذن من الإعدادات.',
+        isGpsService: false,
+      );
+      return;
+    }
+
+    // 3. الصلاحية مسموحة -> نجلب الموقع
+    await _fetchAndMoveToLocation();
+    setState(() => _isLocating = false);
+  }
+
+  // جلب الإحداثيات ونقل الكاميرا
   Future<void> _fetchAndMoveToLocation() async {
     try {
       final position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,
       );
-
-      if (!mounted) return;
-
       final newLatLng = LatLng(position.latitude, position.longitude);
-      final newCamera = CameraPosition(target: newLatLng, zoom: 15.0);
-
-      // --- جلب العنوان النصي تلقائياً عند تحديد الموقع ---
-      String addressName = "جاري جلب العنوان...";
-      try {
-        List<Placemark> placemarks = await placemarkFromCoordinates(
-          position.latitude,
-          position.longitude,
-        );
-        if (placemarks.isNotEmpty) {
-          Placemark p = placemarks[0];
-          addressName = "${p.street}, ${p.locality}, ${p.country}";
-        }
-      } catch (e) {
-        addressName = "تعذر تحديد تفاصيل العنوان";
-      }
-
-      setState(() {
-        latlong = newLatLng;
-        _cameraPosition = newCamera;
-        _selectedAddress = addressName; // تحديث التكست هنا
-        _markers
-          ..clear()
-          ..add(Marker(
-            markerId: const MarkerId('user_loc'),
-            draggable: true,
-            position: newLatLng,
-            // تحديث العنوان أيضاً عند الانتهاء من سحب الماركر يدوياً
-            onDragEnd: (newPos) => _updateAddressFromCoordinates(newPos),
-          ));
-      });
+      _updateAddressFromCoordinates(newLatLng);
 
       _controller?.animateCamera(
-        CameraUpdate.newCameraPosition(newCamera),
+        CameraUpdate.newCameraPosition(CameraPosition(target: newLatLng, zoom: 15.0)),
       );
     } catch (e) {
-      print('_fetchAndMoveToLocation error: $e');
+      print('Error fetching location: $e');
     }
   }
 
+  // تحديث العنوان والماركر بناءً على الإحداثيات
   Future<void> _updateAddressFromCoordinates(LatLng coordinates) async {
     if (!mounted) return;
     setState(() {
       latlong = coordinates;
       _selectedAddress = "جاري جلب العنوان...";
+      _markers.clear();
+      _markers.add(
+        Marker(
+          markerId: const MarkerId('user_loc'),
+          position: coordinates,
+        ),
+      );
     });
 
     try {
@@ -408,13 +279,39 @@ class _GoogleMapLocationUserScreenState extends State<GoogleMapLocationUserScree
       if (placemarks.isNotEmpty) {
         Placemark p = placemarks[0];
         setState(() {
-          // تنسيق العنوان ليظهر بشكل لائق في واجهة التطبيق
-          _selectedAddress = "${p.street}, ${p.locality}, ${p.country}";
-          print('_selectedAddress _selectedAddress $_selectedAddress');
+          _selectedAddress = "${p.street ?? ''}, ${p.locality ?? ''}, ${p.country ?? ''}";
         });
       }
     } catch (e) {
-      if (mounted) setState(() => _selectedAddress = "تعذر تحديد تفاصيل العنوان");
+      if (mounted) setState(() => _selectedAddress = "تم تحديد الموقع بنجاح");
     }
+  }
+
+  // إظهار رسالة اختيارية (غير إجبارية) ومريحة للمستخدم
+  void _showOptionalSettingsDialog(String title, String message, {required bool isGpsService}) {
+    Get.dialog(
+      AlertDialog(
+        title: Text(title, style: const TextStyle(fontFamily: 'Tajawal', fontWeight: FontWeight.bold)),
+        content: Text(message, style: const TextStyle(fontFamily: 'Tajawal', height: 1.4)),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(),
+            child: const Text('التحديد يدوياً', style: TextStyle(color: Colors.grey)),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Themes.ColorApp1),
+            onPressed: () async {
+              Get.back();
+              if (isGpsService) {
+                await Geolocator.openLocationSettings();
+              } else {
+                await Geolocator.openAppSettings();
+              }
+            },
+            child: const Text('الذهاب للإعدادات', style: TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
+    );
   }
 }

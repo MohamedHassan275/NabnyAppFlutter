@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/core/localization/local_controller.dart';
 import 'package:nabny/core/servies/storage_service.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/about_app_screen/about_app_screen.dart';
 import 'package:nabny/screens/home_main_screen/home_main_controller.dart';
 import 'package:nabny/screens/my_address_screen/my_arddress_screen.dart';
+import 'package:nabny/screens/my_wallet_screen/my_wallet_screen.dart';
 import 'package:nabny/screens/privacy_screen/privacy_screen.dart';
 import 'package:nabny/screens/setting_profile_screen/setting_profile_screen.dart';
 import 'package:nabny/screens/setting_screen/setting_controller.dart';
@@ -67,7 +67,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       iconBgColor: const Color(0xFF4CAF50),
                       title: 'wallet'.tr,
                       subtitle: 'manage_wallet'.tr,
-                      onTap: () {},
+                      onTap: () => Get.to(const MyWalletScreen()),
                     ),
                     const SizedBox(height: 10),
                     _SettingRowItem(
@@ -168,8 +168,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(Icons.power_settings_new_rounded,
-                                      color: Themes.ColorApp9, size: 22),
+                                  Icon(Icons.power_settings_new_rounded, color: Themes.ColorApp9, size: 22),
                                   const SizedBox(width: 10),
                                   Text(
                                     'log_out'.tr,
@@ -186,7 +185,43 @@ class _SettingScreenState extends State<SettingScreen> {
                         ],
                       ),
                     ),
+                    _SettingRowItem(
+                      icon: Icons.delete_forever_outlined,
+                      iconBgColor: Colors.redAccent,
+                      title: 'حذف الحساب', // أو 'delete_account'.tr لو تستخدم ملفات الترجمة
+                      subtitle: 'مسح حسابك وبياناتك نهائياً',
+                      onTap: () {
+                        // إظهار رسالة تأكيد للمستخدم قبل الحذف
+                        Get.dialog(
+                          AlertDialog(
+                            title: const Text('تأكيد حذف الحساب', style: TextStyle(fontFamily: 'Tajawal', fontWeight: FontWeight.bold)),
+                            content: const Text(
+                              'هل أنت متأكد من رغبتك في حذف الحساب نهائياً؟ هذا الإجراء سيقوم بمسح كافة بياناتك ولا يمكن التراجع عنه.',
+                              style: TextStyle(fontFamily: 'Tajawal', height: 1.4),
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Get.back(), // إغلاق الـ Dialog
+                                child: const Text('إلغاء', style: TextStyle(color: Colors.grey)),
+                              ),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                                onPressed: () async {
+                                  Get.back(); // إغلاق الـ Dialog
 
+                                  // TODO: هنا تستدعي الـ Controller الخاص بك لمسح الحساب من السيرفر
+                                  // مثال: await authController.deleteUserAccount();
+
+                                  // بعد الحذف، يتم توجيه المستخدم لصفحة تسجيل الدخول وتصفير الحالة
+                                  // Get.offAll(() => LoginScreen());
+                                },
+                                child: const Text('حذف نهائي', style: TextStyle(color: Colors.white)),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
                     const SizedBox(height: 24),
                   ],
                 ),
@@ -259,9 +294,7 @@ class _SettingHeader extends StatelessWidget {
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    controller.profileUserModel?.phone != null
-                        ? '${controller.profileUserModel?.phone}'
-                        : '',
+                    controller.profileUserModel?.phone != null ? '${controller.profileUserModel?.phone}' : '',
                     style: TextStyle(
                       color: Colors.white.withOpacity(0.85),
                       fontSize: 14,
@@ -374,9 +407,7 @@ class _SettingRowItem extends StatelessWidget {
               ),
             ),
             Icon(
-              Get.locale?.languageCode == 'ar'
-                  ? Icons.arrow_back_ios_rounded
-                  : Icons.arrow_forward_ios_rounded,
+              Get.locale?.languageCode == 'ar' ? Icons.arrow_back_ios_rounded : Icons.arrow_forward_ios_rounded,
               color: Themes.ColorApp11,
               size: 16,
             ),
@@ -403,17 +434,14 @@ class ContactWithUs extends StatelessWidget {
 
   Future<void> launchWhatsApp({required String phone, String message = ""}) async {
     final cleanPhone = phone.replaceAll(RegExp(r'[^\d]'), '');
-    final whatsappUrl =
-        "whatsapp://send?phone=$cleanPhone&text=${Uri.encodeComponent(message)}";
+    final whatsappUrl = "whatsapp://send?phone=$cleanPhone&text=${Uri.encodeComponent(message)}";
     final webUrl = "https://wa.me/$cleanPhone";
 
     try {
       if (await canLaunchUrl(Uri.parse(whatsappUrl))) {
-        await launchUrl(Uri.parse(whatsappUrl),
-            mode: LaunchMode.externalApplication);
+        await launchUrl(Uri.parse(whatsappUrl), mode: LaunchMode.externalApplication);
       } else {
-        await launchUrl(Uri.parse(webUrl),
-            mode: LaunchMode.externalApplication);
+        await launchUrl(Uri.parse(webUrl), mode: LaunchMode.externalApplication);
       }
     } catch (e) {
       print("Could not launch WhatsApp: $e");
@@ -431,9 +459,9 @@ class ContactWithUs extends StatelessWidget {
             label: 'WhatsApp',
             color: const Color(0xFF25D366),
             onTap: () => launchWhatsApp(
-              phone:
-                  controller.settingResponseModel?.socialmedia?[0].whatsapp ?? '',
-              message: "\u0627\u0644\u0633\u0644\u0627\u0645 \u0639\u0644\u064a\u0643\u0645\u0601 \u0623\u0631\u064a\u062f \u0627\u0644\u0627\u0633\u062a\u0641\u0633\u0627\u0631 \u0639\u0646...",
+              phone: controller.settingResponseModel?.socialmedia?[0].whatsapp ?? '',
+              message:
+                  "\u0627\u0644\u0633\u0644\u0627\u0645 \u0639\u0644\u064a\u0643\u0645\u0601 \u0623\u0631\u064a\u062f \u0627\u0644\u0627\u0633\u062a\u0641\u0633\u0627\u0631 \u0639\u0646...",
             ),
           ),
           const SizedBox(width: 10),
@@ -441,24 +469,21 @@ class ContactWithUs extends StatelessWidget {
             imageTitle: Assets.iconsInstagramImage,
             label: 'Instagram',
             color: const Color(0xFFE1306C),
-            onTap: () => _launchURL(
-                controller.settingResponseModel?.socialmedia?[0].instagram),
+            onTap: () => _launchURL(controller.settingResponseModel?.socialmedia?[0].instagram),
           ),
           const SizedBox(width: 10),
           _ContactCardItem(
             imageTitle: Assets.iconsTwitterImage,
             label: 'Twitter',
             color: const Color(0xFF1DA1F2),
-            onTap: () => _launchURL(
-                controller.settingResponseModel?.socialmedia?[0].twitter),
+            onTap: () => _launchURL(controller.settingResponseModel?.socialmedia?[0].twitter),
           ),
           const SizedBox(width: 10),
           _ContactCardItem(
             imageTitle: Assets.iconsSnapshatImage,
             label: 'Snapchat',
             color: const Color(0xFFFFFC00),
-            onTap: () => _launchURL(
-                controller.settingResponseModel?.socialmedia?[0].snapchat),
+            onTap: () => _launchURL(controller.settingResponseModel?.socialmedia?[0].snapchat),
           ),
         ],
       ),
@@ -540,12 +565,10 @@ class ChangeLanguageBottomSheetItem extends StatefulWidget {
   const ChangeLanguageBottomSheetItem({Key? key, required this.heightValue}) : super(key: key);
 
   @override
-  State<ChangeLanguageBottomSheetItem> createState() =>
-      _ChangeLanguageBottomSheetItemState();
+  State<ChangeLanguageBottomSheetItem> createState() => _ChangeLanguageBottomSheetItemState();
 }
 
-class _ChangeLanguageBottomSheetItemState
-    extends State<ChangeLanguageBottomSheetItem> {
+class _ChangeLanguageBottomSheetItemState extends State<ChangeLanguageBottomSheetItem> {
   MyLocalController myLocalController = Get.put(MyLocalController());
 
   @override
@@ -581,7 +604,7 @@ class _ChangeLanguageBottomSheetItemState
             ),
           ),
           const SizedBox(height: 24),
-          
+
           // العربية
           _LanguageOption(
             title: 'arabic'.tr,
@@ -592,9 +615,9 @@ class _ChangeLanguageBottomSheetItemState
               Get.offAll(const SplashScreen());
             },
           ),
-          
+
           const SizedBox(height: 12),
-          
+
           // الإنجليزية
           _LanguageOption(
             title: 'english'.tr,
@@ -605,7 +628,7 @@ class _ChangeLanguageBottomSheetItemState
               Get.offAll(const SplashScreen());
             },
           ),
-          
+
           const SizedBox(height: 32),
         ],
       ),
