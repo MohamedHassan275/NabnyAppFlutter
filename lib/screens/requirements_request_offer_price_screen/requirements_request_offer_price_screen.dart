@@ -9,6 +9,8 @@ import 'package:nabny/core/servies/storage_service.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/requirements_request_offer_price_screen/requirements_request_offer_price_controller.dart';
 import 'package:nabny/utils/Themes.dart';
+import 'package:nabny/screens/home_screen/home_controller.dart';
+import 'package:nabny/screens/location_map_user_screen/google_map_locaiton_user_screen.dart';
 import '../../componant/CustomTextFieldWidget.dart';
 import '../../core/constant/constant.dart';
 import '../../core/widget/custom_circler_progress_indicator_widget.dart';
@@ -53,6 +55,35 @@ class _RequirementsRequestOfferPriceScreenState
   var formKey = GlobalKey<FormState>();
   String? formattedDateCurrent;
 
+  void _showLocationRequiredDialog() {
+    Get.dialog(
+      AlertDialog(
+        title: const Text(
+          'تحديد الموقع مطلوب',
+          style: TextStyle(fontFamily: 'Tajawal', fontWeight: FontWeight.bold),
+        ),
+        content: const Text(
+          'تحديد موقع التوصيل مطلوب لتنفيذ هذا الإجراء. يرجى تفعيل الموقع واختياره من الخريطة.',
+          style: TextStyle(fontFamily: 'Tajawal', height: 1.4),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(),
+            child: const Text('إلغاء', style: TextStyle(color: Colors.grey, fontFamily: 'Tajawal')),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Themes.ColorApp1),
+            onPressed: () {
+              Get.back();
+              Get.to(() => const GoogleMapLocationUserScreen(required: true));
+            },
+            child: const Text('تحديد الموقع', style: TextStyle(color: Colors.white, fontFamily: 'Tajawal')),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -63,6 +94,17 @@ class _RequirementsRequestOfferPriceScreenState
     print(formattedDateCurrent); // 2016-01-25
     print(widget.companyId);// 2016-01-25
    // CustomFlutterToast('${widget.companyId}');
+
+    if (widget.my_location.isNotEmpty) {
+      MyLocationInMap.text = widget.my_location;
+      myLocationInMap = widget.my_location;
+    } else if (Get.isRegistered<HomeController>()) {
+      final address = Get.find<HomeController>().homeUserModel?.currentLocation?.address;
+      if (address != null && address.isNotEmpty) {
+        MyLocationInMap.text = address;
+        myLocationInMap = address;
+      }
+    }
   }
 
   @override
@@ -579,10 +621,17 @@ class _RequirementsRequestOfferPriceScreenState
                             title: 'send'.tr,
                             hight: 50,
                             onTap: () {
-                              //   if (widget.my_location.contains('')) {
-                              // CustomFlutterToast("Your_location_map2".tr);
-                              // }
-                              // CustomFlutterToast(widget.my_location);
+                              if (Get.isRegistered<HomeController>()) {
+                                final homeCtrl = Get.find<HomeController>();
+                                final lat = homeCtrl.homeUserModel?.currentLocation?.lat;
+                                final lng = homeCtrl.homeUserModel?.currentLocation?.lng;
+
+                                if (lat == null || lng == null || lat == '0.0' || lng == '0.0' || lat == '' || lng == '') {
+                                  _showLocationRequiredDialog();
+                                  return;
+                                }
+                              }
+
                               if (formattedDate == null) {
                                 CustomFlutterToast("date_must_request".tr);
                               }else if (!(formattedDateCurrent!.compareTo(formattedDate!) <= 0)) {

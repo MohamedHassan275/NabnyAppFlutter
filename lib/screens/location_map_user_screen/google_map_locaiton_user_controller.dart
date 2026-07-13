@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:nabny/core/constant/constant.dart';
 import 'package:nabny/core/servies/storage_service.dart';
 import 'package:nabny/repositries/servies_api/MyServiceApi.dart';
+import 'package:nabny/screens/home_screen/home_controller.dart';
 import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 
 class GetMyLocationController extends GetxController {
@@ -13,12 +14,6 @@ class GetMyLocationController extends GetxController {
   }
 
   Future<void> updateMyLocationFromMap(lat, lng, myLocation) async {
-    // 1. التأكد من وجود البيانات قبل الإرسال
-    if (lat == null || lng == null) {
-      CustomFlutterToast('يرجى تحديد الموقع على الخريطة أولاً');
-      return;
-    }
-
     setSeving(true);
 
     try {
@@ -31,7 +26,7 @@ class GetMyLocationController extends GetxController {
       final value = await MyServiceApi.updateMyLocationInMap(
         token,
         lang,
-        lat, // تحويل الإحداثيات لنصوص
+        lat, 
         lng,
         myLocation,
       ).timeout(const Duration(seconds: 15));
@@ -39,6 +34,10 @@ class GetMyLocationController extends GetxController {
       if (value?.success == true) {
         setSeving(false);
         CustomFlutterToast('${value?.message}');
+        // Refresh HomeController to update location in real-time
+        if (Get.isRegistered<HomeController>()) {
+          Get.find<HomeController>().getHomeDetailsUser();
+        }
         Get.offAll(() => HomeMainScreen(valueBack: ''));
       } else {
         setSeving(false);

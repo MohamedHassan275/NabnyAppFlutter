@@ -11,6 +11,8 @@ import 'package:nabny/screens/request_offer_price_screen/request_offer_price_con
 import 'package:nabny/screens/requirements_request_offer_price_screen/requirements_request_offer_price_controller.dart';
 import 'package:nabny/screens/requirements_request_offer_price_screen/requirements_request_offer_price_screen.dart';
 import 'package:nabny/utils/Themes.dart';
+import 'package:nabny/screens/home_screen/home_controller.dart';
+import 'package:nabny/screens/location_map_user_screen/google_map_locaiton_user_screen.dart';
 
 import '../../model/OfferOrderRequestModel.dart';
 
@@ -19,6 +21,35 @@ class RequestOfferPriceScreen extends StatelessWidget {
 
   RequestOfferPriceController requestOfferPriceController =
       Get.put(RequestOfferPriceController());
+
+  void _showLocationRequiredDialog(BuildContext context) {
+    Get.dialog(
+      AlertDialog(
+        title: const Text(
+          'تحديد الموقع مطلوب',
+          style: TextStyle(fontFamily: 'Tajawal', fontWeight: FontWeight.bold),
+        ),
+        content: const Text(
+          'تحديد موقع التوصيل مطلوب لتنفيذ هذا الإجراء. يرجى تفعيل الموقع واختياره من الخريطة.',
+          style: TextStyle(fontFamily: 'Tajawal', height: 1.4),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(),
+            child: const Text('إلغاء', style: TextStyle(color: Colors.grey, fontFamily: 'Tajawal')),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Themes.ColorApp1),
+            onPressed: () {
+              Get.back();
+              Get.to(() => const GoogleMapLocationUserScreen(required: true));
+            },
+            child: const Text('تحديد الموقع', style: TextStyle(color: Colors.white, fontFamily: 'Tajawal')),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,10 +102,18 @@ class RequestOfferPriceScreen extends StatelessWidget {
                   title: 'add_order'.tr,
                   hight: 50,
                   onTap: () {
-                    Get.to(RequirementsRequestOfferPriceScreen(
-                      companyId: '',
-                      my_location: '',
-                    ));
+                    final homeCtrl = Get.find<HomeController>();
+                    final lat = homeCtrl.homeUserModel?.currentLocation?.lat;
+                    final lng = homeCtrl.homeUserModel?.currentLocation?.lng;
+
+                    if (lat == null || lng == null || lat == '0.0' || lng == '0.0' || lat == '' || lng == '') {
+                      _showLocationRequiredDialog(context);
+                    } else {
+                      Get.to(RequirementsRequestOfferPriceScreen(
+                        companyId: '',
+                        my_location: homeCtrl.homeUserModel?.currentLocation?.address ?? '',
+                      ));
+                    }
                   }),
               SizedBox(
                 height: heightValue * 1,

@@ -7,11 +7,14 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nabny/screens/location_map_user_screen/google_map_locaiton_user_controller.dart';
 
+import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
+
 import '../../core/constant/Themes.dart';
 import '../../core/widget/custom_circler_progress_indicator_widget.dart';
 
 class GoogleMapLocationUserScreen extends StatefulWidget {
-  const GoogleMapLocationUserScreen({Key? key}) : super(key: key);
+  final bool required;
+  const GoogleMapLocationUserScreen({Key? key, this.required = false}) : super(key: key);
 
   @override
   _GoogleMapLocationUserScreenState createState() => _GoogleMapLocationUserScreenState();
@@ -47,8 +50,36 @@ class _GoogleMapLocationUserScreenState extends State<GoogleMapLocationUserScree
         title: const Text('تحديد الموقع', style: TextStyle(fontFamily: 'Tajawal', fontSize: 18)),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => Get.back(),
+          onPressed: () {
+            if (Navigator.canPop(context)) {
+              Get.back();
+            } else {
+              Get.offAll(() => HomeMainScreen(valueBack: ''));
+            }
+          },
         ),
+        actions: widget.required
+            ? null
+            : [
+                TextButton(
+                  onPressed: () {
+                    Get.find<GetMyLocationController>().updateMyLocationFromMap(
+                      null,
+                      null,
+                      'الرياض، المملكة العربية السعودية',
+                    );
+                  },
+                  child: const Text(
+                    'تخطي',
+                    style: TextStyle(
+                      color: Themes.ColorApp1,
+                      fontFamily: 'Tajawal',
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
@@ -145,25 +176,43 @@ class _GoogleMapLocationUserScreenState extends State<GoogleMapLocationUserScree
                         onPressed: mapController.isLoading
                             ? null
                             : () async {
-                                if (latlong == null) {
-                                  Get.snackbar('تنبيه', 'يرجى الضغط على الخريطة لتحديد الموقع أولاً');
+                                 if (latlong == null) {
+                                  if (widget.required) {
+                                    CustomFlutterToast('يرجى تحديد الموقع على الخريطة أولاً');
+                                    return;
+                                  }
+                                  Get.find<GetMyLocationController>().updateMyLocationFromMap(
+                                    null,
+                                    null,
+                                    'الرياض، المملكة العربية السعودية',
+                                  );
                                   return;
                                 }
+
+                                // ── في حال قام المستخدم بتحديد موقع فعلي على الخريطة ──
+                                String fallbackName = 'موقع محدد (${latlong!.latitude.toStringAsFixed(4)}, ${latlong!.longitude.toStringAsFixed(4)})';
+
                                 try {
-                                  final places = await placemarkFromCoordinates(
+                                  List<Placemark> places = await placemarkFromCoordinates(
                                     latlong!.latitude,
                                     latlong!.longitude,
-                                  );
-                                  final p = places[0];
-                                  final name = '${p.country} - ${p.locality} - ${p.street}';
-                                  Get.find<GetMyLocationController>().updateMyLocationFromMap(
-                                    latlong!.latitude,
-                                    latlong!.longitude,
-                                    name,
-                                  );
+                                  ).timeout(const Duration(seconds: 3));
+
+                                  if (places.isNotEmpty) {
+                                    final p = places[0];
+                                    fallbackName = '${p.country ?? ''} - ${p.locality ?? ''} - ${p.street ?? ''}';
+                                  }
                                 } catch (e) {
-                                  Get.snackbar('خطأ', 'تعذر الحصول على بيانات العنوان');
+                                  print('Geocoding failed');
                                 }
+
+                                // حفظ الموقع الفعلي المحدد
+                                Get.find<GetMyLocationController>().updateMyLocationFromMap(
+                                  latlong!.latitude,
+                                  latlong!.longitude,
+                                  fallbackName,
+                                );
+                                Get.back();
                               },
                         child: Text(
                           'save_location'.tr,

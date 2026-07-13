@@ -892,7 +892,7 @@ class MyServiceApi {
   //   return responseUserModel;
   // }
 
-  static Future<ResponseUserModel?> updateMyLocationInMap(String Authorization, String Language, double lat, double lng, String myLocation) async {
+  static Future<ResponseUserModel?> updateMyLocationInMap(String Authorization, String Language, double? lat, double? lng, String myLocation) async {
     ResponseUserModel? responseUserModel;
 
     // تأكد من أسماء الحقول (Keys) كما يتوقعها السيرفر بالضبط
