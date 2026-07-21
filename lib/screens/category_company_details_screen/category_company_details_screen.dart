@@ -8,6 +8,7 @@ import 'package:nabny/screens/home_main_screen/home_main_screen.dart';
 import 'package:nabny/screens/requirements_request_offer_price_screen/requirements_request_offer_price_screen.dart';
 
 import '../../core/servies/storage_service.dart';
+import 'package:nabny/core/utils/guest_helper.dart';
 import '../../generated/assets.dart';
 import '../../model/companiesModel.dart';
 import '../../utils/Themes.dart';
@@ -53,6 +54,7 @@ class CategoryCompanyDetailsScreen extends StatelessWidget {
               Positioned(
                   bottom: heightValue * 3,
                   child: CustomButtonImage(title: 'request_price2'.tr, hight: 50, onTap: () {
+                    if (GuestHelper.checkGuestAndShowDialog()) return;
                     Get.to(RequirementsRequestOfferPriceScreen(companyId: '${companiesResponseModel.id}', my_location: ''));
                   },)),
             ],

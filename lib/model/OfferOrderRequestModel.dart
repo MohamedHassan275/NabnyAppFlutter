@@ -67,22 +67,22 @@ class OfferOrderRequestResponseModel {
         this.request});
 
   OfferOrderRequestResponseModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    castingType = json['casting_type'];
-    orderNumber = json['order_number'];
-    executionDate = json['execution_date'];
-    qtyM = json['qty_m'];
-    mixType = json['mix_type'];
-    cementType = json['cement_type'];
-    stoneSize = json['stone_size'];
-    specialDescription = json['special_description'];
-    address = json['address'];
-    withPump = json['with_pump'];
-    pumpLength = json['pump_length'];
-    withSnow = json['with_snow'];
-    withLab = json['with_lab'];
-    status = json['status'];
-    requestsCount = json['requests_count'];
+    id = json['id'] is int ? json['id'] : int.tryParse(json['id']?.toString() ?? '');
+    castingType = json['casting_type']?.toString();
+    orderNumber = json['order_number']?.toString();
+    executionDate = json['execution_date']?.toString();
+    qtyM = json['qty_m']?.toString();
+    mixType = json['mix_type']?.toString();
+    cementType = json['cement_type']?.toString();
+    stoneSize = json['stone_size']?.toString();
+    specialDescription = json['special_description']?.toString();
+    address = json['address']?.toString();
+    withPump = json['with_pump']?.toString();
+    pumpLength = json['pump_length']?.toString();
+    withSnow = json['with_snow']?.toString();
+    withLab = json['with_lab']?.toString();
+    status = json['status']?.toString();
+    requestsCount = json['requests_count'] is int ? json['requests_count'] : int.tryParse(json['requests_count']?.toString() ?? '');
     if (json['request'] != null) {
       request = <Companies>[];
       json['request'].forEach((v) {
@@ -136,13 +136,13 @@ class Companies {
         this.status});
 
   Companies.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    company = json['company'];
-    image = json['image'];
-    distance = json['distance'];
-    rate = json['rate'];
-    price = json['price'];
-    status = json['status'];
+    id = json['id'] is int ? json['id'] : int.tryParse(json['id']?.toString() ?? '');
+    company = json['company']?.toString();
+    image = json['image']?.toString();
+    distance = json['distance'] is int ? json['distance'] : int.tryParse(json['distance']?.toString() ?? '');
+    rate = json['rate'] is int ? json['rate'] : int.tryParse(json['rate']?.toString() ?? '');
+    price = json['price']?.toString();
+    status = json['status']?.toString();
   }
 
   Map<String, dynamic> toJson() {

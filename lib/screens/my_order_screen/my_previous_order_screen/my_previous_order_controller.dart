@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nabny/core/constant/constant.dart';
 import 'package:nabny/core/servies/storage_service.dart';
+import 'package:nabny/core/utils/guest_helper.dart';
 import 'package:nabny/model/my_previous_order_model.dart';
 import 'package:nabny/repositries/servies_api/MyServiceApi.dart';
 
@@ -40,6 +41,7 @@ class MyPreviousOrderController extends GetxController {
   }
 
   getPreviousMyOrderUser(){
+    if (GuestHelper.isGuest) return;
     setLoading(true);
     MyServiceApi.GetMyPreviousOrderUser(Get.find<StorageService>().GetToken, Get.find<StorageService>().activeLocale.languageCode).then((value){
       print("my order status is ${value?.success}");

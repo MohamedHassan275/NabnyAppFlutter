@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:nabny/componant/CustomButtonWidget.dart';
 import 'package:nabny/componant/nabny_app_bar.dart';
 import 'package:nabny/core/servies/storage_service.dart';
+import 'package:nabny/core/utils/guest_helper.dart';
 import 'package:nabny/generated/assets.dart';
 import 'package:nabny/screens/requirements_request_offer_price_screen/requirements_request_offer_price_controller.dart';
 import 'package:nabny/utils/Themes.dart';
@@ -621,6 +622,7 @@ class _RequirementsRequestOfferPriceScreenState
                             title: 'send'.tr,
                             hight: 50,
                             onTap: () {
+                              if (GuestHelper.checkGuestAndShowDialog()) return;
                               if (Get.isRegistered<HomeController>()) {
                                 final homeCtrl = Get.find<HomeController>();
                                 final lat = homeCtrl.homeUserModel?.currentLocation?.lat;

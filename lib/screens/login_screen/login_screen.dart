@@ -172,6 +172,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                               Password.text, 'token')),
                                 ),
                                 const CreateAccountFromLoginWidget(),
+                                const SizedBox(height: 12),
+                                // const BrowseAsGuestWidget(),
                               ],
                             )),
                         SizedBox(
@@ -261,3 +263,48 @@ class CreateAccountFromLoginWidget extends StatelessWidget {
     );
   }
 }
+
+class BrowseAsGuestWidget extends StatelessWidget {
+  const BrowseAsGuestWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 25),
+      child: GestureDetector(
+        onTap: () => Get.offAll(() => HomeMainScreen(valueBack: '')),
+        child: Container(
+          width: Get.width,
+          height: 50,
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            borderRadius: BorderRadius.circular(15),
+            border: Border.all(color: Themes.ColorApp1, width: 1.5),
+          ),
+          child: Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.explore_outlined,
+                  color: Themes.ColorApp1,
+                  size: 20,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  'browse_as_guest'.tr,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    color: Themes.ColorApp1,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+

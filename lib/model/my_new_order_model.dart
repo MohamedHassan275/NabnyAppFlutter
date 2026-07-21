@@ -66,23 +66,23 @@ class NewOrder {
       this.status});
 
   NewOrder.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    company = json['company'];
-    orderNumber = json['order_number'];
-    castingType = json['casting_type'];
-    executionDate = json['execution_date'];
-    qtyM = json['qty_m'];
-    mixType = json['mix_type'];
-    cementType = json['cement_type'];
-    stoneSize = json['stone_size'];
-    specialDescription = json['special_description'];
-    address = json['address'];
-    withPump = json['with_pump'];
-    pumpLength = json['pump_length'];
-    withSnow = json['with_snow'];
-    withLab = json['with_lab'];
-    offerCost = json['offer_cost'];
-    status = json['status'];
+    id = json['id'] is int ? json['id'] : int.tryParse(json['id']?.toString() ?? '');
+    company = json['company']?.toString();
+    orderNumber = json['order_number']?.toString();
+    castingType = json['casting_type']?.toString();
+    executionDate = json['execution_date']?.toString();
+    qtyM = json['qty_m']?.toString();
+    mixType = json['mix_type']?.toString();
+    cementType = json['cement_type']?.toString();
+    stoneSize = json['stone_size']?.toString();
+    specialDescription = json['special_description']?.toString();
+    address = json['address']?.toString();
+    withPump = json['with_pump'] is int ? json['with_pump'] : int.tryParse(json['with_pump']?.toString() ?? '');
+    pumpLength = json['pump_length']?.toString();
+    withSnow = json['with_snow'] is int ? json['with_snow'] : int.tryParse(json['with_snow']?.toString() ?? '');
+    withLab = json['with_lab'] is int ? json['with_lab'] : int.tryParse(json['with_lab']?.toString() ?? '');
+    offerCost = json['offer_cost'] is int ? json['offer_cost'] : int.tryParse(json['offer_cost']?.toString() ?? '');
+    status = json['status'] is int ? json['status'] : int.tryParse(json['status']?.toString() ?? '');
   }
 
   Map<String, dynamic> toJson() {

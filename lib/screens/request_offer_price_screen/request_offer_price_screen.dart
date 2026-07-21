@@ -14,6 +14,7 @@ import 'package:nabny/utils/Themes.dart';
 import 'package:nabny/screens/home_screen/home_controller.dart';
 import 'package:nabny/screens/location_map_user_screen/google_map_locaiton_user_screen.dart';
 
+import 'package:nabny/core/utils/guest_helper.dart';
 import '../../model/OfferOrderRequestModel.dart';
 
 class RequestOfferPriceScreen extends StatelessWidget {
@@ -102,6 +103,7 @@ class RequestOfferPriceScreen extends StatelessWidget {
                   title: 'add_order'.tr,
                   hight: 50,
                   onTap: () {
+                    if (GuestHelper.checkGuestAndShowDialog()) return;
                     final homeCtrl = Get.find<HomeController>();
                     final lat = homeCtrl.homeUserModel?.currentLocation?.lat;
                     final lng = homeCtrl.homeUserModel?.currentLocation?.lng;

@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:nabny/core/constant/constant.dart';
 import 'package:nabny/core/servies/storage_service.dart';
+import 'package:nabny/core/utils/guest_helper.dart';
 import 'package:nabny/repositries/servies_api/MyServiceApi.dart';
 
 class MyNewOrderController extends GetxController {
@@ -19,6 +20,7 @@ class MyNewOrderController extends GetxController {
 
 
   getMyNewOrderUser() {
+    if (GuestHelper.isGuest) return;
     setLoading(true);
     MyServiceApi.GetNewMyOrderUser(Get.find<StorageService>().GetToken, Get.find<StorageService>().activeLocale.languageCode).then((value) {
       print("my order status is ${value?.success}");

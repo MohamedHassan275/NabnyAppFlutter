@@ -10,6 +10,7 @@ import 'package:nabny/screens/login_screen/login_screen.dart';
 import 'package:nabny/screens/my_order_screen/my_order_screen.dart';
 import 'package:nabny/screens/setting_screen/setting_screen.dart';
 
+import 'package:nabny/core/utils/guest_helper.dart';
 import '../../model/profile_user_model.dart';
 import '../../utils/Themes.dart';
 import '../request_offer_price_screen_menu/request_offer_price_companies_screen.dart';
@@ -58,6 +59,7 @@ class HomeMainController extends GetxController {
     getProfileDetailsUser();
   }
   getProfileDetailsUser() async {
+    if (GuestHelper.isGuest) return;
     setLoading(true);
     MyServiceApi.checkProfileDetails(Get.find<StorageService>().GetToken).then((value) {
       if(value?.success == true){

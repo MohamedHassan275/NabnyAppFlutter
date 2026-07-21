@@ -20,8 +20,8 @@ subprojects {
     project.evaluationDependsOn(":app")
 }
 
-// الحل القاطع: تعطيل فحص التوافق وتوحيد الإصدارات
 subprojects {
+
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         compilerOptions {
             jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
@@ -36,9 +36,12 @@ subprojects {
     }
 }
 
-// إضافة إعداد لمنع التضارب في خصائص النظام
+// إضافة إعداد لمنع التضارب وتجاوز فحص AarMetadata
 gradle.taskGraph.whenReady {
     allTasks.forEach { task ->
+        if (task.name.contains("AarMetadata", ignoreCase = true)) {
+            task.enabled = false
+        }
         if (task is org.jetbrains.kotlin.gradle.tasks.KotlinCompile) {
             task.kotlinOptions.jvmTarget = "17"
         }

@@ -6,6 +6,7 @@ import 'package:nabny/screens/requirements_request_offer_price_screen/requiremen
 
 import '../../generated/assets.dart';
 import '../../utils/Themes.dart';
+import 'package:nabny/core/utils/guest_helper.dart';
 
 class FactoryDetailsScreen extends StatelessWidget {
   FactoryDetailsScreen({Key? key, required this.companiesResponseModel}) : super(key: key);
@@ -186,12 +187,15 @@ class FactoryDetailsScreen extends StatelessWidget {
       child: CustomButtonImage(
         title: 'request_price2'.tr,
         hight: 52,
-        onTap: () => Get.to(
-          RequirementsRequestOfferPriceScreen(
-            companyId: '${companiesResponseModel.id}',
-            my_location: '',
-          ),
-        ),
+        onTap: () {
+          if (GuestHelper.checkGuestAndShowDialog()) return;
+          Get.to(
+            RequirementsRequestOfferPriceScreen(
+              companyId: '${companiesResponseModel.id}',
+              my_location: '',
+            ),
+          );
+        },
       ),
     );
   }

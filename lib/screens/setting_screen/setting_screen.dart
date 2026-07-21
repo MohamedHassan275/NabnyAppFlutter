@@ -7,6 +7,8 @@ import 'package:nabny/screens/about_app_screen/about_app_screen.dart';
 import 'package:nabny/screens/home_main_screen/home_main_controller.dart';
 import 'package:nabny/screens/my_address_screen/my_arddress_screen.dart';
 import 'package:nabny/screens/my_wallet_screen/my_wallet_screen.dart';
+import 'package:nabny/core/utils/guest_helper.dart';
+import 'package:nabny/screens/login_screen/login_screen.dart';
 import 'package:nabny/screens/privacy_screen/privacy_screen.dart';
 import 'package:nabny/screens/setting_profile_screen/setting_profile_screen.dart';
 import 'package:nabny/screens/setting_screen/setting_controller.dart';
@@ -58,7 +60,10 @@ class _SettingScreenState extends State<SettingScreen> {
                       iconBgColor: Themes.ColorApp1,
                       title: 'profile_setting'.tr,
                       subtitle: 'edit_profile_info'.tr,
-                      onTap: () => Get.to(() => SettingProfileScreen()),
+                      onTap: () {
+                        if (GuestHelper.checkGuestAndShowDialog()) return;
+                        Get.to(() => SettingProfileScreen());
+                      },
                     ),
                     const SizedBox(height: 10),
                     _SettingRowItem(
@@ -66,7 +71,10 @@ class _SettingScreenState extends State<SettingScreen> {
                       iconBgColor: const Color(0xFF4CAF50),
                       title: 'wallet'.tr,
                       subtitle: 'manage_wallet'.tr,
-                      onTap: () => Get.to(const MyWalletScreen()),
+                      onTap: () {
+                        if (GuestHelper.checkGuestAndShowDialog()) return;
+                        Get.to(const MyWalletScreen());
+                      },
                     ),
                     const SizedBox(height: 10),
                     _SettingRowItem(
@@ -74,7 +82,10 @@ class _SettingScreenState extends State<SettingScreen> {
                       iconBgColor: Themes.ColorApp9,
                       title: 'my_addresses'.tr,
                       subtitle: 'manage_addresses'.tr,
-                      onTap: () => Get.to(const MyAddressScreen()),
+                      onTap: () {
+                        if (GuestHelper.checkGuestAndShowDialog()) return;
+                        Get.to(const MyAddressScreen());
+                      },
                     ),
 
                     const SizedBox(height: 20),
@@ -140,39 +151,30 @@ class _SettingScreenState extends State<SettingScreen> {
 
                     const SizedBox(height: 20),
 
-                    // ── زر تسجيل الخروج ──
-                    GetBuilder<HomeMainController>(
-                      builder: (ctrl) => Column(
-                        children: [
-                          if (ctrl.isLogout)
-                            const Padding(
-                              padding: EdgeInsets.only(bottom: 10),
-                              child: CircularProgressIndicator(),
-                            ),
-                          GestureDetector(
-                            onTap: () => ctrl.logoutUser(
-                              'Bearer ' + Get.find<StorageService>().GetToken,
-                            ),
+                    // ── زر تسجيل الدخول (للزائر) / تسجيل الخروج (للمسجل) ──
+                    GuestHelper.isGuest
+                        ? GestureDetector(
+                            onTap: () => Get.to(() => const LoginScreen()),
                             child: Container(
                               width: double.infinity,
                               height: 56,
                               decoration: BoxDecoration(
-                                color: const Color(0xFFFFF0F0),
+                                color: Themes.ColorApp1.withOpacity(0.1),
                                 borderRadius: BorderRadius.circular(16),
                                 border: Border.all(
-                                  color: Themes.ColorApp9.withOpacity(0.4),
+                                  color: Themes.ColorApp1,
                                   width: 1,
                                 ),
                               ),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(Icons.power_settings_new_rounded, color: Themes.ColorApp9, size: 22),
+                                  const Icon(Icons.login_rounded, color: Themes.ColorApp1, size: 22),
                                   const SizedBox(width: 10),
                                   Text(
-                                    'log_out'.tr,
-                                    style: TextStyle(
-                                      color: Themes.ColorApp9,
+                                    'login'.tr,
+                                    style: const TextStyle(
+                                      color: Themes.ColorApp1,
                                       fontSize: 15,
                                       fontWeight: FontWeight.w700,
                                     ),
@@ -180,47 +182,89 @@ class _SettingScreenState extends State<SettingScreen> {
                                 ],
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    _SettingRowItem(
-                      icon: Icons.delete_forever_outlined,
-                      iconBgColor: Colors.redAccent,
-                      title: 'حذف الحساب', // أو 'delete_account'.tr لو تستخدم ملفات الترجمة
-                      subtitle: 'مسح حسابك وبياناتك نهائياً',
-                      onTap: () {
-                        // إظهار رسالة تأكيد للمستخدم قبل الحذف
-                        Get.dialog(
-                          AlertDialog(
-                            title: const Text('تأكيد حذف الحساب', style: TextStyle(fontFamily: 'Tajawal', fontWeight: FontWeight.bold)),
-                            content: const Text(
-                              'هل أنت متأكد من رغبتك في حذف الحساب نهائياً؟ هذا الإجراء سيقوم بمسح كافة بياناتك ولا يمكن التراجع عنه.',
-                              style: TextStyle(fontFamily: 'Tajawal', height: 1.4),
+                          )
+                        : GetBuilder<HomeMainController>(
+                            builder: (ctrl) => Column(
+                              children: [
+                                if (ctrl.isLogout)
+                                  const Padding(
+                                    padding: EdgeInsets.only(bottom: 10),
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                GestureDetector(
+                                  onTap: () => ctrl.logoutUser(
+                                    'Bearer ' + Get.find<StorageService>().GetToken,
+                                  ),
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: 56,
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFFFFF0F0),
+                                      borderRadius: BorderRadius.circular(16),
+                                      border: Border.all(
+                                        color: Themes.ColorApp9.withOpacity(0.4),
+                                        width: 1,
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Icon(Icons.power_settings_new_rounded, color: Themes.ColorApp9, size: 22),
+                                        const SizedBox(width: 10),
+                                        Text(
+                                          'log_out'.tr,
+                                          style: TextStyle(
+                                            color: Themes.ColorApp9,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                            actions: [
-                              TextButton(
-                                onPressed: () => Get.back(), // إغلاق الـ Dialog
-                                child: const Text('إلغاء', style: TextStyle(color: Colors.grey)),
-                              ),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                                onPressed: () async {
-                                  Get.back(); // إغلاق الـ Dialog
-
-                                  // TODO: هنا تستدعي الـ Controller الخاص بك لمسح الحساب من السيرفر
-                                  // مثال: await authController.deleteUserAccount();
-
-                                  // بعد الحذف، يتم توجيه المستخدم لصفحة تسجيل الدخول وتصفير الحالة
-                                  // Get.offAll(() => LoginScreen());
-                                },
-                                child: const Text('حذف نهائي', style: TextStyle(color: Colors.white)),
-                              ),
-                            ],
                           ),
-                        );
-                      },
-                    ),
+                    if (!GuestHelper.isGuest) const SizedBox(height: 10),
+                    if (!GuestHelper.isGuest)
+                      _SettingRowItem(
+                        icon: Icons.delete_forever_outlined,
+                        iconBgColor: Colors.redAccent,
+                        title: 'حذف الحساب', // أو 'delete_account'.tr لو تستخدم ملفات الترجمة
+                        subtitle: 'مسح حسابك وبياناتك نهائياً',
+                        onTap: () {
+                          // إظهار رسالة تأكيد للمستخدم قبل الحذف
+                          Get.dialog(
+                            AlertDialog(
+                              title: const Text('تأكيد حذف الحساب', style: TextStyle(fontFamily: 'Tajawal', fontWeight: FontWeight.bold)),
+                              content: const Text(
+                                'هل أنت متأكد من رغبتك في حذف الحساب نهائياً؟ هذا الإجراء سيقوم بمسح كافة بياناتك ولا يمكن التراجع عنه.',
+                                style: TextStyle(fontFamily: 'Tajawal', height: 1.4),
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Get.back(), // إغلاق الـ Dialog
+                                  child: const Text('إلغاء', style: TextStyle(color: Colors.grey)),
+                                ),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                                  onPressed: () async {
+                                    Get.back(); // إغلاق الـ Dialog
+
+                                    // TODO: هنا تستدعي الـ Controller الخاص بك لمسح الحساب من السيرفر
+                                    // مثال: await authController.deleteUserAccount();
+
+                                    // بعد الحذف، يتم توجيه المستخدم لصفحة تسجيل الدخول وتصفير الحالة
+                                    // Get.offAll(() => LoginScreen());
+                                  },
+                                  child: const Text('حذف نهائي', style: TextStyle(color: Colors.white)),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
                     const SizedBox(height: 24),
                   ],
                 ),
@@ -282,9 +326,11 @@ class _SettingHeader extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    controller.profileUserModel?.firstname != null
-                        ? '${controller.profileUserModel?.firstname} ${controller.profileUserModel?.lastname}'
-                        : '',
+                    GuestHelper.isGuest
+                        ? 'browse_as_guest'.tr
+                        : (controller.profileUserModel?.firstname != null
+                            ? '${controller.profileUserModel?.firstname} ${controller.profileUserModel?.lastname}'
+                            : ''),
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -293,7 +339,9 @@ class _SettingHeader extends StatelessWidget {
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    controller.profileUserModel?.phone != null ? '${controller.profileUserModel?.phone}' : '',
+                    GuestHelper.isGuest
+                        ? 'أهلاً بك في تطبيق نبني'
+                        : (controller.profileUserModel?.phone != null ? '${controller.profileUserModel?.phone}' : ''),
                     style: TextStyle(
                       color: Colors.white.withOpacity(0.85),
                       fontSize: 14,
